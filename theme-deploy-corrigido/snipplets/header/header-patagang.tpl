@@ -129,12 +129,6 @@
   {% endblock %}
 {% endembed %}
 
-{% embed "snipplets/modal.tpl" with{modal_id: 'nav-search', modal_position: 'right', modal_transition: 'slide', modal_width: 'docked-md' } %}
-  {% block modal_body %}
-    {% snipplet "header/header-search.tpl" %}
-  {% endblock %}
-{% endembed %}
-
 {# CART MODAL - Agora carregado em layout.tpl #}
 {% if false %}
 {# {% if not store.is_catalog and settings.ajax_cart and template != 'cart' %}
@@ -193,6 +187,20 @@
 
     if (!wrapper || !input || !searchForm) return;
 
+    // Referência ao header row para controlar visibilidade da logo
+    var headerRow = document.querySelector('.pg-header__row');
+
+    // Funções auxiliares para abrir/fechar busca
+    function openSearch() {
+      wrapper.classList.add('is-open');
+      if (headerRow) headerRow.classList.add('is-search-open');
+    }
+
+    function closeSearch() {
+      wrapper.classList.remove('is-open');
+      if (headerRow) headerRow.classList.remove('is-search-open');
+    }
+
     // MOBILE: Comportamento específico
     if (isMobile) {
       // Criar botão de fechar (X)
@@ -209,7 +217,7 @@
           // Primeiro clique: apenas expande, não submete
           e.preventDefault();
           e.stopPropagation();
-          wrapper.classList.add('is-open');
+          openSearch();
           setTimeout(function() {
             input.focus();
           }, 100);
@@ -222,7 +230,7 @@
         searchToggle.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
-          wrapper.classList.add('is-open');
+          openSearch();
           setTimeout(function() {
             input.focus();
           }, 100);
@@ -236,7 +244,7 @@
             // Primeiro clique: apenas expande
             e.preventDefault();
             e.stopPropagation();
-            wrapper.classList.add('is-open');
+            openSearch();
             setTimeout(function() {
               input.focus();
             }, 100);
@@ -250,8 +258,8 @@
         e.preventDefault();
         e.stopPropagation();
 
-        // Remove classe is-open (isso faz a logo voltar via CSS)
-        wrapper.classList.remove('is-open');
+        // Remove classes (isso faz a logo voltar via CSS)
+        closeSearch();
 
         // Limpa o campo
         input.value = '';
@@ -263,7 +271,7 @@
       // Fechar com ESC
       input.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
-          wrapper.classList.remove('is-open');
+          closeSearch();
           input.value = '';
           input.blur();
         }
@@ -275,7 +283,7 @@
       // Expande no mouse enter (hover)
       wrapper.addEventListener('mouseenter', function() {
         clearTimeout(closeTimeout);
-        wrapper.classList.add('is-open');
+        openSearch();
         // Pequeno delay antes de focar para não ser muito agressivo
         setTimeout(function() {
           if (wrapper.matches(':hover')) {
@@ -289,7 +297,7 @@
         // Só fecha se input não tiver foco
         if (document.activeElement !== input) {
           closeTimeout = setTimeout(function() {
-            wrapper.classList.remove('is-open');
+            closeSearch();
           }, 500); // Delay de 500ms - tempo confortável para o usuário
         }
       });
@@ -297,7 +305,7 @@
       // Manter aberto enquanto tem foco no input
       input.addEventListener('focus', function() {
         clearTimeout(closeTimeout);
-        wrapper.classList.add('is-open');
+        openSearch();
       });
 
       // Fechar ao perder foco (com delay para permitir cliques)
@@ -305,7 +313,7 @@
         closeTimeout = setTimeout(function() {
           // Só fecha se mouse não estiver sobre o wrapper
           if (!wrapper.matches(':hover')) {
-            wrapper.classList.remove('is-open');
+            closeSearch();
           }
         }, 300);
       });
@@ -314,7 +322,7 @@
       input.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
           clearTimeout(closeTimeout);
-          wrapper.classList.remove('is-open');
+          closeSearch();
           input.blur();
         }
       });

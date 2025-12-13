@@ -4435,7 +4435,7 @@ button {
     padding: 8px 16px;
     font-family: 'Familjen Grotesk', sans-serif;
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #000;
@@ -4455,10 +4455,10 @@ button {
 }
 
 .pg-movimento__tab.is-active {
-    background: #000;
-    color: #EAFE67;
-    border: none;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Corpo da Página */
@@ -4477,13 +4477,13 @@ button {
 /* Título */
 .pg-movimento__title {
     font-family: 'Familjen Grotesk', Impact, sans-serif;
-    font-size: 72px;
+    font-size: 42px;
     font-weight: 800;
     color: #000;
     text-transform: uppercase;
-    letter-spacing: 8px;
-    line-height: 1;
-    margin: 0 0 48px;
+    letter-spacing: 4px;
+    line-height: 1.1;
+    margin: 0 0 40px;
     text-align: center;
 }
 
@@ -4565,12 +4565,12 @@ button {
 /* Responsivo - Tablet */
 @media (max-width: 992px) {
     .pg-movimento__body {
-        padding: 70px 36px 100px;
+        padding: 60px 36px 100px;
     }
 
     .pg-movimento__title {
-        font-size: 56px;
-        letter-spacing: 5px;
+        font-size: 36px;
+        letter-spacing: 3px;
     }
 }
 
@@ -4589,17 +4589,17 @@ button {
     .pg-movimento__tab {
         padding: 10px 14px;
         font-size: 11px;
-        font-weight: 700;
+        font-weight: 400;
     }
 
     .pg-movimento__body {
-        padding: 60px 24px 80px;
+        padding: 90px 24px 80px;
     }
 
     .pg-movimento__title {
-        font-size: 36px !important;
-        letter-spacing: 4px;
-        margin-bottom: 32px;
+        font-size: 28px !important;
+        letter-spacing: 2px;
+        margin-bottom: 28px;
     }
 
     .pg-movimento__content {
@@ -4635,12 +4635,12 @@ button {
     }
 
     .pg-movimento__body {
-        padding: 48px 20px 60px;
+        padding: 80px 20px 60px;
     }
 
     .pg-movimento__title {
-        font-size: 28px !important;
-        letter-spacing: 3px;
+        font-size: 24px !important;
+        letter-spacing: 2px;
     }
 
     .pg-movimento__content h1 { font-size: 22px !important; }
@@ -5368,633 +5368,6 @@ input[type="submit"].btn-primary:hover {
     .pg-login-card__button {
         padding: 12px 16px;
         font-size: 13px;
-    }
-}
-
-/* ============================================
-   PATAGANG - NOVO CARRINHO DRAWER (CART DRAWER)
-   Design: Cards flutuantes com fundo transparente
-   Usa #pg-cart-drawer para especificidade
-   ============================================ */
-
-/* Drawer Base - CARRINHO */
-#pg-cart-drawer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 9999;
-    pointer-events: none;
-}
-
-#pg-cart-drawer.is-open {
-    pointer-events: auto;
-}
-
-/* Overlay com Blur forte - CARRINHO */
-#pg-cart-drawer .pg-drawer__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-#pg-cart-drawer.is-open .pg-drawer__overlay {
-    opacity: 1;
-}
-
-/* Panel - Transparente com blur - CARRINHO (lado direito) */
-#pg-cart-drawer .pg-drawer__panel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: auto;
-    width: 100%;
-    max-width: 380px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    display: flex;
-    flex-direction: column;
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
-    border-right: none;
-    border-left: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-#pg-cart-drawer.is-open .pg-drawer__panel {
-    transform: translateX(0);
-}
-
-/* Header - Transparente */
-.pg-drawer__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 18px;
-    background: transparent;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    flex-shrink: 0;
-}
-
-.pg-drawer__title {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: #000;
-    margin: 0;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}
-
-.pg-drawer__close {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #000;
-    transition: opacity 0.2s ease;
-    padding: 0;
-}
-
-.pg-drawer__close:hover {
-    opacity: 0.5;
-}
-
-.pg-drawer__close svg {
-    width: 16px;
-    height: 16px;
-}
-
-/* Content Area - Transparente, altura automática */
-.pg-drawer__content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 14px;
-    background: transparent;
-    -webkit-overflow-scrolling: touch;
-    /* Limita altura para ~3 produtos + scroll */
-    max-height: calc(100vh - 280px);
-}
-
-/* Empty State */
-.pg-drawer__empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    text-align: center;
-    padding: 30px 20px;
-}
-
-.pg-drawer__empty-icon {
-    margin-bottom: 14px;
-    opacity: 0.25;
-}
-
-.pg-drawer__empty-icon svg {
-    width: 48px;
-    height: 48px;
-}
-
-.pg-drawer__empty-text {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 14px;
-    color: #666;
-    margin: 0 0 16px 0;
-}
-
-.pg-drawer__empty-link {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: #000;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-/* Items Container - Compacto */
-.pg-drawer__items {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Loading State */
-.pg-drawer__loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-}
-
-.pg-drawer__spinner,
-.pg-cart-card__spinner {
-    width: 24px;
-    height: 24px;
-    border: 2px solid #E0E0E0;
-    border-top-color: #000;
-    border-radius: 50%;
-    animation: pg-spin 0.7s linear infinite;
-}
-
-@keyframes pg-spin {
-    to { transform: rotate(360deg); }
-}
-
-/* ============================================
-   CART ITEM CARD - Design flutuante com destaque na foto
-   ============================================ */
-
-.pg-cart-card {
-    position: relative;
-    display: grid;
-    grid-template-columns: 100px 1fr auto;
-    gap: 14px;
-    align-items: start;
-    background: #FFFFFF;
-    border-radius: 16px;
-    padding: 14px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.pg-cart-card.is-loading {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-.pg-cart-card.is-removing {
-    transform: translateX(100%);
-    opacity: 0;
-}
-
-/* Card Loading Overlay */
-.pg-cart-card__loading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-}
-
-.pg-cart-card__spinner {
-    width: 20px;
-    height: 20px;
-}
-
-/* Card Image - Maior para destacar o produto */
-.pg-cart-card__image {
-    width: 140px;
-    height: 140px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #F5F5F5;
-    flex-shrink: 0;
-}
-
-.pg-cart-card__image a {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.pg-cart-card__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Card Info */
-.pg-cart-card__info {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 4px;
-    min-width: 0;
-    padding-top: 2px;
-}
-
-.pg-cart-card__name {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    color: #000;
-    margin: 0;
-    line-height: 1.2;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.pg-cart-card__name a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.pg-cart-card__variant {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    color: #888;
-}
-
-/* Card Price - posicionado no canto superior direito */
-.pg-cart-card__price {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: #000;
-    text-align: right;
-    padding-right: 20px;
-    white-space: nowrap;
-}
-
-/* Remove Button - X pequeno */
-.pg-cart-card__remove {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #bbb;
-    padding: 0;
-    transition: color 0.2s ease;
-}
-
-.pg-cart-card__remove:hover {
-    color: #666;
-}
-
-.pg-cart-card__remove svg {
-    width: 12px;
-    height: 12px;
-}
-
-/* ============================================
-   QUANTITY SELECTOR - Formato Pílula Clean
-   ============================================ */
-
-.pg-cart-card__qty {
-    margin-top: 8px;
-}
-
-.pg-qty-pill {
-    display: inline-flex;
-    align-items: center;
-    border: 1.5px solid #D0D0D0;
-    border-radius: 50px;
-    background: transparent;
-    overflow: hidden;
-}
-
-.pg-qty-pill__btn {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #000;
-    font-size: 16px;
-    font-weight: 400;
-    transition: background 0.15s ease;
-    padding: 0;
-}
-
-.pg-qty-pill__btn:hover {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.pg-qty-pill__btn:active {
-    background: rgba(0, 0, 0, 0.1);
-}
-
-.pg-qty-pill__btn span {
-    line-height: 1;
-}
-
-.pg-qty-pill__input {
-    width: 28px;
-    height: 28px;
-    text-align: center;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: #000;
-    background: none;
-    border: none;
-    border-left: 1px solid #D0D0D0;
-    border-right: 1px solid #D0D0D0;
-    padding: 0;
-    -moz-appearance: textfield;
-}
-
-.pg-qty-pill__input::-webkit-outer-spin-button,
-.pg-qty-pill__input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* ============================================
-   DRAWER FOOTER - Fixo no bottom, transparente
-   ============================================ */
-
-.pg-drawer__footer {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 14px 18px 18px;
-    flex-shrink: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-    margin-top: auto;
-}
-
-/* Summary Rows */
-.pg-drawer__summary {
-    margin-bottom: 12px;
-}
-
-.pg-drawer__summary-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 13px;
-}
-
-.pg-drawer__summary-row--total {
-    padding-top: 8px;
-    margin-top: 4px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.pg-drawer__summary-label {
-    color: #777;
-}
-
-.pg-drawer__summary-row--total .pg-drawer__summary-label {
-    font-weight: 600;
-    color: #000;
-    font-size: 14px;
-}
-
-.pg-drawer__summary-value {
-    font-weight: 500;
-    color: #000;
-}
-
-.pg-drawer__summary-value--total {
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.pg-drawer__summary-link {
-    color: #000;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    font-weight: 500;
-    font-size: 13px;
-}
-
-.pg-drawer__summary-link:hover {
-    opacity: 0.6;
-}
-
-/* Shipping Calculator no Drawer */
-.pg-drawer__summary-shipping {
-    margin: 8px 0 12px;
-    width: 100%;
-}
-
-.pg-drawer__summary-shipping .shipping-calculator-head {
-    margin: 0;
-}
-
-.pg-drawer__summary-shipping .js-shipping-calculator-form {
-    width: 100%;
-}
-
-.pg-drawer__summary-shipping .form-row {
-    margin: 0 !important;
-}
-
-.pg-drawer__summary-shipping .js-shipping-input {
-    font-size: 12px;
-    padding: 8px 10px;
-    border-radius: 4px;
-}
-
-.pg-drawer__summary-shipping .js-calculate-shipping {
-    font-size: 12px;
-    padding: 8px 12px;
-    border-radius: 4px;
-}
-
-.pg-drawer__summary-shipping .js-shipping-calculator-response {
-    margin-top: 8px;
-    font-size: 12px;
-}
-
-.pg-drawer__summary-shipping .shipping-option {
-    padding: 8px;
-    margin: 4px 0;
-    background: #f9f9f9;
-    border-radius: 4px;
-}
-
-.pg-drawer__summary-shipping .js-shipping-calculator-spinner {
-    padding: 12px 0;
-}
-
-/* Checkout Button */
-.pg-drawer__checkout-form {
-    margin: 0;
-}
-
-.pg-drawer__checkout-btn {
-    width: 100%;
-    padding: 14px 20px;
-    background: #000;
-    color: #FFF;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.pg-drawer__checkout-btn:hover:not(:disabled) {
-    background: #222;
-}
-
-.pg-drawer__checkout-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-/* Minimum Alert */
-.pg-drawer__minimum-alert {
-    margin-top: 8px;
-    padding: 8px 12px;
-    background: rgba(255, 243, 205, 0.9);
-    border-radius: 6px;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 11px;
-    color: #856404;
-    text-align: center;
-}
-
-/* ============================================
-   RESPONSIVIDADE CART DRAWER
-   ============================================ */
-
-@media (max-width: 480px) {
-    #pg-cart-drawer .pg-drawer__panel {
-        max-width: 100%;
-    }
-
-    .pg-drawer__header {
-        padding: 14px 16px;
-    }
-
-    .pg-drawer__content {
-        padding: 12px;
-        max-height: calc(100vh - 260px);
-    }
-
-    .pg-drawer__items {
-        gap: 10px;
-    }
-
-    .pg-cart-card {
-        grid-template-columns: 85px 1fr auto;
-        gap: 12px;
-        padding: 12px;
-        border-radius: 14px;
-    }
-
-    .pg-cart-card__image {
-        width: 110px;
-        height: 110px;
-        border-radius: 10px;
-    }
-
-    .pg-cart-card__name {
-        font-size: 11px;
-    }
-
-    .pg-cart-card__variant {
-        font-size: 11px;
-    }
-
-    .pg-cart-card__price {
-        font-size: 13px;
-        padding-right: 18px;
-    }
-
-    .pg-qty-pill {
-        border-width: 1px;
-    }
-
-    .pg-qty-pill__btn {
-        width: 26px;
-        height: 26px;
-        font-size: 14px;
-    }
-
-    .pg-qty-pill__input {
-        width: 26px;
-        height: 26px;
-        font-size: 12px;
-    }
-
-    .pg-drawer__footer {
-        padding: 12px 14px 16px;
-    }
-
-    .pg-drawer__summary-row {
-        padding: 4px 0;
-        font-size: 12px;
-    }
-
-    .pg-drawer__checkout-btn {
-        padding: 12px 16px;
-        font-size: 11px;
     }
 }
 

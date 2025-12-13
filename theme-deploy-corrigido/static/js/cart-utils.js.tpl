@@ -149,11 +149,6 @@
                     if (input) {
                         input.dataset.original = quantity;
                     }
-
-                    // Se estiver no drawer, também atualiza UI do drawer
-                    if (updateDrawer && window.PGCartDrawer && typeof window.PGCartDrawer.updateUI === 'function') {
-                        window.PGCartDrawer.updateUI(cart);
-                    }
                 } else {
                     // Se não retornou cart, reverte para valor original
                     revertQuantityUpdate(itemId, originalValue);
@@ -235,11 +230,6 @@
 
         // Atualiza contador do header
         updateCartCount(cart.items_count || 0);
-
-        // Sincroniza drawer se existir
-        if (window.PGCartDrawer && typeof window.PGCartDrawer.updateUI === 'function') {
-            window.PGCartDrawer.updateUI(cart);
-        }
     }
 
     function updateTotals(cart) {
@@ -339,9 +329,7 @@
             item.classList.add('is-removing');
         }
 
-        if (updateDrawer && window.PGCartDrawer && typeof window.PGCartDrawer.removeItem === 'function') {
-            window.PGCartDrawer.removeItem(itemId);
-        } else if (typeof LS !== 'undefined' && LS.removeItem) {
+        if (typeof LS !== 'undefined' && LS.removeItem) {
             LS.removeItem(itemId, updateDrawer, function(cart) {
                 if (cart) {
                     updateCartUI(cart, itemId);
@@ -378,9 +366,8 @@
                                removeBtn.closest('.js-cart-item')?.getAttribute('data-item-id');
 
                 if (itemId) {
-                    const updateDrawer = removeBtn.closest('#pg-cart-drawer') !== null;
                     if (confirm('Tem certeza que deseja remover este item?')) {
-                        window.PGCartUtils.removeItem(itemId, updateDrawer);
+                        window.PGCartUtils.removeItem(itemId, false);
                     }
                 }
                 return;

@@ -197,8 +197,10 @@
                 </div>
 
                 {# Seletor de ONG para doação - PATAGANG #}
-                {% if cart.items_count > 0 and not cart_page %}
-                  {% include "snipplets/ong-selector.tpl" %}
+                {% if not cart_page %}
+                  <div class="js-visible-on-cart-filled" {% if cart.items_count == 0 %}style="display:none;"{% endif %}>
+                    {% include "snipplets/ong-selector.tpl" %}
+                  </div>
                 {% endif %}
 
                 {# Cart panel CTA #}

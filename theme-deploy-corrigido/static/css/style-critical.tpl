@@ -635,19 +635,21 @@ body{
     z-index: 100; /* Garante que fica sobre a logo */
   }
 
-  /* Logo oculta quando busca está expandida */
-  .pg-header__search-wrapper.is-open ~ .pg-header__logo {
+  /* Logo oculta quando busca está expandida (usa classe no row pai) */
+  .pg-header__row.is-search-open .pg-header__logo {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
   }
 
-  /* Busca expande ocupando espaço disponível */
+  /* Busca expande ocupando espaço disponível - Design Glassmorphism igual ao desktop */
   .pg-header__search-wrapper.is-open .pg-header__search-form {
     width: calc(100vw - 180px) !important; /* Mais espaço - apenas menu (44px) + perfil (44px) + carrinho (44px) + gaps (48px) */
-    background: rgba(255, 255, 255, 0.98) !important; /* Mais opaco para cobrir logo */
-    border: 1px solid rgba(234, 254, 103, 0.3);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: rgba(200, 200, 200, 0.7) !important; /* Glassmorphism - igual ao desktop */
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     z-index: 110; /* Sobre tudo */
   }
 

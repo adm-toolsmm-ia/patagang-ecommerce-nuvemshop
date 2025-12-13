@@ -1950,14 +1950,6 @@ DOMContentLoaded.addEventOrExecute(() => {
                         }
                     }, 300);
 
-                    {# Sincroniza drawer se existir (atualiza UI com dados já atualizados pelo LS) #}
-                    if (window.PGCartDrawer && typeof window.PGCartDrawer.reloadCart === 'function') {
-                        // Aguarda um pouco para garantir que LS atualizou o carrinho
-                        setTimeout(function() {
-                            window.PGCartDrawer.reloadCart();
-                        }, 100);
-                    }
-
                     {# Fill notification info #}
 
                     jQueryNuvem('.js-cart-notification-item-img').attr('srcset', imageSrc);
