@@ -6040,3 +6040,79 @@ body .item-actions .btn.btn-development:hover {
 .js-shipping-calculator-response .radio-button-container {
     border: none !important;
 }
+
+/* ============================================
+   PATAGANG - QUANTITY SELECTOR (pg-qty-pill) - MODAL CART
+   Seletor de quantidade horizontal com botões + e -
+   ============================================ */
+
+.modal-cart .pg-cart-item__quantity {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-cart .pg-qty-pill {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    background: #FFFFFF;
+    overflow: hidden;
+    height: 32px;
+    max-width: 100px;
+}
+
+.modal-cart .pg-qty-pill__btn {
+    width: 28px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 0;
+    transition: background 0.15s ease;
+    flex-shrink: 0;
+}
+
+.modal-cart .pg-qty-pill__btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.modal-cart .pg-qty-pill__btn:active {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.modal-cart .pg-qty-pill__btn span {
+    line-height: 1;
+    display: block;
+}
+
+.modal-cart .pg-qty-pill__input {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    background: transparent;
+    border: none;
+    border-left: 1px solid #E0E0E0;
+    border-right: 1px solid #E0E0E0;
+    padding: 0;
+    -moz-appearance: textfield;
+    flex-shrink: 0;
+}
+
+.modal-cart .pg-qty-pill__input::-webkit-outer-spin-button,
+.modal-cart .pg-qty-pill__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
