@@ -1,0 +1,22 @@
+{
+  "name": "patagang-ftp-deploy",
+  "version": "1.0.0",
+  "description": "Sistema de backup e deploy automático via FTP para Nuvemshop",
+  "main": "deploy.js",
+  "scripts": {
+    "backup": "node backup-full-ftp.js",
+    "backup:full": "node backup-full-ftp.js",
+    "deploy": "node deploy-optimized.js",
+    "deploy:legacy": "node deploy.js",
+    "deploy:no-backup": "node deploy.js --no-backup",
+    "rollback": "node rollback-incremental.js",
+    "list": "node list-backups.js",
+    "list:all": "node list-backups.js --all",
+    "list:full": "node list-backups.js --full"
+  },
+  "dependencies": {
+    "basic-ftp": "^5.0.4"
+  },
+  "author": "Patagang",
+  "license": "MIT"
+}

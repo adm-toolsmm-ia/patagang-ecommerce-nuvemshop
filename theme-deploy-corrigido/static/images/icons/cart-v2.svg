@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 110">
+  <g fill="none" stroke="#000" stroke-width="12" stroke-linecap="square" stroke-linejoin="miter">
+    <!-- Alça esquerda -->
+    <line x1="30" y1="5" x2="30" y2="35"/>
+    <!-- Alça direita -->
+    <line x1="70" y1="5" x2="70" y2="35"/>
+    <!-- Barra horizontal da alça -->
+    <line x1="30" y1="5" x2="70" y2="5"/>
+    <!-- Corpo da sacola - trapézio -->
+    <path d="M10 40 L90 40 L80 105 L20 105 Z"/>
+  </g>
+</svg>
