@@ -536,23 +536,28 @@ body{
 }
 
 .pg-header__search-input {
-  flex: 1;
+  /* Estado fechado: não ocupa espaço para centralizar a lupa */
+  width: 0;
+  min-width: 0;
+  padding: 0;
   height: 100%;
-  padding: 0 8px 0 12px;
   border: none;
   background: transparent;
   font-size: 0.875rem;
   font-family: inherit;
   color: var(--pg-color-black);
   outline: none;
-  min-width: 0;
   opacity: 0;
-  transition: opacity 0.2s ease 0.1s;
+  transition: opacity 0.2s ease 0.1s, width 0.3s ease, padding 0.3s ease;
 }
 
+/* Estado aberto: input expande e fica visível */
 .pg-header__search-wrapper:hover .pg-header__search-input,
 .pg-header__search-wrapper:focus-within .pg-header__search-input,
 .pg-header__search-wrapper.is-open .pg-header__search-input {
+  width: auto;
+  flex: 1;
+  padding: 0 8px 0 12px;
   opacity: 1;
 }
 
@@ -616,50 +621,96 @@ body{
   line-height: 1;
 }
 
-/* MOBILE SEARCH FIX - Opção 1: Logo oculta ao expandir busca */
+/* ===========================================
+   MOBILE SEARCH FIX - Sistema Unificado
+   Apenas 1 componente de busca (FORM)
+   =========================================== */
 @media (max-width: 767px) {
-  /* Logo: aplicar z-index menor para ficar atrás da busca */
+
+  /* ========================================= */
+  /* 1. ESCONDER O TOGGLE DUPLICADO           */
+  /* Apenas o FORM será usado no mobile       */
+  /* ========================================= */
+  .pg-header__search-toggle {
+    display: none !important;
+  }
+
+  /* ========================================= */
+  /* 2. POSICIONAMENTO BASE                   */
+  /* ========================================= */
+
+  /* Logo centralizada */
   .pg-header__logo {
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 5;
     transition: opacity 0.3s ease, visibility 0.3s ease;
   }
 
-  /* Wrapper da busca: z-index maior quando expandida */
+  /* Wrapper da busca */
   .pg-header__search-wrapper {
     position: relative;
     z-index: 10;
   }
 
-  .pg-header__search-wrapper.is-open {
-    z-index: 100; /* Garante que fica sobre a logo */
+  /* ========================================= */
+  /* 3. ESTADO FECHADO - Apenas lupa visível  */
+  /* ========================================= */
+
+  /* Form fechado: apenas 44px (lupa) */
+  .pg-header__search-form {
+    width: 44px;
+    height: 44px;
+    overflow: hidden;
   }
 
-  /* Logo oculta quando busca está expandida (usa classe no row pai) */
-  .pg-header__row.is-search-open .pg-header__logo {
+  /* Input escondido quando fechado */
+  .pg-header__search-input {
     opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    width: 0;
+    padding: 0;
   }
 
-  /* Busca expande ocupando espaço disponível - Design Glassmorphism igual ao desktop */
+  /* ========================================= */
+  /* 4. ESTADO ABERTO - Expande sobre a logo  */
+  /* ========================================= */
+
+  /* Wrapper aberto: z-index alto */
+  .pg-header__search-wrapper.is-open {
+    z-index: 100;
+  }
+
+  /* Logo escondida quando busca aberta */
+  .pg-header__row.is-search-open .pg-header__logo {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  /* Form expandido */
   .pg-header__search-wrapper.is-open .pg-header__search-form {
-    width: calc(100vw - 180px) !important; /* Mais espaço - apenas menu (44px) + perfil (44px) + carrinho (44px) + gaps (48px) */
-    background: rgba(200, 200, 200, 0.7) !important; /* Glassmorphism - igual ao desktop */
+    width: calc(100vw - 160px) !important;
+    background: rgba(200, 200, 200, 0.7) !important;
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    z-index: 110; /* Sobre tudo */
+    z-index: 110;
   }
 
-  /* Ocultar botão toggle (lupa externa) quando busca aberta */
-  .pg-header__search-wrapper.is-open .pg-header__search-toggle {
-    opacity: 0;
-    pointer-events: none;
+  /* Input visível quando aberto */
+  .pg-header__search-wrapper.is-open .pg-header__search-input {
+    opacity: 1;
+    width: auto;
+    flex: 1;
+    padding: 0 8px 0 12px;
   }
 
-  /* Botão de fechar (X) - oculto por padrão */
+  /* ========================================= */
+  /* 5. BOTÃO DE FECHAR (X)                   */
+  /* ========================================= */
+
   .pg-header__search-close {
     display: none;
     width: 44px;
@@ -675,23 +726,25 @@ body{
     color: var(--pg-color-black);
     font-weight: 300;
     line-height: 1;
-    z-index: 120; /* Acima de tudo para ser clicável */
+    z-index: 120;
     position: relative;
-    pointer-events: auto !important; /* Garantir que seja clicável */
     -webkit-tap-highlight-color: transparent;
     user-select: none;
-    -webkit-user-select: none;
   }
 
-  /* Mostra botão X quando busca expandida */
+  /* Mostra X quando aberto */
   .pg-header__search-wrapper.is-open .pg-header__search-close {
     display: flex;
-    pointer-events: auto !important; /* Forçar clicável quando visível */
   }
 
-  /* Botão submit dentro do form: sempre visível mas muda comportamento via JS */
+  /* ========================================= */
+  /* 6. LUPA (SUBMIT) - Sempre visível        */
+  /* ========================================= */
+
   .pg-header__search-submit {
-    /* Mantém visível, JS controla o comportamento */
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
   }
 
   /* ========================================= */
@@ -1009,12 +1062,17 @@ h1,
   font-weight: 700;
 }
 
-.pg-page__title {
+/* Títulos de páginas de texto - Estilo suave e menos chamativo */
+.pg-page__title,
+.pg-movimento__title,
+h1.pg-page__title,
+h1.pg-movimento__title {
   font-size: 30px !important;
   text-align: center;
   margin-bottom: 30px;
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-weight: 700;
+  font-family: 'Familjen Grotesk', sans-serif !important;
+  font-weight: 400 !important; /* Removido negrito - estava muito chamativo */
+  color: #333 !important; /* Cinza escuro ao invés de preto puro */
   text-transform: uppercase;
 }
 
@@ -4852,7 +4910,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 .pg-page__title,
 .pg-search-page__title {
     font-family: 'Familjen Grotesk', sans-serif;
-    font-weight: 700;
+    font-weight: 400 !important; /* Removido negrito - estava muito chamativo */
+    color: #333 !important; /* Cinza escuro ao invés de preto puro */
     text-transform: uppercase;
     font-size: 30px !important; /* Standardized size */
     text-align: center;
@@ -5293,92 +5352,4 @@ select {
     width: 0 !important;
 }
 
-/* PROBLEMA 1: MOBILE HEADER - LUPA NA ESQUERDA & ÍCONES REDUZIDOS */
-@media (max-width: 767px) {
-    /* 1. Container Header */
-    .pg-header__row,
-    .pg-header__container {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-        position: relative;
-    }
-
-    /* 2. Ícones Menores (20px) */
-    .pg-header__icon-button svg,
-    .pg-header__actions svg {
-        width: 20px !important;
-        height: 20px !important;
-    }
-
-    .pg-header__icon-button,
-    .pg-header__actions > a,
-    .pg-header__actions > div {
-        padding: 0 5px !important;
-    }
-
-    /* 3. LUPA NA ESQUERDA (Position Absolute) */
-    /* Seleciona o botão de busca dentro das ações e move para a esquerda */
-    .pg-header__actions .js-search-open-mobile,
-    .pg-header__actions a[href*="search"] {
-        position: absolute !important;
-        left: 40px !important; /* Logo após o menu hambúrguer (que tem ~30-40px) */
-        top: 50% !important;
-        transform: translateY(-50%) !important;
-        margin: 0 !important;
-        z-index: 15;
-    }
-
-    /* 4. Ícones da Direita (Carrinho/Conta) - Sem a lupa */
-    .pg-header__actions {
-        margin-right: 0 !important;
-        gap: 2px !important;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-    }
-
-    /* 5. Logo Centralizada */
-    .pg-header__logo {
-        margin: 0 auto !important;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-    }
-
-    /* 6. BUSCA EXPANDINDO DA ESQUERDA ATÉ A LOGO */
-    .search-container.search-open {
-        position: absolute;
-        top: 0;
-        left: 40px; /* Começa onde está a lupa */
-        height: 100%;
-        /* Calcula largura para parar antes da logo (50% - margem) */
-        width: calc(50% - 50px) !important;
-        background: #fff;
-        z-index: 20;
-        display: flex;
-        align-items: center;
-        padding: 0 5px;
-    }
-
-    /* Input da Busca */
-    .search-container.search-open input {
-        width: 100% !important;
-        height: 30px !important; /* Mais compacto */
-        border: none !important;
-        border-bottom: 1px solid #000 !important;
-        background: transparent !important;
-        font-family: 'Familjen Grotesk', sans-serif !important;
-        font-size: 14px !important;
-        padding: 0 !important;
-        outline: none !important;
-        box-shadow: none !important;
-    }
-
-    /* Garante que o botão de busca (lupa) continue visível/clicável */
-    .search-container.search-open .pg-header__search-btn {
-        display: none !important; /* Esconde ícone duplicado dentro do container se houver */
-    }
-}
+/* CSS LEGADO REMOVIDO - Sistema de busca unificado no bloco MOBILE SEARCH FIX acima */

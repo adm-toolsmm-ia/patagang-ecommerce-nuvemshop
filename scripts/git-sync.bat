@@ -1,5 +1,6 @@
 @echo off
 REM Script de sincronização Git - Patagang Ecommerce (Windows Batch)
+REM Localização: scripts/git-sync.bat
 REM Uso: git-sync.bat [mensagem do commit]
 
 setlocal
@@ -10,11 +11,13 @@ if "%~1"=="" (
     set "COMMIT_MSG=%~1"
 )
 
-cd /d "%~dp0"
+REM Navegar para a pasta raiz do projeto (pasta pai de scripts)
+cd /d "%~dp0.."
 
 echo ========================================
 echo   GIT SYNC - Patagang Ecommerce
 echo ========================================
+echo Diretorio: %CD%
 echo.
 
 echo Verificando mudancas...

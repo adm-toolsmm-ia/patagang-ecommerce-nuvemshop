@@ -4079,11 +4079,11 @@ button {
     z-index: 1;
 }
 
-/* Título GRANDE e impactante */
+/* Título - Removido negrito excessivo */
 .pg-page__title {
     font-family: 'Familjen Grotesk', Impact, sans-serif;
     font-size: 72px;
-    font-weight: 800;
+    font-weight: 400; /* Removido negrito - estava muito chamativo */
     color: #000;
     text-transform: uppercase;
     letter-spacing: 8px;
@@ -4435,7 +4435,7 @@ button {
     padding: 8px 16px;
     font-family: 'Familjen Grotesk', sans-serif;
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 600; /* Bold para destacar seleção de página */
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #000;
@@ -4474,12 +4474,12 @@ button {
     max-width: 1200px;
 }
 
-/* Título */
+/* Título - Estilo mais suave e menos chamativo */
 .pg-movimento__title {
-    font-family: 'Familjen Grotesk', Impact, sans-serif;
+    font-family: 'Familjen Grotesk', sans-serif; /* Removida fonte Impact */
     font-size: 42px;
-    font-weight: 800;
-    color: #000;
+    font-weight: 400 !important; /* Removido negrito - estava muito chamativo */
+    color: #333; /* Cinza escuro ao invés de preto puro */
     text-transform: uppercase;
     letter-spacing: 4px;
     line-height: 1.1;
@@ -4589,7 +4589,7 @@ button {
     .pg-movimento__tab {
         padding: 10px 14px;
         font-size: 11px;
-        font-weight: 400;
+        font-weight: 600; /* Bold para destacar seleção de página */
     }
 
     .pg-movimento__body {
@@ -6044,75 +6044,105 @@ body .item-actions .btn.btn-development:hover {
 /* ============================================
    PATAGANG - QUANTITY SELECTOR (pg-qty-pill) - MODAL CART
    Seletor de quantidade horizontal com botões + e -
+   IMPORTANTE: Usa !important para sobrescrever estilos do tema base
    ============================================ */
 
-.modal-cart .pg-cart-item__quantity {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
+/* Container da quantidade */
+.modal-cart .pg-cart-item__quantity,
+#modal-cart .pg-cart-item__quantity {
+    margin-top: 8px !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
-.modal-cart .pg-qty-pill {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    border: 1px solid #E0E0E0;
-    border-radius: 6px;
-    background: #FFFFFF;
-    overflow: hidden;
-    height: 32px;
-    max-width: 100px;
+/* Pill container - DEVE ser horizontal */
+.modal-cart .pg-qty-pill,
+#modal-cart .pg-qty-pill,
+.pg-cart-item .pg-qty-pill {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    border: 1px solid #D0D0D0 !important;
+    border-radius: 50px !important;
+    background: #FFFFFF !important;
+    overflow: hidden !important;
+    height: 28px !important;
+    width: auto !important;
+    max-width: none !important;
 }
 
-.modal-cart .pg-qty-pill__btn {
-    width: 28px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: #000;
-    font-size: 16px;
-    font-weight: 400;
-    padding: 0;
-    transition: background 0.15s ease;
-    flex-shrink: 0;
+/* Botões + e - */
+.modal-cart .pg-qty-pill__btn,
+#modal-cart .pg-qty-pill__btn,
+.pg-cart-item .pg-qty-pill__btn {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: #000 !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transition: background 0.15s ease !important;
+    flex-shrink: 0 !important;
 }
 
-.modal-cart .pg-qty-pill__btn:hover {
-    background: rgba(0, 0, 0, 0.05);
+.modal-cart .pg-qty-pill__btn:hover,
+#modal-cart .pg-qty-pill__btn:hover,
+.pg-cart-item .pg-qty-pill__btn:hover {
+    background: rgba(0, 0, 0, 0.05) !important;
 }
 
-.modal-cart .pg-qty-pill__btn:active {
-    background: rgba(0, 0, 0, 0.1);
+.modal-cart .pg-qty-pill__btn:active,
+#modal-cart .pg-qty-pill__btn:active,
+.pg-cart-item .pg-qty-pill__btn:active {
+    background: rgba(0, 0, 0, 0.1) !important;
 }
 
-.modal-cart .pg-qty-pill__btn span {
-    line-height: 1;
-    display: block;
+.modal-cart .pg-qty-pill__btn span,
+#modal-cart .pg-qty-pill__btn span,
+.pg-cart-item .pg-qty-pill__btn span {
+    line-height: 1 !important;
+    display: block !important;
 }
 
-.modal-cart .pg-qty-pill__input {
-    width: 32px;
-    height: 32px;
-    text-align: center;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #000;
-    background: transparent;
-    border: none;
-    border-left: 1px solid #E0E0E0;
-    border-right: 1px solid #E0E0E0;
-    padding: 0;
-    -moz-appearance: textfield;
-    flex-shrink: 0;
+/* Input de quantidade - compacto */
+.modal-cart .pg-qty-pill__input,
+#modal-cart .pg-qty-pill__input,
+.pg-cart-item .pg-qty-pill__input {
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+    text-align: center !important;
+    font-family: 'Familjen Grotesk', sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #000 !important;
+    background: transparent !important;
+    border: none !important;
+    border-left: 1px solid #D0D0D0 !important;
+    border-right: 1px solid #D0D0D0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    -moz-appearance: textfield !important;
+    flex-shrink: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .modal-cart .pg-qty-pill__input::-webkit-outer-spin-button,
-.modal-cart .pg-qty-pill__input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.modal-cart .pg-qty-pill__input::-webkit-inner-spin-button,
+#modal-cart .pg-qty-pill__input::-webkit-outer-spin-button,
+#modal-cart .pg-qty-pill__input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
 }

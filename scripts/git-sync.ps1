@@ -62,3 +62,6 @@ Write-Host ""
 # Mostrar status final
 Write-Host "Status final:" -ForegroundColor Cyan
 git status
+# Mostrar status final
+Write-Host "Status final:" -ForegroundColor Cyan
+git status

@@ -57,22 +57,27 @@
     background: rgba(255, 255, 255, 0.85);
 }
 
-/* Link da imagem */
+/* Link da imagem - Container com altura fixa para garantir alinhamento */
 .pg-page article .post-item__image-link {
     display: block;
     margin-bottom: 16px;
     text-decoration: none;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 16px;
+    position: relative;
 }
 
-/* Garantir que imagens fiquem visíveis e dentro do card */
+/* Garantir que imagens fiquem visíveis e dentro do card - Altura fixa para alinhamento */
 .pg-page article .post-item__image,
-.pg-page article img {
+.pg-page article .post-item__image--placeholder,
+.pg-page article .post-item__image-link img {
     display: block;
-    border-radius: 16px;
-    margin-bottom: 16px;
     width: 100%;
     height: 240px;
     object-fit: cover;
+    border-radius: 16px;
+    margin: 0;
 }
 
 /* Título do Card */

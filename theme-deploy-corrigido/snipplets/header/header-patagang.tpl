@@ -43,15 +43,7 @@
               </svg>
             </button>
           </form>
-          <button class="pg-header__icon-button pg-header__search-toggle js-inline-search-toggle"
-                  type="button"
-                  aria-label="{{ 'Abrir busca' | translate }}">
-            {# ÍCONE LUPA - PATAGANG Official (patagang-icon-search.svg) #}
-            <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="28" cy="28" r="20" stroke="currentColor" stroke-width="8"/>
-              <line x1="44" y1="44" x2="58" y2="58" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
-            </svg>
-          </button>
+          {# TOGGLE REMOVIDO - Apenas o form com submit (lupa) é usado no mobile #}
         </div>
 
         <a href="{{ store.customer_login_url }}" class="pg-header__icon-button" aria-label="{{ 'Entrar' | translate }}">
@@ -179,7 +171,6 @@
   document.addEventListener('DOMContentLoaded', function() {
     var wrapper = document.querySelector('.pg-header__search-wrapper');
     var input = document.querySelector('.pg-header__search-input');
-    var searchToggle = document.querySelector('.pg-header__search-toggle');
     var searchForm = document.querySelector('.pg-header__search-form');
     var submitBtn = searchForm ? searchForm.querySelector('.pg-header__search-submit') : null;
     var closeTimeout;
@@ -211,37 +202,11 @@
       closeBtn.setAttribute('aria-label', 'Fechar busca');
       searchForm.appendChild(closeBtn);
 
-      // CRITICAL: Interceptar submit do form para controlar comportamento
-      searchForm.addEventListener('submit', function(e) {
-        if (!wrapper.classList.contains('is-open')) {
-          // Primeiro clique: apenas expande, não submete
-          e.preventDefault();
-          e.stopPropagation();
-          openSearch();
-          setTimeout(function() {
-            input.focus();
-          }, 100);
-        }
-        // Se já está aberto e tem texto, deixa submeter normalmente
-      });
-
-      // Ao clicar na lupa toggle, expande a busca
-      if (searchToggle) {
-        searchToggle.addEventListener('click', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          openSearch();
-          setTimeout(function() {
-            input.focus();
-          }, 100);
-        });
-      }
-
-      // Ao clicar no botão submit dentro do form
+      // Ao clicar no botão submit (lupa) - expande a busca
       if (submitBtn) {
         submitBtn.addEventListener('click', function(e) {
           if (!wrapper.classList.contains('is-open')) {
-            // Primeiro clique: apenas expande
+            // Primeiro clique: apenas expande, não submete
             e.preventDefault();
             e.stopPropagation();
             openSearch();
@@ -249,7 +214,7 @@
               input.focus();
             }, 100);
           }
-          // Se já está aberto e tem texto, deixa submeter (o form submit handler cuida)
+          // Se já está aberto e tem texto, deixa submeter normalmente
         });
       }
 

@@ -13,8 +13,8 @@
             {% if post_image %}
                 <img src="{{ post_image }}" alt="{{ post.title }}" class="post-item__image">
             {% else %}
-                {# Placeholder inicial enquanto carrega #}
-                <div class="post-item__image post-item__image--placeholder" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #ccc; min-height: 240px;">
+                {# Placeholder inicial enquanto carrega - Altura fixa para alinhamento #}
+                <div class="post-item__image post-item__image--placeholder" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #ccc; height: 240px;">
                     <span style="font-size: 24px;">...</span>
                 </div>
             {% endif %}
@@ -83,6 +83,11 @@
                                     img.src = imageUrl;
                                     img.alt = "{{ post.title }}";
                                     img.className = "post-item__image";
+                                    // Garantir que a imagem tenha altura fixa e object-fit
+                                    img.style.width = "100%";
+                                    img.style.height = "240px";
+                                    img.style.objectFit = "cover";
+                                    img.style.borderRadius = "16px";
                                     img.style.opacity = "0";
                                     img.style.transition = "opacity 0.5s ease";
 
