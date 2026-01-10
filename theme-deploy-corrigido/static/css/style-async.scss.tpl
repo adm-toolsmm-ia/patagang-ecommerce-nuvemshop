@@ -4320,7 +4320,7 @@ button {
 
 @media (max-width: 768px) {
     .pg-page {
-        padding-top: 80px;
+        padding-top: 110px; /* Banner (30px) + Header (70px) + Margem (10px) */
         /* Gradiente ajustado para mobile */
         background: linear-gradient(180deg,
             #FFFFFF 0%,
@@ -4411,7 +4411,7 @@ button {
 /* Navegação por Abas - Sticky */
 .pg-movimento__nav {
     position: sticky;
-    top: 60px;
+    top: 100px; /* Banner (30px) + Header (70px) */
     background: rgba(255, 255, 255, 0.35);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -4465,7 +4465,7 @@ button {
 .pg-movimento__body {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 80px 48px 120px;
+    padding: 180px 48px 120px; /* Banner (30px) + Header (70px) + Nav (50px) + Margem (30px) */
     position: relative;
     z-index: 1;
 }
@@ -6145,4 +6145,810 @@ body .item-actions .btn.btn-development:hover {
 #modal-cart .pg-qty-pill__input::-webkit-inner-spin-button {
     -webkit-appearance: none !important;
     margin: 0 !important;
+}
+/* ============================================
+   CUSTOMIZAÇÃO KREVIEWS - PATAGANG
+   Customiza o widget de reviews da Nuvemshop
+   Baseado na estrutura real: kfullreview-*
+   ============================================ */
+
+/* Container principal - SEM GRID aqui (muito alto na hierarquia) */
+#reviewsapp {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 48px;
+    font-family: 'Familjen Grotesk', sans-serif !important;
+}
+
+/* GRID NO ELEMENTO CORRETO - Pai direto das seções */
+/* Este div[data-v-*] é o pai direto de #konfidency-reviews-container e #konfidency-questions-container */
+.konfidency-vue-wrapper-details > div[data-v-3f6b742f],
+.konfidency-vue-wrapper-details > div[class*="data-v-"],
+#reviewsapp .konfidency-vue-wrapper-details + div,
+#reviewsapp > div > div > div {
+    /* LAYOUT EM GRID - Desktop: lado a lado, Mobile: vertical */
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 colunas iguais */
+    gap: 24px !important; /* Espaço entre as seções */
+    align-items: start !important;
+}
+
+/* Container de reviews e Q&A - ajustes */
+.konfidency-reviews-details,
+.konfidency-vue-wrapper-details,
+#reviewsapp > div {
+    font-family: 'Familjen Grotesk', sans-serif !important;
+}
+
+/* Seções individuais - largura 100% dentro do grid */
+#konfidency-reviews-container,
+#konfidency-questions-container {
+    width: 100% !important;
+    margin-bottom: 0 !important; /* Grid já tem gap */
+}
+
+/* Seções principais (Avaliações e Perguntas) */
+#konfidency-reviews-container,
+#konfidency-questions-container,
+#reviewsapp .body-template,
+#reviewsapp [class*="konfidency"] {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 24px !important;
+    padding: 40px 48px !important;
+    margin-bottom: 24px !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06) !important;
+    border: 1px solid rgba(0,0,0,0.04) !important;
+}
+
+/* Títulos "Avaliações" e "Perguntas & respostas" */
+#reviewsapp h1,
+#reviewsapp h2,
+#reviewsapp h3,
+#reviewsapp .title,
+#reviewsapp [class*="title"] {
+    font-family: 'Familjen Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 20px !important;
+}
+
+/* Subtítulos e textos */
+#reviewsapp p,
+#reviewsapp span,
+#reviewsapp div:not([class*="button"]) {
+    font-family: 'Familjen Grotesk', sans-serif !important;
+    color: #666 !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+
+/* Botões gerais */
+#reviewsapp button,
+#reviewsapp .button,
+#reviewsapp [role="button"],
+#reviewsapp a[class*="button"] {
+    font-family: 'Familjen Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 32px !important;
+    border-radius: 12px !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer;
+}
+
+/* Botão "SEJA O PRIMEIRO A AVALIAR" */
+#reviewsapp button[class*="primary"],
+#reviewsapp .btn-primary,
+#reviewsapp button:first-of-type {
+    background: #EAFE67 !important;
+    color: #000 !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
+}
+
+#reviewsapp button[class*="primary"]:hover,
+#reviewsapp .btn-primary:hover,
+#reviewsapp button:first-of-type:hover {
+    background: #D4E856 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+}
+
+/* Botão "SEJA O PRIMEIRO A PERGUNTAR" */
+#reviewsapp button[class*="secondary"],
+#reviewsapp .btn-secondary,
+#reviewsapp button:last-of-type {
+    background: #000 !important;
+    color: #EAFE67 !important;
+    border: 2px solid #EAFE67 !important;
+}
+
+#reviewsapp button[class*="secondary"]:hover,
+#reviewsapp .btn-secondary:hover,
+#reviewsapp button:last-of-type:hover {
+    background: #EAFE67 !important;
+    color: #000 !important;
+}
+
+/* Logo kreviews (manter mas reduzir opacidade) */
+#reviewsapp img[src*="kreviews"],
+#reviewsapp [class*="logo"] {
+    opacity: 0.5 !important;
+    max-width: 80px !important;
+    margin-top: 20px !important;
+}
+
+/* Cards de reviews individuais (quando houver) */
+#reviewsapp .review-item,
+#reviewsapp [class*="review-card"],
+#reviewsapp [class*="review-item"] {
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(8px) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(0,0,0,0.04) !important;
+    padding: 24px !important;
+    margin-bottom: 16px !important;
+}
+
+/* Estrelas de avaliação */
+#reviewsapp .star,
+#reviewsapp [class*="star"],
+#reviewsapp [class*="rating"] svg,
+#reviewsapp [class*="rating"] path {
+    color: #EAFE67 !important;
+    fill: #EAFE67 !important;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 992px) {
+    #reviewsapp {
+        padding: 0 36px;
+        margin: 50px auto;
+    }
+    
+    /* Grid volta para 1 coluna no elemento correto */
+    .konfidency-vue-wrapper-details > div[data-v-3f6b742f],
+    .konfidency-vue-wrapper-details > div[class*="data-v-"],
+    #reviewsapp > div > div > div {
+        grid-template-columns: 1fr !important; /* 1 coluna em tablet */
+        gap: 20px !important;
+    }
+    
+    #konfidency-reviews-container,
+    #konfidency-questions-container,
+    #reviewsapp [class*="konfidency"] {
+        padding: 36px 40px !important;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    #reviewsapp {
+        padding: 0 24px;
+        margin: 40px auto;
+    }
+    
+    /* Grid volta para 1 coluna no elemento correto */
+    .konfidency-vue-wrapper-details > div[data-v-3f6b742f],
+    .konfidency-vue-wrapper-details > div[class*="data-v-"],
+    #reviewsapp > div > div > div {
+        grid-template-columns: 1fr !important; /* 1 coluna em mobile */
+        gap: 16px !important;
+    }
+    
+    #konfidency-reviews-container,
+    #konfidency-questions-container,
+    #reviewsapp [class*="konfidency"] {
+        padding: 28px 24px !important;
+        border-radius: 18px !important;
+    }
+    
+    #reviewsapp button,
+    #reviewsapp .button {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 14px 24px !important;
+    }
+    
+    #reviewsapp h1,
+    #reviewsapp h2,
+    #reviewsapp h3 {
+        font-size: 18px !important;
+    }
+}
+
+/* Responsive - Mobile Pequeno */
+@media (max-width: 480px) {
+    #reviewsapp .body-template,
+    #reviewsapp [class*="kfullreview"] {
+        padding: 24px 20px !important;
+        margin: 32px 12px !important;
+    }
+    
+    #reviewsapp h1,
+    #reviewsapp h2,
+    #reviewsapp h3 {
+        font-size: 16px !important;
+    }
+    
+    #reviewsapp p,
+    #reviewsapp span {
+        font-size: 13px !important;
+    }
+}
+
+/* Acessibilidade - Focus visível */
+#reviewsapp button:focus,
+#reviewsapp .button:focus,
+#reviewsapp a:focus {
+    outline: 3px solid #EAFE67 !important;
+    outline-offset: 3px;
+}
+
+/* Animação suave ao carregar */
+#reviewsapp > div {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Container principal do app de reviews da Nuvemshop */
+#reviewsapp {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 48px;
+}
+
+/* ============================================
+   SEÇÃO DE AVALIAÇÕES - Estado com Reviews
+   ============================================ */
+
+.pg-reviews-section {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 40px 48px;
+    margin: 60px 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.pg-reviews-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.pg-reviews-rating {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.pg-reviews-stars {
+    font-size: 28px;
+    line-height: 1;
+    color: #EAFE67; /* Amarelo Patagang */
+    letter-spacing: 2px;
+}
+
+.pg-reviews-score {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #000;
+    line-height: 1;
+}
+
+.pg-reviews-count {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 15px;
+    color: #666;
+    font-weight: 500;
+}
+
+.pg-reviews-cta {
+    background: #EAFE67;
+    color: #000;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 32px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.pg-reviews-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    background: #D4E856; /* Amarelo mais escuro */
+}
+
+.pg-reviews-cta:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.pg-reviews-summary {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.pg-reviews-summary strong {
+    color: #000;
+    font-weight: 700;
+}
+
+.pg-reviews-link {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    padding: 8px 0;
+}
+
+.pg-reviews-link:hover {
+    color: #EAFE67;
+    transform: translateX(4px);
+}
+
+/* ============================================
+   SEÇÃO DE AVALIAÇÕES - Estado Vazio
+   ============================================ */
+
+.pg-reviews-empty {
+    text-align: center;
+    padding: 60px 48px;
+}
+
+.pg-reviews-empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+    line-height: 1;
+}
+
+.pg-reviews-empty-title {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 12px;
+    line-height: 1.2;
+}
+
+.pg-reviews-empty-text {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto 32px;
+}
+
+/* ============================================
+   SEÇÃO DE PERGUNTAS & RESPOSTAS
+   ============================================ */
+
+.pg-qa-section {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 40px 48px;
+    margin: 24px 0 60px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.pg-qa-header {
+    margin-bottom: 28px;
+}
+
+.pg-qa-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.pg-qa-title h3 {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.pg-qa-title .icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.pg-qa-subtitle {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 0 36px; /* Alinha com título */
+    line-height: 1.5;
+}
+
+.pg-qa-cta {
+    background: #000;
+    color: #EAFE67; /* Inverte cores vs reviews */
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 32px;
+    border-radius: 12px;
+    border: 2px solid #EAFE67;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.pg-qa-cta:hover {
+    background: #EAFE67;
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.pg-qa-cta:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.pg-qa-link {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+    padding: 8px 0;
+}
+
+.pg-qa-link:hover {
+    color: #EAFE67;
+    transform: translateX(4px);
+}
+
+/* ============================================
+   SEÇÃO DE PERGUNTAS - Estado Vazio
+   ============================================ */
+
+.pg-qa-empty {
+    text-align: center;
+    padding: 60px 48px;
+}
+
+.pg-qa-empty-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    opacity: 0.3;
+    line-height: 1;
+}
+
+.pg-qa-empty-title {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 12px;
+    line-height: 1.2;
+}
+
+.pg-qa-empty-text {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto 32px;
+}
+
+/* ============================================
+   CUSTOMIZAÇÃO DO APP NUVEMSHOP DE REVIEWS
+   Sobrescreve estilos padrão do widget
+   ============================================ */
+
+/* Container do app */
+#reviewsapp {
+    font-family: 'Familjen Grotesk', sans-serif !important;
+}
+
+/* Título das seções do app */
+#reviewsapp h2,
+#reviewsapp h3 {
+    font-family: 'Familjen Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Botões do app de reviews */
+#reviewsapp button,
+#reviewsapp .btn,
+#reviewsapp a.button {
+    font-family: 'Familjen Grotesk', sans-serif !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 12px !important;
+    transition: all 0.2s ease !important;
+}
+
+/* Botão primário (escrever avaliação) */
+#reviewsapp button[class*="primary"],
+#reviewsapp .btn-primary {
+    background: #EAFE67 !important;
+    color: #000 !important;
+    border: none !important;
+    padding: 16px 32px !important;
+}
+
+#reviewsapp button[class*="primary"]:hover,
+#reviewsapp .btn-primary:hover {
+    background: #D4E856 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+}
+
+/* Estrelas de avaliação */
+#reviewsapp .star,
+#reviewsapp [class*="star"] {
+    color: #EAFE67 !important;
+}
+
+/* Cards de avaliações individuais */
+#reviewsapp .review-item,
+#reviewsapp [class*="review"] {
+    background: rgba(255, 255, 255, 0.6) !important;
+    backdrop-filter: blur(8px);
+    border-radius: 16px !important;
+    border: 1px solid rgba(0,0,0,0.04) !important;
+    padding: 24px !important;
+    margin-bottom: 16px !important;
+}
+
+/* Textos do app */
+#reviewsapp p,
+#reviewsapp span {
+    font-family: 'Familjen Grotesk', sans-serif !important;
+}
+
+/* ============================================
+   RESPONSIVIDADE - TABLET
+   ============================================ */
+
+@media (max-width: 992px) {
+    #reviewsapp {
+        padding: 0 36px;
+        margin: 50px auto;
+    }
+    
+    .pg-reviews-section,
+    .pg-qa-section {
+        padding: 36px 40px;
+        margin: 50px 0;
+    }
+    
+    .pg-reviews-empty,
+    .pg-qa-empty {
+        padding: 50px 40px;
+    }
+}
+
+/* ============================================
+   RESPONSIVIDADE - MOBILE
+   ============================================ */
+
+@media (max-width: 768px) {
+    #reviewsapp {
+        padding: 0 24px;
+        margin: 40px auto;
+    }
+    
+    .pg-reviews-section,
+    .pg-qa-section {
+        padding: 28px 24px;
+        border-radius: 18px;
+        margin: 40px 16px;
+    }
+    
+    .pg-reviews-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .pg-reviews-rating {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .pg-reviews-score {
+        font-size: 36px;
+    }
+    
+    .pg-reviews-stars {
+        font-size: 24px;
+    }
+    
+    .pg-reviews-cta,
+    .pg-qa-cta {
+        width: 100%;
+        justify-content: center;
+        padding: 14px 24px;
+    }
+    
+    .pg-qa-subtitle {
+        margin-left: 0;
+        margin-top: 4px;
+    }
+    
+    .pg-reviews-empty,
+    .pg-qa-empty {
+        padding: 48px 24px;
+    }
+    
+    .pg-reviews-empty-icon,
+    .pg-qa-empty-icon {
+        font-size: 52px;
+    }
+    
+    .pg-reviews-empty-title,
+    .pg-qa-empty-title {
+        font-size: 20px;
+    }
+    
+    .pg-reviews-empty-text,
+    .pg-qa-empty-text {
+        font-size: 14px;
+    }
+}
+
+/* ============================================
+   RESPONSIVIDADE - MOBILE PEQUENO
+   ============================================ */
+
+@media (max-width: 480px) {
+    .pg-reviews-section,
+    .pg-qa-section {
+        padding: 24px 20px;
+        margin: 32px 12px;
+    }
+    
+    .pg-reviews-stars {
+        font-size: 20px;
+    }
+    
+    .pg-reviews-score {
+        font-size: 28px;
+    }
+    
+    .pg-reviews-count,
+    .pg-reviews-summary {
+        font-size: 13px;
+    }
+    
+    .pg-qa-title h3 {
+        font-size: 18px;
+    }
+    
+    .pg-qa-subtitle {
+        font-size: 13px;
+    }
+}
+
+/* ============================================
+   ACESSIBILIDADE
+   ============================================ */
+
+/* Foco visível em botões */
+.pg-reviews-cta:focus,
+.pg-qa-cta:focus,
+.pg-reviews-link:focus,
+.pg-qa-link:focus {
+    outline: 3px solid #EAFE67;
+    outline-offset: 3px;
+}
+
+/* Contraste para leitores de tela */
+.pg-reviews-section [aria-label],
+.pg-qa-section [aria-label] {
+    position: relative;
+}
+
+/* ============================================
+   ANIMAÇÕES SUAVES
+   ============================================ */
+
+.pg-reviews-section,
+.pg-qa-section {
+    animation: fadeInUp 0.4s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover suave nos links */
+.pg-reviews-link,
+.pg-qa-link {
+    position: relative;
+}
+
+.pg-reviews-link::after,
+.pg-qa-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #EAFE67;
+    transition: width 0.3s ease;
+}
+
+.pg-reviews-link:hover::after,
+.pg-qa-link:hover::after {
+    width: 100%;
 }

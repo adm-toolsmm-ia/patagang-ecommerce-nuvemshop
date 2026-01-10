@@ -1,9 +1,8 @@
 {# PataGang Header - v2.0 - Glassmorphism #}
 {% set is_fixed = settings.head_fix %}
 <header class="pg-header {% if is_fixed %}pg-header--sticky{% endif %}" data-store="head">
-  {% if settings.ad_bar and settings.ad_text %}
-    {% snipplet "header/header-advertising.tpl" %}
-  {% endif %}
+  {# Banner de anúncio movido para layout.tpl para evitar sobreposição #}
+
 
   <div class="pg-header__container pg-container">
     <div class="pg-header__row">
@@ -138,7 +137,7 @@
     modal_width: 'centered modal-centered-md-600px p-3'
   } %}
     {% block modal_head %}
-      {% block page_header_text %}{{ '&#161;Agregado al carrito!' | translate }}{% endblock page_header_text %}
+      {% block page_header_text %}{{ '¡Agregado al carrito!' | translate }}{% endblock page_header_text %}
     {% endblock %}
     {% block modal_body %}
       {% include "snipplets/notification-cart.tpl" with {related_products: true} %}
@@ -158,7 +157,7 @@
   modal_width: 'centered-md m-0 p-0 modal-full-width modal-md-width-400px'
 } %}
   {% block modal_head %}
-    {{ '&#161;Descuento exclusivo!' | translate }}
+    {{ '¡Descuento exclusivo!' | translate }}
   {% endblock %}
   {% block modal_body %}
     <div class="js-cross-selling-modal-body" style="display: none"></div>

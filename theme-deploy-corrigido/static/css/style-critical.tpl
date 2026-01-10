@@ -374,11 +374,13 @@ body{
   }
 }
 
+{# /* // Header Patagang */ #}
+
 .pg-header {
   background: transparent;
   border-bottom: none;
   position: absolute;
-  top: 0;
+  top: 30px; /* AJUSTADO: Espaço para banner fixo no topo */
   left: 0;
   right: 0;
   z-index: 9999;
@@ -389,7 +391,7 @@ body{
 
 .pg-header--sticky {
   position: fixed;
-  top: 0;
+  top: 30px !important; /* SOLUÇÃO DEFINITIVA: Espaço para banner fixo (28-30px) */
 }
 
 .pg-header__container {
@@ -1701,8 +1703,35 @@ p{
 {# /* // Ad Bar */ #}
 
 .section-advertising {
-  padding: 5px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 10000; /* Acima do header (9999) */
+  padding: 8px 0; /* Aumentado de 5px para 8px */
+  
+  /* Design Patagang - Preto sem borda */
+  background: #000000;
+  color: #FFFFFF;
+  /* border-bottom: 3px solid #EAFE67; */ /* REMOVIDO - Faixa verde */
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-align: center;
 }
+
+.section-advertising a {
+  color: #EAFE67; /* Links em verde limão */
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.section-advertising a:hover {
+  opacity: 0.85;
+}
+
 
 {# /* // Logo */ #}
 

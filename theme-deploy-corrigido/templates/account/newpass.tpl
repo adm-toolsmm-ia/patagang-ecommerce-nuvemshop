@@ -1,53 +1,79 @@
+{# PATAGANG - New Password Page #}
 {% set is_account_activation = action == 'account_activation' %}
-{% embed "snipplets/page-header.tpl" %}
-    {% block page_header_text %}{{ (is_account_activation ? 'Activar cuenta' : 'Cambiar contraseña') | translate }}{% endblock page_header_text %}
-{% endembed %}
 
-<section class="account-page">
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-8">
-                {% if link_expired %}
+<section class="pg-login-page">
+	<div class="pg-login-page__container">
+		{# Card de Nova Senha #}
+		<div class="pg-login-card">
+			{# Título #}
+			<h1 class="pg-login-card__title">
+				{{ (is_account_activation ? 'Ativar Conta' : 'Alterar Senha') | translate }}
+			</h1>
+			
+			<div class="pg-login-card__messages">
+				{% if link_expired %}
+					{# Link Expirado #}
+					<div class="pg-alert pg-alert--error">
+						<p class="font-weight-bold mb-2">
+							{{ (is_account_activation ? 'O link de ativação expirou.' : 'O link de alteração de senha expirou.') | translate }}
+						</p>
+						
+						{% if is_account_activation %}
+							<p>{{ 'Entre em contato conosco para receber um novo link.' | translate }}</p>
+							{% include "snipplets/contact-links.tpl" with {phone_and_mail_only: true} %}
+						{% else %}
+							<p>{{ 'Digite seu e-mail para receber um novo link.' | translate }}</p>
+							<a href="{{ store.customer_reset_password_url }}" class="pg-login-card__link mt-2 d-inline-block">
+								{{ 'Solicitar novo link' | translate }}
+							</a>
+						{% endif %}
+					</div>
+				
+				{% elseif failure %}
+					{# Erro Senhas não conferem #}
+					<div class="pg-alert pg-alert--error">
+						<p>{{ 'As senhas não conferem. Tente novamente.' | translate }}</p>
+					</div>
 
-                    {% set contact_links = store.whatsapp or store.phone or store.email %}
-                    
-                    <div class="mb-4 text-center">
-                        {% if is_account_activation %}
-                            <div class="mb-1 font-weight-bold">{{ 'El link para activar tu cuenta expiró' | translate }}</div>
-                            <div>{{ 'Contactanos para que te enviemos uno nuevo.' | translate }}</div>
-                        {% else %}
-                            <div class="mb-1 font-weight-bold">{{ 'El link para cambiar tu contraseña expiró' | translate }}</div>
-                            <div class="mb-3">{{ 'Ingresá tu email para recibir uno nuevo.' | translate }}</div>
-                            <a href="{{ store.customer_reset_password_url }}" class="btn-link btn-link-primary">{{ 'Ingresar email' | translate }}</a>
-                        {% endif %}
-                    </div>
+				{% else %}
+					{# Formulário #}
+					<p class="pg-login-card__subtitle">
+						{{ 'Crie uma nova senha para sua conta.' | translate }}
+					</p>
 
-                    {% if contact_links and is_account_activation %}
-                        {% include "snipplets/contact-links.tpl" with {phone_and_mail_only: true} %}
-                    {% endif %}
+					<form id="newpass-form" action="" method="post" data-store="account-new-password">
+						<div class="pg-login-card__form">
+							
+							{# Senha #}
+							<div class="pg-form-group">
+								<label for="password" class="pg-form-label">{{ 'Nova Senha' | translate }}</label>
+								<input type="password" 
+									   id="password" 
+									   name="password" 
+									   class="pg-form-input js-account-input" 
+									   placeholder="••••••••"
+									   required>
+							</div>
 
-                {% else %}
-                    {% if failure %}
-                        <div class="alert alert-danger">{{ 'Las contraseñas no coinciden.' | translate }}</div>
-                    {% endif %}
-
-                    {% embed "snipplets/forms/form.tpl" with{form_id: 'newpass-form', submit_text: (customer.password ? 'Cambiar contraseña' : 'Activar cuenta')  | translate } %}
-                        {% block form_body %}
-
-                            {# Password input #}
-
-                            {% embed "snipplets/forms/form-input.tpl" with{type_password: true, input_for: 'password', input_name: 'password', input_id: 'password', input_label_text: 'Contraseña' | translate } %}
-                            {% endembed %}
-
-                            {# Password confirm input #}
-
-                            {% embed "snipplets/forms/form-input.tpl" with{type_password: true, input_for: 'password_confirm', input_name: 'password_confirm', input_id: 'password_confirm', input_label_text: 'Confirmar Contraseña' | translate } %}
-                            {% endembed %}
-                            
-                        {% endblock %}
-                    {% endembed %}
-                {% endif %}
-            </div>
-        </div>
-    </div>
+							{# Confirmar Senha #}
+							<div class="pg-form-group">
+								<label for="password_confirm" class="pg-form-label">{{ 'Confirmar Senha' | translate }}</label>
+								<input type="password" 
+									   id="password_confirm" 
+									   name="password_confirm" 
+									   class="pg-form-input js-account-input" 
+									   placeholder="••••••••"
+									   required>
+							</div>
+							
+							{# Botão Submit #}
+							<button type="submit" class="pg-login-card__button">
+								{{ (is_account_activation ? 'Ativar Conta' : 'Alterar Senha') | translate }}
+							</button>
+						</div>
+					</form>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 </section>

@@ -22,7 +22,7 @@
             <div class="fb-comments section-fb-comments" data-href="{{ product.social_url }}" data-num-posts="5" data-width="100%"></div>
         </div>
     {% endif %}
-    {# Reviews app - container oculto por padrão, visível apenas quando há app de reviews #}
+    {# Reviews app - kreviews widget da Nuvemshop #}
     <div id="reviewsapp" class="pg-pdp-reviews-container"></div>
 </div>
 

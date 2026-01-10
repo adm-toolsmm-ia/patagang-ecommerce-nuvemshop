@@ -1,34 +1,56 @@
-{% embed "snipplets/page-header.tpl" %}
-    {% block page_header_text %}{{ "Cambiar Contraseña" | translate }}{% endblock page_header_text %}
-{% endembed %}
+{# PATAGANG - Reset Password Page #}
+<section class="pg-login-page">
+	<div class="pg-login-page__container">
+		{# Card de Reset #}
+		<div class="pg-login-card">
+			{# Título #}
+			<h1 class="pg-login-card__title">{{ 'Alterar Senha' | translate }}</h1>
+			<p class="pg-login-card__subtitle">{{ 'Vamos enviar um e-mail para você alterar sua senha.' | translate }}</p>
+			
+			{# Mensagens de feedback #}
+			<div class="pg-login-card__messages">
+				{% if success %}
+					<div class="pg-alert pg-alert--success">
+						<p>{{ 'E-mail enviado com sucesso para {1}' | translate(email) }}</p>
+					</div>
+				{% endif %}
 
-<section class="account-page">
-    <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-8">
-                <p>{{ 'Vamos a enviarte un email para que puedas cambiar tu contraseña.' | translate }}</p>
-
-                {% if success %}
-                    <div class="alert alert-success">{{ '¡Listo! Te enviamos un email a {1}' | translate(email) }}</div>
-                {% endif %}
-
-                {% embed "snipplets/forms/form.tpl" with{form_id: 'resetpass-form', submit_text: 'Enviar email' | translate } %}
-                    {% block form_body %}
-
-                        {# Email input #}
-
-                        {% embed "snipplets/forms/form-input.tpl" with{type_email: true, input_for: 'email', input_value: email, input_name: 'email', input_id: 'email', input_label_text: 'Email' | translate } %}
-                            {% block input_label_text %}{{ 'Email' | translate }}{% endblock input_label_text %}
-                            {% block input_form_alert %}
-                                {% if failure %}
-                                    <div class="alert alert-danger">{{ 'No encontramos ninguna cuenta registrada con este email. Intentalo nuevamente chequeando que esté bien escrito.' | translate }}</div>
-                                {% endif %}
-                            {% endblock input_form_alert %}
-                        {% endembed %}
-                        
-                    {% endblock %}
-                {% endembed %}
-            </div>
-        </div>
-    </div>
+				{% if failure %}
+					<div class="pg-alert pg-alert--error">
+						<p>{{ 'Não encontramos nenhuma conta com este e-mail. Verifique se digitou corretamente.' | translate }}</p>
+					</div>
+				{% endif %}
+			</div>
+			
+			{# Formulário #}
+			<form id="resetpass-form" action="" method="post" data-store="account-reset">
+				<div class="pg-login-card__form">
+					
+					{# Campo Email #}
+					<div class="pg-form-group">
+						<label for="email" class="pg-form-label">{{ 'E-mail' | translate }}</label>
+						<input type="email" 
+							   id="email" 
+							   name="email" 
+							   class="pg-form-input js-account-input" 
+							   value="{{ email }}"
+							   placeholder="seu@email.com"
+							   required>
+					</div>
+					
+					{# Botão Enviar #}
+					<button type="submit" class="pg-login-card__button">
+						{{ 'Enviar e-mail' | translate }}
+					</button>
+				</div>
+			</form>
+			
+			{# Link Voltar #}
+			<div class="pg-login-card__footer text-center mt-3">
+				<a href="{{ store.customer_login_url }}" class="pg-login-card__link">
+					{{ 'Voltar para o Login' | translate }}
+				</a>
+			</div>
+		</div>
+	</div>
 </section>

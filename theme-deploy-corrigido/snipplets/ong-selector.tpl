@@ -1,6 +1,6 @@
 {# ============================================
    PATAGANG - SELETOR DE ONG PARA DOAÇÃO
-   5% do valor da compra será doado para a ONG selecionada
+   3% do valor da compra será doado para a ONG selecionada
    ============================================ #}
 
 {% set ongs = [
@@ -8,7 +8,7 @@
 ] %}
 
 <div class="pg-ong-selector js-ong-selector" data-component="ong-selector">
-  <span class="pg-ong-selector__label">5% doado para:</span>
+  <span class="pg-ong-selector__label">3% doado para:</span>
   <select name="selected_ong" class="pg-ong-selector__select js-ong-input">
     {% for ong in ongs %}
       <option value="{{ ong.id }}" {% if loop.first %}selected{% endif %}>

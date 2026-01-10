@@ -152,7 +152,12 @@
 
         {{back_to_admin}}
 
-        {# Header = Advertising + Nav + Logo + Search + Ajax Cart #}
+        {# Barra de anúncio - FIXO no topo (z-index 10000) #}
+        {% if settings.ad_bar and settings.ad_text %}
+          {% snipplet "header/header-advertising.tpl" %}
+        {% endif %}
+
+        {# Header = Logo + Search + Ajax Cart (top: 30px para não sobrepor banner) #}
 
         {% snipplet "header/header-patagang.tpl" %}
 
