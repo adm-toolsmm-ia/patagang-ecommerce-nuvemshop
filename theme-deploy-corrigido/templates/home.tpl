@@ -1,152 +1,384 @@
 {#
-  HOME PAGE - PATAGANG
-  Hero + Seção Produto Destaque + Grid
+  HOME PAGE V2 - PATAGANG
+  Implementado conforme protótipo Adobe XD - Janeiro 2026
+  
+  Estrutura:
+  1. Hero (split-screen: blueprint + foto)
+  2. Vista o Propósito (produtos categoria)
+  3. Seja o Primeiro a Conhecer (produtos em desenvolvimento)
 #}
 
-{# BANNER HERO - Background compartilhado com Header via CSS #}
-{# CORRIGIDO: Imagem de fundo agora está no CSS (background-image) - Alteração #1 e #3 #}
-<section class="hero visible-when-content-ready">
-    <div class="hero__container">
-        {# Conteúdo do hero: SVG texto + CTA #}
-        <div class="hero__content">
-            {# Coluna esquerda: Texto HTML para SEO + Imagem Visual #}
-            <div class="hero__text-column">
-                <div class="hero__text-content">
-                    {# Texto visível apenas para SEO e leitores de tela #}
-                    <h2 class="hero__title sr-only">MUITO ALÉM DO BÁSICO</h2>
-                    <p class="hero__subtitle sr-only">Uma marca pet que vai além. Acessórios com design exclusivo para cães e tutores que buscam estilo e qualidade.</p>
-
-                    {# Imagem visual do banner #}
-                    <img
-                        src="{{ 'images/banner-dk-1.svg' | static_url }}"
-                        alt=""
-                        aria-hidden="true"
-                        class="hero__svg-image"
-                    >
-                </div>
-            </div>
-
-            {# Coluna direita: CTA #}
-            <div class="hero__cta-column">
-                <a href="{{ store.products_url }}" class="hero__cta">
-                    VER OS PRIMEIROS PRODUTOS
-                </a>
-            </div>
-        </div>
-
-        {# Scroll indicator (seta para baixo) - Posicionado no final do bloco, fora do grid #}
-        {# Ícone moderno maior com cor amarela #}
-        <div class="hero__scroll-indicator">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                {# Seta chevron dupla moderna #}
-                <path d="M7 13L12 18L17 13" stroke="#EAFE67" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M7 7L12 12L17 7" stroke="#EAFE67" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+{# ============================================
+   1ª SEÇÃO - HERO V2
+   Background: imagem responsiva (desktop/mobile)
+   CTAs: Amarelos sobre cada coluna
+   ============================================ #}
+<section class="pg-hero-v2 visible-when-content-ready">
+    {# Background responsivo #}
+    <picture class="pg-hero-v2__bg">
+        <source media="(min-width: 768px)" srcset="{{ 'images/home-v2-hero-desktop.png' | static_url }}">
+        <img src="{{ 'images/home-v2-hero-mobile.png' | static_url }}" 
+             alt="Patagang - Muito além do básico" 
+             loading="eager"
+             class="pg-hero-v2__bg-img">
+    </picture>
+    
+    {# Container dos CTAs #}
+    <div class="pg-hero-v2__content">
+        <div class="pg-hero-v2__ctas">
+            {# CTA 1: Produtos para Cachorro (sobre blueprint) #}
+            <a href="/produtos-cachorros" class="pg-button pg-button--highlight">
+                PRODUTOS PARA CACHORRO
+            </a>
+            
+            {# CTA 2: Vista o Propósito (sobre foto) #}
+            <a href="/comunidade-vista-patagang" class="pg-button pg-button--highlight">
+                VISTA O PROPÓSITO
+            </a>
         </div>
     </div>
+    
+    {# Seta de scroll #}
+    <div class="pg-hero-v2__scroll">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9L12 15L18 9" stroke="#626262" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    
+    {# Texto SEO oculto #}
+    <h1 class="sr-only">Patagang - Acessórios Premium para Cães e Tutores</h1>
+    <p class="sr-only">Uma marca pet que vai além. Acessórios com design exclusivo para cães e tutores que buscam estilo e qualidade.</p>
 </section>
 
-{# WRAPPER COM DEGRADÊ AMARELO - Conforme protótipo Adobe XD #}
-<div class="yellow-gradient-wrapper visible-when-content-ready">
-
-{# SEÇÃO PRODUTOS DESTAQUE - Layout 2 colunas: 2 produtos destacados #}
-<section class="featured-product visible-when-content-ready">
-    <div class="featured-product__container">
-        {# Grid 2 colunas: produto destacado 1 e produto destacado 2 #}
-        <div class="featured-product__grid">
-
-            {# COLUNA ESQUERDA: Primeiro produto destacado #}
-            {% set featured_product_1 = null %}
-            {% if sections.primary.products and sections.primary.products | length > 0 %}
-                {% set featured_product_1 = sections.primary.products | first %}
+{# ============================================
+   2ª SEÇÃO - VISTA O PROPÓSITO
+   Produtos da categoria "Vista Patagang"
+   Background: Branco com transição suave para próxima seção
+   ============================================ #}
+<section class="pg-section pg-section--vista-products visible-when-content-ready">
+    <div class="pg-container">
+        
+        {# Header da seção #}
+        <header class="pg-section__header">
+            <h3 class="pg-section__title">VISTA O PROPÓSITO</h3>
+            <p class="pg-section__desc">
+                Enquanto nossos produtos para cachorros estão em desenvolvimento, 
+                lançamos camisetas que carregam o movimento Patagang. 
+                Parte de cada venda é destinada à causa animal.
+            </p>
+        </header>
+        
+        {# Grid de Produtos - Busca pela seção primária com filtro de categoria #}
+        <div class="pg-products-grid">
+            {% set vista_products = [] %}
+            
+            {# Tenta buscar produtos da seção primária #}
+            {% if sections.primary.products %}
+                {% for product in sections.primary.products %}
+                    {% set vista_products = vista_products | merge([product]) %}
+                {% endfor %}
             {% endif %}
-
-            <div class="featured-product__card-wrapper">
-                <div class="featured-product__card">
-                    {% if featured_product_1 %}
-                        <div class="featured-product__image">
-                            <a href="{{ featured_product_1.url }}">
-                                <img src="{{ featured_product_1.featured_image | product_image_url('large') }}" alt="{{ featured_product_1.name }}">
-                            </a>
-                        </div>
-
-                        <a href="{{ featured_product_1.url }}" class="featured-product__btn">
-                            Loja
-                        </a>
-                    {% else %}
-                        {# Fallback para imagem estática caso não tenha produtos destacados #}
-                        <div class="featured-product__image">
-                            <a href="{{ store.products_url }}">
-                                <img src="{{ 'images/produto-1.png' | static_url }}" alt="Produto destaque">
-                            </a>
-                        </div>
-
-                        <a href="{{ store.products_url }}" class="featured-product__btn">
-                            Loja
-                        </a>
+            
+            {# Fallback: busca todos os produtos e filtra pela categoria #}
+            {% if vista_products | length == 0 %}
+                {% for product in products %}
+                    {% if '/comunidade-vista-patagang' in product.category.url or 'Vista' in product.category.name %}
+                        {% set vista_products = vista_products | merge([product]) %}
                     {% endif %}
-                </div>
-            </div>
-
-            {# COLUNA DIREITA: Segundo produto destacado #}
-            {% set featured_product_2 = null %}
-            {% if sections.primary.products and sections.primary.products | length > 1 %}
-                {% set featured_product_2 = sections.primary.products[1] %}
+                {% endfor %}
             {% endif %}
-
-            {% if featured_product_2 %}
-            <div class="featured-product__card-wrapper">
-                <div class="featured-product__card">
-                    <div class="featured-product__image">
-                        <a href="{{ featured_product_2.url }}">
-                            <img src="{{ featured_product_2.featured_image | product_image_url('large') }}" alt="{{ featured_product_2.name }}">
-                        </a>
-                    </div>
-
-                    <a href="{{ featured_product_2.url }}" class="featured-product__btn">
-                        Loja
+            
+            {# Renderiza os produtos (máximo 4) #}
+            {% for product in vista_products | slice(0, 4) %}
+                <article class="pg-product-card-v2">
+                    <a href="{{ product.url }}" class="pg-product-card-v2__link">
+                        <div class="pg-product-card-v2__image">
+                            {% if product.featured_image %}
+                                <img src="{{ product.featured_image | product_image_url('large') }}" 
+                                     alt="{{ product.name }}" 
+                                     loading="lazy">
+                            {% else %}
+                                <img src="{{ 'images/placeholder-product.png' | static_url }}" 
+                                     alt="{{ product.name }}" 
+                                     loading="lazy">
+                            {% endif %}
+                        </div>
                     </a>
+                    <a href="{{ product.url }}" class="pg-product-card-v2__shop">Shop</a>
+                </article>
+            {% else %}
+                {# Fallback se não houver produtos #}
+                <div class="pg-section__empty">
+                    <p>Produtos em breve...</p>
                 </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</section>
+
+{# ============================================
+   3ª SEÇÃO - SEJA O PRIMEIRO A CONHECER
+   Produtos com tag "em-desenvolvimento"
+   Cards carregados via API JS (fetch dinâmico)
+   ============================================ #}
+
+{# Server-side: tenta buscar produtos com tag em-desenvolvimento via Twig #}
+{% set dev_products = [] %}
+{% set dev_max = 8 %}
+
+{% if sections.primary.products %}
+    {% for product in sections.primary.products %}
+        {% if dev_products | length < dev_max and product.tags %}
+            {% for tag in product.tags %}
+                {% if tag == 'em-desenvolvimento' or tag == 'em desenvolvimento' %}
+                    {% set dev_products = dev_products | merge([product]) %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% if dev_products | length == 0 %}
+    {% for product in products %}
+        {% if dev_products | length < dev_max and product.tags %}
+            {% for tag in product.tags %}
+                {% if tag == 'em-desenvolvimento' or tag == 'em desenvolvimento' %}
+                    {% set dev_products = dev_products | merge([product]) %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<section class="pg-section pg-section--grid-bg pg-section--coming-soon visible-when-content-ready">
+    <div class="pg-container">
+
+        <h3 class="pg-section__title">SEJA O PRIMEIRO A CONHECER</h3>
+
+        {# Carousel horizontal com scroll nativo #}
+        <div class="pg-dev-carousel" id="dev-carousel">
+            <div class="pg-dev-carousel__track" id="dev-carousel-track">
+
+                {# Server-side rendered cards (se Twig encontrou produtos) #}
+                {% for product in dev_products %}
+                    <a href="{{ product.url }}" class="pg-dev-card" title="{{ product.name }}">
+                        <div class="pg-dev-card__image">
+                            {% if product.featured_image %}
+                                <img src="{{ product.featured_image | product_image_url('large') }}"
+                                     alt="{{ product.name }}"
+                                     loading="lazy">
+                            {% else %}
+                                <img src="{{ 'images/placeholder-product.png' | static_url }}"
+                                     alt="{{ product.name }}"
+                                     loading="lazy">
+                            {% endif %}
+                        </div>
+                        <div class="pg-dev-card__info">
+                            <h3 class="pg-dev-card__name">{{ product.name }}</h3>
+                        </div>
+                    </a>
+                {% endfor %}
+
+                {# Placeholders de loading (exibidos enquanto JS carrega, se Twig não encontrou) #}
+                {% if dev_products | length == 0 %}
+                    {% for i in 1..4 %}
+                        <div class="pg-dev-card pg-dev-card--placeholder pg-dev-card--loading">
+                            <div class="pg-dev-card__image">
+                                <div class="pg-dev-card__skeleton"></div>
+                            </div>
+                            <div class="pg-dev-card__info">
+                                <h3 class="pg-dev-card__name">Carregando...</h3>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
             </div>
-            {% endif %}
 
+            {# Navegacao #}
+            <button class="pg-dev-carousel__nav pg-dev-carousel__nav--prev" aria-label="Anterior" style="display:none;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 6L9 12L15 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <button class="pg-dev-carousel__nav pg-dev-carousel__nav--next" aria-label="Próximo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         </div>
+
     </div>
 </section>
 
-{# SEÇÃO EM DESENVOLVIMENTO - 2 Cards com Blur Effect #}
-<section class="coming-soon visible-when-content-ready">
-    <div class="coming-soon__container">
-        <div class="coming-soon__grid">
+{# JS: Fetch de produtos via API + Carousel scroll #}
+<script>
+(function() {
+    document.addEventListener('DOMContentLoaded', function() {
+        var carousel = document.getElementById('dev-carousel');
+        if (!carousel) return;
+        var track = document.getElementById('dev-carousel-track');
+        var btnNext = carousel.querySelector('.pg-dev-carousel__nav--next');
+        var btnPrev = carousel.querySelector('.pg-dev-carousel__nav--prev');
+        if (!track) return;
 
-            {# Card 1 - Coleira em Desenvolvimento #}
-            <a href="/products/coleira" class="coming-soon__card">
-                <img src="{{ 'images/produto-1.png' | static_url }}" alt="Coleira em desenvolvimento" class="coming-soon__image">
+        var scrollAmount = 300;
+        var DEV_MAX = 8;
 
-                <div class="coming-soon__overlay">
-                    <div class="coming-soon__frame">
-                        <span class="coming-soon__badge">EM DESENVOLVIMENTO</span>
-                    </div>
-                    <span class="coming-soon__button">Seja o primeiro a conhecer</span>
-                </div>
-            </a>
+        {# Placeholder imagem para fallback #}
+        var placeholderImg = '{{ "images/placeholder-coming-soon.png" | static_url }}';
 
-            {# Card 2 - Peitoral em Desenvolvimento #}
-            <a href="/products/peitoral" class="coming-soon__card">
-                <img src="{{ 'images/produto-2.png' | static_url }}" alt="Peitoral em desenvolvimento" class="coming-soon__image">
+        function updateNav() {
+            if (btnPrev) btnPrev.style.display = track.scrollLeft > 10 ? 'flex' : 'none';
+            if (btnNext) btnNext.style.display = (track.scrollLeft + track.clientWidth) < (track.scrollWidth - 10) ? 'flex' : 'none';
+        }
 
-                <div class="coming-soon__overlay">
-                    <div class="coming-soon__frame">
-                        <span class="coming-soon__badge">EM DESENVOLVIMENTO</span>
-                    </div>
-                    <span class="coming-soon__button">Seja o primeiro a conhecer</span>
-                </div>
-            </a>
+        if (btnNext) btnNext.addEventListener('click', function() {
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+        if (btnPrev) btnPrev.addEventListener('click', function() {
+            track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
 
-        </div>
-    </div>
-</section>
+        track.addEventListener('scroll', updateNav);
+        window.addEventListener('resize', updateNav);
 
+        {# Verifica se já tem cards reais (server-side) #}
+        var existingCards = track.querySelectorAll('.pg-dev-card:not(.pg-dev-card--loading)');
+        if (existingCards.length > 0) {
+            {# Server-side já encontrou produtos, só inicializa navegação #}
+            setTimeout(updateNav, 100);
+            return;
+        }
 
+        {# Busca produtos via API da Nuvemshop (scraping da página de categoria) #}
+        fetchDevProducts();
 
-</div> {# Fim yellow-gradient-wrapper #}
+        function fetchDevProducts() {
+            {# A Nuvemshop oferece endpoint JSON para busca de produtos #}
+            {# URL da categoria "Produtos Cachorros" conforme configurado na loja #}
+            var categoryUrl = '/produtos-cachorros';
+
+            {# Fetch da página da categoria e parsear os produtos #}
+            fetch(categoryUrl, {
+                headers: { 'Accept': 'text/html' }
+            })
+            .then(function(response) {
+                if (!response.ok) throw new Error('Erro ao buscar produtos');
+                return response.text();
+            })
+            .then(function(html) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(html, 'text/html');
+
+                {# Busca os items de produto na página da categoria #}
+                var items = doc.querySelectorAll('.js-item-product');
+                var devProducts = [];
+
+                items.forEach(function(item) {
+                    if (devProducts.length >= DEV_MAX) return;
+
+                    {# Verifica se o produto tem o botão "SEJA O PRIMEIRO A CONHECER" #}
+                    {# Isso indica que o item.tpl detectou a tag em-desenvolvimento #}
+                    var devBtn = item.querySelector('.btn-development');
+                    if (devBtn) {
+                        var nameEl = item.querySelector('.js-item-name');
+                        var linkEl = item.querySelector('.item-link');
+                        var imgEl = item.querySelector('.js-item-image');
+                        var priceEl = item.querySelector('.js-price-display');
+
+                        {# Extrai a melhor URL de imagem disponível #}
+                        var imgUrl = '';
+                        if (imgEl) {
+                            imgUrl = imgEl.getAttribute('src') || '';
+                            if (!imgUrl || imgUrl.indexOf('data:') === 0) {
+                                imgUrl = imgEl.getAttribute('data-src') || '';
+                            }
+                            if (!imgUrl) {
+                                var srcset = imgEl.getAttribute('data-srcset') || imgEl.getAttribute('srcset') || '';
+                                if (srcset) {
+                                    imgUrl = srcset.split(',')[0].trim().split(' ')[0];
+                                }
+                            }
+                        }
+
+                        if (nameEl) {
+                            devProducts.push({
+                                name: nameEl.textContent.trim(),
+                                url: linkEl ? linkEl.getAttribute('href') : '#',
+                                image: imgUrl,
+                                price: priceEl ? priceEl.textContent.trim() : null
+                            });
+                        }
+                    }
+                });
+
+                renderDevProducts(devProducts);
+            })
+            .catch(function(err) {
+                console.warn('Patagang: Erro ao buscar produtos em desenvolvimento:', err);
+                renderFallback();
+            });
+        }
+
+        function renderDevProducts(products) {
+            {# Remove placeholders de loading #}
+            var loadingCards = track.querySelectorAll('.pg-dev-card--loading');
+            loadingCards.forEach(function(card) { card.remove(); });
+
+            if (products.length === 0) {
+                renderFallback();
+                return;
+            }
+
+            products.forEach(function(product) {
+                var card = document.createElement('a');
+                card.href = product.url;
+                card.className = 'pg-dev-card';
+                card.title = product.name;
+
+                var imgSrc = product.image || placeholderImg;
+
+                card.innerHTML =
+                    '<div class="pg-dev-card__image">' +
+                        '<img src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
+                    '</div>' +
+                    '<div class="pg-dev-card__info">' +
+                        '<h3 class="pg-dev-card__name">' + escapeHtml(product.name) + '</h3>' +
+                    '</div>';
+
+                track.appendChild(card);
+            });
+
+            setTimeout(updateNav, 100);
+        }
+
+        function renderFallback() {
+            {# Remove placeholders de loading #}
+            var loadingCards = track.querySelectorAll('.pg-dev-card--loading');
+            loadingCards.forEach(function(card) { card.remove(); });
+
+            for (var i = 0; i < 3; i++) {
+                var card = document.createElement('div');
+                card.className = 'pg-dev-card pg-dev-card--placeholder';
+                card.innerHTML =
+                    '<div class="pg-dev-card__image">' +
+                        '<img src="' + placeholderImg + '" alt="Produto em desenvolvimento" loading="lazy">' +
+                    '</div>' +
+                    '<div class="pg-dev-card__info">' +
+                        '<h3 class="pg-dev-card__name">Em breve</h3>' +
+                    '</div>';
+                track.appendChild(card);
+            }
+            setTimeout(updateNav, 100);
+        }
+
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+    });
+})();
+</script>

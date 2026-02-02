@@ -39,9 +39,9 @@
                 <span class="footer__title">MARCA</span>
                 <ul class="footer__list">
                     <li><a href="{{ store.blog_url }}">Blog</a></li>
-                    <li><a href="/comunidade">O Movimento / Comunidade</a></li>
+                    <li><a href="/comunidade">O Movimento</a></li>
                     <li><a href="/sobre">Sobre a Patagang</a></li>
-                    <li><a href="/eventos">Eventos</a></li>
+
 
                 </ul>
             </div>
@@ -81,17 +81,18 @@
 <style>
 /* Footer Styles */
 .footer {
-    /* Gradiente conforme protótipo: Amarelo-esverdeado para Cinza */
-    /* Ajustado para conectar perfeitamente com a seção anterior (#EAFE67) */
+    /* Background: transição suave de cinza para branco */
+    /* Inicia no mesmo cinza do background global (#E2E2E2) */
     background: linear-gradient(180deg,
-        #EAFE67 0%,      /* Amarelo vibrante igual ao wrapper */
-        #DCE35B 20%,     /* Tom médio */
-        #A0A0A0 100%     /* Cinza final */
+        #E2E2E2 0%,      /* MESMO cinza do background global */
+        #ECECEC 20%,     /* Transição suave */
+        #F5F5F5 50%,     /* Off-white */
+        #FFFFFF 100%     /* Branco puro no final */
     );
-    padding: 100px 20px 40px; /* Aumentado padding-top para compensar margin negativa */
+    padding: 80px 20px 40px;
     color: #000000;
     font-family: 'Familjen Grotesk', sans-serif;
-    margin-top: -50px !important; /* Overlap com seção anterior para eliminar linha branca */
+    margin-top: 0;
     border-top: none !important;
     position: relative;
     z-index: 1;
@@ -110,8 +111,8 @@
 
 .footer__logo-img {
     width: 100%;
-    max-width: 300px; /* Increased size for text logo */
-    display: inline-block; /* Allow text-align center to work */
+    max-width: 600px; /* Mobile: mais compacto */
+    display: inline-block;
     height: auto;
 }
 
@@ -245,6 +246,10 @@
 
     .footer {
         padding: 80px 40px 40px;
+    }
+
+    .footer__logo-img {
+        max-width: 1200px; /* Desktop: logo grande conforme protótipo */
     }
 }
 </style>

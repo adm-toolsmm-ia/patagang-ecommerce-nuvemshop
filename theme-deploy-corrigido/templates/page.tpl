@@ -6,7 +6,7 @@
     {# ============================================
        Detecta páginas do "O Movimento"
        ============================================ #}
-    {% set movimento_pages = ['comunidade', 'sobre', 'eventos'] %}
+    {% set movimento_pages = ['comunidade', 'sobre'] %}
     {% set is_movimento = page.handle in movimento_pages %}
 
     {% if is_movimento %}
@@ -19,13 +19,12 @@
             <nav class="pg-movimento__nav">
                 <div class="pg-movimento__nav-container">
                     <a href="/comunidade" class="pg-movimento__tab {% if page.handle == 'comunidade' %}is-active{% endif %}">
-                        O Movimento / Comunidade
+                        O Movimento
                     </a>
                     <a href="/sobre" class="pg-movimento__tab {% if page.handle == 'sobre' %}is-active{% endif %}">
                         Sobre a Patagang
                     </a>
-                    <a href="/eventos" class="pg-movimento__tab {% if page.handle == 'eventos' %}is-active{% endif %}">
-                        Eventos
+
                     </a>
                     <a href="{{ store.blog_url }}" class="pg-movimento__tab">
                         Blog

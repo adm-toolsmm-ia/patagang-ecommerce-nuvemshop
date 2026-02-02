@@ -1,4 +1,4 @@
-<ul class="search-suggest-list">
+<ul class="search-suggest-list pg-search-overlay__results-list">
     {% set search_suggestions = products | take(6) %}
     {% for product in search_suggestions %}
         <li class="search-suggest-item container-fluid">
@@ -30,5 +30,5 @@
             </a>
         </li>
     {% endfor %}
-    <a href="#" class="js-search-suggest-all-link btn btn-primary d-block">{{ 'Ver todos los resultados' | translate }}</a>
+    <a href="#" class="js-search-suggest-all-link btn btn-primary d-block">{{ 'Ver todos os resultados' | translate }}</a>
 </ul>

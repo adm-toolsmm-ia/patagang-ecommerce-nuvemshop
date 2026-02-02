@@ -538,13 +538,20 @@ DOMContentLoaded.addEventOrExecute(() => {
 
         LS.search(jQueryNuvem(".js-search-input"), function (html, count) {
             $search_suggests = jQueryNuvem(this).closest(".js-search-container").next(".js-search-suggest");
+            {# PataGang: Alternar conteúdo default/sugestões no overlay #}
+            var $overlay = jQueryNuvem(this).closest('.pg-search-overlay');
+            var $defaultContent = $overlay.find('.js-pg-search-default-content');
+
             if (count > 0) {
                 $search_suggests.html(html).show();
+                if ($defaultContent.length) $defaultContent.hide();
             } else {
                 $search_suggests.hide();
+                if ($defaultContent.length) $defaultContent.show();
             }
             if (jQueryNuvem(this).val().length == 0) {
                 $search_suggests.hide();
+                if ($defaultContent.length) $defaultContent.show();
             }
         }, {
             snipplet: 'header/header-search-results.tpl'
@@ -554,8 +561,10 @@ DOMContentLoaded.addEventOrExecute(() => {
 
             {# Hide search suggestions if user click outside results #}
 
-            jQueryNuvem("body").on("click", function () {
-                jQueryNuvem(".js-search-suggest").hide();
+            jQueryNuvem("body").on("click", function (e) {
+                if (!jQueryNuvem(e.target).closest('.pg-search-overlay').length) {
+                    jQueryNuvem(".js-search-suggest").hide();
+                }
             });
 
             {# Maintain search suggestions visibility if user click on links inside #}
@@ -749,6 +758,8 @@ DOMContentLoaded.addEventOrExecute(() => {
             });
 
         {% endif %}
+
+        {# /* // Coming Soon Carousel - Removido: agora usa scroll nativo via JS inline em home.tpl */ #}
 
 	{% endif %}
 
@@ -1734,20 +1745,112 @@ DOMContentLoaded.addEventOrExecute(() => {
                 }
             );
 
-            Fancybox.bind('[data-fancybox="product-gallery"]', {
-                Toolbar: { display: ['counter', 'close'] },
-                Thumbs: { autoStart: false },
-                on: {
-                    shouldClose: (fancybox, slide) => {
-                        if (!productSwiper) {
-                            return;
-                        }
-
-                        // Update position of the slider
-                        productSwiper.slideTo( fancybox.getSlide().index, 0 );
-                    },
-                },
-            });
+            // ============================================================================
+            // PATAGANG: Modal Customizado de Galeria com Thumbnails
+            // ============================================================================
+            
+            (function() {
+                const modal = document.getElementById('pg-modal-gallery');
+                if (!modal) return;
+                
+                const mainImage = document.getElementById('pg-modal-main-image');
+                const currentCounter = document.getElementById('pg-modal-current');
+                const thumbs = modal.querySelectorAll('.js-modal-thumb');
+                const closeButtons = modal.querySelectorAll('.js-close-modal-gallery');
+                const navButtons = modal.querySelectorAll('.js-modal-nav');
+                const openButtons = document.querySelectorAll('.js-open-modal-gallery');
+                
+                let currentIndex = 0;
+                const totalImages = thumbs.length;
+                
+                // Função para abrir o modal
+                function openModal(index) {
+                    currentIndex = index;
+                    updateMainImage();
+                    modal.classList.add('is-open');
+                    document.body.style.overflow = 'hidden';
+                }
+                
+                // Função para fechar o modal
+                function closeModal() {
+                    modal.classList.remove('is-open');
+                    document.body.style.overflow = '';
+                }
+                
+                // Função para atualizar a imagem principal
+                function updateMainImage() {
+                    const activeThumb = thumbs[currentIndex];
+                    if (!activeThumb) return;
+                    
+                    const imageUrl = activeThumb.dataset.imageOriginal || activeThumb.dataset.imageLarge;
+                    mainImage.src = imageUrl;
+                    
+                    // Atualizar estado ativo dos thumbnails
+                    thumbs.forEach((thumb, i) => {
+                        thumb.classList.toggle('is-active', i === currentIndex);
+                    });
+                    
+                    // Atualizar contador
+                    if (currentCounter) {
+                        currentCounter.textContent = currentIndex + 1;
+                    }
+                    
+                    // Scroll para o thumbnail ativo
+                    activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+                
+                // Navegação para próximo/anterior
+                function navigate(direction) {
+                    if (direction === 'next') {
+                        currentIndex = (currentIndex + 1) % totalImages;
+                    } else {
+                        currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+                    }
+                    updateMainImage();
+                }
+                
+                // Event listeners para abrir o modal
+                openButtons.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const index = parseInt(this.dataset.imageIndex) || 0;
+                        openModal(index);
+                    });
+                });
+                
+                // Event listeners para fechar o modal
+                closeButtons.forEach(btn => {
+                    btn.addEventListener('click', closeModal);
+                });
+                
+                // Event listeners para thumbnails
+                thumbs.forEach((thumb, index) => {
+                    thumb.addEventListener('click', function() {
+                        currentIndex = index;
+                        updateMainImage();
+                    });
+                });
+                
+                // Event listeners para navegação
+                navButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        navigate(this.dataset.direction);
+                    });
+                });
+                
+                // Fechar com ESC
+                document.addEventListener('keydown', function(e) {
+                    if (!modal.classList.contains('is-open')) return;
+                    
+                    if (e.key === 'Escape') {
+                        closeModal();
+                    } else if (e.key === 'ArrowRight') {
+                        navigate('next');
+                    } else if (e.key === 'ArrowLeft') {
+                        navigate('prev');
+                    }
+                });
+            })();
 
 	    {% if has_multiple_slides %}
 	        LS.registerOnChangeVariant(function(variant){

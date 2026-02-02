@@ -799,6 +799,145 @@ textarea{
   font-size: 14px;
 }
 
+/* ============================================
+   PATAGANG - NAV SEARCH (modal)
+   ============================================ */
+
+.modal-nav-search {
+  left: 50%;
+  top: 70px;
+  width: 92vw;
+  max-width: 720px;
+  height: auto;
+  max-height: calc(100vh - 140px);
+  transform: translateX(-50%);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #E2E2E2;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
+}
+
+.modal-nav-search.modal-show {
+  top: 70px;
+}
+
+.modal-nav-search .modal-body {
+  padding: 20px 24px 24px;
+  background: #E2E2E2;
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+}
+
+.modal-nav-search .pg-search-nav {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.modal-nav-search .pg-search-nav__input {
+  position: relative;
+}
+
+.modal-nav-search .pg-search-nav__field {
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.8);
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 14px;
+  padding: 0 48px 0 14px;
+}
+
+.modal-nav-search .pg-search-nav__submit {
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.pg-search-nav__quick {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pg-search-nav__label {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #000;
+}
+
+.pg-search-nav__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pg-search-nav__chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.7);
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #000;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.pg-search-nav__chip:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.35);
+  transform: translateY(-1px);
+}
+
+.pg-search-nav__suggest {
+  margin-top: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.8);
+  max-height: 220px;
+  overflow: auto;
+}
+
+@media (max-width: 768px) {
+  .modal-nav-search {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    transform: none;
+    border-radius: 0;
+  }
+
+  .modal-nav-search .modal-body {
+    padding: 16px 16px 20px;
+    max-height: none;
+  }
+
+  .modal-nav-search .pg-search-nav__field {
+    height: 42px;
+  }
+}
+
+/* ============================================
+   BARRA DE FRETE - TEXTO PRETO
+   ============================================ */
+
+.section-advertising,
+.section-advertising * {
+  color: #000 !important;
+}
+
 {#/*============================================================================
   #Footer
 ==============================================================================*/#}
@@ -3398,20 +3537,14 @@ button {
    Degradê idêntico ao PDP para consistência visual
    ============================================ */
 
-/* Estilos compartilhados - DEGRADÊ PARA O FOOTER */
+/* Estilos compartilhados - BACKGROUND PADRÃO #E2E2E2 */
 .pg-search-page,
 .pg-category-page {
     min-height: 60vh;
-    /* DEGRADÊ IGUAL AO PDP - Branco no topo, conecta com footer amarelo */
-    background: linear-gradient(180deg,
-        #FFFFFF 0%,           /* Topo - branco */
-        #FFFFFF 40%,          /* Mantém branco na área dos produtos */
-        #F5F5DC 60%,          /* Transição para tom creme/bege */
-        #E8F5A3 80%,          /* Amarelo bem claro */
-        #EAFE67 100%          /* Conecta com início do footer amarelo */
-    );
+    /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
+    background-color: #E2E2E2;
     padding: 100px 0 60px;
-    padding-bottom: 0; /* Sem padding inferior - degradê conecta direto */
+    padding-bottom: 0; /* Sem padding inferior - footer sucede direto */
     position: relative;
 }
 
@@ -3592,7 +3725,6 @@ button {
     overflow: hidden;
 }
 
-/* Quickshop container também precisa ser flex para herdar comportamento */
 .pg-product-grid .item-product .js-quickshop-container {
     display: flex;
     flex-direction: column;
@@ -4006,14 +4138,8 @@ button {
     min-height: 100vh;
     padding: 100px 0 0;
     position: relative;
-    /* FUNDO CLARO com degradê suave para o footer amarelo - igual página de produto */
-    background: linear-gradient(180deg,
-        #FFFFFF 0%,           /* Topo - branco */
-        #FFFFFF 50%,          /* Mantém branco na área do conteúdo */
-        #F5F5DC 70%,          /* Transição para tom creme/bege */
-        #E8F5A3 85%,          /* Amarelo bem claro */
-        #EAFE67 100%          /* Conecta com início do footer amarelo */
-    );
+    /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
+    background-color: #E2E2E2;
 }
 
 /* ============================================
@@ -4321,14 +4447,8 @@ button {
 @media (max-width: 768px) {
     .pg-page {
         padding-top: 110px; /* Banner (30px) + Header (70px) + Margem (10px) */
-        /* Gradiente ajustado para mobile */
-        background: linear-gradient(180deg,
-            #FFFFFF 0%,
-            #FFFFFF 40%,
-            #F5F5DC 65%,
-            #E8F5A3 85%,
-            #EAFE67 100%
-        );
+        /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
+        background-color: #E2E2E2;
     }
 
     .pg-page__container {
@@ -4399,20 +4519,15 @@ button {
 
 .pg-movimento {
     min-height: 100vh;
-    background: linear-gradient(180deg,
-        #FFFFFF 0%,
-        #FFFFFF 50%,
-        #F5F5DC 70%,
-        #E8F5A3 85%,
-        #EAFE67 100%
-    );
+    /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
+    background-color: #E2E2E2;
 }
 
 /* Navegação por Abas - Sticky */
 .pg-movimento__nav {
     position: sticky;
     top: 100px; /* Banner (30px) + Header (70px) */
-    background: rgba(255, 255, 255, 0.35);
+    background: transparent;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -4577,13 +4692,14 @@ button {
 /* Responsivo - Mobile */
 @media (max-width: 768px) {
     .pg-movimento__nav {
-        top: 60px;
+        top: 84px; /* Menos espaço entre header e nav no mobile */
         padding: 0 16px;
     }
 
     .pg-movimento__nav-container {
         gap: 8px;
         padding: 14px 0;
+        justify-content: center;
     }
 
     .pg-movimento__tab {
@@ -4593,7 +4709,7 @@ button {
     }
 
     .pg-movimento__body {
-        padding: 90px 24px 80px;
+        padding: 120px 24px 80px; /* Garante que nav não sobreponha o título */
     }
 
     .pg-movimento__title {
@@ -4620,7 +4736,7 @@ button {
 @media (max-width: 480px) {
     .pg-movimento__nav-container {
         gap: 6px;
-        justify-content: flex-start;
+        justify-content: center;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         padding: 12px 0;
@@ -4635,7 +4751,7 @@ button {
     }
 
     .pg-movimento__body {
-        padding: 80px 20px 60px;
+        padding: 110px 20px 60px; /* Evita sobreposição do título */
     }
 
     .pg-movimento__title {
@@ -5128,12 +5244,8 @@ input[type="submit"].btn-primary:hover {
 
 .pg-login-page {
     min-height: calc(100vh - 100px);
-    background: linear-gradient(180deg,
-        #FFFFFF 0%,
-        #FFFFFF 50%,
-        #F5FFC7 70%,
-        #EAFE67 100%
-    );
+    /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
+    background-color: #E2E2E2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6003,35 +6115,20 @@ body .item-actions .btn.btn-development {
     margin-bottom: 0 !important; /* Let gap handle spacing */
 }
 
-/* 3. Content Expansion (Pushes footer down) */
 .pg-product-grid .item-product .item-description {
-    flex-grow: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-start !important;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .pg-product-grid .item-product .item-link {
-    flex-grow: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-/* 4. Action Button Alignment (Always at bottom) */
 .pg-product-grid .item-product .item-actions {
     margin-top: auto !important;
-    width: 100% !important;
-    padding-top: 16px !important;
-}
-
-body .item-product .item-actions .btn.btn-development:hover,
-body .pg-product-grid .item-product .item-actions .btn.btn-development:hover,
-body .item-actions .btn.btn-development:hover {
-    background: #d4e655 !important;
-    background-color: #d4e655 !important;
-    color: #000000 !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 16px rgba(234, 254, 103, 0.3) !important;
 }
 
 /* PATAGANG: Fix border on shipping calculator items */

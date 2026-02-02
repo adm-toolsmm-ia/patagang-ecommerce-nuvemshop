@@ -8,13 +8,12 @@
     <nav class="pg-movimento__nav">
         <div class="pg-movimento__nav-container">
             <a href="/comunidade" class="pg-movimento__tab">
-                O Movimento / Comunidade
+                O Movimento
             </a>
             <a href="/sobre" class="pg-movimento__tab">
                 Sobre a Patagang
             </a>
-            <a href="/eventos" class="pg-movimento__tab">
-                Eventos
+
             </a>
             <a href="{{ store.blog_url }}" class="pg-movimento__tab is-active">
                 Blog

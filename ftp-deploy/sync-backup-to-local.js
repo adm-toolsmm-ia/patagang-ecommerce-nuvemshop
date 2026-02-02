@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 const { DIRS } = require('./config.js');
 
-const BACKUP_DIR = path.join(DIRS.backup, 'ftp-full', '2025-12-12T21-57-28');
+const BACKUP_DIR = path.join(DIRS.backup, 'version-01-official');
 const LOCAL_DIR = DIRS.theme;
 
 const colors = {

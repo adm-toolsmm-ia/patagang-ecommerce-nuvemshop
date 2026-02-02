@@ -85,25 +85,45 @@ function ensureLocalDir(filePath) {
     }
 }
 
-// Download de arquivo com retry
-async function downloadFileWithRetry(client, remotePath, localPath, retries = 3) {
+// Download de arquivo com retry e reconexão
+async function downloadFileWithRetry(client, remotePath, localPath, connectFn, retries = 5) {
     for (let attempt = 1; attempt <= retries; attempt++) {
         try {
+            // Verificar se o cliente está fechado antes de tentar
+            if (client.closed) {
+                // log(`Conexão fechada, tentando reconectar (tentativa ${attempt})...`, 'warning');
+                await connectFn();
+            }
+
             ensureLocalDir(localPath);
             await client.downloadTo(localPath, remotePath);
             return { success: true, file: remotePath, attempts: attempt };
         } catch (error) {
+            const isConnectionError = error.code === 'ECONNRESET' || error.message.includes('closed') || error.message.includes('socket');
+
+            if (isConnectionError && attempt < retries) {
+                // Se for erro de conexão, tenta reconectar explicitamente
+                try {
+                    client.close(); // Garante que está fechado
+                    await connectFn();
+                    continue; // Tenta novamente com nova conexão
+                } catch (connError) {
+                    // Se falhar na reconexão, espera um pouco mais
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                }
+            }
+
             if (attempt === retries) {
                 return { success: false, file: remotePath, error: error.message };
             }
-            // Não logar tentativas intermediárias para não poluir o output
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            // Não logar tentativas intermediárias para não poluir o output, exceto se for erro grave
+            await new Promise(resolve => setTimeout(resolve, 2000 * attempt));
         }
     }
 }
 
 // Download em lotes
-async function downloadInBatches(client, files, backupDir) {
+async function downloadInBatches(client, files, backupDir, connectFn) {
     const totalFiles = files.length;
     let downloaded = 0;
     let downloadedSize = 0;
@@ -127,7 +147,7 @@ async function downloadInBatches(client, files, backupDir) {
         for (const file of batch) {
             const localPath = path.join(backupDir, file.remote);
 
-            const result = await downloadFileWithRetry(client, file.remote, localPath);
+            const result = await downloadFileWithRetry(client, file.remote, localPath, connectFn);
 
             if (result.success) {
                 downloaded++;
@@ -285,21 +305,24 @@ async function main() {
     client.ftp.verbose = false;
 
     try {
-        log(`Conectando ao FTP ${FTP_CONFIG.host}...`, 'info');
+        // Função de conexão reutilizável
+        const connectFn = async () => {
+            log(`Conectando ao FTP ${FTP_CONFIG.host}...`, 'info');
+            await client.access({
+                host: FTP_CONFIG.host,
+                port: FTP_CONFIG.port,
+                user: FTP_CONFIG.user,
+                password: FTP_CONFIG.password,
+                secure: true,
+                secureOptions: {
+                    rejectUnauthorized: false
+                },
+                timeout: TIMEOUT_MS
+            });
+            log(`Conectado como ${FTP_CONFIG.user}`, 'success');
+        };
 
-        await client.access({
-            host: FTP_CONFIG.host,
-            port: FTP_CONFIG.port,
-            user: FTP_CONFIG.user,
-            password: FTP_CONFIG.password,
-            secure: true,
-            secureOptions: {
-                rejectUnauthorized: false
-            },
-            timeout: TIMEOUT_MS
-        });
-
-        log(`Conectado como ${FTP_CONFIG.user}`, 'success');
+        await connectFn();
         console.log();
 
         // Listar todos os arquivos
@@ -322,7 +345,7 @@ async function main() {
         // Fazer download de todos os arquivos
         const downloadStartTime = Date.now();
         log('Iniciando download dos arquivos...', 'info');
-        const result = await downloadInBatches(client, files, backupDir);
+        const result = await downloadInBatches(client, files, backupDir, connectFn);
 
         // Criar metadados
         log('Gerando metadados do backup...', 'info');

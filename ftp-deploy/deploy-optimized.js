@@ -702,15 +702,30 @@ async function main() {
             .toUpperCase();
         const versionId = `${deployId}-${filesHash}`;
 
-        // CRÍTICO: Garantir que layout.tpl sempre seja enviado para atualizar versão no console
-        // Mesmo que não tenha sido modificado, precisa ser enviado para atualizar a versão
+        // CRÍTICO: Garantir que layout.tpl sempre seja enviado e contém o placeholder de versão
+        // Isso garante cache-bust e validação correta a cada deploy
         const layoutTplPath = 'layouts/layout.tpl';
+        const layoutTplLocal = path.join(DIRS.theme, layoutTplPath);
+        if (fs.existsSync(layoutTplLocal)) {
+            const layoutContent = fs.readFileSync(layoutTplLocal, 'utf8');
+            if (!layoutContent.includes('PLACEHOLDER_VERSION_ID')) {
+                log('ERRO CRÍTICO: layout.tpl sem PLACEHOLDER_VERSION_ID.', 'error');
+                log('Isso impede a atualização automática de versão e cache-bust.', 'error');
+                log(`Arquivo: ${layoutTplLocal}`, 'error');
+                log('Restaure o placeholder e rode o deploy novamente.', 'error');
+                client.close();
+                process.exit(1);
+            }
+        } else {
+            log(`Aviso: layout.tpl não encontrado em ${layoutTplLocal}`, 'warning');
+        }
+
+        // Mesmo que não tenha sido modificado, precisa ser enviado para atualizar a versão
         const layoutTplInList = files.find(f => f.remote === layoutTplPath);
 
         if (!layoutTplInList && files.length > 0) {
             // layout.tpl não está na lista, mas há outros arquivos para enviar
             // Adicionar layout.tpl à lista para garantir atualização da versão
-            const layoutTplLocal = path.join(DIRS.theme, layoutTplPath);
             if (fs.existsSync(layoutTplLocal)) {
                 const layoutTplFile = {
                     local: layoutTplLocal,

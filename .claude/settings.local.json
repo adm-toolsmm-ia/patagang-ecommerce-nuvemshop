@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node deploy-optimized.js:*)",
+      "Bash(node ftp-deploy/deploy-optimized.js:*)",
+      "WebFetch(domain:docs.nuvemshop.com.br)",
+      "WebFetch(domain:tiendanube.github.io)"
+    ]
+  }
+}

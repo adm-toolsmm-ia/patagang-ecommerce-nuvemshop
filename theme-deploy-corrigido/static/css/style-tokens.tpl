@@ -14,7 +14,7 @@
   {% set secondary_color = settings.secondary_color %}
   {% set accent_color = settings.accent_color %}
 
-  {% set main_background = settings.background_color %}
+  {% set main_background = '#E2E2E2' %} {# PATAGANG: Cor fixa do protótipo #}
   {% set main_foreground = settings.text_color %}
 
   {% set button_background = settings.add_button_background_color %}
@@ -172,7 +172,7 @@
   {# Main colors #}
 
   --main-foreground: {{ main_foreground }};
-  --main-background: {{ main_background }};
+  --main-background: #E2E2E2; /* PATAGANG: Cor fixa */
 
   --primary-color: {{ primary_color }};
   --secondary-color: {{ secondary_color }};

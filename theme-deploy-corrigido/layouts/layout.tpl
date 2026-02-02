@@ -83,6 +83,12 @@
 
         <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
 
+        {# HOME V2 - Estilos específicos da nova home page #}
+        {% if template == 'home' %}
+            {# Cache busting: força navegador a carregar versão mais recente #}
+            <link rel="stylesheet" href="{{ 'css/style-home-v2.css' | static_url }}?v=2026-02-01T23-30">
+        {% endif %}
+
         {# Blog styles - PATAGANG - Load immediately, not async #}
 
         <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}">
@@ -121,10 +127,8 @@
 
         {{ component('structured-data') }}
 
-        {# Versão do Deploy - Atualizado automaticamente pelo script de deploy #}
-        {# DEPLOY_VERSION: PLACEHOLDER_VERSION_ID #}
-        <meta name="deploy-version" content="PLACEHOLDER_VERSION_ID" />
 
+    
     </head>
     <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}" data-deploy-version="PLACEHOLDER_VERSION_ID">
         {# Console log com versão do deploy - Para facilitar validação #}
@@ -250,3 +254,5 @@
 
     </body>
 </html>
+
+{# deploy touch - no output #}

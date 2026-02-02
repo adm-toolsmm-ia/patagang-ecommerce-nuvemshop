@@ -75,6 +75,7 @@
           class="pg-cart-item__remove js-cart-item-remove"
           data-item-id="{{ item.id }}"
           data-component="line-item.remove"
+          onclick="if (typeof event !== 'undefined') { event.preventDefault(); event.stopPropagation(); } if (confirm('{{ '¿Seguro que quieres borrar este artículo?' | translate | escape('js') }}')) { if (typeof LS !== 'undefined' && LS.removeItem) { LS.removeItem({{ item.id }}, true); } } return false;"
           aria-label="Remover item">
     {% include "snipplets/svg/trash-alt.tpl" with {svg_custom_class: "icon-inline"} %}
   </button>

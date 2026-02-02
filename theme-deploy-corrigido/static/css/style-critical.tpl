@@ -73,6 +73,237 @@ critical-css.tpl
 
 ==============================================================================*/
 
+/* ============================================================================
+   PATAGANG - Background Global Padronizado
+   Cor #E2E2E2 conforme protótipo Adobe XD
+   Transição suave para rodapé branco #FFFFFF
+============================================================================ */
+
+body {
+    background-color: #E2E2E2 !important;
+    min-height: 100vh;
+}
+
+/* Seções que devem ter background global #E2E2E2 forçado */
+.section-products-related,
+#reviewsapp,
+.pg-pdp-reviews-container,
+.pg-pdp-extras-container,
+.js-related-products,
+.js-complementary-products,
+.content-container,
+main#content,
+/* Componentes PDP */
+.section-fb-comments,
+.pg-section,
+.pg-products-grid,
+#single-product,
+#product-related,
+/* Containers de páginas internas */
+.page-content,
+.category-header,
+.search-results,
+.account-page-content,
+.login-container,
+.blog-container,
+.blog-wrapper,
+.institutional-page,
+.contact-page,
+.form-container,
+.cart-container,
+.checkout-container,
+/* Containers estruturais */
+.container-fluid,
+.row-fluid,
+.section,
+.main,
+.wrapper {
+    background-color: #E2E2E2 !important;
+    background: #E2E2E2 !important;
+}
+
+/* ============================================================================
+   PATAGANG - Footer com Transição Suave (Páginas Internas)
+   Cinza #E2E2E2 → Branco #FFFFFF
+============================================================================ */
+
+/* Footer base - sem divisoria, sem linha branca */
+.main-footer {
+    background-color: #E2E2E2 !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+    position: relative;
+}
+
+/* Pseudo-elemento removido - a custom .footer cuida do gradiente */
+.main-footer::before {
+    display: none !important;
+    content: none !important;
+}
+
+/* ============================================
+   CORREÇÃO 1: SECTION ADVERTISING (Restaurar + Remover Overlay)
+   ============================================ */
+.section-advertising {
+    background-color: transparent !important;
+    background: transparent !important;
+    color: #000000 !important;
+    opacity: 1 !important;
+    z-index: 10001 !important; /* Acima de tudo e overlays */
+    -webkit-filter: none !important;
+    filter: none !important;
+}
+
+/* Remover qualquer cor/filtro/cinza herdado em links/texto */
+.section-advertising *,
+.section-advertising a,
+.section-advertising p,
+.section-advertising span,
+.section-advertising div,
+.section-advertising .col,
+.section-advertising .row-fluid,
+.section-advertising .container,
+.section-advertising .text-center,
+.section-advertising .link-contrast {
+    color: #000000 !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    -webkit-filter: none !important;
+    filter: none !important;
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* ============================================
+   CORREÇÃO 2: PÁGINAS DE CONTA - PADRÃO PATAGANG
+   Background #E2E2E2, card branco centralizado
+   ============================================ */
+.pg-account-page {
+    min-height: calc(100vh - 100px);
+    background-color: #E2E2E2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 120px 20px 80px;
+}
+
+.pg-account-page__container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.pg-account-card {
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    padding: 32px 28px;
+}
+
+.pg-account-card__title {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 24px 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+    .pg-account-page {
+        padding: 140px 20px 100px;
+    }
+    .pg-account-card {
+        padding: 40px 36px;
+    }
+}
+
+/* Fallback: old .account-page class (caso algum template antigo permaneça) */
+.account-page,
+#account-orders,
+#account-addresses,
+#account-info,
+.page-account {
+    padding-top: 200px !important;
+    padding-bottom: 80px;
+    min-height: 80vh;
+}
+
+.account-page .container,
+.page-account .container {
+    background: #FFFFFF;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    position: relative;
+    z-index: 10;
+}
+
+.account-page .page-header h1,
+.account-page .page-header,
+.page-account .page-header {
+    margin-top: 0;
+    padding-top: 0;
+    margin-bottom: 30px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.account-page .breadcrumb,
+.page-account .breadcrumb {
+    display: none;
+}
+
+/* ============================================
+   CORREÇÃO 3: REMOVER MARGEM RODAPÉ
+   ============================================ */
+main > .container-fluid:last-child,
+.account-page,
+.pg-page,
+.pg-login-page {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.pg-account-page {
+    margin-bottom: 0 !important;
+}
+
+.section-products-related {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    background-color: #E2E2E2 !important;
+}
+
+/* Garantir que nenhum gap branco apareca entre conteudo e footer */
+.main-footer,
+.footer {
+    background-color: #E2E2E2 !important;
+}
+
+/* Remover my-3 margin-bottom em related products (ultimo elemento antes do footer) */
+.section-products-related.my-3 {
+    margin-bottom: 0 !important;
+}
+
+/* Home mantém sua transição amarela específica (exceção) */
+.footer-home.main-footer::before {
+    background: linear-gradient(to bottom,
+        rgba(234, 254, 103, 0.15) 0%,
+        rgba(234, 254, 103, 0.05) 50%,
+        transparent 100%);
+    top: 0;
+    height: 300px;
+}
+
+/* ============================================================================ */
+
+
 /*============================================================================
   #External CSS libraries and plugins
 ==============================================================================*/
@@ -95,6 +326,15 @@ critical-css.tpl
 }
 .display-when-content-ready{
 	display: none!important;
+}
+
+/* Home V2: garante visibilidade mesmo se CSS async falhar */
+body.template-home .visible-when-content-ready{
+	visibility: visible!important;
+}
+body.template-home .pg-hero-v2,
+body.template-home .pg-section--grid-bg{
+	visibility: visible!important;
 }
 
 /*============================================================================
@@ -498,113 +738,6 @@ body{
   height: 100%;
 }
 
-/* Busca inline expansível - hover */
-.pg-header__search-wrapper {
-  display: flex;
-  align-items: center;
-  position: relative;
-  height: 44px; /* Mesma altura dos botões */
-}
-
-.pg-header__search-form {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  width: 44px; /* Mesma largura dos botões */
-  height: 44px; /* Mesma altura dos botões */
-  border-radius: 6px;
-  background: rgba(200, 200, 200, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: width 0.3s ease;
-}
-
-.pg-header__search-wrapper:hover .pg-header__search-form,
-.pg-header__search-wrapper:focus-within .pg-header__search-form,
-.pg-header__search-wrapper.is-open .pg-header__search-form {
-  width: 200px;
-}
-
-@media (min-width: 768px) {
-  .pg-header__search-wrapper:hover .pg-header__search-form,
-  .pg-header__search-wrapper:focus-within .pg-header__search-form,
-  .pg-header__search-wrapper.is-open .pg-header__search-form {
-    width: 240px;
-  }
-}
-
-.pg-header__search-input {
-  /* Estado fechado: não ocupa espaço para centralizar a lupa */
-  width: 0;
-  min-width: 0;
-  padding: 0;
-  height: 100%;
-  border: none;
-  background: transparent;
-  font-size: 0.875rem;
-  font-family: inherit;
-  color: var(--pg-color-black);
-  outline: none;
-  opacity: 0;
-  transition: opacity 0.2s ease 0.1s, width 0.3s ease, padding 0.3s ease;
-}
-
-/* Estado aberto: input expande e fica visível */
-.pg-header__search-wrapper:hover .pg-header__search-input,
-.pg-header__search-wrapper:focus-within .pg-header__search-input,
-.pg-header__search-wrapper.is-open .pg-header__search-input {
-  width: auto;
-  flex: 1;
-  padding: 0 8px 0 12px;
-  opacity: 1;
-}
-
-.pg-header__search-input::placeholder {
-  color: #EAFE67;
-  font-weight: 500;
-}
-
-.pg-header__search-submit {
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-.pg-header__search-submit img {
-  width: 18px;
-  height: 18px;
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-.pg-header__search-toggle {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  opacity: 1;
-  transition: opacity 0.2s ease;
-}
-
-.pg-header__search-wrapper:hover .pg-header__search-toggle,
-.pg-header__search-wrapper:focus-within .pg-header__search-toggle,
-.pg-header__search-wrapper.is-open .pg-header__search-toggle {
-  opacity: 0;
-  pointer-events: none; /* Desabilitar apenas quando invisível */
-}
-
 .pg-header__cart-count {
   position: absolute;
   top: -4px;
@@ -624,22 +757,9 @@ body{
 }
 
 /* ===========================================
-   MOBILE SEARCH FIX - Sistema Unificado
-   Apenas 1 componente de busca (FORM)
+   MOBILE HEADER FIX
    =========================================== */
 @media (max-width: 767px) {
-
-  /* ========================================= */
-  /* 1. ESCONDER O TOGGLE DUPLICADO           */
-  /* Apenas o FORM será usado no mobile       */
-  /* ========================================= */
-  .pg-header__search-toggle {
-    display: none !important;
-  }
-
-  /* ========================================= */
-  /* 2. POSICIONAMENTO BASE                   */
-  /* ========================================= */
 
   /* Logo centralizada */
   .pg-header__logo {
@@ -647,138 +767,21 @@ body{
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
-
-  /* Wrapper da busca */
-  .pg-header__search-wrapper {
-    position: relative;
-    z-index: 10;
-  }
-
-  /* ========================================= */
-  /* 3. ESTADO FECHADO - Apenas lupa visível  */
-  /* ========================================= */
-
-  /* Form fechado: apenas 44px (lupa) */
-  .pg-header__search-form {
-    width: 44px;
-    height: 44px;
-    overflow: hidden;
-  }
-
-  /* Input escondido quando fechado */
-  .pg-header__search-input {
-    opacity: 0;
-    width: 0;
-    padding: 0;
-  }
-
-  /* ========================================= */
-  /* 4. ESTADO ABERTO - Expande sobre a logo  */
-  /* ========================================= */
-
-  /* Wrapper aberto: z-index alto */
-  .pg-header__search-wrapper.is-open {
-    z-index: 100;
-  }
-
-  /* Logo escondida quando busca aberta */
-  .pg-header__row.is-search-open .pg-header__logo {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
-  /* Form expandido */
-  .pg-header__search-wrapper.is-open .pg-header__search-form {
-    width: calc(100vw - 160px) !important;
-    background: rgba(200, 200, 200, 0.7) !important;
-    backdrop-filter: blur(8px) !important;
-    -webkit-backdrop-filter: blur(8px) !important;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    z-index: 110;
-  }
-
-  /* Input visível quando aberto */
-  .pg-header__search-wrapper.is-open .pg-header__search-input {
-    opacity: 1;
-    width: auto;
-    flex: 1;
-    padding: 0 8px 0 12px;
-  }
-
-  /* ========================================= */
-  /* 5. BOTÃO DE FECHAR (X)                   */
-  /* ========================================= */
-
-  .pg-header__search-close {
-    display: none;
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-size: 20px;
-    color: var(--pg-color-black);
-    font-weight: 300;
-    line-height: 1;
-    z-index: 120;
-    position: relative;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-  }
-
-  /* Mostra X quando aberto */
-  .pg-header__search-wrapper.is-open .pg-header__search-close {
-    display: flex;
-  }
-
-  /* ========================================= */
-  /* 6. LUPA (SUBMIT) - Sempre visível        */
-  /* ========================================= */
-
-  .pg-header__search-submit {
-    width: 44px;
-    height: 44px;
-    flex-shrink: 0;
-  }
-
-  /* ========================================= */
-  /* FIX: Remover cor azul padrão do mobile   */
-  /* ========================================= */
 
   /* Remover highlight azul ao tocar (Safari/iOS/Android) */
-  .pg-header__search-toggle,
-  .pg-header__search-submit,
-  .pg-header__search-close,
   .pg-header__icon-button {
     -webkit-tap-highlight-color: transparent !important;
     -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
-    tap-highlight-color: transparent !important;
   }
 
-  /* Forçar apenas STROKE (contorno) nos SVGs - SEM FILL (preenchimento) */
-  .pg-header__search-toggle svg,
-  .pg-header__search-submit svg,
+  /* Forçar apenas STROKE nos SVGs dos botões */
   .pg-header__icon-button svg {
-    fill: none !important; /* Remove preenchimento */
-    stroke: currentColor !important; /* Mantém apenas contorno */
+    fill: none !important;
+    stroke: currentColor !important;
     color: var(--pg-color-black) !important;
   }
 
-  /* Remover estilos azuis de :active, :focus, :visited */
-  .pg-header__search-toggle:active,
-  .pg-header__search-toggle:focus,
-  .pg-header__search-toggle:visited,
-  .pg-header__search-submit:active,
-  .pg-header__search-submit:focus,
-  .pg-header__search-submit:visited,
   .pg-header__icon-button:active,
   .pg-header__icon-button:focus,
   .pg-header__icon-button:visited {
@@ -788,16 +791,393 @@ body{
     border: none !important;
   }
 
-  /* Garantir que SVGs dentro dos botões também fiquem apenas com contorno */
-  .pg-header__search-toggle:active svg,
-  .pg-header__search-toggle:focus svg,
-  .pg-header__search-submit:active svg,
-  .pg-header__search-submit:focus svg,
   .pg-header__icon-button:active svg,
   .pg-header__icon-button:focus svg {
-    fill: none !important; /* Remove preenchimento */
-    stroke: currentColor !important; /* Apenas contorno */
+    fill: none !important;
+    stroke: currentColor !important;
     color: var(--pg-color-black) !important;
+  }
+}
+
+/* ============================================
+   PataGang Search Overlay
+   ============================================ */
+
+.pg-search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: none;
+  flex-direction: column;
+}
+
+.pg-search-overlay.is-active {
+  display: flex;
+}
+
+/* Body lock quando overlay aberto */
+body.pg-search-overlay-open {
+  overflow: hidden;
+}
+
+/* Backdrop semi-transparente */
+.pg-search-overlay__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+/* Painel principal - desliza do topo */
+.pg-search-overlay__panel {
+  position: relative;
+  z-index: 2;
+  background: #E2E2E2;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: pgSearchSlideDown 0.25s ease-out;
+}
+
+@keyframes pgSearchSlideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Barra superior com fechar */
+.pg-search-overlay__topbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 24px;
+}
+
+.pg-search-overlay__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pg-color-black);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+}
+
+.pg-search-overlay__close:hover {
+  opacity: 0.7;
+}
+
+/* Desktop: "Fechar" texto. Mobile: X ícone */
+.pg-search-overlay__close-icon { display: none; }
+
+/* Wrapper do form */
+.pg-search-overlay__form-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 32px;
+  width: 100%;
+  position: relative;
+}
+
+.pg-search-overlay__form {
+  margin: 0;
+}
+
+.pg-search-overlay__input-group {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 28px;
+  overflow: hidden;
+  height: 52px;
+}
+
+.pg-search-overlay__input {
+  flex: 1;
+  height: 100%;
+  padding: 0 20px;
+  border: none;
+  background: transparent;
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 16px;
+  color: var(--pg-color-black);
+  outline: none;
+}
+
+.pg-search-overlay__input::placeholder {
+  color: #888;
+  font-weight: 400;
+}
+
+.pg-search-overlay__submit {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pg-color-black);
+}
+
+.pg-search-overlay__submit:hover {
+  opacity: 0.7;
+}
+
+/* Sugestões AJAX */
+.pg-search-overlay__suggestions {
+  margin-top: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pg-search-overlay__suggestions .search-suggest-list {
+  margin: 0;
+  padding: 12px 0;
+  list-style: none;
+}
+
+.pg-search-overlay__suggestions .search-suggest-item {
+  padding: 10px 20px;
+}
+
+.pg-search-overlay__suggestions .search-suggest-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--pg-color-black);
+}
+
+.pg-search-overlay__suggestions .search-suggest-image {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.pg-search-overlay__suggestions .js-search-suggest-all-link {
+  display: block;
+  text-align: center;
+  padding: 14px;
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--pg-color-black);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0 0 12px 12px;
+  margin-top: 4px;
+}
+
+/* Conteúdo default: colunas */
+.pg-search-overlay__default-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px 24px 40px;
+}
+
+.pg-search-overlay__columns {
+  display: flex;
+  gap: 48px;
+}
+
+.pg-search-overlay__col--tags {
+  flex: 0 0 200px;
+}
+
+.pg-search-overlay__col--products {
+  flex: 1;
+  min-width: 0;
+}
+
+.pg-search-overlay__section-title {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 16px 0;
+  color: var(--pg-color-black);
+}
+
+/* Tags / chips de busca rápida */
+.pg-search-overlay__tags {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pg-search-overlay__tag {
+  display: block;
+  padding: 8px 0;
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--pg-color-black);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.pg-search-overlay__tag:hover {
+  color: #666;
+}
+
+/* Carrossel de produtos */
+.pg-search-overlay__products-carousel {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.pg-search-overlay__products-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.pg-search-overlay__product-card {
+  flex: 0 0 160px;
+  scroll-snap-align: start;
+  text-decoration: none;
+  color: var(--pg-color-black);
+  transition: transform 0.2s;
+}
+
+.pg-search-overlay__product-card:hover {
+  transform: translateY(-2px);
+}
+
+.pg-search-overlay__product-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.5);
+  margin-bottom: 8px;
+}
+
+.pg-search-overlay__product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pg-search-overlay__product-name {
+  font-size: 12px;
+  font-weight: 500;
+  margin: 0 0 2px;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pg-search-overlay__product-price {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.pg-search-overlay__product-price--compare {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.pg-search-overlay__product-price--compare strong {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.pg-search-overlay__empty {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+/* ============================================
+   SEARCH OVERLAY - Mobile (< 768px)
+   ============================================ */
+@media (max-width: 767px) {
+  .pg-search-overlay__panel {
+    max-height: 100vh;
+    min-height: 100vh;
+  }
+
+  .pg-search-overlay__close-text { display: none; }
+  .pg-search-overlay__close-icon {
+    display: block;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .pg-search-overlay__topbar {
+    padding: 12px 16px;
+  }
+
+  .pg-search-overlay__form-wrapper {
+    padding: 0 16px 24px;
+  }
+
+  .pg-search-overlay__default-content {
+    padding: 12px 16px 32px;
+  }
+
+  .pg-search-overlay__columns {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .pg-search-overlay__col--tags {
+    flex: none;
+  }
+
+  /* Tags scrollam horizontal no mobile */
+  .pg-search-overlay__tags {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+
+  .pg-search-overlay__tags::-webkit-scrollbar { display: none; }
+
+  .pg-search-overlay__tag {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    white-space: nowrap;
+    font-size: 13px;
+  }
+
+  .pg-search-overlay__product-card {
+    flex: 0 0 130px;
+  }
+
+  .pg-search-overlay__product-img {
+    width: 130px;
+    height: 130px;
   }
 }
 
@@ -1712,8 +2092,8 @@ p{
   padding: 8px 0; /* Aumentado de 5px para 8px */
   
   /* Design Patagang - Preto sem borda */
-  background: #000000;
-  color: #FFFFFF;
+  background: transparent;
+  color: #000000;
   /* border-bottom: 3px solid #EAFE67; */ /* REMOVIDO - Faixa verde */
   font-size: 13px;
   font-weight: 600;
@@ -1722,7 +2102,7 @@ p{
 }
 
 .section-advertising a {
-  color: #EAFE67; /* Links em verde limão */
+  color: #000000 !important;
   font-weight: 700;
   text-decoration: none;
   transition: opacity 0.3s ease;
@@ -3465,19 +3845,13 @@ p{
 REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 ==============================================================================*/
 
-/* Container principal - FUNDO CLARO COM DEGRADÊ PARA O FOOTER AMARELO */
+/* Container principal - BACKGROUND PADRÃO #E2E2E2 */
 .pg-pdp-container {
 	padding-top: 90px;
-	padding-bottom: 0; /* Sem padding - degradê conecta direto com footer */
+	padding-bottom: 0; /* Sem padding - footer sucede direto */
 	margin: 0 !important;
-	/* FUNDO CLARO com degradê suave para o footer amarelo */
-	background: linear-gradient(180deg,
-		#FFFFFF 0%,           /* Topo - branco */
-		#FFFFFF 50%,          /* Mantém branco na área dos cards */
-		#F5F5DC 70%,          /* Transição para tom creme/bege */
-		#E8F5A3 85%,          /* Amarelo bem claro */
-		#EAFE67 100%          /* Conecta com início do footer amarelo */
-	);
+	/* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
+	background-color: #E2E2E2;
 	min-height: calc(100vh - 60px);
 	display: flex;
 	align-items: flex-start;
@@ -3513,14 +3887,20 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		align-self: flex-start !important; /* Imagem alinha no topo */
 	}
 
-	/* COLUNA DIREITA - Info - CENTRALIZADA VERTICALMENTE */
+	/* COLUNA DIREITA - Info - ALINHADA AO TOPO */
 	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
 		flex: 0 0 40% !important;
 		max-width: 40% !important;
 		width: 40% !important;
 		padding: 0 !important;
-		align-self: center !important; /* Card centralizado em relação à imagem */
+		padding-top: 16px !important; /* Alinha com grid de imagens */
+		align-self: flex-start !important; /* Alinha ao topo */
 	}
+}
+
+/* Background agora é global no body - manter transparente aqui */
+#single-product {
+	background: transparent;
 }
 
 /* COLUNA ESQUERDA - Imagem SEM BORDAS, SEM CARD */
@@ -4049,14 +4429,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		padding-top: 80px;
 		padding-bottom: 0;
 		align-items: flex-start;
-		/* FUNDO CLARO com degradê para o footer amarelo */
-		background: linear-gradient(180deg,
-			#FFFFFF 0%,
-			#FFFFFF 40%,
-			#F5F5DC 65%,
-			#E8F5A3 85%,
-			#EAFE67 100%
-		);
+		/* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
+		background-color: #E2E2E2;
 	}
 
 	.pg-pdp-container .section-single-product {
@@ -5382,3 +5756,589 @@ select {
 }
 
 /* CSS LEGADO REMOVIDO - Sistema de busca unificado no bloco MOBILE SEARCH FIX acima */
+
+/* ============================================================================
+   PATAGANG - Grid de 2 Colunas de Imagens (Desktop)
+   Layout similar ZêDog - fotos lado a lado com card à direita
+============================================================================ */
+
+/* Container principal do grid */
+.pg-gallery-container {
+    position: relative;
+    width: 100%;
+    padding: 16px;
+}
+
+/* Grid de 2 colunas */
+.pg-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+}
+
+/* Cada item do grid */
+.pg-gallery-item {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #f5f5f5;
+    border-radius: 4px;
+    aspect-ratio: 1 / 1; /* Quadrado como na referência */
+}
+
+/* Link clicável */
+.pg-gallery-link {
+    display: block;
+    position: absolute;
+    inset: 0;
+    cursor: zoom-in;
+}
+
+/* Imagem - preenche o quadrado */
+.pg-gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect - sutil */
+.pg-gallery-link:hover .pg-gallery-img {
+    transform: scale(1.03);
+}
+
+/* Ícone de zoom */
+.pg-gallery-zoom-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pg-gallery-link:hover .pg-gallery-zoom-icon {
+    opacity: 1;
+}
+
+/* ============================================================================
+   PATAGANG - Modal Customizado com Thumbnails Laterais
+============================================================================ */
+
+/* Modal Overlay */
+.pg-modal-gallery {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.pg-modal-gallery.is-open {
+    display: flex;
+    opacity: 1;
+}
+
+/* Backdrop */
+.pg-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.98);
+    cursor: pointer;
+}
+
+/* Container principal */
+.pg-modal-container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    z-index: 1;
+}
+
+/* Sidebar com Thumbnails */
+.pg-modal-sidebar {
+    width: 90px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 20px;
+}
+
+/* Container dos thumbnails com scroll */
+.pg-modal-thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 100%;
+    overflow-y: auto;
+    padding: 10px 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.pg-modal-thumbs::-webkit-scrollbar {
+    width: 4px;
+}
+
+.pg-modal-thumbs::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pg-modal-thumbs::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+/* Cada thumbnail */
+.pg-modal-thumb {
+    width: 64px;
+    height: 64px;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #f5f5f5;
+    padding: 0;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.pg-modal-thumb:hover {
+    opacity: 0.85;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.pg-modal-thumb.is-active {
+    opacity: 1;
+    border-color: #000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pg-modal-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Área da imagem principal */
+.pg-modal-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Imagem principal */
+.pg-modal-main-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: opacity 0.2s ease;
+}
+
+/* Navegação com setas */
+.pg-modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.pg-modal-nav:hover {
+    background: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.pg-modal-nav--prev {
+    left: 10px;
+}
+
+.pg-modal-nav--next {
+    right: 10px;
+}
+
+/* Botão fechar */
+.pg-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.pg-modal-close:hover {
+    background: #fff;
+    transform: scale(1.05);
+}
+
+/* Contador */
+.pg-modal-counter {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px 16px;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================================
+   Responsivo - Mobile
+============================================================================ */
+
+@media (max-width: 991px) {
+    /* Modal em fullscreen no mobile */
+    .pg-modal-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    /* Thumbnails na parte inferior */
+    .pg-modal-sidebar {
+        width: 100%;
+        order: 2;
+        padding: 10px 0 0;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .pg-modal-thumbs {
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        max-width: 100%;
+        gap: 8px;
+        padding: 0;
+    }
+
+    .pg-modal-thumb {
+        width: 52px;
+        height: 52px;
+    }
+
+    .pg-modal-main {
+        order: 1;
+        flex: 1;
+    }
+
+    /* Setas menores */
+    .pg-modal-nav {
+        width: 40px;
+        height: 40px;
+    }
+
+    .pg-modal-close {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .pg-modal-counter {
+        top: 10px;
+    }
+}
+
+
+
+/* FIM DOS ESTILOS PATAGANG */
+
+
+
+
+
+
+
+
+
+
+/* Forçar o carousel a NÃO usar transformações horizontais */
+.pg-fancybox-gallery .fancybox__thumbs .carousel,
+.pg-fancybox-gallery .fancybox__thumbs .f-carousel {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 60vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Viewport - contém os slides */
+.pg-fancybox-gallery .fancybox__thumbs .carousel__viewport,
+.pg-fancybox-gallery .fancybox__thumbs .f-carousel__viewport {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 60vh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Track - CRÍTICO: forçar display flex em coluna e remover transforms */
+.pg-fancybox-gallery .fancybox__thumbs .carousel__track,
+.pg-fancybox-gallery .fancybox__thumbs .f-carousel__track {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+    width: 100% !important;
+    height: auto !important;
+    transform: none !important;
+    transition: none !important;
+    position: relative !important;
+}
+
+/* Cada slide - CRÍTICO: posição relativa, não absoluta */
+.pg-fancybox-gallery .fancybox__thumbs .carousel__slide,
+.pg-fancybox-gallery .fancybox__thumbs .f-carousel__slide {
+    position: relative !important;
+    width: 56px !important;
+    height: 56px !important;
+    min-height: 56px !important;
+    max-height: 56px !important;
+    flex: 0 0 56px !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+}
+
+/* Scrollbar sutil */
+.pg-fancybox-gallery .fancybox__thumbs::-webkit-scrollbar {
+    width: 4px;
+}
+
+.pg-fancybox-gallery .fancybox__thumbs::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pg-fancybox-gallery .fancybox__thumbs::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+}
+
+/* Container de cada thumbnail */
+.pg-fancybox-gallery .fancybox__thumb {
+    width: 56px !important;
+    height: 56px !important;
+    min-width: 56px !important;
+    min-height: 56px !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+    opacity: 0.5 !important;
+    cursor: pointer !important;
+    transition: opacity 0.2s ease, border-color 0.2s ease !important;
+    border: 2px solid transparent !important;
+    display: block !important;
+    background: #f5f5f5 !important;
+}
+
+.pg-fancybox-gallery .fancybox__thumb:hover {
+    opacity: 0.85 !important;
+    border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Thumbnail ativo */
+.pg-fancybox-gallery .fancybox__thumb.is-nav-selected,
+.pg-fancybox-gallery .fancybox__thumb.is-selected,
+.pg-fancybox-gallery .fancybox__thumb[aria-current="true"] {
+    opacity: 1 !important;
+    border-color: #000 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Imagem dentro do thumbnail */
+.pg-fancybox-gallery .fancybox__thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* ============================================================================
+   Toolbar - Estilo minimalista
+============================================================================ */
+
+.pg-fancybox-gallery .fancybox__toolbar {
+    background: transparent !important;
+    padding: 16px 20px !important;
+}
+
+/* Botões da toolbar */
+.pg-fancybox-gallery .fancybox__button {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 50% !important;
+    width: 40px !important;
+    height: 40px !important;
+    color: #333 !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.pg-fancybox-gallery .fancybox__button:hover {
+    background: #fff !important;
+    color: #000 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Contador de slides */
+.pg-fancybox-gallery .fancybox__counter {
+    color: #333 !important;
+    font-family: 'Familjen Grotesk', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* ============================================================================
+   Navegação - setas laterais
+============================================================================ */
+
+.pg-fancybox-gallery .fancybox__nav {
+    padding: 0 !important;
+}
+
+.pg-fancybox-gallery .fancybox__button--prev,
+.pg-fancybox-gallery .fancybox__button--next {
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border-radius: 50% !important;
+    color: #333 !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+    transition: all 0.2s ease !important;
+}
+
+.pg-fancybox-gallery .fancybox__button--prev:hover,
+.pg-fancybox-gallery .fancybox__button--next:hover {
+    background: #fff !important;
+    color: #000 !important;
+    transform: scale(1.05) !important;
+}
+
+/* Posição das setas - ajustada para não sobrepor thumbnails */
+.pg-fancybox-gallery .fancybox__button--prev {
+    left: 120px !important;
+}
+
+.pg-fancybox-gallery .fancybox__button--next {
+    right: 20px !important;
+}
+
+/* ============================================================================
+   Responsivo - Mobile
+============================================================================ */
+
+@media (max-width: 767px) {
+    /* Em mobile, thumbnails ficam na parte inferior */
+    .pg-fancybox-gallery .fancybox__carousel {
+        padding-left: 0 !important;
+        padding-bottom: 90px !important;
+    }
+
+    .pg-fancybox-gallery .fancybox__thumbs {
+        position: fixed !important;
+        left: 50% !important;
+        top: auto !important;
+        bottom: 20px !important;
+        transform: translateX(-50%) !important;
+        width: auto !important;
+        max-width: 90vw !important;
+        height: 60px !important;
+        max-height: none !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        padding: 8px 12px !important;
+    }
+
+    .pg-fancybox-gallery .fancybox__thumb {
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+    }
+
+    /* Setas em mobile */
+    .pg-fancybox-gallery .fancybox__button--prev {
+        left: 10px !important;
+    }
+
+    .pg-fancybox-gallery .fancybox__button--next {
+        right: 10px !important;
+    }
+
+    .pg-fancybox-gallery .fancybox__button--prev,
+    .pg-fancybox-gallery .fancybox__button--next {
+        width: 40px !important;
+        height: 40px !important;
+    }
+}
+
+/* Tablet - ajustes */
+@media (min-width: 768px) and (max-width: 991px) {
+    .pg-fancybox-gallery .fancybox__thumbs {
+        width: 60px !important;
+        left: 15px !important;
+    }
+
+    .pg-fancybox-gallery .fancybox__thumb {
+        width: 46px !important;
+        height: 46px !important;
+        min-width: 46px !important;
+    }
+
+    .pg-fancybox-gallery .fancybox__carousel {
+        padding-left: 85px !important;
+    }
+
+    .pg-fancybox-gallery .fancybox__button--prev {
+        left: 95px !important;
+    }
+}

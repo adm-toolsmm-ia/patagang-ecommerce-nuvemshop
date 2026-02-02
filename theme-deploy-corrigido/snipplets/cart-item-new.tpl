@@ -79,6 +79,7 @@
     <button type="button"
             class="pg-cart-card__remove js-pg-item-remove"
             data-item-id="{{ item.id }}"
+            onclick="if (typeof event !== 'undefined') { event.preventDefault(); event.stopPropagation(); } if (confirm('{{ '¿Seguro que quieres borrar este artículo?' | translate | escape('js') }}')) { if (typeof LS !== 'undefined' && LS.removeItem) { LS.removeItem({{ item.id }}, true); } } return false;"
             aria-label="Remover {{ item.short_name }}">
         {% include "snipplets/svg/times.tpl" with {svg_custom_class: "icon-inline"} %}
     </button>

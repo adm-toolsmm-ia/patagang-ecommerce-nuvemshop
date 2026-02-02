@@ -8,7 +8,7 @@ const path = require('path');
 const crypto = require('crypto');
 const { DIRS } = require('./config.js');
 
-const BACKUP_DIR = path.join(DIRS.backup, 'ftp-full', '2025-12-12T21-57-28');
+const BACKUP_DIR = path.join(DIRS.backup, 'version-01-official');
 const LOCAL_DIR = DIRS.theme;
 
 const colors = {
@@ -48,7 +48,7 @@ function getAllFiles(dirPath) {
                     files[rel.replace(/\\/g, '/')] = { path: fullPath, hash: getFileHash(fullPath) };
                 }
             }
-        } catch {}
+        } catch { }
     }
     walkDir(dirPath);
     return files;
