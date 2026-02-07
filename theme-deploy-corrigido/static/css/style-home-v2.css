@@ -247,7 +247,7 @@
 body.template-home .pg-section--grid-bg {
     position: relative;
     background-color: #E2E2E2;
-    padding: 32px 16px 40px;
+    padding: 32px 16px 60px;
     overflow: hidden;
 }
 
@@ -258,8 +258,7 @@ body.template-home .pg-section--grid-bg::before {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 90%;
-    /* Aumentado para preencher mais a seção */
+    height: 100%;
     z-index: 0;
     background-image: url('../images/home-v2-grid-bg-mobile.png');
     background-repeat: no-repeat;
@@ -284,7 +283,7 @@ body.template-home .pg-section--grid-bg .pg-container {
 
 @media (min-width: 768px) {
     body.template-home .pg-section--grid-bg {
-        padding: 40px 24px 48px;
+        padding: 40px 24px 72px;
     }
 }
 
@@ -477,6 +476,7 @@ body.template-home .pg-section--coming-soon {
 
 .pg-dev-carousel__track {
     display: flex;
+    align-items: flex-start;
     gap: 16px;
     overflow-x: auto;
     scroll-behavior: smooth;
@@ -543,56 +543,71 @@ body.template-home .pg-section--coming-soon {
 }
 
 /* ============================================
-   CARD PRODUTO EM DESENVOLVIMENTO
-   Cards mais quadrados (mesma proporção dos produtos similares)
+   CARD PRODUTO EM DESENVOLVIMENTO - HOME
+   Cards compactos (apenas imagem clicável)
+   RESET AGRESSIVO dos estilos de style-critical.tpl
    ============================================ */
 
 body.template-home .pg-dev-card {
+    /* RESET COMPLETO - usando !important para sobrescrever style-critical.tpl */
+    position: relative !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 12px !important;
+
+    /* Dimensões compactas */
     flex-shrink: 0;
-    width: 200px;
-    /* Largura aumentada para card quadrado */
-    background: #F6F6F6;
-    border-radius: 16px;
-    border: none;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    align-self: flex-start;
+    width: 160px;
+    height: 160px;
+    display: block !important;
     overflow: hidden;
     text-decoration: none !important;
     color: #000 !important;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
     cursor: pointer;
-    padding: 12px;
 }
 
 /* Desktop: cards maiores */
+@media (min-width: 768px) {
+    body.template-home .pg-dev-card {
+        width: 180px;
+        height: 180px;
+    }
+}
+
 @media (min-width: 1024px) {
     body.template-home .pg-dev-card {
-        width: 220px;
+        width: 200px;
+        height: 200px;
     }
 }
 
 @media (min-width: 1400px) {
     body.template-home .pg-dev-card {
-        width: 240px;
+        width: 220px;
+        height: 220px;
     }
 }
 
 body.template-home .pg-dev-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
 }
 
-/* Imagem - Proporção QUADRADA (1:1) como produtos similares */
+/* Imagem - Ocupa 100% do card */
 body.template-home .pg-dev-card__image {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    aspect-ratio: 1/1;
-    /* QUADRADA - mesma proporção dos similares */
+    height: 100%;
     overflow: hidden;
-    background: #F9F9F9;
+    background: #F5F5F5;
     border-radius: 12px;
-    margin-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -601,18 +616,16 @@ body.template-home .pg-dev-card__image {
 body.template-home .pg-dev-card__image img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    /* Mantém proporção */
+    object-fit: cover;
     object-position: center;
     display: block;
     border-radius: 12px;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s ease;
     filter: none !important;
-    image-rendering: auto;
 }
 
 body.template-home .pg-dev-card:hover .pg-dev-card__image img {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
 
 /* Proteção abrangente contra blur do lazy-loader (.blur-up) em toda a home */
@@ -621,46 +634,9 @@ body.template-home .pg-section img {
     image-rendering: auto;
 }
 
-/* Badge "EM DESENVOLVIMENTO" - Oculto conforme ajuste */
-body.template-home .pg-dev-card__badge {
-    display: none;
-}
-
-/* Info do produto - oculto na home, cards mostram apenas imagem */
+/* Info do produto - oculto na home */
 body.template-home .pg-dev-card__info {
     display: none;
-}
-
-body.template-home .pg-dev-card__name {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #000;
-    line-height: 1.3;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-body.template-home .pg-dev-card__price {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #000;
-    letter-spacing: 0.3px;
-}
-
-body.template-home .pg-dev-card__price--soon {
-    font-size: 12px;
-    font-weight: 600;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 /* Placeholder card */
@@ -708,8 +684,8 @@ body.template-home .pg-dev-card--loading {
 
 @media (max-width: 480px) {
     body.template-home .pg-dev-card {
-        width: 160px;
-        padding: 8px;
+        width: 140px;
+        height: 140px;
     }
 
     body.template-home .pg-dev-card__image {

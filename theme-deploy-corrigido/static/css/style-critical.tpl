@@ -4954,9 +4954,10 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* ============================================
    CARD PRODUTO EM DESENVOLVIMENTO - PATAGANG
    Baseado no protótipo oficial
+   ESCOPO: Apenas página de produto (.pg-product-form)
    ============================================ */
 
-.pg-dev-card {
+.pg-product-form .pg-dev-card {
     position: relative;
     width: 100%;
     min-height: 350px;
@@ -5085,7 +5086,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 /* Responsivo */
 @media (max-width: 767px) {
-    .pg-dev-card {
+    .pg-product-form .pg-dev-card {
         min-height: 280px;
         padding: 32px 24px;
         border-radius: 24px;
