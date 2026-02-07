@@ -1,7 +1,8 @@
 {#
   HOME PAGE V2 - PATAGANG
   Implementado conforme protótipo Adobe XD - Janeiro 2026
-  
+  Plano executado: textos, margens, cards, 5 produtos.
+
   Estrutura:
   1. Hero (split-screen: blueprint + foto)
   2. Vista o Propósito (produtos categoria)
@@ -17,12 +18,12 @@
     {# Background responsivo #}
     <picture class="pg-hero-v2__bg">
         <source media="(min-width: 768px)" srcset="{{ 'images/home-v2-hero-desktop.png' | static_url }}">
-        <img src="{{ 'images/home-v2-hero-mobile.png' | static_url }}" 
-             alt="Patagang - Muito além do básico" 
+        <img src="{{ 'images/home-v2-hero-mobile.png' | static_url }}"
+             alt="Patagang - Muito além do básico"
              loading="eager"
              class="pg-hero-v2__bg-img">
     </picture>
-    
+
     {# Container dos CTAs #}
     <div class="pg-hero-v2__content">
         <div class="pg-hero-v2__ctas">
@@ -30,21 +31,21 @@
             <a href="/produtos-cachorros" class="pg-button pg-button--highlight">
                 PRODUTOS PARA CACHORRO
             </a>
-            
+
             {# CTA 2: Vista o Propósito (sobre foto) #}
             <a href="/comunidade-vista-patagang" class="pg-button pg-button--highlight">
                 VISTA O PROPÓSITO
             </a>
         </div>
     </div>
-    
+
     {# Seta de scroll #}
     <div class="pg-hero-v2__scroll">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M6 9L12 15L18 9" stroke="#626262" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
     </div>
-    
+
     {# Texto SEO oculto #}
     <h1 class="sr-only">Patagang - Acessórios Premium para Cães e Tutores</h1>
     <p class="sr-only">Uma marca pet que vai além. Acessórios com design exclusivo para cães e tutores que buscam estilo e qualidade.</p>
@@ -57,28 +58,26 @@
    ============================================ #}
 <section class="pg-section pg-section--vista-products visible-when-content-ready">
     <div class="pg-container">
-        
+
         {# Header da seção #}
         <header class="pg-section__header">
             <h3 class="pg-section__title">VISTA O PROPÓSITO</h3>
             <p class="pg-section__desc">
-                Enquanto nossos produtos para cachorros estão em desenvolvimento, 
-                lançamos camisetas que carregam o movimento Patagang. 
-                Parte de cada venda é destinada à causa animal.
+                Camisetas que carregam o movimento Patagang. Parte de cada venda é destinada à causa animal.
             </p>
         </header>
-        
+
         {# Grid de Produtos - Busca pela seção primária com filtro de categoria #}
         <div class="pg-products-grid">
             {% set vista_products = [] %}
-            
+
             {# Tenta buscar produtos da seção primária #}
             {% if sections.primary.products %}
                 {% for product in sections.primary.products %}
                     {% set vista_products = vista_products | merge([product]) %}
                 {% endfor %}
             {% endif %}
-            
+
             {# Fallback: busca todos os produtos e filtra pela categoria #}
             {% if vista_products | length == 0 %}
                 {% for product in products %}
@@ -87,19 +86,26 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            
-            {# Renderiza os produtos (máximo 4) #}
-            {% for product in vista_products | slice(0, 4) %}
+
+            {# Renderiza os produtos (máximo 5) #}
+            {% for product in vista_products | slice(0, 5) %}
                 <article class="pg-product-card-v2">
                     <a href="{{ product.url }}" class="pg-product-card-v2__link">
                         <div class="pg-product-card-v2__image">
                             {% if product.featured_image %}
-                                <img src="{{ product.featured_image | product_image_url('large') }}" 
-                                     alt="{{ product.name }}" 
+                                <img src="{{ product.featured_image | product_image_url('large') }}"
+                                     alt="{{ product.name }}"
                                      loading="lazy">
+                                {# Segunda imagem para hover (se existir) #}
+                                {% if product.images | length > 1 %}
+                                    <img src="{{ product.images[1] | product_image_url('large') }}"
+                                         alt="{{ product.name }}"
+                                         loading="lazy"
+                                         class="pg-product-card-v2__img-hover">
+                                {% endif %}
                             {% else %}
-                                <img src="{{ 'images/placeholder-product.png' | static_url }}" 
-                                     alt="{{ product.name }}" 
+                                <img src="{{ 'images/placeholder-product.png' | static_url }}"
+                                     alt="{{ product.name }}"
                                      loading="lazy">
                             {% endif %}
                         </div>
@@ -113,7 +119,7 @@
                 </div>
             {% endfor %}
         </div>
-        
+
     </div>
 </section>
 
@@ -182,7 +188,7 @@
 
                 {# Placeholders de loading (exibidos enquanto JS carrega, se Twig não encontrou) #}
                 {% if dev_products | length == 0 %}
-                    {% for i in 1..4 %}
+                    {% for i in 1..5 %}
                         <div class="pg-dev-card pg-dev-card--placeholder pg-dev-card--loading">
                             <div class="pg-dev-card__image">
                                 <div class="pg-dev-card__skeleton"></div>
@@ -223,11 +229,19 @@
         var btnPrev = carousel.querySelector('.pg-dev-carousel__nav--prev');
         if (!track) return;
 
-        var scrollAmount = 300;
+        var scrollAmount = 0; {# Calculado dinamicamente baseado no tamanho do card #}
         var DEV_MAX = 8;
 
         {# Placeholder imagem para fallback #}
         var placeholderImg = '{{ "images/placeholder-coming-soon.png" | static_url }}';
+
+        function getScrollAmount() {
+            var firstCard = track.querySelector('.pg-dev-card');
+            if (firstCard) {
+                return firstCard.offsetWidth + 16; {# largura do card + gap #}
+            }
+            return 280;
+        }
 
         function updateNav() {
             if (btnPrev) btnPrev.style.display = track.scrollLeft > 10 ? 'flex' : 'none';
@@ -235,10 +249,10 @@
         }
 
         if (btnNext) btnNext.addEventListener('click', function() {
-            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            track.scrollBy({ left: getScrollAmount() * 2, behavior: 'smooth' });
         });
         if (btnPrev) btnPrev.addEventListener('click', function() {
-            track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            track.scrollBy({ left: -getScrollAmount() * 2, behavior: 'smooth' });
         });
 
         track.addEventListener('scroll', updateNav);

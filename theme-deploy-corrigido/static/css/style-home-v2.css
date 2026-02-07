@@ -1,7 +1,7 @@
 /* ============================================
    PATAGANG HOME V2 - ESTILOS
    Implementado conforme protótipo Adobe XD
-   Janeiro 2026 - AJUSTES V2.1
+   Janeiro 2026 - AJUSTES V2.2 (plano executado)
    ============================================ */
 
 /* ============================================
@@ -202,20 +202,20 @@
 /* ============================================
    SEÇÃO VISTA O PROPÓSITO
    Background cinza claro conforme protótipo
-   Transição suave para próxima seção
+   Margens reduzidas para menos espaço em branco
    ============================================ */
 
 .pg-section--vista-products {
     position: relative;
     /* Background em degrade para transicionar ao cinza da proxima secao */
     background: linear-gradient(to bottom, #FFFFFF 0%, #E2E2E2 100%);
-    padding: 56px 0 72px;
+    padding: 32px 16px 40px;
     overflow: visible;
 }
 
 @media (min-width: 768px) {
     .pg-section--vista-products {
-        padding: 68px 0 88px;
+        padding: 40px 24px 48px;
     }
 }
 
@@ -241,145 +241,148 @@
 
 /* ============================================
    SEÇÃO SEJA O PRIMEIRO A CONHECER
-   Background usando IMAGEM de grid do protótipo (AMARELO)
+   Background: cinza + grid amarelo em ::before atrás do conteúdo
    ============================================ */
 
-.pg-section--grid-bg {
+body.template-home .pg-section--grid-bg {
     position: relative;
-    /* Background cinza com grid amarelo sobreposto */
     background-color: #E2E2E2;
-    background-image: url('../images/home-v2-grid-bg.png');
-    background-repeat: repeat;
-    background-position: center;
-    background-size: auto;
-    padding: 52px 0 84px;
+    padding: 32px 16px 40px;
+    overflow: hidden;
 }
 
-/* Conteúdo acima do background */
-.pg-section--grid-bg .pg-container {
+/* Background grid: posicionado na parte inferior da seção, como no protótipo */
+body.template-home .pg-section--grid-bg::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 90%;
+    /* Aumentado para preencher mais a seção */
+    z-index: 0;
+    background-image: url('../images/home-v2-grid-bg-mobile.png');
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    body.template-home .pg-section--grid-bg::before {
+        background-image: url('../images/home-v2-grid-bg-desktop.png');
+        height: 90%;
+        /* Aumentado para preencher mais a seção */
+    }
+}
+
+/* Conteúdo acima do grid */
+body.template-home .pg-section--grid-bg .pg-container {
     position: relative;
     z-index: 1;
 }
 
 @media (min-width: 768px) {
-    .pg-section--grid-bg {
-        padding: 68px 0 96px;
+    body.template-home .pg-section--grid-bg {
+        padding: 40px 24px 48px;
     }
 }
 
 /* ============================================
-   HEADER DA SEÇÃO - CSS CONFORME PROTÓTIPO
+   HEADER DA SEÇÃO - Textos menores e menos chamativos
    ============================================ */
 
 .pg-section__header {
     text-align: left;
-    margin-bottom: 28px;
+    margin-bottom: 16px;
     max-width: 1100px;
 }
 
-/* Título H3 - CSS do protótipo */
+/* Título H3 - reduzido para proporção à página */
 .pg-section__title {
     font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 23px;
+    font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0px;
+    letter-spacing: 0.02em;
     color: #000000;
-    margin: 0 0 20px;
-    line-height: 1.2;
+    margin: 0 0 10px;
+    line-height: 1.25;
 }
 
-/* Descrição - CSS do protótipo */
+/* Descrição - menor e menos chamativa */
 .pg-section__desc {
     font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 25px;
-    line-height: 30px;
+    font-size: 14px;
+    line-height: 1.45;
     font-weight: 400;
     color: #000000;
     margin: 0;
     max-width: 1092px;
 }
 
-/* Ajustes locais de tamanho e respiro dos titulos */
+/* Ajustes locais Vista e Seja o Primeiro */
 .pg-section--vista-products .pg-section__header {
-    margin-bottom: 22px;
+    margin-bottom: 14px;
 }
 
 .pg-section--vista-products .pg-section__title,
-.pg-section--coming-soon .pg-section__title {
-    font-size: 20px;
+body.template-home .pg-section--coming-soon .pg-section__title {
+    font-size: 15px;
 }
 
 .pg-section--vista-products .pg-section__title {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
-.pg-section--coming-soon .pg-section__title {
-    margin-bottom: 24px;
+body.template-home .pg-section--coming-soon .pg-section__title {
+    margin-bottom: 14px;
 }
 
 
 /* ============================================
-   GRID DE PRODUTOS V2 - AJUSTADO (2 colunas)
+   GRID DE PRODUTOS V2 - 3 colunas centralizadas
    ============================================ */
 
 .pg-products-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 16px;
+    align-items: start;
+    justify-content: center;
 }
 
 @media (min-width: 600px) {
     .pg-products-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 32px;
+        gap: 20px;
     }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
     .pg-products-grid {
-        /* Mantém 2 colunas conforme protótipo */
-        grid-template-columns: repeat(2, 1fr);
-        gap: 48px;
-        /* Aumentado de 50px para 60px */
-        max-width: 1000px;
-        /* Aumentado de 900px para 1000px */
-        justify-items: center;
-    }
-
-    /* Card esquerdo alinhado à direita de sua coluna */
-    .pg-products-grid .pg-product-card-v2:nth-child(1) {
-        justify-self: end;
-    }
-
-    /* Card direito alinhado à esquerda de sua coluna */
-    .pg-products-grid .pg-product-card-v2:nth-child(2) {
-        justify-self: start;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 1100px;
     }
 }
 
 /* ============================================
-   CARD DE PRODUTO V2 - CONFORME PROTÓTIPO
-   Cards maiores: 878px × 800px, border-radius 53px
+   CARD DE PRODUTO V2
+   Estrutura: card > link > image | shop
+   Baseado no padrão pg-dev-card que funciona
    ============================================ */
 
 .pg-product-card-v2 {
     background: #F6F6F6;
-    border-radius: 53px;
+    border-radius: 30px;
     overflow: hidden;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     width: 100%;
-    max-width: 878px;
-    min-height: 600px;
-}
-
-@media (min-width: 1024px) {
-    .pg-product-card-v2 {
-        min-height: 800px;
-    }
+    padding: 12px;
 }
 
 .pg-product-card-v2:hover {
@@ -390,45 +393,64 @@
 .pg-product-card-v2__link {
     display: block;
     text-decoration: none;
-    flex: 1;
 }
 
 .pg-product-card-v2__image {
+    position: relative;
+    width: 100%;
     aspect-ratio: 1 / 1;
-    padding: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #F6F6F6;
     overflow: hidden;
-    border-radius: 53px 53px 0 0;
+    background: #F9F9F9;
+    border-radius: 20px;
 }
 
 .pg-product-card-v2__image img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    transition: transform 0.5s ease;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: none !important;
+    image-rendering: auto;
 }
 
-/* Efeito hover com zoom na imagem */
-.pg-product-card-v2:hover .pg-product-card-v2__image img {
-    transform: scale(1.08);
+/* Segunda imagem para hover */
+.pg-product-card-v2__image img.pg-product-card-v2__img-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* CORRIGIDO: garante largura total */
+    height: 100%;
+    /* CORRIGIDO: garante altura total */
+    opacity: 0;
 }
 
-/* Shop button - Visível conforme protótipo */
+/* Efeito hover com troca de imagem */
+.pg-product-card-v2:hover .pg-product-card-v2__image img:first-child {
+    opacity: 0;
+}
+
+.pg-product-card-v2:hover .pg-product-card-v2__image img.pg-product-card-v2__img-hover {
+    opacity: 1;
+}
+
+/* Shop button */
 .pg-product-card-v2__shop {
     display: block;
     text-align: center;
-    padding: 24px;
+    padding: 10px 8px 4px;
     color: #000000;
     font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
     text-decoration: underline;
-    text-underline-offset: 4px;
+    text-underline-offset: 3px;
     transition: color 0.2s ease;
-    background: #F6F6F6;
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .pg-product-card-v2__shop:hover {
@@ -440,12 +462,8 @@
    Cards com foto visivel, scroll horizontal
    ============================================ */
 
-.pg-section--coming-soon {
+body.template-home .pg-section--coming-soon {
     padding-bottom: 52px;
-}
-
-.pg-section--coming-soon .pg-section__title {
-    margin-bottom: 24px;
 }
 
 /* ============================================
@@ -465,6 +483,11 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     padding-bottom: 4px;
+    scroll-snap-type: x proximity;
+}
+
+.pg-dev-carousel__track>* {
+    scroll-snap-align: start;
 }
 
 .pg-dev-carousel__track::-webkit-scrollbar {
@@ -521,15 +544,15 @@
 
 /* ============================================
    CARD PRODUTO EM DESENVOLVIMENTO
-   Tamanho conforme protótipo: 560px × 510px, border-radius 30px
+   Cards mais quadrados (mesma proporção dos produtos similares)
    ============================================ */
 
-.pg-dev-card {
+body.template-home .pg-dev-card {
     flex-shrink: 0;
-    width: 340px;
-    min-height: 320px;
+    width: 200px;
+    /* Largura aumentada para card quadrado */
     background: #F6F6F6;
-    border-radius: 30px;
+    border-radius: 16px;
     border: none;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
     overflow: hidden;
@@ -537,72 +560,78 @@
     color: #000 !important;
     display: flex;
     flex-direction: column;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
     cursor: pointer;
     padding: 12px;
 }
 
+/* Desktop: cards maiores */
 @media (min-width: 1024px) {
-    .pg-dev-card {
-        width: 440px;
-        min-height: 360px;
+    body.template-home .pg-dev-card {
+        width: 220px;
     }
 }
 
 @media (min-width: 1400px) {
-    .pg-dev-card {
-        width: 480px;
-        min-height: 380px;
+    body.template-home .pg-dev-card {
+        width: 240px;
     }
 }
 
-.pg-dev-card:hover {
+body.template-home .pg-dev-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 }
 
-/* Imagem - Visivel, sem blur */
-.pg-dev-card__image {
+/* Imagem - Proporção QUADRADA (1:1) como produtos similares */
+body.template-home .pg-dev-card__image {
     position: relative;
     width: 100%;
     aspect-ratio: 1/1;
+    /* QUADRADA - mesma proporção dos similares */
     overflow: hidden;
     background: #F9F9F9;
     border-radius: 12px;
-    margin-bottom: 6px;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.pg-dev-card__image img {
+body.template-home .pg-dev-card__image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    /* Mantém proporção */
+    object-position: center;
     display: block;
     border-radius: 12px;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: none !important;
+    image-rendering: auto;
 }
 
-.pg-dev-card:hover .pg-dev-card__image img {
+body.template-home .pg-dev-card:hover .pg-dev-card__image img {
     transform: scale(1.06);
 }
 
+/* Proteção abrangente contra blur do lazy-loader (.blur-up) em toda a home */
+body.template-home .pg-section img {
+    filter: none !important;
+    image-rendering: auto;
+}
+
 /* Badge "EM DESENVOLVIMENTO" - Oculto conforme ajuste */
-.pg-dev-card__badge {
+body.template-home .pg-dev-card__badge {
     display: none;
 }
 
-/* Info do produto */
-.pg-dev-card__info {
-    background: transparent;
-    border-radius: 0;
-    padding: 2px 4px 0;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0;
+/* Info do produto - oculto na home, cards mostram apenas imagem */
+body.template-home .pg-dev-card__info {
+    display: none;
 }
 
-.pg-dev-card__name {
+body.template-home .pg-dev-card__name {
     font-family: 'Familjen Grotesk', sans-serif;
     font-size: 11px;
     font-weight: 600;
@@ -618,7 +647,7 @@
     overflow: hidden;
 }
 
-.pg-dev-card__price {
+body.template-home .pg-dev-card__price {
     font-family: 'Familjen Grotesk', sans-serif;
     font-size: 16px;
     font-weight: 700;
@@ -626,7 +655,7 @@
     letter-spacing: 0.3px;
 }
 
-.pg-dev-card__price--soon {
+body.template-home .pg-dev-card__price--soon {
     font-size: 12px;
     font-weight: 600;
     color: #888;
@@ -635,18 +664,18 @@
 }
 
 /* Placeholder card */
-.pg-dev-card--placeholder {
+body.template-home .pg-dev-card--placeholder {
     cursor: default;
     opacity: 0.6;
 }
 
-.pg-dev-card--placeholder:hover {
+body.template-home .pg-dev-card--placeholder:hover {
     transform: none;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
 /* Loading skeleton para cards enquanto JS busca produtos */
-.pg-dev-card--loading {
+body.template-home .pg-dev-card--loading {
     opacity: 0.5;
     pointer-events: none;
 }
@@ -670,55 +699,29 @@
     }
 }
 
-/* Responsivo */
-@media (min-width: 768px) {
-    .pg-dev-card {
-        width: 380px;
-    }
-
-    .pg-dev-card__name {
-        font-size: 12px;
-    }
-
-    .pg-dev-card__info {
-        padding: 6px 4px 0;
-    }
-}
-
+/* Responsivo - carousel */
 @media (min-width: 1024px) {
-    .pg-dev-card {
-        width: 440px;
-    }
-
     .pg-dev-carousel__track {
-        gap: 24px;
+        gap: 16px;
     }
 }
 
 @media (max-width: 480px) {
-    .pg-dev-card {
-        width: 260px;
-        padding: 10px;
+    body.template-home .pg-dev-card {
+        width: 160px;
+        padding: 8px;
     }
 
-    .pg-dev-card__image {
+    body.template-home .pg-dev-card__image {
         border-radius: 10px;
     }
 
-    .pg-dev-card__image img {
+    body.template-home .pg-dev-card__image img {
         border-radius: 10px;
-    }
-
-    .pg-dev-card__name {
-        font-size: 10px;
-    }
-
-    .pg-dev-card__info {
-        padding: 4px 2px 0;
     }
 
     .pg-dev-carousel__track {
-        gap: 12px;
+        gap: 10px;
     }
 }
 

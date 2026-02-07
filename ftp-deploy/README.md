@@ -30,12 +30,14 @@ node backup-full-ftp.js
 ```
 
 Este comando:
+
 - Faz download de **TODOS** os arquivos do servidor FTP
 - Salva em `backups/ftp-full/[TIMESTAMP]/`
 - Cria metadados completos do backup
 - Gera README com instrucoes de restauracao
 
 **Quando usar:**
+
 - Antes de implementar alteracoes grandes no tema
 - Antes de fazer ajustes visuais importantes
 - Periodicamente como backup de seguranca
@@ -50,6 +52,8 @@ node deploy-optimized.js
 ```
 
 Envia **apenas** os arquivos modificados desde o ultimo deploy.
+
+**Version ID (console da loja):** A cada deploy é gerado um Version ID (ex.: `2026-02-02T20-30-00-ABC12DEF`). Esse ID é injetado automaticamente no `layouts/layout.tpl` (meta e script no console) e exibido ao final do script. Ele também é salvo em `ftp-deploy/LAST_DEPLOY_VERSION.txt` para você conferir ou colar na validação. Se houver arquivos modificados mas o `layout.tpl` não tiver mudado, o script **inclui o layout na lista de envio** para atualizar a versão no FTP.
 
 ### Opcoes Disponiveis
 
@@ -162,12 +166,12 @@ node deploy-optimized.js
    ```
 
 3. **Limpar cache Nuvemshop (OBRIGATORIO):**
-   - Acessar: https://www.nuvemshop.com.br/admin/v2/themes
+   - Acessar: <https://www.nuvemshop.com.br/admin/v2/themes>
    - Clicar no menu (tres pontos) do tema ativo
    - Selecionar "Limpar Cache"
 
 4. **Validar na loja:**
-   - Acesse: https://patagang.lojavirtualnuvem.com.br/
+   - Acesse: <https://patagang.lojavirtualnuvem.com.br/>
 
 5. **Se algo der errado, force re-deploy:**
 
@@ -214,6 +218,7 @@ node deploy-optimized.js --force-all
 O deploy cria **automaticamente** um backup incremental dos arquivos **REMOTOS** (versão anterior) antes de fazer upload.
 
 **Como funciona:**
+
 1. Conecta ao FTP
 2. Faz **download** dos arquivos remotos que serão substituídos
 3. Salva no backup incremental
@@ -251,6 +256,7 @@ npm run list:full
 ```
 
 O script mostra:
+
 - ✅ Timestamp de cada backup
 - 📅 Data e hora legível
 - ⏱️ Tempo relativo (há X minutos/horas/dias)
@@ -278,6 +284,7 @@ npm run rollback -- 2025-12-12T21-57-28
 ```
 
 O script:
+
 - Lista backups disponiveis automaticamente
 - Identifica o backup mais recente se não especificado
 - Restaura arquivos do backup para o FTP

@@ -274,3 +274,98 @@
         transform: translateX(0);
     }
 }
+
+/* ============================================
+   DROPDOWN DESKTOP - Abre ao clicar
+   ============================================ */
+
+.pg-header__nav-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.pg-header__nav-item--has-dropdown {
+    position: relative;
+}
+
+.pg-header__nav-link--dropdown {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 8px 0;
+}
+
+.pg-header__nav-link--dropdown:hover {
+    opacity: 0.7;
+}
+
+.pg-header__nav-arrow {
+    transition: transform 0.2s ease;
+    opacity: 0.6;
+}
+
+.pg-header__nav-link--dropdown.is-active .pg-header__nav-arrow {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Container */
+.pg-header__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    padding: 12px 0;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    margin-top: 8px;
+}
+
+.pg-header__dropdown.is-open {
+    display: block !important;
+    opacity: 1;
+    visibility: visible;
+}
+
+.pg-header__dropdown-inner {
+    display: flex;
+    flex-direction: column;
+}
+
+.pg-header__dropdown-link {
+    display: block;
+    padding: 10px 20px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.pg-header__dropdown-link:hover {
+    background: #f5f5f5;
+    color: #000;
+}
+
+.pg-header__dropdown-link--all {
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 4px;
+    padding-bottom: 12px;
+}

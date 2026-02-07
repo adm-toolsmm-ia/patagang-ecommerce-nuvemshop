@@ -54,7 +54,7 @@
                     <li><a href="/perguntas-frequentes">Perguntas frequentes</a></li>
                     <li><a href="/trocas-e-devolucoes">Trocas e Devoluções</a></li>
                     <li><a href="/politica-envio">Política de Envio</a></li>
-                    <li><a href="{{ store.contact_url }}">Fale conosco</a></li>
+                    <li><a href="https://api.whatsapp.com/send/?phone=5547996263577&text&type=phone_number&app_absent=0" target="_blank" rel="noopener">Fale conosco</a></li>
                 </ul>
             </div>
 

@@ -86,7 +86,7 @@
         {# HOME V2 - Estilos específicos da nova home page #}
         {% if template == 'home' %}
             {# Cache busting: força navegador a carregar versão mais recente #}
-            <link rel="stylesheet" href="{{ 'css/style-home-v2.css' | static_url }}?v=2026-02-01T23-30">
+            <link rel="stylesheet" href="{{ 'css/style-home-v2.css' | static_url }}?v=2026-02-03T04-40">
         {% endif %}
 
         {# Blog styles - PATAGANG - Load immediately, not async #}

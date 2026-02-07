@@ -795,8 +795,8 @@ DOMContentLoaded.addEventOrExecute(() => {
                 watchOverflow: true,
                 loop: alternativeLoopVal,
                 centerInsufficientSlides: true,
-                spaceBetween: 30,
-                slidesPerView: {{ columns }},
+                spaceBetween: 24,
+                slidesPerView: 1.2,  /* Mobile: 1 card + preview */
                 pagination: {
                     el: '.js-swiper-related-pagination',
                     clickable: true,
@@ -806,8 +806,17 @@ DOMContentLoaded.addEventOrExecute(() => {
                     prevEl: '.js-swiper-related-prev',
                 },
                 breakpoints: {
+                    480: {
+                        slidesPerView: 2,  /* Tablet pequeno */
+                        spaceBetween: 20,
+                    },
                     767: {
-                        slidesPerView: desktopColumns,
+                        slidesPerView: 3,  /* Desktop: 3 cards (antes era 4) para cards mais largos */
+                        spaceBetween: 24,
+                    },
+                    1200: {
+                        slidesPerView: 3,  /* Desktop grande: mantém 3 para cards quadrados */
+                        spaceBetween: 30,
                     }
                 }
             });

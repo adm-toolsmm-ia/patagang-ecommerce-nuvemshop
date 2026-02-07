@@ -18,6 +18,7 @@ const BATCH_SIZE = 10;  // Reduzido para 10 para manter conexão estável
 const RECONNECT_EVERY = 50;  // Reconectar a cada 50 arquivos
 const CACHE_FILE = path.join(__dirname, '.deploy-cache.json');
 const BACKUP_DIR = path.join(__dirname, '..', 'backups', 'incremental');
+const LAST_DEPLOY_VERSION_FILE = path.join(__dirname, 'LAST_DEPLOY_VERSION.txt');
 
 const colors = {
     reset: '\x1b[0m',
@@ -615,6 +616,11 @@ async function main() {
             console.log(`  ... e mais ${files.length - 20} arquivos`);
         }
         console.log();
+        console.log(colors.cyan + '  Ao rodar o deploy (sem --dry-run):' + colors.reset);
+        console.log(colors.cyan + '  • Será gerado um Version ID (ex.: 2026-02-02T20-30-00-ABC12DEF)' + colors.reset);
+        console.log(colors.cyan + '  • O layout.tpl será enviado com essa versão (meta + console da loja)' + colors.reset);
+        console.log(colors.cyan + '  • O Version ID será salvo em ftp-deploy/LAST_DEPLOY_VERSION.txt' + colors.reset);
+        console.log();
         process.exit(0);
     }
 
@@ -702,6 +708,9 @@ async function main() {
             .toUpperCase();
         const versionId = `${deployId}-${filesHash}`;
 
+        log(`Versão ID (será injetada no layout e exibida no console da loja): ${versionId}`, 'info');
+        console.log();
+
         // CRÍTICO: Garantir que layout.tpl sempre seja enviado e contém o placeholder de versão
         // Isso garante cache-bust e validação correta a cada deploy
         const layoutTplPath = 'layouts/layout.tpl';
@@ -786,6 +795,27 @@ async function main() {
             cache.lastDeployFiles = files.map(f => f.remote);
             cache.lastDeployTimestamp = deployTimestamp;
             saveCache(cache);
+
+            // Salvar Version ID em arquivo para consulta (log do console da loja)
+            try {
+                const versionFileContent = [
+                    `# Último deploy - Patagang Nuvemshop`,
+                    `# Gerado automaticamente pelo deploy-optimized.js`,
+                    ``,
+                    `VERSION_ID=${versionId}`,
+                    `DEPLOY_DATE=${deployDate}`,
+                    ``,
+                    `# Use o VERSION_ID acima para validar no console da loja:`,
+                    `# 1. Abra a loja e pressione F12 (DevTools)`,
+                    `# 2. Na aba Console, procure por "VERSÃO DO DEPLOY"`,
+                    `# 3. O Versão ID exibido deve ser: ${versionId}`,
+                    ``
+                ].join('\n');
+                fs.writeFileSync(LAST_DEPLOY_VERSION_FILE, versionFileContent, 'utf8');
+                log(`Versão ID salva em: ftp-deploy/LAST_DEPLOY_VERSION.txt`, 'success');
+            } catch (writeErr) {
+                log(`Aviso: não foi possível salvar LAST_DEPLOY_VERSION.txt: ${writeErr.message}`, 'warning');
+            }
 
             // Mostrar resumo das alterações de forma destacada
             console.log(colors.yellow + '═'.repeat(70) + colors.reset);

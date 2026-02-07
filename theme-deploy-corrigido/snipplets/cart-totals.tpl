@@ -35,6 +35,11 @@
 
   </div>
 
+  {# Seletor de ONG para doação - PATAGANG - Entre Subtotal e Total #}
+  <div class="js-visible-on-cart-filled" {% if cart.items_count == 0 %}style="display:none;"{% endif %}>
+    {% include "snipplets/ong-selector.tpl" %}
+  </div>
+
   {# PATAGANG: Container dinâmico para Total (será populado via JS após cálculo de frete) #}
   <div id="pg-cart-total-dynamic" class="pg-cart-total-section js-visible-on-cart-filled" style="display:none;" {% if cart.items_count == 0 %}data-hidden="true"{% endif %}>
     {# Total será inserido aqui dinamicamente pelo JavaScript #}
@@ -196,12 +201,7 @@
                    {{ "¡Uy! No tenemos más stock de este producto para agregarlo al carrito. Si querés podés" | translate }}<a href="{{ store.products_url }}" class="btn-link">{{ "ver otros acá" | translate }}</a>
                 </div>
 
-                {# Seletor de ONG para doação - PATAGANG #}
-                {% if not cart_page %}
-                  <div class="js-visible-on-cart-filled" {% if cart.items_count == 0 %}style="display:none;"{% endif %}>
-                    {% include "snipplets/ong-selector.tpl" %}
-                  </div>
-                {% endif %}
+                {# ONG Selector movido para ANTES do Total - ver linha 39 #}
 
                 {# Cart panel CTA #}
 

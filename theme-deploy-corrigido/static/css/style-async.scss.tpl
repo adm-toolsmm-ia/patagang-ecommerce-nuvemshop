@@ -7049,3 +7049,92 @@ body .item-actions .btn.btn-development {
 .pg-qa-link:hover::after {
     width: 100%;
 }
+
+/* ============================================================================
+   PATAGANG - Produtos Similares - Compatível com estrutura Nuvemshop
+   Sistema: padding-bottom para proporção + imagem position:absolute
+   ============================================================================ */
+
+/* CARD COMPLETO */
+.section-products-related .item-product {
+    min-height: auto !important;
+    height: auto !important;
+    padding: 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* Container da imagem - Proporção 1:1 via padding-bottom */
+.section-products-related .item-image {
+    position: relative !important;
+    width: 100% !important;
+    height: 0 !important;               /* Obrigatório para padding-bottom funcionar */
+    padding-bottom: 100% !important;    /* Proporção 1:1 (quadrado) */
+    background: #F5F5F5 !important;
+    border-radius: 12px !important;
+    margin-bottom: 12px !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+}
+
+/* Imagem absoluta - Preenche todo o container */
+.section-products-related .item-image .img-absolute,
+.section-products-related .item-image img {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;         /* Remove translateX do padrão */
+    padding: 16px !important;
+    box-sizing: border-box !important;
+}
+
+/* Descrição do produto */
+.section-products-related .item-description {
+    padding: 0 4px !important;
+    text-align: center !important;
+}
+
+/* Nome do produto */
+.section-products-related .item-name {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    line-height: 1.3 !important;
+    min-height: auto !important;
+    margin-bottom: 8px !important;
+}
+
+/* Preço */
+.section-products-related .item-price-container {
+    margin-bottom: 6px !important;
+}
+
+.section-products-related .item-price {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+/* Parcelas */
+.section-products-related .item-installments {
+    font-size: 11px !important;
+    margin-bottom: 10px !important;
+}
+
+/* Botão Comprar */
+.section-products-related .item-actions .btn {
+    padding: 10px 16px !important;
+    font-size: 12px !important;
+}
+
+/* Responsivo - Mobile */
+@media (max-width: 767px) {
+    .section-products-related .item-product {
+        padding: 10px !important;
+    }
+    .section-products-related .item-image {
+        padding: 12px !important;
+    }
+}

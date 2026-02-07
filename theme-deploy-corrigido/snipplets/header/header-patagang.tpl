@@ -1,4 +1,4 @@
-{# PataGang Header - v2.1 - Navegação Desktop + Ícones Refinados #}
+{# PataGang Header - v2.2 - Navegação Desktop + Ícones menores (plano executado) #}
 {% set is_fixed = settings.head_fix %}
 <header class="pg-header {% if is_fixed %}pg-header--sticky{% endif %}" data-store="head">
   {# Banner de anúncio movido para layout.tpl para evitar sobreposição #}
@@ -11,16 +11,43 @@
         <button class="pg-header__icon-button pg-header__hamburger-btn js-modal-open"
                 data-toggle="#nav-hamburger"
                 aria-label="{{ 'Menu de navegação' | translate }}">
-          <img src="{{ 'images/icons/menu.svg' | static_url }}" alt="" width="24" height="24" loading="lazy">
+          <img src="{{ 'images/icons/menu.svg' | static_url }}" alt="" width="14" height="14" loading="lazy">
         </button>
 
-        {# Navegação Desktop - Links dinâmicos do menu principal #}
+        {# Navegação Desktop - Links dinâmicos do menu principal com dropdown #}
         <nav class="pg-header__nav-desktop" aria-label="Navegação principal">
           {% for item in navigation %}
-            <a href="{% if item.url %}{{ item.url | setting_url }}{% else %}#{% endif %}" class="pg-header__nav-link">
-              {{ item.name }}
-            </a>
+            {% if item.subitems %}
+              {# Item com subcategorias - Dropdown ao clicar #}
+              <div class="pg-header__nav-item pg-header__nav-item--has-dropdown">
+                <button type="button" class="pg-header__nav-link pg-header__nav-link--dropdown js-dropdown-toggle" data-dropdown="{{ loop.index }}">
+                  {{ item.name }}
+                  <svg class="pg-header__nav-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <div class="pg-header__dropdown js-dropdown-content" data-dropdown-id="{{ loop.index }}" style="display: none;">
+                  <div class="pg-header__dropdown-inner">
+                    {% if item.isCategory %}
+                      <a href="{{ item.url }}" class="pg-header__dropdown-link pg-header__dropdown-link--all">
+                        Ver tudo em {{ item.name }}
+                      </a>
+                    {% endif %}
+                    {% for subitem in item.subitems %}
+                      <a href="{{ subitem.url }}" class="pg-header__dropdown-link">{{ subitem.name }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              {# Item simples - Link direto #}
+              <a href="{% if item.url %}{{ item.url | setting_url }}{% else %}#{% endif %}" class="pg-header__nav-link">
+                {{ item.name }}
+              </a>
+            {% endif %}
           {% endfor %}
+          {# A GANG - Link fixo na navegação desktop #}
+          <a href="/comunidade" class="pg-header__nav-link">A GANG</a>
         </nav>
       </div>
 
@@ -35,7 +62,7 @@
                 class="pg-header__icon-button js-modal-open"
                 data-toggle="#nav-search"
                 aria-label="{{ 'Buscar' | translate }}">
-          <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="14" height="14" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="28" cy="28" r="20" stroke="currentColor" stroke-width="4"/>
             <line x1="44" y1="44" x2="58" y2="58" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
           </svg>
@@ -43,7 +70,7 @@
 
         <a href="{{ store.customer_login_url }}" class="pg-header__icon-button" aria-label="{{ 'Entrar' | translate }}">
           {# ÍCONE PERFIL - PATAGANG Official - Traços Refinados #}
-          <svg width="20" height="20" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="14" height="14" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="32" cy="26" r="18" stroke="currentColor" stroke-width="4"/>
             <line x1="22" y1="40" x2="10" y2="60" stroke="currentColor" stroke-width="4" stroke-linecap="butt"/>
             <line x1="42" y1="40" x2="54" y2="60" stroke="currentColor" stroke-width="4" stroke-linecap="butt"/>
@@ -61,7 +88,7 @@
              {% endif %}
              aria-label="{{ 'Abrir sacola' | translate }}">
             {# ÍCONE SACOLA - PATAGANG Official - Traços Refinados #}
-            <svg width="20" height="22" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="14" height="15" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 6 H42 V18 H22 Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
               <path d="M14 22 L8 60 H56 L50 22 H14 Z" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
             </svg>
@@ -103,9 +130,9 @@
       {# Links Principais #}
       {% include "snipplets/navigation/navigation-panel.tpl" with {primary_links: true} %}
 
-      {# O Movimento - Link único no Mobile #}
+      {# A GANG - Link único no Mobile #}
       <div class="pg-menu-movimento">
-        <a href="/comunidade" class="nav-list-link pg-menu-movimento__link">O Movimento</a>
+        <a href="/comunidade" class="nav-list-link pg-menu-movimento__link">A GANG</a>
       </div>
 
       {# Divisor Visual #}
@@ -175,8 +202,8 @@
 {% endembed %}
 
 
-{# SOLUÇÃO DEFINITIVA: CSS + JS inline para garantir funcionamento do menu #}
-<style>@media(max-width:768px){.pg-header__icon-button{width:44px!important;height:44px!important;background:rgba(255,255,255,0.35)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;border:1px solid rgba(0,0,0,0.08)!important;border-radius:6px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important}.pg-header__icon-button img{width:20px!important;height:20px!important;filter:none!important}.pg-header{min-height:60px!important;padding-top:8px!important}.pg-header__logo-img{max-height:28px!important}}</style>
+{# Ícones do header menores (exceto logo) - 30px botão, 14px svg/img #}
+<style>.pg-header__icon-button{width:30px!important;height:30px!important;min-width:30px!important;min-height:30px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important}.pg-header__icon-button svg,.pg-header__icon-button img{width:14px!important;height:14px!important;flex-shrink:0}.pg-header__icon-button svg[height="15"]{height:15px!important}@media(max-width:768px){.pg-header__icon-button{width:30px!important;height:30px!important;background:rgba(255,255,255,0.35)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;border:1px solid rgba(0,0,0,0.08)!important;border-radius:6px!important}.pg-header__icon-button img{width:14px!important;height:14px!important;filter:none!important}.pg-header{min-height:56px!important;padding-top:6px!important}.pg-header__logo-img{max-height:26px!important}.pg-header__container{padding-left:16px!important;padding-right:16px!important}}</style>
 <script>document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll('[data-toggle="#nav-hamburger"]').forEach(function(e){e.addEventListener("click",function(e){e.preventDefault(),e.stopPropagation();var t=this.getAttribute("data-toggle"),o=document.querySelector(t),n=document.querySelector(".js-modal-overlay");if(o){o.classList.add("modal-show"),o.style.display="block",document.body.classList.add("modal-open"),n&&(n.style.display="block",n.onclick=function(){o.classList.remove("modal-show"),o.style.display="none",document.body.classList.remove("modal-open"),n.style.display="none"});var l=o.querySelector(".modal-close");l&&(l.onclick=function(){o.classList.remove("modal-show"),o.style.display="none",document.body.classList.remove("modal-open"),n&&(n.style.display="none")})}})})});</script>
 
 {# CSS para Navegação Desktop #}
@@ -197,19 +224,19 @@
 
 .pg-header__nav-link {
   font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 12px;
+  font-size: 10px; /* Reduzido de 11px para 10px */
   font-weight: 600;
   color: #000;
   text-decoration: none;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px; /* Reduzido de 0.5px para 0.3px */
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 0 14px;
-  border-radius: 6px;
+  min-height: 26px; /* Reduzido de 30px para 26px */
+  padding: 0 8px; /* Reduzido de 10px para 8px */
+  border-radius: 5px;
   border: 1px solid rgba(0, 0, 0, 0.08);
   background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(8px);
@@ -227,11 +254,30 @@
   .pg-header__nav-desktop {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    margin-left: 20px; /* Afasta da borda esquerda */
   }
 
   .pg-header__hamburger-btn {
     display: none !important;
+  }
+}
+
+/* Ajuste responsivo para telas menores */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .pg-header__nav-desktop {
+    margin-left: 10px; /* Menos margem em telas médias */
+    gap: 3px;
+  }
+}
+
+/* Telas grandes - mais espaço */
+@media (min-width: 1400px) {
+  .pg-header__nav-desktop {
+    margin-left: 40px; /* Mais afastado em telas grandes */
+    gap: 6px;
   }
 }
 
@@ -289,14 +335,14 @@
     justify-self: center;
     z-index: 10;
   }
-  
+
   .pg-header__left-group {
     flex: 0 1 auto;
     justify-content: flex-end;
     min-width: 0;
     padding-right: 24px;
   }
-  
+
   .pg-header__actions {
     flex: 0 0 auto;
     justify-content: flex-end;
@@ -321,3 +367,47 @@
 /* Mobile Menu: Link O Movimento - Delegado ao style-menu-patagang.css.tpl */
 /* Estilos inline removidos - agora controlados pelo CSS externo */
 </style>
+
+{# JavaScript para Dropdown Desktop ao Clicar #}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var dropdownToggles = document.querySelectorAll('.js-dropdown-toggle');
+  
+  dropdownToggles.forEach(function(toggle) {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      var dropdownId = this.getAttribute('data-dropdown');
+      var dropdown = document.querySelector('.js-dropdown-content[data-dropdown-id="' + dropdownId + '"]');
+      var isActive = this.classList.contains('is-active');
+      
+      // Fecha todos os outros dropdowns
+      document.querySelectorAll('.js-dropdown-toggle').forEach(function(t) {
+        t.classList.remove('is-active');
+      });
+      document.querySelectorAll('.js-dropdown-content').forEach(function(d) {
+        d.classList.remove('is-open');
+      });
+      
+      // Toggle do dropdown clicado
+      if (!isActive && dropdown) {
+        this.classList.add('is-active');
+        dropdown.classList.add('is-open');
+      }
+    });
+  });
+  
+  // Fecha dropdown ao clicar fora
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.pg-header__nav-item--has-dropdown')) {
+      document.querySelectorAll('.js-dropdown-toggle').forEach(function(t) {
+        t.classList.remove('is-active');
+      });
+      document.querySelectorAll('.js-dropdown-content').forEach(function(d) {
+        d.classList.remove('is-open');
+      });
+    }
+  });
+});
+</script>

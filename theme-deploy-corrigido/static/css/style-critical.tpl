@@ -2290,18 +2290,184 @@ p{
   text-align: center;
 }
 
-/* Seção de produtos relacionados - espaçamento reduzido */
+/* ============================================================================
+   PATAGANG - Seção de Produtos Similares (Redesign)
+   Cards levemente retangulares com altura maior que largura
+============================================================================ */
+
 .section-products-related {
-  padding: 30px 0 40px;     /* Padding vertical reduzido */
+  padding: 40px 0 60px;
+  background-color: #E2E2E2 !important;
 }
 
 .section-products-related .h3,
 .section-products-related .title {
-  margin-bottom: 20px;      /* Espaçamento mais compacto */
-  font-size: 1.5rem;
+  margin-bottom: 28px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #000;
 }
 
-.item-image {
+/* Card de produto - Produtos Similares */
+.section-products-related .item-product {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.section-products-related .item-product:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Container da imagem - COMPATÍVEL com estrutura Nuvemshop */
+/* Nuvemshop usa padding-bottom inline + img position:absolute */
+.section-products-related .item-image {
+  position: relative !important;
+  overflow: hidden !important;
+  background: #F5F5F5 !important;
+  border-radius: 12px !important;
+  margin-bottom: 10px !important;
+  box-shadow: none !important;
+  /* Proporção quadrada via padding (padrão Nuvemshop) */
+  padding-bottom: 100% !important;  /* 1:1 = 100% */
+  height: 0 !important;             /* Necessário para padding-bottom funcionar */
+  width: 100% !important;
+}
+
+/* Imagem absoluta - Preenche o container inteiro */
+.section-products-related .item-image .img-absolute,
+.section-products-related .item-image img {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;   /* Mantém proporção */
+  object-position: center !important;
+  transform: none !important;       /* Remove translateX(-50%) */
+  padding: 16px !important;         /* Espaço interno */
+  box-sizing: border-box !important;
+}
+
+.section-products-related .item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+/* Descrição do produto */
+.section-products-related .item-description {
+  padding: 0 4px;
+}
+
+.section-products-related .item-name {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #000;
+  margin-bottom: 8px;
+  min-height: 34px;
+}
+
+.section-products-related .item-price-container {
+  margin-bottom: 8px;
+}
+
+.section-products-related .item-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+}
+
+.section-products-related .price-compare {
+  font-size: 12px;
+  color: #888;
+  text-decoration: line-through;
+  margin-right: 6px;
+}
+
+/* Parcelas */
+.section-products-related .item-installments {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+/* Botão Comprar */
+.section-products-related .item-actions {
+  margin-top: 12px;
+}
+
+.section-products-related .item-actions .btn {
+  width: 100%;
+  background: #EAFE67;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.section-products-related .item-actions .btn:hover {
+  background: #D4E856;
+  transform: translateY(-1px);
+}
+
+/* Avaliações (estrelas) */
+.section-products-related .yotpo-display-wrapper,
+.section-products-related .yotpo-bottomline {
+  margin-bottom: 8px;
+}
+
+/* Swiper pagination - Produtos Similares */
+.section-products-related .swiper-pagination {
+  margin-top: 20px;
+}
+
+.section-products-related .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #CCC;
+  opacity: 1;
+}
+
+.section-products-related .swiper-pagination-bullet-active {
+  background: #000;
+}
+
+/* Navegação do slider */
+.section-products-related .swiper-button-prev,
+.section-products-related .swiper-button-next {
+  color: #000;
+  opacity: 0.7;
+}
+
+.section-products-related .swiper-button-prev:hover,
+.section-products-related .swiper-button-next:hover {
+  opacity: 1;
+}
+
+/* ============================================================================
+   FIM - Produtos Similares
+============================================================================ */
+
+/* Estilos globais de item-image - EXCETO produtos similares que têm estilo próprio */
+:not(.section-products-related) > .container .item-image,
+:not(.section-products-related) .swiper-wrapper .item-image {
   position: relative;
   overflow: hidden;
   background: #FFFFFF;        /* Fundo branco como no protótipo */
@@ -2311,7 +2477,7 @@ p{
   display: flex;              /* Flex para centralizar */
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1;        /* Container quadrado */
+  aspect-ratio: 1 / 1;        /* Container quadrado para grids gerais */
 }
 
 .item-image img {
@@ -3377,11 +3543,12 @@ p{
    ============================================ */
 
 .pg-ong-selector {
-	margin: 12px 0 16px 0;
+	margin: 20px 0 16px 0;
 	padding: 10px 12px;
-	background: #f8f8f8;
+	background: transparent; /* Removido background para não sobrepor info do CEP */
 	border-radius: 8px;
 	border: 1px solid #e5e5e5;
+	overflow: hidden; /* Garante que nada extrapole */
 }
 
 .pg-ong-selector__label {
@@ -6341,4 +6508,30 @@ select {
     .pg-fancybox-gallery .fancybox__button--prev {
         left: 95px !important;
     }
+}
+
+/* ============================================
+   PAGE HEADER CATEGORIA - Espaçamento aumentado
+   Afasta o título do header e dos filtros
+   ============================================ */
+
+body.template-category .page-header,
+.template-category .page-header {
+    margin-top: 50px !important;
+    margin-bottom: 40px !important;
+    padding-top: 30px !important;
+}
+
+body.template-category .page-header h1,
+.template-category .page-header h1 {
+    margin-bottom: 20px !important;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center !important;
+}
+
+body.template-category .page-header .container,
+.template-category .page-header .container {
+    text-align: center !important;
 }
