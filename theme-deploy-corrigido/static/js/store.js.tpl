@@ -795,8 +795,8 @@ DOMContentLoaded.addEventOrExecute(() => {
                 watchOverflow: true,
                 loop: alternativeLoopVal,
                 centerInsufficientSlides: true,
-                spaceBetween: 24,
-                slidesPerView: 1.2,  /* Mobile: 1 card + preview */
+                spaceBetween: 12,
+                slidesPerView: 2,  /* Mobile: 2 cards (alinhado com grid categoria) */
                 pagination: {
                     el: '.js-swiper-related-pagination',
                     clickable: true,
@@ -807,16 +807,16 @@ DOMContentLoaded.addEventOrExecute(() => {
                 },
                 breakpoints: {
                     480: {
-                        slidesPerView: 2,  /* Tablet pequeno */
+                        slidesPerView: 2,  /* Mobile grande */
+                        spaceBetween: 16,
+                    },
+                    768: {
+                        slidesPerView: 3,  /* Tablet */
                         spaceBetween: 20,
                     },
-                    767: {
-                        slidesPerView: 3,  /* Desktop: 3 cards (antes era 4) para cards mais largos */
-                        spaceBetween: 24,
-                    },
                     1200: {
-                        slidesPerView: 3,  /* Desktop grande: mantém 3 para cards quadrados */
-                        spaceBetween: 30,
+                        slidesPerView: 4,  /* Desktop: 4 cards como grid categoria */
+                        spaceBetween: 24,
                     }
                 }
             });
@@ -828,8 +828,8 @@ DOMContentLoaded.addEventOrExecute(() => {
                 watchOverflow: true,
                 loop: complementaryLoopVal,
                 centerInsufficientSlides: true,
-                spaceBetween: 30,
-                slidesPerView: {{ columns }},
+                spaceBetween: 12,
+                slidesPerView: 2,  /* Mobile: 2 cards */
                 pagination: {
                     el: '.js-swiper-complementary-pagination',
                     clickable: true,
@@ -839,8 +839,17 @@ DOMContentLoaded.addEventOrExecute(() => {
                     prevEl: '.js-swiper-complementary-prev',
                 },
                 breakpoints: {
-                    767: {
-                        slidesPerView: desktopColumns,
+                    480: {
+                        slidesPerView: 2,
+                        spaceBetween: 16,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                    },
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 24,
                     }
                 }
             });

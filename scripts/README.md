@@ -49,4 +49,4 @@ Consulte `ftp-deploy/README.md` para mais detalhes.
 
 ---
 
-**Última atualização:** 13/12/2025
+**Última atualização:** 2026-02-13 00:00:00 (Brasília)

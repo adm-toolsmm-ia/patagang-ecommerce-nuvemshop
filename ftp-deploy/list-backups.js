@@ -357,6 +357,7 @@ function main() {
     console.log(colors.cyan + '   --full      Mostrar também backups completos' + colors.reset);
     console.log(colors.cyan + '   --all       Mostrar todos os backups (sem limite)' + colors.reset);
     console.log(colors.cyan + '   --limit N   Limitar a N backups (padrão: 10)' + colors.reset);
+    console.log(colors.cyan + '   Sincronizar tema com último backup full: node sync-backup-to-local.js' + colors.reset);
     console.log();
 }
 

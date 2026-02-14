@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 /**
- * Verifica se o projeto local está igual ao backup do FTP
+ * Verifica se o projeto local está igual ao backup full do FTP.
+ * Usa backups/ftp-full/[TIMESTAMP] (último ou o informado).
+ *
+ * Uso: node verify-sync.js [TIMESTAMP]
+ *      Sem argumento: usa o backup full mais recente.
  */
 
 const fs = require('fs');
@@ -8,8 +12,42 @@ const path = require('path');
 const crypto = require('crypto');
 const { DIRS } = require('./config.js');
 
-const BACKUP_DIR = path.join(DIRS.backup, 'version-01-official');
+const FTP_FULL_BASE = path.join(DIRS.backup, 'ftp-full');
 const LOCAL_DIR = DIRS.theme;
+
+function getLatestBackupDir() {
+    if (!fs.existsSync(FTP_FULL_BASE)) {
+        return null;
+    }
+    const entries = fs.readdirSync(FTP_FULL_BASE)
+        .filter(name => {
+            const full = path.join(FTP_FULL_BASE, name);
+            return fs.statSync(full).isDirectory();
+        })
+        .sort()
+        .reverse();
+    return entries.length > 0 ? path.join(FTP_FULL_BASE, entries[0]) : null;
+}
+
+function getBackupDir() {
+    const timestamp = process.argv[2];
+    if (timestamp) {
+        const dir = path.join(FTP_FULL_BASE, timestamp);
+        if (fs.existsSync(dir) && fs.statSync(dir).isDirectory()) {
+            return dir;
+        }
+        console.error(`Backup não encontrado: ${dir}`);
+        process.exit(1);
+    }
+    const latest = getLatestBackupDir();
+    if (!latest) {
+        console.error('Nenhum backup full encontrado em backups/ftp-full/. Execute: node backup-full-ftp.js');
+        process.exit(1);
+    }
+    return latest;
+}
+
+const BACKUP_DIR = getBackupDir();
 
 const colors = {
     reset: '\x1b[0m',

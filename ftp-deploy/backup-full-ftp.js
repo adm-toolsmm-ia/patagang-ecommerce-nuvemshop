@@ -249,12 +249,17 @@ Este backup contém uma cópia completa de todos os arquivos que estavam no serv
 
 Para restaurar este backup:
 
-1. Copiar arquivos do backup para \`theme-deploy-corrigido/\`:
+1. **Sincronizar (recomendado):** a partir de \`ftp-deploy/\`:
+   \`\`\`bash
+   node sync-backup-to-local.js ${timestamp}
+   \`\`\`
+
+2. Ou copiar manualmente para \`theme-deploy-corrigido/\`:
    \`\`\`powershell
    Copy-Item -Recurse -Force ${timestamp}/* ../theme-deploy-corrigido/
    \`\`\`
 
-2. Fazer deploy:
+3. Fazer deploy:
    \`\`\`bash
    cd ../ftp-deploy
    node deploy-optimized.js --force-all
@@ -380,8 +385,9 @@ async function main() {
         console.log(`  ${colors.cyan}${backupDir}${colors.reset}`);
         console.log();
         console.log(colors.magenta + '💡 Para restaurar este backup:' + colors.reset);
-        console.log(`  1. Copiar arquivos: Copy-Item -Recurse -Force "${backupDir.replace(/\\/g, '/')}/*" "../theme-deploy-corrigido/"`);
-        console.log(`  2. Fazer deploy: cd ftp-deploy && node deploy-optimized.js --force-all`);
+        console.log(`  1. Sincronizar (recomendado): node sync-backup-to-local.js ${timestamp}`);
+        console.log(`  2. Ou copiar manualmente: Copy-Item -Recurse -Force "${backupDir.replace(/\\/g, '/')}/*" "../theme-deploy-corrigido/"`);
+        console.log(`  3. Fazer deploy: cd ftp-deploy && node deploy-optimized.js --force-all`);
         console.log();
         console.log(colors.cyan + '='.repeat(70) + colors.reset);
 

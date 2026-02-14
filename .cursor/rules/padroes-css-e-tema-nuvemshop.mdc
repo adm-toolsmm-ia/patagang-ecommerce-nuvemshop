@@ -1,0 +1,20 @@
+---
+description: Padrões de CSS e tema Nuvemshop (cascade, override, validação)
+alwaysApply: true
+---
+
+# Padrões de CSS e tema (Nuvemshop)
+
+Aplicar em **qualquer análise ou alteração** em arquivos do tema (`theme-deploy-corrigido/`), especialmente CSS, SCSS, templates que injetam estilos ou layout.
+
+## Checklist obrigatório
+
+1. **Ordem na cascata:** Em conflitos de estilo, verificar a ordem de carregamento no documento (critical, colors, async, arquivos por template). Com mesma especificidade e `!important`, vence a regra que aparece por último.
+2. **Validar com a cascata real:** Se uma alteração "não tiver efeito", pedir ou usar os estilos ativos do navegador (DevTools > Styles) para o elemento: qual regra vence, de qual arquivo vem, o que está riscado. Não iterar só no código do tema sem essa evidência.
+3. **Plataforma e base theme:** Considerar que o CSS final pode vir do base theme da Nuvemshop, do style-colors compilado e de CSS injetado pela plataforma. Não assumir que só os arquivos do tema controlam um elemento.
+4. **Override final para UI crítica:** Para elementos que precisam ter aparência garantida (ex.: barra de aviso), considerar uma regra "última palavra" em arquivo que controlamos e que carrega por último (ex.: bloco condicional em `layouts/layout.tpl` após todos os CSS).
+5. **Consolidar definições:** Evitar espalhar a mesma definição em vários arquivos; preferir uma fonte de verdade + um override final explícito quando necessário.
+
+## Documento completo
+
+Detalhes, rationale e checklist expandido: [Docs/project/standards-css-e-tema-nuvemshop.md](Docs/project/standards-css-e-tema-nuvemshop.md)

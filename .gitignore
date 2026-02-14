@@ -16,8 +16,11 @@ ftp-deploy/.deploy-cache.json
 logs/
 .cache/
 
-# Backups (podem ser grandes)
+# Backups (podem ser grandes) — rotina usa apenas backups/ftp-full e backups/incremental
 backups/
+backups/version-01-official/
+backup-theme-old/
+version-02-prototipo/
 *.bak
 
 # Arquivos do sistema

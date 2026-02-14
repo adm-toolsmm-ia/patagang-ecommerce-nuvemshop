@@ -18,12 +18,19 @@ This command adds features or makes updates to existing application.
    - Load project state with `python .agent/scripts/session_manager.py info`
    - Understand existing features, tech stack
 
-2. **Plan Changes**
+2. **🔴 Auditoria Profunda (OBRIGATÓRIO para CSS/HTML/JS)**
+   - Ler `CODEBASE.md` no root do projeto
+   - Executar workflow `/theme-audit` para mapear TODOS os conflitos
+   - Identificar TODOS os arquivos que podem impactar na alteração
+   - Mapear especificidade CSS e ordem de carregamento
+   - **NÃO PROSSEGUIR** sem completar esta auditoria
+
+3. **Plan Changes**
    - Determine what will be added/changed
    - Detect affected files
    - Check dependencies
 
-3. **Present Plan to User** (for major changes)
+4. **Present Plan to User** (for major changes)
    ```
    "To add admin panel:
    - I'll create 15 new files
@@ -33,12 +40,12 @@ This command adds features or makes updates to existing application.
    Should I start?"
    ```
 
-4. **Apply**
+5. **Apply**
    - Call relevant agents
    - Make changes
    - Test
 
-5. **Update Preview**
+6. **Update Preview**
    - Hot reload or restart
 
 ---

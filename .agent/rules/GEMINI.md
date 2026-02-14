@@ -149,6 +149,7 @@ When user's prompt is NOT in English:
 - **NO ROOT FILES:** NEVER create documentation or artifact files in the root directory.
 - **Organization:** Always use the `Docs/` directory or appropriate subfolders for new documentation.
 - **Context:** Place contextual docs near the code or in dedicated `Docs/FeatureName/` folders.
+- **Structure:** `Docs/` has `project/` (context), `platform/` (Nuvemshop), `features/<name>/` (per-feature), `design-assets/`, `archive/`. See `Docs/README.md` for the index.
 
 ---
 

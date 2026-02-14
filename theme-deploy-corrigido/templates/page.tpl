@@ -19,7 +19,7 @@
             <nav class="pg-movimento__nav">
                 <div class="pg-movimento__nav-container">
                     <a href="/comunidade" class="pg-movimento__tab {% if page.handle == 'comunidade' %}is-active{% endif %}">
-                        O Movimento
+                        A GANG
                     </a>
                     <a href="/sobre" class="pg-movimento__tab {% if page.handle == 'sobre' %}is-active{% endif %}">
                         Sobre a Patagang

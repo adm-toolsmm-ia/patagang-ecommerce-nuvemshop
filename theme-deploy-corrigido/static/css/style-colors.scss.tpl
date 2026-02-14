@@ -1043,11 +1043,11 @@ input[type=number] {
   #Header and nav
 ==============================================================================*/#}
 
-{# /* // Ad Bar */ #}
-
+{# /* // Ad Bar - Patagang: fundo amarelo fixo (override do base theme que usa $main-foreground) */ #}
 .section-advertising {
-  background-color: #000000;
-  color: #FFFFFF;
+  background: #EAFE67 !important;
+  background-color: #EAFE67 !important;
+  color: #000000 !important;
 }
 
 {# /* // Header */ #}

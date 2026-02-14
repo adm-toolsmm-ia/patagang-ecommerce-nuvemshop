@@ -1,12 +1,16 @@
 {% raw %}@charset "UTF-8":
 
 /*============================================================================
-critical-css.tpl
+style-critical.tpl - PATAGANG
 
-    -This file contains all the theme critical styles wich will be loaded inline before the rest of the site
-    -Rest of styling can be found in:
-    	--static/css/style-async.css.tpl --> For non critical styles witch will be loaded asynchronously
-      --static/css/style-colors.scss.tpl --> For color and font styles related to config/settings.txt
+    -Este arquivo contém CSS crítico carregado inline no head (first paint)
+    -Resto dos estilos:
+      --static/css/style-colors.scss.tpl --> Cores e fontes (config/settings.txt)
+      --static/css/style-async.scss.tpl --> Estilos não críticos (async)
+      --static/css/style-menu-patagang.css.tpl --> Menu/header (inline após critical)
+      --static/css/style-filters-patagang.css.tpl --> Filtros (inline após critical)
+      --static/css/style-home-v2.css --> Home (link condicional template==home)
+      --layouts/layout.tpl --> Override final listagem, ad bar, PDP
 
 ==============================================================================*/
 
@@ -84,6 +88,11 @@ body {
     min-height: 100vh;
 }
 
+/* Barra de aviso - altura responsiva (clamp sem breakpoints fixos) */
+:root {
+  --ad-bar-height: clamp(14px, 2dvh, 28px);
+}
+
 /* Seções que devem ter background global #E2E2E2 forçado */
 .section-products-related,
 #reviewsapp,
@@ -122,6 +131,12 @@ main#content,
     background: #E2E2E2 !important;
 }
 
+/* Exceção: barra de aviso sempre amarela em todas as páginas (incl. home) */
+.section-advertising {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
 /* ============================================================================
    PATAGANG - Footer com Transição Suave (Páginas Internas)
    Cinza #E2E2E2 → Branco #FFFFFF
@@ -143,11 +158,9 @@ main#content,
 }
 
 /* ============================================
-   CORREÇÃO 1: SECTION ADVERTISING (Restaurar + Remover Overlay)
+   CORREÇÃO 1: SECTION ADVERTISING (cor/filtro; fundo amarelo no bloco Ad Bar mais abaixo)
    ============================================ */
 .section-advertising {
-    background-color: transparent !important;
-    background: transparent !important;
     color: #000000 !important;
     opacity: 1 !important;
     z-index: 10001 !important; /* Acima de tudo e overlays */
@@ -438,55 +451,6 @@ body{
   .pg-grid--products {
     grid-template-columns: repeat(3, 1fr);
   }
-}
-
-.pg-card {
-  background: var(--pg-color-primary);
-  border-radius: var(--pg-radius-card);
-  padding: var(--pg-spacing-5);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.pg-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 45px rgba(0,0,0,0.12);
-}
-
-.pg-product-card__media {
-  display: block;
-  background: transparent;          /* Remove fundo branco */
-  border-radius: var(--pg-radius-card);
-  padding: 0;                       /* Remove padding */
-  margin-bottom: var(--pg-spacing-4);
-  overflow: hidden;                 /* Garante que bordas arredondadas funcionem */
-}
-
-.pg-product-card__media img {
-  width: 100%;
-  height: auto;                     /* Altura automática baseada na proporção */
-  max-height: 180px;                /* Limite máximo mais razoável */
-  object-fit: contain;
-  display: block;                   /* Remove espaço extra embaixo */
-}
-
-.pg-product-card__body h3 {
-  font-family: var(--pg-font-display);
-  font-size: 1.2rem;
-  margin: var(--pg-spacing-3) 0 var(--pg-spacing-2);
-}
-
-.pg-product-card__price {
-  font-weight: 700;
-  font-size: 1rem;
-  margin-bottom: var(--pg-spacing-4);
-}
-
-.pg-product-card__price-compare {
-  font-size: 0.85rem;
-  color: var(--pg-color-gray-dark);
-  text-decoration: line-through;
-  margin-left: var(--pg-spacing-2);
 }
 
 .pg-hero {
@@ -2089,16 +2053,20 @@ p{
   right: 0;
   width: 100%;
   z-index: 10000; /* Acima do header (9999) */
-  padding: 8px 0; /* Aumentado de 5px para 8px */
-  
-  /* Design Patagang - Preto sem borda */
-  background: transparent;
+  padding: calc(var(--ad-bar-height) / 2) 8px; /* Responsivo: usa variável clamp */
+
+  /* Design Patagang - mesmo amarelo dos botões da home (Vista o Propósito / Produtos para Cachorro) */
+  background: #EAFE67 !important;
   color: #000000;
-  /* border-bottom: 3px solid #EAFE67; */ /* REMOVIDO - Faixa verde */
-  font-size: 13px;
+  font-size: clamp(9px, 1.2vw + 7px, 12px); /* Proporcional no mobile; teto 12px */
   font-weight: 600;
   letter-spacing: 0.5px;
   text-align: center;
+}
+
+/* Header: offset igual à altura da barra quando aviso está ativo */
+body.has-ad-bar .pg-header {
+  padding-top: var(--ad-bar-height) !important;
 }
 
 .section-advertising a {
@@ -2110,6 +2078,40 @@ p{
 
 .section-advertising a:hover {
   opacity: 0.85;
+}
+
+/* Banner marquee - texto rotativo direita para esquerda */
+.section-advertising__marquee {
+  overflow: hidden;
+  width: 100%;
+  padding: 0 12px; /* Evita texto cortado nas bordas no mobile */
+}
+
+.section-advertising__track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: pg-marquee 60s linear infinite;
+}
+
+.section-advertising__copy {
+  flex-shrink: 0;
+}
+
+.section-advertising__sep {
+  margin-left: 5em;
+  margin-right: 5em;
+  flex-shrink: 0;
+}
+
+@keyframes pg-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-advertising__track {
+    animation: none;
+  }
 }
 
 
@@ -2291,8 +2293,8 @@ p{
 }
 
 /* ============================================================================
-   PATAGANG - Seção de Produtos Similares (Redesign)
-   Cards levemente retangulares com altura maior que largura
+   PATAGANG - Seção de Produtos Similares (V3 - Alinhado com grid categoria)
+   Usa classes pg-card V3 geradas por item.tpl
 ============================================================================ */
 
 .section-products-related {
@@ -2310,130 +2312,169 @@ p{
   color: #000;
 }
 
-/* Card de produto - Produtos Similares */
-.section-products-related .item-product {
+/* Card pg-card V3 — mesmo visual do grid de categoria/busca */
+.section-products-related .pg-card {
   background: #FFFFFF;
-  border-radius: 20px;
-  padding: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  margin-bottom: 20px;
+  text-align: center;
+  height: auto !important;
+  min-height: auto !important;
+  margin-bottom: 0 !important;
 }
 
-.section-products-related .item-product:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+.section-products-related .pg-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
 }
 
-/* Container da imagem - COMPATÍVEL com estrutura Nuvemshop */
-/* Nuvemshop usa padding-bottom inline + img position:absolute */
-.section-products-related .item-image {
-  position: relative !important;
-  overflow: hidden !important;
-  background: #F5F5F5 !important;
-  border-radius: 12px !important;
-  margin-bottom: 10px !important;
-  box-shadow: none !important;
-  /* Proporção quadrada via padding (padrão Nuvemshop) */
-  padding-bottom: 100% !important;  /* 1:1 = 100% */
-  height: 0 !important;             /* Necessário para padding-bottom funcionar */
-  width: 100% !important;
+/* Imagem — 1:1, contain */
+.section-products-related .pg-card__image {
+  background: #F9F9F9;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 6px;
 }
 
-/* Imagem absoluta - Preenche o container inteiro */
-.section-products-related .item-image .img-absolute,
-.section-products-related .item-image img {
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
+.section-products-related .pg-card__image-container {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.section-products-related .pg-card__image-container > div {
+  padding-bottom: 100% !important;
+}
+
+.section-products-related .pg-card__image-container img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;   /* Mantém proporção */
-  object-position: center !important;
-  transform: none !important;       /* Remove translateX(-50%) */
-  padding: 16px !important;         /* Espaço interno */
-  box-sizing: border-box !important;
-}
-
-.section-products-related .item-image img {
-  width: 100%;
-  height: 100%;
   object-fit: contain;
   object-position: center;
-  display: block;
+  transition: transform 0.3s ease;
 }
 
-/* Descrição do produto */
-.section-products-related .item-description {
-  padding: 0 4px;
+.section-products-related .pg-card:hover .pg-card__image-container img {
+  transform: scale(1.05);
 }
 
-.section-products-related .item-name {
+/* Info */
+.section-products-related .pg-card__info {
+  padding: 4px 4px 0;
+  text-align: center;
+}
+
+.section-products-related .pg-card__name {
+  font-family: 'Familjen Grotesk', sans-serif;
   font-size: 12px;
   font-weight: 600;
-  line-height: 1.4;
+  line-height: 1.3;
+  color: #000;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #000;
-  margin-bottom: 8px;
-  min-height: 34px;
+  margin: 0 0 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 31px;
 }
 
-.section-products-related .item-price-container {
-  margin-bottom: 8px;
+.section-products-related .pg-card__price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 2px;
 }
 
-.section-products-related .item-price {
+.section-products-related .pg-card__price-old {
+  font-size: 11px;
+  color: #888;
+  text-decoration: line-through;
+}
+
+.section-products-related .pg-card__price-main {
+  font-family: 'Familjen Grotesk', sans-serif;
   font-size: 16px;
   font-weight: 700;
   color: #000;
 }
 
-.section-products-related .price-compare {
-  font-size: 12px;
-  color: #888;
-  text-decoration: line-through;
-  margin-right: 6px;
+/* Desconto PIX/Boleto */
+.section-products-related .pg-card__discount {
+  font-size: 11px;
+  color: #2d3a00 !important;
+  font-weight: 600;
+  margin-bottom: 2px;
+  text-align: center;
+}
+
+.section-products-related .pg-card__discount .text-accent {
+  color: #2d3a00 !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
 }
 
 /* Parcelas */
-.section-products-related .item-installments {
-  font-size: 11px;
+.section-products-related .pg-card__installments {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 10px;
   color: #666;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
+  text-align: center;
 }
 
-/* Botão Comprar */
-.section-products-related .item-actions {
-  margin-top: 12px;
-}
-
-.section-products-related .item-actions .btn {
+/* Botão "Comprar" — mesmo estilo do grid de categoria */
+.section-products-related .pg-card__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   width: 100%;
-  background: #EAFE67;
-  color: #000;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 12px;
+  min-height: 36px;
+  padding: 8px 12px;
+  margin-top: auto;
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: all 0.3s ease;
+  text-decoration: none !important;
+  background: #EAFE67;
+  color: #000 !important;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-.section-products-related .item-actions .btn:hover {
-  background: #D4E856;
-  transform: translateY(-1px);
+.section-products-related .pg-card__btn:hover {
+  background: #D4E600;
+  transform: translateY(-2px);
+  color: #000 !important;
+  text-decoration: none !important;
 }
 
-/* Avaliações (estrelas) */
-.section-products-related .yotpo-display-wrapper,
-.section-products-related .yotpo-bottomline {
-  margin-bottom: 8px;
+/* Swiper slide — garante que o card preenche o slide */
+.section-products-related .swiper-slide {
+  height: auto !important;
+  display: flex;
 }
 
-/* Swiper pagination - Produtos Similares */
+.section-products-related .swiper-slide .pg-card {
+  width: 100%;
+  flex: 1;
+}
+
+/* Swiper pagination */
 .section-products-related .swiper-pagination {
   margin-top: 20px;
 }
@@ -2461,65 +2502,107 @@ p{
   opacity: 1;
 }
 
+/* Hover de imagem secundária */
+.section-products-related .pg-card__img-hover,
+.section-products-related .pg-card__img-hover.lazyloaded {
+  opacity: 0 !important;
+}
+
+.section-products-related .pg-card:hover .pg-card__img-featured {
+  opacity: 0 !important;
+}
+
+.section-products-related .pg-card:hover .pg-card__img-hover,
+.section-products-related .pg-card:hover .pg-card__img-hover.lazyloaded {
+  opacity: 1 !important;
+}
+
+/* Responsivo — mobile */
+@media (max-width: 768px) {
+  .section-products-related .pg-card__name {
+    font-size: 11px;
+    min-height: 28px;
+  }
+
+  .section-products-related .pg-card__price-main {
+    font-size: 14px;
+  }
+
+  .section-products-related .pg-card__btn {
+    min-height: 32px;
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+}
+
 /* ============================================================================
    FIM - Produtos Similares
 ============================================================================ */
 
-/* Estilos globais de item-image - EXCETO produtos similares que têm estilo próprio */
-:not(.section-products-related) > .container .item-image,
-:not(.section-products-related) .swiper-wrapper .item-image {
+/* Listagem (categoria/busca): item-image e filhos - escopo explícito */
+body.template-category .pg-product-grid .item-image,
+body.template-search .pg-product-grid .item-image {
   position: relative;
   overflow: hidden;
-  background: #FFFFFF;        /* Fundo branco como no protótipo */
-  border-radius: 16px;        /* Bordas arredondadas */
-  padding: 20px;              /* Padding ao redor da imagem */
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 20px;
   margin-bottom: 16px;
-  display: flex;              /* Flex para centralizar */
+  display: flex;
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1;        /* Container quadrado para grids gerais */
+  aspect-ratio: 1 / 1;
 }
-
-.item-image img {
+body.template-category .pg-product-grid .item-image img,
+body.template-search .pg-product-grid .item-image img {
   width: 100%;
   height: 100%;
-  object-fit: contain;        /* Mantém proporção */
+  object-fit: contain;
   object-position: center;
   display: block;
 }
-.item-image-slide img{
+body.template-category .pg-product-grid .item-image-slide img,
+body.template-search .pg-product-grid .item-image-slide img {
   max-width: 100%;
   object-fit: contain;
   object-position: top;
 }
-.item-thumbnail {
+body.template-category .pg-product-grid .item-thumbnail,
+body.template-search .pg-product-grid .item-thumbnail {
   display: block;
   width: 100%;
 }
-.item-image:not(.product-item-image-secondary).lazyloaded {
+body.template-category .pg-product-grid .item-image:not(.product-item-image-secondary).lazyloaded,
+body.template-search .pg-product-grid .item-image:not(.product-item-image-secondary).lazyloaded {
   z-index: 9;
   opacity: 1;
 }
-.item-image-secondary,
-.item-image-secondary.fade-in.lazyloaded  {
+body.template-category .pg-product-grid .item-image-secondary,
+body.template-category .pg-product-grid .item-image-secondary.fade-in.lazyloaded,
+body.template-search .pg-product-grid .item-image-secondary,
+body.template-search .pg-product-grid .item-image-secondary.fade-in.lazyloaded {
   display: none;
   opacity: 0;
 }
-.product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured{
+body.template-category .pg-product-grid .product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured,
+body.template-search .pg-product-grid .product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured {
   opacity: 0;
   transition-delay: .05s;
 }
-.product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured ~ .item-image-secondary {
+body.template-category .pg-product-grid .product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured ~ .item-image-secondary,
+body.template-search .pg-product-grid .product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured ~ .item-image-secondary {
   opacity: 1;
 }
-.item-colors {
+body.template-category .pg-product-grid .item-colors,
+body.template-search .pg-product-grid .item-colors {
   position: absolute;
   bottom: 0;
   z-index: 9;
   width: 100%;
   padding: 5px 0;
 }
-.item-colors-bullet {
+body.template-category .pg-product-grid .item-colors-bullet,
+body.template-search .pg-product-grid .item-colors-bullet {
   display: inline-block;
   min-width: 18px;
   height: 18px;
@@ -2537,11 +2620,14 @@ p{
   -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
-.item-colors-bullet:hover,
-.item-colors-bullet.selected {
+body.template-category .pg-product-grid .item-colors-bullet:hover,
+body.template-category .pg-product-grid .item-colors-bullet.selected,
+body.template-search .pg-product-grid .item-colors-bullet:hover,
+body.template-search .pg-product-grid .item-colors-bullet.selected {
   opacity: 1;
 }
-.item-name {
+body.template-category .pg-product-grid .item-name,
+body.template-search .pg-product-grid .item-name {
   font-size: 11px;
   line-height: 15px;
   text-transform: uppercase;
@@ -2552,11 +2638,13 @@ p{
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
-.item-price-container {
+body.template-category .pg-product-grid .item-price-container,
+body.template-search .pg-product-grid .item-price-container {
   margin-bottom: 10px;
   font-size: 12px;
 }
-.item-installments {
+body.template-category .pg-product-grid .item-installments,
+body.template-search .pg-product-grid .item-installments {
   font-size: 10px;
 }
 .item-product-reduced .item-image {
@@ -4039,7 +4127,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		display: flex !important;
 		flex-direction: row !important;
 		flex-wrap: nowrap !important;
-		align-items: center !important; /* CENTRALIZADO em relação à imagem */
+		align-items: flex-start !important; /* FLEX-START para sticky funcionar */
 		justify-content: center !important;
 		gap: 40px;
 		padding: 30px 40px;
@@ -4054,7 +4142,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		align-self: flex-start !important; /* Imagem alinha no topo */
 	}
 
-	/* COLUNA DIREITA - Info - ALINHADA AO TOPO */
+	/* COLUNA DIREITA - Info - STICKY SCROLL */
 	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
 		flex: 0 0 40% !important;
 		max-width: 40% !important;
@@ -4062,6 +4150,148 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		padding: 0 !important;
 		padding-top: 16px !important; /* Alinha com grid de imagens */
 		align-self: flex-start !important; /* Alinha ao topo */
+		/* STICKY: Card fica fixo enquanto imagens rolam */
+		position: sticky !important;
+		top: 16px !important; /* Mínimo - logo abaixo do topo visível */
+		/* REMOVIDO overflow daqui - vai para o card interno */
+	}
+
+	/* Card interno com scroll e altura máxima */
+	.pg-pdp-info-card {
+		max-height: calc(100vh - 120px) !important; /* Cabe na viewport */
+		overflow-y: auto !important; /* Scroll interno */
+		display: flex !important;
+		flex-direction: column !important;
+		/* Esconde scrollbar */
+		scrollbar-width: none;
+		-ms-overflow-style: none;
+	}
+
+	.pg-pdp-info-card::-webkit-scrollbar {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+}
+
+/* TELAS GRANDES (1200px+): Ajuste fino do sticky */
+@media (min-width: 1200px) {
+	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
+		top: 20px !important; /* Ligeiramente mais espaço em telas grandes */
+		max-height: calc(100vh - 100px);
+	}
+}
+
+/* =============================================================================
+   NOTEBOOKS MENORES (992-1199px): Card COMPACTO
+   Reduz padding, fontes e espaçamentos para caber em viewports menores
+   ============================================================================= */
+@media (min-width: 992px) and (max-width: 1199px) {
+	/* Card com padding reduzido */
+	.pg-pdp-info-card {
+		padding: 16px 20px !important;
+	}
+
+	/* Header mais compacto */
+	.pg-product-header {
+		margin-bottom: 8px !important;
+	}
+
+	.pg-product-title {
+		font-size: 14px !important;
+		letter-spacing: 0.5px !important;
+	}
+
+	/* Bloco de preços compacto */
+	.pg-price-block {
+		margin-bottom: 14px !important;
+		padding-bottom: 12px !important;
+	}
+
+	.pg-price-pix-highlight {
+		font-size: 18px !important;
+	}
+
+	.pg-price-original {
+		font-size: 12px !important;
+	}
+
+	.pg-price-installments {
+		font-size: 10px !important;
+		margin-top: 4px !important;
+	}
+
+	/* Botões de tamanho menores */
+	.pg-size-btn {
+		min-width: 28px !important;
+		height: 28px !important;
+		font-size: 10px !important;
+		padding: 0 8px !important;
+	}
+
+	/* Link tabela de medidas menor */
+	.pg-size-guide-link {
+		font-size: 9px !important;
+	}
+
+	/* Container de variantes mais compacto */
+	.pg-variants-container {
+		margin-bottom: 10px !important;
+	}
+
+	.pg-variant-group {
+		margin-bottom: 6px !important;
+	}
+
+	/* Botão ADICIONAR compacto (mantém amarelo) */
+	.pg-product-add-btn {
+		height: 40px !important;
+		font-size: 11px !important;
+		margin-bottom: 10px !important;
+	}
+
+	/* Banner cupom compacto */
+	.pg-coupon-banner {
+		padding: 10px 14px !important;
+		margin-bottom: 12px !important;
+	}
+
+	.pg-coupon-banner__highlight {
+		font-size: 12px !important;
+	}
+
+	.pg-coupon-banner__highlight strong {
+		font-size: 14px !important;
+	}
+
+	.pg-coupon-banner__code {
+		font-size: 10px !important;
+	}
+
+	/* Accordions mais compactos */
+	.pg-accordion-header {
+		padding: 8px 0 !important;
+		font-size: 10px !important;
+	}
+
+	.pg-accordion-icon {
+		font-size: 14px !important;
+	}
+
+	.pg-accordion-content {
+		font-size: 9px !important;
+		line-height: 1.4 !important;
+	}
+
+	.pg-accordion-item.active .pg-accordion-content {
+		max-height: 300px !important;
+		padding-bottom: 10px !important;
+	}
+
+	/* Watermark menor */
+	.pg-pdp-watermark {
+		width: 180px !important;
+		height: 180px !important;
 	}
 }
 
@@ -4316,43 +4546,71 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	display: none;
 }
 
-/* Header do produto - Nome + Preço na mesma linha - COMPACTO */
+/* Header do produto — Título com destaque */
 .pg-product-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	margin-bottom: 16px; /* REDUZIDO */
-	gap: 16px;
-	padding-bottom: 12px; /* REDUZIDO */
-	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	margin-bottom: 12px;
+	padding-bottom: 0;
+	border-bottom: none;
 }
 
-/* Título do produto - DESTAQUE */
+/* Título do produto — DESTAQUE PRINCIPAL */
 .pg-product-title {
 	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	font-size: 13px;
-	font-weight: 600;
+	font-size: 18px;
+	font-weight: 700;
 	text-transform: uppercase;
-	letter-spacing: 0.8px;
+	letter-spacing: 1px;
 	line-height: 1.3;
 	margin: 0;
 	color: #000;
-	flex: 1;
 }
 
-/* Seção de preço - DESTAQUE */
-.pg-product-price-section {
-	margin: 0;
-	text-align: right;
-	flex-shrink: 0;
+/* ============================================
+   BLOCO DE PREÇOS — Hierarquia visual
+   ============================================ */
+.pg-price-block {
+	margin-bottom: 20px;
+	padding-bottom: 16px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.pg-product-price {
-	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	font-size: 15px;
+/* Preço PIX/Boleto — DESTAQUE PRINCIPAL */
+.pg-price-pix-highlight {
+	font-family: 'Familjen Grotesk', sans-serif;
+	font-size: 22px;
 	font-weight: 700;
 	color: #000;
 	letter-spacing: 0.3px;
+	line-height: 1.2;
+	display: block;
+	margin-bottom: 6px;
+}
+
+/* Preço original tachado (menor, abaixo do PIX) */
+.pg-price-original {
+	font-family: 'Familjen Grotesk', sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	color: #888;
+	text-decoration: line-through;
+	display: block;
+	margin-bottom: 8px;
+	letter-spacing: 0.3px;
+}
+
+/* Preço atual (escondido, só para JS) */
+.pg-price-current {
+	display: none;
+}
+
+/* Parcelamento */
+.pg-price-installments {
+	font-family: 'Familjen Grotesk', sans-serif;
+	font-size: 12px;
+	font-weight: 400;
+	color: #666;
+	margin-top: 6px;
+	line-height: 1.4;
 }
 
 /* Formulário do produto */
@@ -4455,31 +4713,88 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	color: #000;
 }
 
-/* Botão adicionar - COMPACTO */
+/* Botão ADICIONAR — Amarelo Patagang */
 .pg-product-add-btn {
 	width: 100%;
-	height: 38px; /* REDUZIDO */
-	background-color: transparent;
-	border: 1.5px solid #000;
+	height: 48px;
+	background-color: #EAFE67;
+	border: none;
+	border-radius: 8px;
 	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	font-size: 12px;
-	font-weight: 600;
+	font-size: 14px;
+	font-weight: 700;
 	text-transform: uppercase;
-	letter-spacing: 0.8px;
+	letter-spacing: 1.5px;
 	color: #000;
 	cursor: pointer;
-	transition: all 0.3s ease;
-	margin-bottom: 16px; /* REDUZIDO */
+	transition: all 0.2s ease;
+	margin-bottom: 16px;
 }
 
 .pg-product-add-btn:hover {
-	background-color: #000;
-	color: #fff;
+	background-color: #D4E856;
+	color: #000;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.pg-product-add-btn:active {
+	transform: translateY(0);
 }
 
 .pg-product-add-btn:disabled {
-	opacity: 0.5;
+	opacity: 0.4;
 	cursor: not-allowed;
+	background-color: #ccc;
+	transform: none;
+	box-shadow: none;
+}
+
+/* ============================================
+   BANNER CUPOM — Destaque promocional
+   ============================================ */
+.pg-coupon-banner {
+	background: linear-gradient(135deg, #EAFE67 0%, #D4E856 100%);
+	border-radius: 10px;
+	padding: 16px 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.pg-coupon-banner__highlight {
+	font-family: 'Familjen Grotesk', sans-serif;
+	font-size: 15px;
+	font-weight: 600;
+	color: #000;
+	margin-bottom: 6px;
+	line-height: 1.4;
+}
+
+.pg-coupon-banner__highlight strong {
+	font-size: 18px;
+	font-weight: 800;
+}
+
+.pg-coupon-banner__badge {
+	margin-right: 6px;
+}
+
+.pg-coupon-banner__code {
+	font-family: 'Familjen Grotesk', sans-serif;
+	font-size: 12px;
+	color: #333;
+	line-height: 1.4;
+}
+
+.pg-coupon-banner__coupon {
+	background: #000;
+	color: #EAFE67;
+	padding: 2px 10px;
+	border-radius: 4px;
+	font-size: 13px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	margin-left: 4px;
 }
 
 /* Accordions - COMPACTO */
@@ -4642,12 +4957,34 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 @media (max-width: 576px) {
 	.pg-product-title {
-		font-size: 14px;
+		font-size: 16px;
 		letter-spacing: 0.5px;
 	}
 
-	.pg-product-price {
-		font-size: 16px;
+	.pg-price-pix-highlight {
+		font-size: 20px;
+	}
+
+	.pg-price-original {
+		font-size: 13px;
+	}
+
+	.pg-price-installments {
+		font-size: 11px;
+	}
+
+	.pg-product-add-btn {
+		height: 48px;
+		font-size: 13px;
+	}
+
+	.pg-coupon-banner {
+		padding: 14px 16px;
+		border-radius: 8px;
+	}
+
+	.pg-coupon-banner__highlight {
+		font-size: 14px;
 	}
 
 	.pg-size-btn {
@@ -5478,13 +5815,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 }
 
 /* 2. Standardized Page Titles (Search, Category, Institutional) */
+/* Listagem (category/search): MÓDULO LISTAGEM em style-async sobrescreve com 56px, #000 */
 .pg-page__title,
 .pg-search-page__title {
     font-family: 'Familjen Grotesk', sans-serif;
-    font-weight: 400 !important; /* Removido negrito - estava muito chamativo */
-    color: #333 !important; /* Cinza escuro ao invés de preto puro */
+    font-weight: 400 !important;
+    color: #333 !important;
     text-transform: uppercase;
-    font-size: 30px !important; /* Standardized size */
+    font-size: 30px !important;
     text-align: center;
     margin-bottom: 30px;
     letter-spacing: 0.05em;
@@ -6511,28 +6849,6 @@ select {
     }
 }
 
-/* ============================================
-   PAGE HEADER CATEGORIA - Espaçamento aumentado
-   Afasta o título do header e dos filtros
-   ============================================ */
-
-body.template-category .page-header,
-.template-category .page-header {
-    margin-top: 50px !important;
-    margin-bottom: 40px !important;
-    padding-top: 30px !important;
-}
-
-body.template-category .page-header h1,
-.template-category .page-header h1 {
-    margin-bottom: 20px !important;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: center !important;
-}
-
-body.template-category .page-header .container,
-.template-category .page-header .container {
-    text-align: center !important;
-}
+/* REMOVIDO: .page-header não existe no DOM atual.
+   category.tpl e search.tpl usam .pg-search-page__header.
+   Listagem controlada pelo MÓDULO LISTAGEM em style-async. */

@@ -89,6 +89,9 @@
             <link rel="stylesheet" href="{{ 'css/style-home-v2.css' | static_url }}?v=2026-02-03T04-40">
         {% endif %}
 
+        {# PRODUCT CARD V3 - Cards compactos e limpos (categoria, busca, similares, 404) #}
+        <link rel="stylesheet" href="{{ 'css/product-card-v3.css' | static_url }}?v=2026-02-14">
+
         {# Blog styles - PATAGANG - Load immediately, not async #}
 
         <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}">
@@ -98,6 +101,85 @@
         <style>
             {{ settings.css_code | raw }}
         </style>
+
+        {# Ad Bar: override final (vence platform/colors/async em TODAS as páginas, incl. home) #}
+        {% if settings.ad_bar and settings.ad_text %}
+        <style>
+            body .section-advertising {
+                background: transparent !important;
+                background-color: transparent !important;
+                position: fixed !important;
+                z-index: 10000 !important;
+                /* Mobile: 10px / Desktop: 12px */
+                font-size: 12px !important;
+            }
+            body .section-advertising .section-advertising__marquee {
+                padding: 0 12px !important;
+            }
+            @media (max-width: 768px) {
+                body .section-advertising {
+                    font-size: 10px !important;
+                    min-height: 24px !important;
+                    height: 24px !important;
+                    line-height: 24px !important;
+                    overflow: hidden !important;
+                    padding: 0 !important;
+                }
+                body .section-advertising * {
+                    font-size: 10px !important;
+                    line-height: 24px !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+                body .section-advertising .section-advertising__marquee {
+                    padding: 0 4px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    height: 100% !important;
+                }
+                /* Ajuste do header para acompanhar a nova altura da barra */
+                body .pg-header,
+                body .pg-header--sticky {
+                    top: 24px !important;
+                }
+            }
+        </style>
+        {% endif %}
+
+        {# Override final: PDP - modal "Seja o primeiro a avaliar" na frente no mobile (z-index acima do card) #}
+        {% if template == 'product' %}
+        <style>
+            body #reviewsapp { position: relative !important; z-index: 10 !important; }
+        </style>
+        {% endif %}
+
+        {# Override V3: listagem (categoria/busca) - padding-top da página #}
+        {% if template == 'category' or template == 'search' %}
+        <style>
+        body.template-category .pg-search-page,
+        body.template-search .pg-search-page {
+            padding-top: 180px !important;
+        }
+        @media (max-width: 992px) {
+            body.template-category .pg-search-page,
+            body.template-search .pg-search-page {
+                padding-top: 110px !important;
+            }
+        }
+        @media (max-width: 768px) {
+            body.template-category .pg-search-page,
+            body.template-search .pg-search-page {
+                padding-top: 92px !important;
+            }
+        }
+        @media (max-width: 480px) {
+            body.template-category .pg-search-page,
+            body.template-search .pg-search-page {
+                padding-top: 80px !important;
+            }
+        }
+        </style>
+        {% endif %}
 
         {#/*============================================================================
             #Javascript: Needed before HTML loads
@@ -130,7 +212,7 @@
 
     
     </head>
-    <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}" data-deploy-version="PLACEHOLDER_VERSION_ID">
+    <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}{% if settings.ad_bar and settings.ad_text %} has-ad-bar{% endif %}" data-deploy-version="PLACEHOLDER_VERSION_ID">
         {# Console log com versão do deploy - Para facilitar validação #}
         <script>
             console.log('%c📦 VERSÃO DO DEPLOY', 'color: #EAFE67; font-size: 16px; font-weight: bold; background: #000; padding: 4px 8px;');
@@ -251,6 +333,109 @@
         {# OBRIGATÓRIO: Loads Nuvemshop private JS for footer #}
 
         {{ foot_content }}
+
+        {# ===================================================================
+           PATAGANG V3 OVERRIDE FINAL
+           Último CSS da página = vence QUALQUER regra anterior.
+           Corrige conflitos com:
+             - style-critical.tpl (.img-absolute: height auto, .img-absolute-centered: transform)
+             - style-async.scss.tpl (object-fit cover, flex grid com calc(25%))
+           NÃO REMOVER - é a garantia de que os estilos V3 funcionam.
+        =================================================================== #}
+        {% if template == 'category' or template == 'search' or template == '404' %}
+        <style id="pg-v3-override-final">
+        /* ============================================
+           GRID: CSS Grid real (centraliza com <4 items)
+           Substitui flex + calc(25%) que deixava espaço vazio
+        ============================================ */
+        body.template-category .pg-product-grid,
+        body.template-search .pg-product-grid,
+        .pg-404-products__grid {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 24px !important;
+            max-width: 1400px !important;
+            margin: 0 auto !important;
+            justify-content: center !important;
+            float: none !important;
+        }
+        /* Quando <4 items, encolhe as colunas para centralizar */
+        @media (min-width: 769px) {
+            body.template-category .pg-product-grid,
+            body.template-search .pg-product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(260px, 300px)) !important;
+                justify-content: center !important;
+            }
+        }
+
+        /* ============================================
+           CARD: Reset flex/width herdados do tema
+        ============================================ */
+        body.template-category .pg-product-grid .pg-card,
+        body.template-category .pg-product-grid .js-item-product,
+        body.template-search .pg-product-grid .pg-card,
+        body.template-search .pg-product-grid .js-item-product {
+            flex: none !important;
+            max-width: none !important;
+            min-width: 0 !important;
+            width: 100% !important;
+            float: none !important;
+        }
+
+        /* ============================================
+           IMAGEM: Mostra completa, sem cortar
+           Neutraliza .img-absolute (height:auto) e
+           .img-absolute-centered (transform:translateX(-50%))
+        ============================================ */
+        body.template-category .pg-product-grid .pg-card__image-container img,
+        body.template-category .pg-product-grid .item-image img,
+        body.template-search .pg-product-grid .pg-card__image-container img,
+        body.template-search .pg-product-grid .item-image img,
+        body.template-404 .pg-404-products__grid .item-image img,
+        .pg-card .pg-card__image-container img,
+        .pg-card .pg-card__image-container .img-absolute,
+        .pg-card .pg-card__image-container .img-absolute-centered {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain !important;
+            object-position: center center !important;
+            transform: none !important;
+            -webkit-transform: none !important;
+            -ms-transform: none !important;
+        }
+
+        /* ============================================
+           TEXTO: Centraliza todas as informações
+        ============================================ */
+        body.template-category .pg-product-grid .item-product,
+        body.template-search .pg-product-grid .item-product,
+        body.template-category .pg-product-grid .item-description,
+        body.template-search .pg-product-grid .item-description,
+        .pg-card,
+        .pg-card.item,
+        .pg-card .pg-card__info,
+        .pg-card .pg-card__name,
+        .pg-card .pg-card__price,
+        .pg-card .pg-card__discount,
+        .pg-card .pg-card__installments {
+            text-align: center !important;
+        }
+        .pg-card .pg-card__price {
+            justify-content: center !important;
+        }
+
+        /* RESET */
+        .pg-card.item {
+            margin-bottom: 0 !important;
+        }
+        .pg-card .pg-card__image-container {
+            margin-bottom: 0 !important;
+        }
+        </style>
+        {% endif %}
 
     </body>
 </html>

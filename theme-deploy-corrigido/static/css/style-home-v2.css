@@ -1,7 +1,7 @@
 /* ============================================
    PATAGANG HOME V2 - ESTILOS
-   Implementado conforme protótipo Adobe XD
-   Janeiro 2026 - AJUSTES V2.2 (plano executado)
+   APENAS cards da home: .pg-product-card-v2 (Vista o Propósito), body.template-home .pg-dev-card (Seja o Primeiro).
+   Não deve conter regras genéricas de .item-product ou .pg-dev-card sem body.template-home.
    ============================================ */
 
 /* ============================================
@@ -144,21 +144,6 @@
             #E2E2E2 100%);
     pointer-events: none;
     z-index: 1;
-}
-
-/* ============================================
-   BARRA DE FRETE TRANSPARENTE
-   ============================================ */
-
-.section-advertising {
-    background: transparent !important;
-    position: relative;
-    z-index: 1;
-}
-
-.section-advertising .container,
-.section-advertising .link-contrast {
-    background: transparent;
 }
 
 /* ============================================

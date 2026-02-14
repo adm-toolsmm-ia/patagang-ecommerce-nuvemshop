@@ -203,7 +203,7 @@
 
 
 {# Ícones do header menores (exceto logo) - 30px botão, 14px svg/img #}
-<style>.pg-header__icon-button{width:30px!important;height:30px!important;min-width:30px!important;min-height:30px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important}.pg-header__icon-button svg,.pg-header__icon-button img{width:14px!important;height:14px!important;flex-shrink:0}.pg-header__icon-button svg[height="15"]{height:15px!important}@media(max-width:768px){.pg-header__icon-button{width:30px!important;height:30px!important;background:rgba(255,255,255,0.35)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;border:1px solid rgba(0,0,0,0.08)!important;border-radius:6px!important}.pg-header__icon-button img{width:14px!important;height:14px!important;filter:none!important}.pg-header{min-height:56px!important;padding-top:6px!important}.pg-header__logo-img{max-height:26px!important}.pg-header__container{padding-left:16px!important;padding-right:16px!important}}</style>
+<style>.pg-header__icon-button{width:30px!important;height:30px!important;min-width:30px!important;min-height:30px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important}.pg-header__icon-button svg,.pg-header__icon-button img{width:14px!important;height:14px!important;flex-shrink:0}.pg-header__icon-button svg[height="15"]{height:15px!important}@media(max-width:768px){.pg-header__icon-button{width:30px!important;height:30px!important;background:rgba(255,255,255,0.35)!important;backdrop-filter:blur(8px)!important;-webkit-backdrop-filter:blur(8px)!important;border:1px solid rgba(0,0,0,0.08)!important;border-radius:6px!important}.pg-header__icon-button img{width:14px!important;height:14px!important;filter:none!important}body:not(.has-ad-bar) .pg-header{min-height:56px!important;padding-top:6px!important}.pg-header__logo-img{max-height:26px!important}.pg-header__container{padding-left:16px!important;padding-right:16px!important}}</style>
 <script>document.addEventListener("DOMContentLoaded",function(){document.querySelectorAll('[data-toggle="#nav-hamburger"]').forEach(function(e){e.addEventListener("click",function(e){e.preventDefault(),e.stopPropagation();var t=this.getAttribute("data-toggle"),o=document.querySelector(t),n=document.querySelector(".js-modal-overlay");if(o){o.classList.add("modal-show"),o.style.display="block",document.body.classList.add("modal-open"),n&&(n.style.display="block",n.onclick=function(){o.classList.remove("modal-show"),o.style.display="none",document.body.classList.remove("modal-open"),n.style.display="none"});var l=o.querySelector(".modal-close");l&&(l.onclick=function(){o.classList.remove("modal-show"),o.style.display="none",document.body.classList.remove("modal-open"),n&&(n.style.display="none")})}})})});</script>
 
 {# CSS para Navegação Desktop #}
@@ -295,9 +295,8 @@
 }
 
 /* ============================================
-   BARRA DE FRETE TRANSPARENTE - FORCE
+   BARRA DE FRETE - Filhos com fundo transparente (o .section-advertising usa #EAFE67 do critical)
    ============================================ */
-.section-advertising,
 .section-advertising * {
     background-color: transparent !important;
     background: transparent !important;

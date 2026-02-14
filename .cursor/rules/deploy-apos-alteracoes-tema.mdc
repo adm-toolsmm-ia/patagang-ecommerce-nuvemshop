@@ -1,0 +1,26 @@
+---
+description: Deploy padrão após alterações no tema da loja (Nuvemshop)
+alwaysApply: true
+---
+
+# Deploy após alterações no tema
+
+Sempre que fizer alterações em arquivos do tema da loja (em `theme-deploy-corrigido/`), execute o **deploy padrão** ao final, **sem pedir confirmação** ao usuário.
+
+## O que fazer
+
+1. Ao concluir edições em templates, CSS, JS ou assets em `theme-deploy-corrigido/`, rodar o deploy.
+2. Comando: `cd ftp-deploy` (ou usar caminho absoluto) e `node deploy-optimized.js`.
+3. Não perguntar "deseja fazer o deploy?" — executar como parte da entrega.
+
+## Comando
+
+```bash
+Set-Location "ftp-deploy"; node deploy-optimized.js
+```
+
+(No Windows/PowerShell; em bash/zsh usar `cd ftp-deploy && node deploy-optimized.js`.)
+
+## Observação
+
+Se o usuário pedir explicitamente para **não** fazer deploy (ex.: "só altere o código, não suba"), respeitar. Caso contrário, deploy padrão após alterações no tema.

@@ -17,6 +17,17 @@ cd ftp-deploy
 npm install
 ```
 
+## Rotina de Backup (Resumo)
+
+A rotina usa **apenas** duas pastas em `backups/`:
+
+| Pasta | Uso |
+|-------|-----|
+| `backups/ftp-full/[TIMESTAMP]/` | Backup completo do FTP. Fonte para sincronizar o tema local. |
+| `backups/incremental/[TIMESTAMP]/` | Backup incremental (arquivos remotos antes do deploy). Usado no rollback. |
+
+**Fluxo:** Backup full (`backup-full-ftp.js`) → Sincronizar local (`sync-backup-to-local.js`) → Alterar em `theme-deploy-corrigido` → Deploy (`deploy-optimized.js`, que cria backup incremental automático).
+
 ## Uso
 
 ### Backup Completo do FTP (Antes de Alteracoes Importantes)
@@ -102,18 +113,20 @@ npm run list:full
 ftp-deploy/
 +-- deploy-optimized.js    <- Script PRINCIPAL de deploy (usar este)
 +-- backup-full-ftp.js     <- Script de backup completo do FTP
++-- sync-backup-to-local.js <- Sincroniza theme-deploy-corrigido com ultimo backup full
++-- verify-sync.js         <- Verifica se local esta igual ao backup full
 +-- config.js              <- Configuracoes e credenciais FTP
 +-- package.json           <- Dependencias Node.js
 +-- .deploy-cache.json     <- Cache de arquivos (gerado automaticamente)
 +-- README.md              <- Esta documentacao
 
-backups/
-+-- ftp-full/              <- Backups completos do FTP
+backups/                   <- Apenas estas duas pastas fazem parte da rotina:
++-- ftp-full/              <- Backups completos do FTP (backup-full-ftp.js, sync, verify)
     +-- [TIMESTAMP]/       <- Backup com data/hora
         +-- [todos os arquivos do FTP]
         +-- _BACKUP_METADATA.json
         +-- README.md
-+-- incremental/           <- Backups incrementais (deploy automatico)
++-- incremental/           <- Backups incrementais (deploy automatico, rollback)
 ```
 
 ## Seguranca
@@ -128,7 +141,7 @@ backups/
 
 ```bash
 node deploy-optimized.js
-# -> Envia todos os 258 arquivos
+# -> Envia todos os arquivos do tema (ex.: ~290)
 # -> Cria .deploy-cache.json com hash MD5 de cada arquivo
 ```
 
@@ -142,7 +155,7 @@ node deploy-optimized.js
 
 ```bash
 node deploy-optimized.js
-# -> Calcula hash de 258 arquivos localmente
+# -> Calcula hash dos arquivos localmente
 # -> Compara com .deploy-cache.json
 # -> Detecta 3 modificados
 # -> Envia APENAS 3 arquivos
@@ -186,9 +199,9 @@ node deploy-optimized.js
          DEPLOY OTIMIZADO - NUVEMSHOP PATAGANG
 ======================================================================
 18:49:22 | i Coletando arquivos...
-18:49:22 | ok Encontrados 258 arquivos no total
+18:49:22 | ok Encontrados N arquivos no total
 18:49:22 | i Verificando arquivos modificados...
-18:49:22 | i Modificados: 3 | Inalterados: 255
+18:49:22 | i Modificados: 3 | Inalterados: N-3
 18:49:22 | i Serao enviados 3 arquivos
 18:49:23 | i Conectando ao FTP...
 18:49:24 | ok Conectado
@@ -306,18 +319,36 @@ node deploy-optimized.js --force-all --no-backup
 
 **Nota:** Use o script `rollback-incremental.js` ao inves de fazer manualmente.
 
-### Restaurar Backup Completo
+### Sincronizar Projeto Local com Backup Full (Recomendado)
+
+Deixa `theme-deploy-corrigido` igual ao backup full do FTP. Usa o **último** backup em `backups/ftp-full/` (ou um timestamp específico).
+
+```bash
+# Sincronizar com o backup full mais recente
+node sync-backup-to-local.js
+
+# Sincronizar com um backup específico
+node sync-backup-to-local.js 2026-02-14T00-10-23
+
+# Verificar se o local está igual ao backup
+node verify-sync.js
+node verify-sync.js 2026-02-14T00-10-23
+```
+
+### Restaurar Backup Completo (Manual)
 
 ```powershell
 # Listar backups completos
 ls ../backups/ftp-full/
 
-# Restaurar backup completo especifico
+# Restaurar backup completo especifico (manual)
 Copy-Item -Recurse -Force ../backups/ftp-full/[TIMESTAMP]/* ../theme-deploy-corrigido/
 
 # Deploy do backup completo
 node deploy-optimized.js --force-all --no-backup
 ```
+
+**Recomendação:** Use `sync-backup-to-local.js` em vez de copiar manualmente.
 
 ---
 
@@ -331,4 +362,4 @@ node deploy-optimized.js --force-all --no-backup
 
 ---
 
-**Ultima atualizacao:** 12/12/2025
+**Última atualização:** 2026-02-01 00:00:00 (Brasília)

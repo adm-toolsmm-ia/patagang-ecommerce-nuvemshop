@@ -1,0 +1,22 @@
+---
+description: Onboarding para alterações no tema e features da loja Patagang
+alwaysApply: true
+---
+
+# Tema e documentação – Patagang Nuvemshop
+
+Ao alterar **tema Nuvemshop** ou uma **feature da loja**, consultar a documentação relevante antes de implementar.
+
+## Ponto de entrada
+
+- **Documento principal:** [Docs/project/ai-onboarding.md](Docs/project/ai-onboarding.md) — onde ler primeiro para cada tipo de alteração.
+
+## Regras
+
+1. **Alterações globais de tema:** Ler [Docs/project/context-home.md](Docs/project/context-home.md), [Docs/project/standards-css-e-tema-nuvemshop.md](Docs/project/standards-css-e-tema-nuvemshop.md). Para arquitetura: [Docs/architecture/](Docs/architecture/), [Docs/project/decisions.md](Docs/project/decisions.md).
+
+2. **Alterações por feature:** Consultar `Docs/features/<nome-da-feature>/` — começar por **README** e **referencia-atual** (quando existir). Ex.: listagem → `Docs/features/listagem-categoria-busca/`, header → `Docs/features/header-patagang/`.
+
+3. **CSS em arquivos grandes:** Usar o TOC no topo de `style-critical.tpl` e `style-async.scss.tpl` para localizar seções. Consultar [Docs/project/css-impact-map.md](Docs/project/css-impact-map.md) para impacto entre contextos.
+
+4. **Padrões CSS:** Respeitar [Docs/project/standards-css-e-tema-nuvemshop.md](Docs/project/standards-css-e-tema-nuvemshop.md) (cascade, override, consolidação).

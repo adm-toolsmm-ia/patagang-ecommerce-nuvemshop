@@ -12,7 +12,7 @@ const crypto = require('crypto');
 const { FTP_CONFIG, DIRS } = require('./config.js');
 
 // Configurações otimizadas
-const TIMEOUT_MS = 120000;  // 2 minutos
+const TIMEOUT_MS = 300000;  // 5 minutos
 const MAX_RETRIES = 3;
 const BATCH_SIZE = 10;  // Reduzido para 10 para manter conexão estável
 const RECONNECT_EVERY = 50;  // Reconectar a cada 50 arquivos
