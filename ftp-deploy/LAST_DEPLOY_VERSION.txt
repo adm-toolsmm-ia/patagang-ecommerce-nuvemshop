@@ -1,10 +1,10 @@
 # Último deploy - Patagang Nuvemshop
 # Gerado automaticamente pelo deploy-optimized.js
 
-VERSION_ID=2026-02-14T22-12-51-B180F8D0
-DEPLOY_DATE=14/02/2026, 19:12:53
+VERSION_ID=2026-02-15T07-47-48-CEA9C036
+DEPLOY_DATE=15/02/2026, 04:47:51
 
 # Use o VERSION_ID acima para validar no console da loja:
 # 1. Abra a loja e pressione F12 (DevTools)
 # 2. Na aba Console, procure por "VERSÃO DO DEPLOY"
-# 3. O Versão ID exibido deve ser: 2026-02-14T22-12-51-B180F8D0
+# 3. O Versão ID exibido deve ser: 2026-02-15T07-47-48-CEA9C036

@@ -73,6 +73,7 @@
             {% include "static/css/style-critical.tpl" %}
             {% include "static/css/style-menu-patagang.css.tpl" %}
             {% include "static/css/style-filters-patagang.css.tpl" %}
+            {% include "static/css/style-help-sidebar.css.tpl" %}
         </style>
 
         {# Colors and fonts used from settings.txt and defined on theme customization #}
@@ -158,7 +159,12 @@
         <style>
         body.template-category .pg-search-page,
         body.template-search .pg-search-page {
-            padding-top: 180px !important;
+            padding-top: 120px !important;
+        }
+        /* Reduce header margin on Desktop */
+        body.template-category .pg-search-page__header,
+        body.template-search .pg-search-page__header {
+            margin-bottom: 24px !important;
         }
         @media (max-width: 992px) {
             body.template-category .pg-search-page,
@@ -169,7 +175,7 @@
         @media (max-width: 768px) {
             body.template-category .pg-search-page,
             body.template-search .pg-search-page {
-                padding-top: 92px !important;
+                padding-top: 110px !important;
             }
         }
         @media (max-width: 480px) {
@@ -268,6 +274,12 @@
 
         {% snipplet "whatsapp-chat.tpl" %}
 
+        {# WhatsApp Left Button (Fixed/Floating) #}
+        {% snipplet "whatsapp-left.tpl" %}
+
+        {# Help Sidebar (Floating Right) #}
+        {% snipplet "help-sidebar.tpl" %}
+
         {# Footer #}
 
         {% snipplet "footer.tpl" %}
@@ -342,7 +354,7 @@
              - style-async.scss.tpl (object-fit cover, flex grid com calc(25%))
            NÃO REMOVER - é a garantia de que os estilos V3 funcionam.
         =================================================================== #}
-        {% if template == 'category' or template == 'search' or template == '404' %}
+        {% if template == 'category' or template == 'search' or template == '404' or template == 'product' %}
         <style id="pg-v3-override-final">
         /* ============================================
            GRID: CSS Grid real (centraliza com <4 items)
@@ -350,21 +362,25 @@
         ============================================ */
         body.template-category .pg-product-grid,
         body.template-search .pg-product-grid,
+        body.template-product .pg-product-grid,
         .pg-404-products__grid {
             display: grid !important;
-            grid-template-columns: repeat(4, 1fr) !important;
-            gap: 24px !important;
+            grid-template-columns: repeat(2, 1fr) !important; /* MOBILE: 2 colunas */
+            gap: 16px !important;
             max-width: 1400px !important;
             margin: 0 auto !important;
             justify-content: center !important;
             float: none !important;
         }
-        /* Quando <4 items, encolhe as colunas para centralizar */
+        /* DESKTOP: 4 colunas (ou auto-fit para centralizar poucos itens) */
         @media (min-width: 769px) {
             body.template-category .pg-product-grid,
-            body.template-search .pg-product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(260px, 300px)) !important;
-                justify-content: center !important;
+            body.template-search .pg-product-grid,
+            body.template-product .pg-product-grid,
+            .pg-404-products__grid {
+                 gap: 24px !important;
+                 grid-template-columns: repeat(auto-fit, minmax(260px, 300px)) !important;
+                 justify-content: center !important;
             }
         }
 
@@ -374,7 +390,9 @@
         body.template-category .pg-product-grid .pg-card,
         body.template-category .pg-product-grid .js-item-product,
         body.template-search .pg-product-grid .pg-card,
-        body.template-search .pg-product-grid .js-item-product {
+        body.template-search .pg-product-grid .js-item-product,
+        body.template-product .pg-product-grid .pg-card,
+        body.template-product .pg-product-grid .js-item-product {
             flex: none !important;
             max-width: none !important;
             min-width: 0 !important;
@@ -391,6 +409,8 @@
         body.template-category .pg-product-grid .item-image img,
         body.template-search .pg-product-grid .pg-card__image-container img,
         body.template-search .pg-product-grid .item-image img,
+        body.template-product .pg-product-grid .pg-card__image-container img,
+        body.template-product .pg-product-grid .item-image img,
         body.template-404 .pg-404-products__grid .item-image img,
         .pg-card .pg-card__image-container img,
         .pg-card .pg-card__image-container .img-absolute,
@@ -414,6 +434,8 @@
         body.template-search .pg-product-grid .item-product,
         body.template-category .pg-product-grid .item-description,
         body.template-search .pg-product-grid .item-description,
+        body.template-product .pg-product-grid .item-product,
+        body.template-product .pg-product-grid .item-description,
         .pg-card,
         .pg-card.item,
         .pg-card .pg-card__info,
@@ -434,9 +456,82 @@
         .pg-card .pg-card__image-container {
             margin-bottom: 0 !important;
         }
+        /* ============================================
+           CATEGORY DESCRIPTION: Match 'VISTA O PROPÓSITO' style
+        ============================================ */
+        .pg-category-desc {
+            font-family: 'Familjen Grotesk', sans-serif !important;
+            font-size: 14px !important;
+            line-height: 1.45 !important;
+            font-weight: 400 !important;
+            color: #000000 !important;
+            margin: 8px auto 0 !important;
+            max-width: 800px !important;
+            text-align: center !important;
+        }
+
         </style>
         {% endif %}
 
+        <style id="pg-mobile-spacing-fix">
+        /* PATAGANG: Centralized Mobile Spacing Fix (Overrides Everything) */
+        @media (max-width: 768px) {
+            /* 1. Increase Top Space (Header to Page Title) */
+            body.template-category .pg-search-page,
+            body.template-search .pg-search-page {
+                padding-top: 110px !important; 
+            }
+
+            /* 2. Reduce Gap (Page Title to Filters) */
+            body.template-category .pg-search-page__header,
+            body.template-search .pg-search-page__header {
+                margin-bottom: 10px !important; /* Drastically reduced from 40px+ */
+                margin-top: 0 !important;
+            }
+            
+            /* 3. Reduce Filter Container Internal Spacing */
+            body.template-category .pg-search-page .category-controls,
+            body.template-search .pg-search-page .category-controls {
+                padding-top: 0 !important;
+                margin-bottom: 15px !important;
+                gap: 8px !important;
+                border-top: none !important;
+            }
+            
+            /* Optional: Tweak Title Margin directly */
+            body.template-category .pg-search-page__title,
+            body.template-search .pg-search-page__title {
+                margin-bottom: 5px !important;
+            }
+        }
+        </style>
+
+        <style id="pg-trust-strip-mobile-fix">
+        /* PATAGANG: Trust Strip Mobile Layout Fix */
+        @media (max-width: 768px) {
+            .pg-trust-strip__content {
+                display: flex !important;
+                flex-wrap: wrap !important;
+                justify-content: center !important;
+                align-items: center !important;
+                padding: 10px 0 !important;
+                gap: 4px !important;
+            }
+            .pg-trust-strip__item {
+                width: 100% !important;
+                text-align: center !important;
+                margin-bottom: 2px !important;
+                font-size: 10px !important; /* Ajuste fino para não quebrar */
+            }
+            /* Item 3 (Vista o Propósito) e 4 (Entre para a Gang) lado a lado */
+            .pg-trust-strip__item:nth-child(3),
+            .pg-trust-strip__item:nth-child(4) {
+                width: auto !important;
+                display: inline-block !important;
+                margin: 0 8px !important; /* Espaçamento lateral */
+            }
+        }
+        </style>
     </body>
 </html>
 

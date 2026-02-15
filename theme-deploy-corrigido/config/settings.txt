@@ -248,6 +248,19 @@ Encabezado
 		name = ad_url
 		description = Link (opcional)
 
+Buscador
+	meta
+		icon = search
+		advanced = false
+	title
+		title = Filtros rápidos
+	description
+		description = Ingresá los términos separados por coma (ej: Cachorros, Passeio, Para o Tutor)
+	textarea
+		name = search_quick_filters
+		description = Términos de búsqueda
+
+
 
 Página de inicio
 	meta

@@ -143,12 +143,16 @@
        5. BANNER CUPOM — Destaque promocional
     ========================================== #}
     <div class="pg-coupon-banner">
-        <div class="pg-coupon-banner__highlight">
-            <span class="pg-coupon-banner__badge">🎉</span>
-            <strong>10% OFF</strong> na primeira compra
-        </div>
-        <div class="pg-coupon-banner__code">
-            Use o cupom <strong class="pg-coupon-banner__coupon">GANGDAPATA</strong> no checkout
+        {# Logo SVG no lugar do emoji #}
+        <img src="{{ 'images/logos/logo-mark.svg' | static_url }}" alt="Patagang" class="pg-coupon-banner__icon" loading="lazy">
+        
+        <div class="pg-coupon-banner__content">
+            <div class="pg-coupon-banner__highlight">
+                <strong>10% OFF</strong> na primeira compra
+            </div>
+            <div class="pg-coupon-banner__code">
+                Use o cupom <span class="pg-coupon-banner__coupon">GANGDAPATA</span> no checkout
+            </div>
         </div>
     </div>
     

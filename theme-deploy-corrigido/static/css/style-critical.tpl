@@ -1386,6 +1386,69 @@ body.pg-search-overlay-open {
   vertical-align:middle;
 }
 
+/* WhatsApp Left - Vertical Centered (Side Tab) */
+.btn-whatsapp-left {
+    position: fixed;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 9990;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-left: none; /* Grudado na borda */
+    border-radius: 0 12px 12px 0; /* Arredondado apenas na direita */
+    padding: 12px 4px; /* Mais altura, menos largura */
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    text-decoration: none !important;
+    gap: 12px;
+}
+
+.btn-whatsapp-left:hover {
+    transform: translateY(-50%) translateX(2px);
+    box-shadow: 4px 4px 14px rgba(0,0,0,0.15);
+    background-color: #f9f9f9;
+}
+
+.btn-whatsapp-left svg {
+    width: 24px;
+    height: 24px;
+    fill: #25D366; /* Verde oficial WhatsApp */
+    padding: 0;
+}
+
+.btn-whatsapp-left span {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #4A4A4A;
+    letter-spacing: 0.05em;
+    /* Texto Vertical (Leitura de baixo para cima - Padrão Aba Lateral) */
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    white-space: nowrap;
+}
+
+/* Mobile: Ajustes para não ocupar muito espaço vertical */
+@media (max-width: 480px) {
+    .btn-whatsapp-left {
+        padding: 10px 3px;
+    }
+    .btn-whatsapp-left svg {
+        width: 20px;
+        height: 20px;
+    }
+    .btn-whatsapp-left span {
+        font-size: 11px;
+    }
+}
+
+
+
 {# /* // Links */ #}
 
 a {
@@ -4751,50 +4814,182 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 }
 
 /* ============================================
+   PATAGANG: TRUST STRIP (Faixa de Texto PDP)
+   ============================================ */
+.pg-trust-strip {
+    display: block;
+    width: 100%;
+    margin-top: 140px; /* Compensação Header Desktop */
+    margin-bottom: 0px; /* ZERADO para colar no produto */
+    padding: 8px 40px; /* Espaço interno */
+    background: transparent;
+    z-index: 900;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+/* Ajuste específico para remover gap do produto quando a barra existe */
+#single-product.pg-pdp-container {
+    padding-top: 0 !important; /* Remove padding padrão de 30px */
+    margin-top: 15px; /* Pequeno respiro controlado apenas se necessário, ou 0 */
+}
+
+.pg-trust-strip__content {
+    display: flex;
+    justify-content: space-between; /* Extremos da tela */
+    align-items: center;
+    width: 100%;
+    max-width: 1400px; /* Trava largura máxima para não esticar demais em telas gigantes */
+    margin: 0 auto;
+    flex-wrap: nowrap; /* Não quebrar linha */
+}
+
+.pg-trust-strip__item {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #000;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    text-align: center;
+}
+
+@media (max-width: 992px) {
+    .pg-trust-strip {
+        margin-top: 120px; /* Ajuste Tablet */
+        padding: 0 20px;
+    }
+    .pg-trust-strip__item {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .pg-trust-strip {
+        margin-top: 100px; /* Ajuste Mobile */
+        padding: 5px 15px;
+        height: auto;
+    }
+    .pg-trust-strip__content {
+        gap: 6px 12px;
+        justify-content: center;
+        flex-wrap: wrap; 
+    }
+    .pg-trust-strip__item {
+        white-space: normal; /* Permite quebra dentro do item se necessário */
+        text-align: center;
+        width: auto;
+    }
+}
+
+.pg-trust-bar__text {
+	font-family: 'Familjen Grotesk', sans-serif;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #000;
+}
+
+.pg-trust-bar__separator {
+	color: #ccc;
+	font-size: 10px;
+}
+
+/* Mobile: Scroll horizontal (Snap) */
+@media (max-width: 768px) {
+	.pg-trust-bar {
+		padding: 10px 0;
+		overflow: hidden;
+		margin-top: 0; /* No mobile o header é menor/diferente */
+		border-left: 0;
+		border-right: 0;
+	}
+	
+	.pg-trust-bar__container {
+		justify-content: flex-start;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		gap: 16px;
+		padding: 0 16px;
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none; /* Firefox */
+	}
+	
+	.pg-trust-bar__container::-webkit-scrollbar {
+		display: none; /* Chrome/Safari */
+	}
+	
+	.pg-trust-bar__item {
+		flex: 0 0 auto;
+		scroll-snap-align: center;
+		white-space: nowrap;
+	}
+	
+	.pg-trust-bar__separator {
+		display: none; /* Oculta separadores no mobile para limpar visual */
+	}
+}
+
+/* ============================================
    BANNER CUPOM — Destaque promocional
    ============================================ */
 .pg-coupon-banner {
-	background: linear-gradient(135deg, #EAFE67 0%, #D4E856 100%);
-	border-radius: 10px;
-	padding: 16px 20px;
+	background: transparent;
+	border: 1px solid #e5e5e5;
+	border-radius: 8px;
+	padding: 12px 16px;
 	margin-bottom: 20px;
-	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	text-align: left;
 }
 
 .pg-coupon-banner__highlight {
 	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 15px;
+	font-size: 13px;
 	font-weight: 600;
 	color: #000;
-	margin-bottom: 6px;
-	line-height: 1.4;
+	line-height: 1.3;
+	margin-bottom: 0;
+	flex: 1;
 }
 
 .pg-coupon-banner__highlight strong {
-	font-size: 18px;
+	font-size: 14px;
 	font-weight: 800;
+	display: block; /* Quebra linha pra destacar */
 }
 
-.pg-coupon-banner__badge {
-	margin-right: 6px;
+/* Logo SVG no lugar do emoji */
+.pg-coupon-banner__icon {
+	width: 24px;
+	height: 24px;
+	object-fit: contain;
+	flex-shrink: 0;
 }
 
 .pg-coupon-banner__code {
 	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 12px;
-	color: #333;
+	font-size: 11px;
+	color: #666;
 	line-height: 1.4;
+	margin-top: 2px;
 }
 
 .pg-coupon-banner__coupon {
 	background: #000;
-	color: #EAFE67;
-	padding: 2px 10px;
+	color: #fff;
+	padding: 2px 6px;
 	border-radius: 4px;
-	font-size: 13px;
+	font-size: 11px;
 	font-weight: 700;
-	letter-spacing: 1px;
-	margin-left: 4px;
+	letter-spacing: 0.5px;
+	margin-left: 2px;
 }
 
 /* Accordions - COMPACTO */

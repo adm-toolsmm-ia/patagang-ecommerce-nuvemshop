@@ -796,7 +796,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 loop: alternativeLoopVal,
                 centerInsufficientSlides: true,
                 spaceBetween: 12,
-                slidesPerView: 2,  /* Mobile: 2 cards (alinhado com grid categoria) */
+                slidesPerView: 1,  /* Mobile: 1 card */
                 pagination: {
                     el: '.js-swiper-related-pagination',
                     clickable: true,
@@ -807,15 +807,15 @@ DOMContentLoaded.addEventOrExecute(() => {
                 },
                 breakpoints: {
                     480: {
-                        slidesPerView: 2,  /* Mobile grande */
+                        slidesPerView: 2,
                         spaceBetween: 16,
                     },
                     768: {
-                        slidesPerView: 3,  /* Tablet */
+                        slidesPerView: 3,
                         spaceBetween: 20,
                     },
                     1200: {
-                        slidesPerView: 4,  /* Desktop: 4 cards como grid categoria */
+                        slidesPerView: 4,
                         spaceBetween: 24,
                     }
                 }
@@ -829,7 +829,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 loop: complementaryLoopVal,
                 centerInsufficientSlides: true,
                 spaceBetween: 12,
-                slidesPerView: 2,  /* Mobile: 2 cards */
+                slidesPerView: 1,  /* Mobile: 1 card */
                 pagination: {
                     el: '.js-swiper-complementary-pagination',
                     clickable: true,

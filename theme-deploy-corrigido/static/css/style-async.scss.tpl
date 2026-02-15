@@ -5552,7 +5552,7 @@ body.template-search .pg-product-grid .labels {
     body.template-category .pg-product-grid .item-product,
     body.template-search .pg-product-grid .item-product {
         flex: 0 0 100%;
-        max-width: 320px;
+        max-width: 100%;
         min-width: auto;
         padding: 8px;
     }
@@ -6020,4 +6020,5 @@ body.template-404 .pg-404-products__grid .item-actions .btn {
         transform: translateY(0);
     }
 }
+
 

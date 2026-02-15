@@ -157,49 +157,139 @@
     {% endfor %}
 {% endif %}
 
-<section class="pg-section pg-section--grid-bg pg-section--coming-soon visible-when-content-ready">
+<section class="pg-home-dev-section visible-when-content-ready">
     <div class="pg-container">
+        
+        <header class="pg-section__header">
+            <h3 class="pg-section__title">SEJA O PRIMEIRO A CONHECER</h3>
 
-        <h3 class="pg-section__title">SEJA O PRIMEIRO A CONHECER</h3>
+        {# CRITICAL CSS INLINE - Garante que o visual novo carregue sem cache #}
+        <style>
+            /* Namespace: .pg-reborn-card (Reference 'Vista o Propósito' + Backup Size) */
+            .pg-reborn-card {
+                display: flex;
+                flex-direction: column;
+                width: 200px; /* Tamanho fixo e pequeno */
+                flex-shrink: 0;
+                margin-right: 16px;
+                cursor: pointer;
+                text-decoration: none !important;
+                color: inherit;
+                transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                
+                /* Estilo Visual 'Vista o Propósito' */
+                background: #F6F6F6;
+                border-radius: 24px;
+                padding: 12px;
+                box-sizing: border-box;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            }
 
-        {# Carousel horizontal com scroll nativo #}
+            .pg-reborn-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            }
+
+            .pg-reborn-card__content {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                gap: 12px;
+            }
+
+            .pg-reborn-card__image {
+                width: 100%;
+                aspect-ratio: 1 / 1;
+                background: #FFFFFF;
+                border-radius: 16px;
+                overflow: hidden;
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .pg-reborn-card__image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+                border-radius: 16px;
+            }
+
+            .pg-reborn-card:hover .pg-reborn-card__image img {
+                transform: scale(1.08);
+            }
+
+            .pg-reborn-card__footer {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: auto; 
+            }
+
+            .pg-reborn-card__btn {
+                display: block;
+                width: 100%;
+                text-align: center;
+                background-color: #EAFE67;
+                color: #000000;
+                font-family: 'Familjen Grotesk', sans-serif;
+                font-weight: 700;
+                font-size: 11px;
+                text-transform: uppercase;
+                padding: 10px 4px;
+                border-radius: 12px;
+                line-height: 1.2;
+                transition: background-color 0.2s ease, transform 0.2s ease;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+
+            .pg-reborn-card:hover .pg-reborn-card__btn {
+                background-color: #D4E856;
+                transform: scale(1.02);
+            }
+
+            /* Desktop: Ajuste de scroll padding */
+            @media (min-width: 1100px) {
+                .pg-dev-carousel__track {
+                    padding: 20px 0;
+                }
+            }
+
+            /* Mobile Adjustments */
+            @media (max-width: 768px) {
+                .pg-reborn-card {
+                    width: 160px;
+                    padding: 8px;
+                    border-radius: 16px;
+                    margin-right: 12px;
+                    gap: 8px;
+                }
+                .pg-reborn-card__image {
+                    border-radius: 12px;
+                }
+                .pg-reborn-card__image img {
+                    border-radius: 12px;
+                }
+                .pg-reborn-card__btn {
+                    font-size: 10px;
+                    padding: 8px 4px;
+                    border-radius: 6px;
+                }
+            }
+        </style>
+        </header>
+
+        {# Container isolado para os cards (Carousel) #}
         <div class="pg-dev-carousel" id="dev-carousel">
             <div class="pg-dev-carousel__track" id="dev-carousel-track">
-
-                {# Server-side rendered cards (se Twig encontrou produtos) #}
-                {% for product in dev_products %}
-                    <a href="{{ product.url }}" class="pg-dev-card" title="{{ product.name }}">
-                        <div class="pg-dev-card__image">
-                            {% if product.featured_image %}
-                                <img src="{{ product.featured_image | product_image_url('large') }}"
-                                     alt="{{ product.name }}"
-                                     loading="lazy">
-                            {% else %}
-                                <img src="{{ 'images/placeholder-product.png' | static_url }}"
-                                     alt="{{ product.name }}"
-                                     loading="lazy">
-                            {% endif %}
-                        </div>
-                        <div class="pg-dev-card__info">
-                            <h3 class="pg-dev-card__name">{{ product.name }}</h3>
-                        </div>
-                    </a>
+                {# JS vai injetar os cards aqui (.pg-home-dev-card) #}
+                
+                {# Placeholders apenas para evitar CLS inicial #}
+                {% for i in 1..5 %}
+                <div class="pg-dev-card--loading" style="width: 160px; height: 200px; background: #f5f5f5; border-radius: 12px; margin-right: 16px; flex-shrink: 0;"></div>
                 {% endfor %}
-
-                {# Placeholders de loading (exibidos enquanto JS carrega, se Twig não encontrou) #}
-                {% if dev_products | length == 0 %}
-                    {% for i in 1..5 %}
-                        <div class="pg-dev-card pg-dev-card--placeholder pg-dev-card--loading">
-                            <div class="pg-dev-card__image">
-                                <div class="pg-dev-card__skeleton"></div>
-                            </div>
-                            <div class="pg-dev-card__info">
-                                <h3 class="pg-dev-card__name">Carregando...</h3>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-
             </div>
 
             {# Navegacao #}
@@ -229,16 +319,16 @@
         var btnPrev = carousel.querySelector('.pg-dev-carousel__nav--prev');
         if (!track) return;
 
-        var scrollAmount = 0; {# Calculado dinamicamente baseado no tamanho do card #}
-        var DEV_MAX = 8;
+        var scrollAmount = 0; 
+        var DEV_MAX = 5; // Limite solicitado pelo usuário
 
-        {# Placeholder imagem para fallback #}
+        // Placeholder imagem para fallback
         var placeholderImg = '{{ "images/placeholder-coming-soon.png" | static_url }}';
 
         function getScrollAmount() {
-            var firstCard = track.querySelector('.pg-dev-card');
+            var firstCard = track.querySelector('.pg-home-dev-card');
             if (firstCard) {
-                return firstCard.offsetWidth + 16; {# largura do card + gap #}
+                return firstCard.offsetWidth + 16; 
             }
             return 280;
         }
@@ -249,32 +339,22 @@
         }
 
         if (btnNext) btnNext.addEventListener('click', function() {
-            track.scrollBy({ left: getScrollAmount() * 2, behavior: 'smooth' });
+            track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
         });
         if (btnPrev) btnPrev.addEventListener('click', function() {
-            track.scrollBy({ left: -getScrollAmount() * 2, behavior: 'smooth' });
+            track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
         });
 
         track.addEventListener('scroll', updateNav);
         window.addEventListener('resize', updateNav);
 
-        {# Verifica se já tem cards reais (server-side) #}
-        var existingCards = track.querySelectorAll('.pg-dev-card:not(.pg-dev-card--loading)');
-        if (existingCards.length > 0) {
-            {# Server-side já encontrou produtos, só inicializa navegação #}
-            setTimeout(updateNav, 100);
-            return;
-        }
-
-        {# Busca produtos via API da Nuvemshop (scraping da página de categoria) #}
+        // Busca produtos via API da Nuvemshop (scraping da página de categoria)
         fetchDevProducts();
 
         function fetchDevProducts() {
-            {# A Nuvemshop oferece endpoint JSON para busca de produtos #}
-            {# URL da categoria "Produtos Cachorros" conforme configurado na loja #}
+            // URL da categoria "Produtos Cachorros" conforme configurado na loja
             var categoryUrl = '/produtos-cachorros';
 
-            {# Fetch da página da categoria e parsear os produtos #}
             fetch(categoryUrl, {
                 headers: { 'Accept': 'text/html' }
             })
@@ -286,23 +366,22 @@
                 var parser = new DOMParser();
                 var doc = parser.parseFromString(html, 'text/html');
 
-                {# Busca os items de produto na página da categoria #}
+                // Busca os items de produto na página da categoria
                 var items = doc.querySelectorAll('.js-item-product');
                 var devProducts = [];
 
                 items.forEach(function(item) {
                     if (devProducts.length >= DEV_MAX) return;
 
-                    {# Verifica se o produto tem o botão "SEJA O PRIMEIRO A CONHECER" #}
-                    {# Isso indica que o item.tpl detectou a tag em-desenvolvimento #}
-                    var devBtn = item.querySelector('.btn-development');
+                    // CORREÇÃO: Busca pela classe NOVA que existe no item.tpl (.pg-card__btn--dev)
+                    var devBtn = item.querySelector('.pg-card__btn--dev');
+                    
                     if (devBtn) {
                         var nameEl = item.querySelector('.js-item-name');
-                        var linkEl = item.querySelector('.item-link');
+                        var linkEl = item.querySelector('a'); // Pega o primeiro link
                         var imgEl = item.querySelector('.js-item-image');
-                        var priceEl = item.querySelector('.js-price-display');
-
-                        {# Extrai a melhor URL de imagem disponível #}
+                        
+                        // Extrai a melhor URL de imagem disponível
                         var imgUrl = '';
                         if (imgEl) {
                             imgUrl = imgEl.getAttribute('src') || '';
@@ -321,8 +400,7 @@
                             devProducts.push({
                                 name: nameEl.textContent.trim(),
                                 url: linkEl ? linkEl.getAttribute('href') : '#',
-                                image: imgUrl,
-                                price: priceEl ? priceEl.textContent.trim() : null
+                                image: imgUrl
                             });
                         }
                     }
@@ -337,7 +415,7 @@
         }
 
         function renderDevProducts(products) {
-            {# Remove placeholders de loading #}
+            // Remove placeholders de loading
             var loadingCards = track.querySelectorAll('.pg-dev-card--loading');
             loadingCards.forEach(function(card) { card.remove(); });
 
@@ -347,19 +425,22 @@
             }
 
             products.forEach(function(product) {
+                // ESTRUTURA REBORN (Final Fix - Unique Namespace)
                 var card = document.createElement('a');
-                card.href = product.url;
-                card.className = 'pg-dev-card';
-                card.title = product.name;
-
+                card.href = escapeHtml(product.url);
+                card.className = 'pg-reborn-card'; // Nova classe para evitar conflitos
+                card.title = 'Seja o primeiro a conhecer ' + product.name;
+                
                 var imgSrc = product.image || placeholderImg;
 
-                card.innerHTML =
-                    '<div class="pg-dev-card__image">' +
-                        '<img src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
-                    '</div>' +
-                    '<div class="pg-dev-card__info">' +
-                        '<h3 class="pg-dev-card__name">' + escapeHtml(product.name) + '</h3>' +
+                card.innerHTML = 
+                    '<div class="pg-reborn-card__content">' +
+                        '<div class="pg-reborn-card__image">' +
+                            '<img src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(product.name) + '" loading="lazy">' +
+                        '</div>' +
+                        '<div class="pg-reborn-card__footer">' +
+                            '<span class="pg-reborn-card__btn">SEJA O PRIMEIRO A CONHECER</span>' +
+                        '</div>' +
                     '</div>';
 
                 track.appendChild(card);
@@ -369,23 +450,12 @@
         }
 
         function renderFallback() {
-            {# Remove placeholders de loading #}
             var loadingCards = track.querySelectorAll('.pg-dev-card--loading');
             loadingCards.forEach(function(card) { card.remove(); });
-
-            for (var i = 0; i < 3; i++) {
-                var card = document.createElement('div');
-                card.className = 'pg-dev-card pg-dev-card--placeholder';
-                card.innerHTML =
-                    '<div class="pg-dev-card__image">' +
-                        '<img src="' + placeholderImg + '" alt="Produto em desenvolvimento" loading="lazy">' +
-                    '</div>' +
-                    '<div class="pg-dev-card__info">' +
-                        '<h3 class="pg-dev-card__name">Em breve</h3>' +
-                    '</div>';
-                track.appendChild(card);
-            }
-            setTimeout(updateNav, 100);
+            
+            // Se não encontrar nada, esconde a seção para não ficar feio
+            var section = document.querySelector('.pg-home-dev-section');
+            if(section) section.style.display = 'none';
         }
 
         function escapeHtml(str) {

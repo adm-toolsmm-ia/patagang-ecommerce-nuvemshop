@@ -151,13 +151,18 @@
    Fundo preto sólido
    =========================================== */
 
+/* ===========================================
+   MODAL DE FILTROS (sidebar esquerda)
+   Fundo BRANCO (Light Theme)
+   =========================================== */
+
 #nav-filters.modal-docked-small {
-    background: #000000 !important;
+    background: #FFFFFF !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
     max-width: 340px !important;
-    box-shadow: 20px 0 60px rgba(0, 0, 0, 0.5) !important;
-    border-right: none !important;
+    box-shadow: 20px 0 60px rgba(0, 0, 0, 0.1) !important;
+    border-right: 1px solid rgba(0,0,0,0.05) !important;
 }
 
 /* ============================================
@@ -180,27 +185,27 @@
 
 /* Header do modal - FILTROS */
 #nav-filters .modal-header {
-    background: #000000 !important;
+    background: #FFFFFF !important;
     font-family: 'Familjen Grotesk', sans-serif !important;
     font-size: 14px !important;
     font-weight: 700 !important;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #FFFFFF !important;
+    color: #000000 !important;
     padding: 20px 24px !important;
-    border-bottom: 1px solid rgba(234, 254, 103, 0.3) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
     display: flex;
     align-items: center;
 }
 
 #nav-filters .modal-header-title,
 #nav-filters .modal-header span:not(.modal-close) {
-    color: #FFFFFF !important;
+    color: #000000 !important;
 }
 
 /* Botão fechar (X) */
 #nav-filters .modal-close {
-    color: #FFFFFF !important;
+    color: #000000 !important;
     opacity: 0.6;
     transition: opacity 0.2s ease;
     background: none !important;
@@ -212,14 +217,14 @@
 }
 
 #nav-filters .modal-close svg {
-    fill: #FFFFFF !important;
-    stroke: #FFFFFF !important;
+    fill: #000000 !important;
+    stroke: #000000 !important;
 }
 
 /* Body do modal */
 #nav-filters .modal-body {
     padding: 24px !important;
-    background: #000000 !important;
+    background: #FFFFFF !important;
     overflow-y: auto;
 }
 
@@ -251,10 +256,10 @@
     font-weight: 700 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.1em !important;
-    color: #FFFFFF !important;
+    color: #000000 !important;
     margin-bottom: 12px !important;
     padding-bottom: 10px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
     display: block !important;
     background: transparent !important;
     font-style: normal !important;
@@ -286,18 +291,19 @@
     font-family: 'Familjen Grotesk', sans-serif !important;
     font-size: 13px !important;
     font-weight: 400 !important;
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: #333333 !important;
     text-decoration: none !important;
     display: block !important;
     padding: 8px 0 !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
     transition: color 0.15s ease;
     background: transparent !important;
 }
 
 #nav-filters li a:hover,
 #nav-filters .text-primary:hover {
-    color: #EAFE67 !important;
+    color: #000000 !important;
+    font-weight: 600 !important;
 }
 
 /* ============================================
@@ -311,14 +317,14 @@
     font-family: 'Familjen Grotesk', sans-serif !important;
     font-size: 13px !important;
     font-weight: 400 !important;
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: #333333 !important;
     cursor: pointer;
     display: flex !important;
     align-items: center !important;
     padding: 7px 0 !important;
     margin-bottom: 0 !important;
     text-transform: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
     transition: color 0.15s ease;
     background: transparent !important;
 }
@@ -331,7 +337,7 @@
 
 #nav-filters label:hover,
 #nav-filters .checkbox-container:hover {
-    color: #EAFE67 !important;
+    color: #000000 !important;
 }
 
 /* Span .checkbox wrapper - deve ser flex row */
@@ -352,26 +358,26 @@
     height: 16px !important;
     min-width: 16px !important;
     min-height: 16px !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+    border: 1.5px solid rgba(0, 0, 0, 0.3) !important;
     border-radius: 3px !important;
     margin: 0 10px 0 0 !important;
     padding: 0 !important;
     cursor: pointer !important;
     transition: all 0.15s ease;
     position: relative !important;
-    background: transparent !important;
+    background: #FFFFFF !important;
     flex-shrink: 0 !important;
     display: inline-block !important;
     vertical-align: middle !important;
 }
 
 #nav-filters input[type="checkbox"]:hover {
-    border-color: rgba(255, 255, 255, 0.7) !important;
+    border-color: #000000 !important;
 }
 
 #nav-filters input[type="checkbox"]:checked {
-    background: #EAFE67 !important;
-    border-color: #EAFE67 !important;
+    background: #000000 !important;
+    border-color: #000000 !important;
 }
 
 #nav-filters input[type="checkbox"]:checked::after {
@@ -381,7 +387,7 @@
     left: 4px !important;
     width: 5px !important;
     height: 9px !important;
-    border: solid #000 !important;
+    border: solid #EAFE67 !important;
     border-width: 0 2px 2px 0 !important;
     transform: rotate(45deg) !important;
     display: block !important;
@@ -397,7 +403,7 @@
 
 /* Texto do checkbox - DEVE SER VISÍVEL */
 #nav-filters .checkbox-text {
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: #333333 !important;
     font-family: 'Familjen Grotesk', sans-serif !important;
     font-size: 13px !important;
     font-weight: 400 !important;
@@ -408,7 +414,7 @@
 
 #nav-filters label:hover .checkbox-text,
 #nav-filters .checkbox-container:hover .checkbox-text {
-    color: #EAFE67 !important;
+    color: #000000 !important;
 }
 
 /* Cores de filtro (swatches) */
@@ -416,7 +422,7 @@
     width: 18px !important;
     height: 18px !important;
     border-radius: 50% !important;
-    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border: 2px solid rgba(0, 0, 0, 0.1) !important;
     margin-left: 8px !important;
     flex-shrink: 0 !important;
     display: inline-block !important;
@@ -429,10 +435,10 @@
 /* Inputs de preço */
 #nav-filters input[type="number"],
 #nav-filters input[type="text"]:not([autocomplete]) {
-    background: rgba(255, 255, 255, 0.08) !important;
-    border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+    background: #F5F5F5 !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
     border-radius: 3px !important;
-    color: #FFFFFF !important;
+    color: #000000 !important;
     font-family: 'Familjen Grotesk', sans-serif !important;
     font-size: 13px !important;
     padding: 8px 12px !important;
@@ -444,14 +450,14 @@
 
 #nav-filters input[type="number"]:focus,
 #nav-filters input[type="text"]:focus {
-    border-color: #EAFE67 !important;
-    background: rgba(255, 255, 255, 0.12) !important;
+    border-color: #000000 !important;
+    background: #FFFFFF !important;
 }
 
 /* Labels "De" / "Até" dentro do filtro de preço */
 #nav-filters .price-filter label,
 #nav-filters .filter-price label {
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: #666666 !important;
     font-size: 11px !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
@@ -491,13 +497,13 @@
 #nav-filters .btn-link,
 #nav-filters a.btn-link,
 #nav-filters .js-accordion-toggle {
-    color: #EAFE67 !important;
+    color: #000000 !important;
     font-family: 'Familjen Grotesk', sans-serif !important;
     font-size: 11px !important;
     font-weight: 600 !important;
     text-transform: uppercase !important;
     letter-spacing: 0.06em !important;
-    text-decoration: none !important;
+    text-decoration: underline !important;
     padding: 6px 0 !important;
     transition: opacity 0.2s ease;
     background: transparent !important;
@@ -508,18 +514,18 @@
 #nav-filters .btn-link:hover,
 #nav-filters .js-accordion-toggle:hover {
     opacity: 0.7 !important;
-    color: #EAFE67 !important;
+    color: #333333 !important;
 }
 
 /* ============================================
    OVERLAY DE LOADING
    ============================================ */
 #nav-filters .filters-overlay {
-    background: rgba(0, 0, 0, 0.85) !important;
+    background: rgba(255, 255, 255, 0.85) !important;
 }
 
 #nav-filters .filters-updating-message h3 {
-    color: #EAFE67 !important;
+    color: #000000 !important;
     font-family: 'Familjen Grotesk', sans-serif !important;
     font-size: 13px !important;
     font-weight: 600 !important;
@@ -529,20 +535,20 @@
 
 /* Scrollbar personalizada */
 #nav-filters .modal-body::-webkit-scrollbar {
-    width: 3px;
+    width: 4px;
 }
 
 #nav-filters .modal-body::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.05);
 }
 
 #nav-filters .modal-body::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 2px;
 }
 
 #nav-filters .modal-body::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================

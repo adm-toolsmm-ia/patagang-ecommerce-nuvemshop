@@ -63,11 +63,9 @@
                 <span class="footer__title">REDES SOCIAIS</span>
                 <div class="footer__social-icons">
                     {% include "snipplets/social/social-footer.tpl" %}
-                    {% if settings.spotify_url %}
-                        <a class="social-icon" href="{{ settings.spotify_url }}" target="_blank" rel="noopener noreferrer" aria-label="Spotify {{ store.name }}">
-                            {% include "snipplets/svg/spotify.tpl" with {svg_custom_class: "icon-inline icon-2x"} %}
-                        </a>
-                    {% endif %}
+                    <a class="social-icon" href="https://open.spotify.com/playlist/2wqIyVegSwIJMOVZQI7kYp?si=tLJWK8_WSRW-E6y2Gx8k_Q&pi=kf6g-BBAS_6_7&pt=774c7ba1d5633e0478e12a4d19576d63" target="_blank" rel="noopener noreferrer" aria-label="Spotify {{ store.name }}">
+                        {% include "snipplets/svg/spotify.tpl" with {svg_custom_class: "icon-inline icon-2x"} %}
+                    </a>
                 </div>
                 {% if settings.payments_show and settings.payments %}
                 <span class="footer__title">Formas de pagamento</span>

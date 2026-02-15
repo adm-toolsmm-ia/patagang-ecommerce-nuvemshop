@@ -11,8 +11,9 @@
 			
 			<div class="pg-search-page__header">
 				<h1 class="pg-search-page__title">{{ category.name }}</h1>
+				<!-- DEBUG: Description Status: {% if category.description %}PRESENT{% else %}EMPTY{% endif %} -->
 				{% if category.description %}
-					<p class="pg-search-page__term">{{ category.description }}</p>
+					<p class="pg-category-desc">{{ category.description }}</p>
 				{% endif %}
 			</div>
 
