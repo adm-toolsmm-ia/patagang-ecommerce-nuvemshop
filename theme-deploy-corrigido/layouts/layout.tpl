@@ -132,6 +132,10 @@
                     padding: 0 !important;
                     margin: 0 !important;
                 }
+                body .section-advertising .section-advertising__sep {
+                    margin-left: 2em !important;
+                    margin-right: 2em !important;
+                }
                 body .section-advertising .section-advertising__marquee {
                     padding: 0 4px !important;
                     display: flex !important;
@@ -186,6 +190,77 @@
         }
         </style>
         {% endif %}
+
+        {# Banner responsive mobile - PATAGANG v3 #}
+        {% if template == 'category' or template == 'search' %}
+        <style>
+        @media (max-width: 768px) {
+          .category-banner {
+            max-height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+          }
+          .category-banner img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            object-position: center;
+          }
+        }
+        </style>
+        {% endif %}
+
+        {# Override final: Botões laterais - Help Button CLEAN DESIGN (gray) + WhatsApp keeps yellow #}
+        <style>
+        body .pg-help-btn {
+            background: #F0F0F0 !important;
+            color: #666666 !important;
+            border: 1px solid #E0E0E0 !important;
+            padding: 12px 8px !important;
+        }
+        body .pg-help-btn:hover {
+            background: #E8E8E8 !important;
+            color: #333333 !important;
+            border: 1px solid #D0D0D0 !important;
+            padding-right: 12px !important;
+        }
+        body .pg-help-btn__text {
+            font-weight: 400 !important;
+            font-size: 12px !important;
+            color: #666666 !important;
+        }
+        body .pg-help-btn__icon {
+            color: #666666 !important;
+            width: 20px !important;
+            height: 20px !important;
+        }
+        @media (max-width: 768px) {
+            body .pg-help-btn {
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                right: 0 !important;
+                z-index: 9990 !important;
+                padding: 10px 6px !important;
+            }
+            body .pg-help-btn__text { font-size: 11px !important; }
+        }
+        body .btn-whatsapp-left {
+            background-color: #EAFE67 !important;
+        }
+        body .btn-whatsapp-left:hover {
+            background-color: #d4e65d !important;
+        }
+        body .btn-whatsapp-left span {
+            font-weight: 500 !important;
+            font-size: 12px !important;
+            color: #1A1A1A !important;
+        }
+        @media (max-width: 480px) {
+            body .pg-help-btn__text { font-size: 11px !important; }
+            body .btn-whatsapp-left span { font-size: 11px !important; }
+        }
+        </style>
 
         {#/*============================================================================
             #Javascript: Needed before HTML loads
@@ -507,29 +582,34 @@
         </style>
 
         <style id="pg-trust-strip-mobile-fix">
-        /* PATAGANG: Trust Strip Mobile Layout Fix */
+        /* PATAGANG: Trust Strip Mobile — grid 2x2: esquerda (textos maiores) | direita (textos menores) */
         @media (max-width: 768px) {
             .pg-trust-strip__content {
-                display: flex !important;
-                flex-wrap: wrap !important;
-                justify-content: center !important;
+                display: grid !important;
+                grid-template-columns: 1fr auto !important;
+                grid-template-rows: auto auto !important;
+                gap: 4px 12px !important;
                 align-items: center !important;
-                padding: 10px 0 !important;
-                gap: 4px !important;
+                padding: 6px 12px !important;
             }
-            .pg-trust-strip__item {
-                width: 100% !important;
-                text-align: center !important;
-                margin-bottom: 2px !important;
-                font-size: 10px !important; /* Ajuste fino para não quebrar */
+            .pg-trust-strip__item:nth-child(1),
+            .pg-trust-strip__item:nth-child(2) {
+                grid-column: 1 !important;
+                text-align: left !important;
+                font-size: 9px !important;
+                white-space: normal !important;
             }
-            /* Item 3 (Vista o Propósito) e 4 (Entre para a Gang) lado a lado */
+            .pg-trust-strip__item:nth-child(1) { grid-row: 1 !important; }
+            .pg-trust-strip__item:nth-child(2) { grid-row: 2 !important; }
             .pg-trust-strip__item:nth-child(3),
             .pg-trust-strip__item:nth-child(4) {
-                width: auto !important;
-                display: inline-block !important;
-                margin: 0 8px !important; /* Espaçamento lateral */
+                grid-column: 2 !important;
+                text-align: right !important;
+                font-size: 9px !important;
+                white-space: nowrap !important;
             }
+            .pg-trust-strip__item:nth-child(3) { grid-row: 1 !important; }
+            .pg-trust-strip__item:nth-child(4) { grid-row: 2 !important; }
         }
         </style>
     </body>
