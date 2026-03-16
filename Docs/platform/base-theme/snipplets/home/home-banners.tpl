@@ -46,7 +46,7 @@
                 {% endif %}
 
                 {% if has_banner %}
-                    <div class="col-md">
+                    <div class="col-12 col-sm-6 col-md">
                         <div class="textbanner">
                             {% if banner_url %}
                                 <a class="textbanner-link" href="{{ banner_url | setting_url }}"{% if banner_title %} title="{{ banner_title }}" aria-label="{{ banner_title }}"{% else %} title="{{ 'Banner de' | translate }} {{ store.name }}" aria-label="{{ 'Banner de' | translate }} {{ store.name }}"{% endif %}>
