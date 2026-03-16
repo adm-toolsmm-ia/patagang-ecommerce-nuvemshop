@@ -30,7 +30,7 @@
             <div class="fb-comments section-fb-comments" data-href="{{ product.social_url }}" data-num-posts="5" data-width="100%"></div>
         </div>
     {% endif %}
-    {# Reviews app - kreviews widget da Nuvemshop #}
+    {# Reviews app - kreviews widget da Nuvemshop (Konfidency) #}
     <div id="reviewsapp" class="pg-pdp-reviews-container"></div>
 </div>
 

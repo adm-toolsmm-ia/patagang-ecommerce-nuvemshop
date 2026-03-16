@@ -41,3 +41,20 @@ desktop.ini
 *.tmp
 *.temp
 nul
+
+# Environment & Secrets (AIOX)
+.env
+*.key
+*.pem
+
+# Dependencies (AIOX)
+node_modules
+
+# Build & Logs (AIOX)
+dist/
+build/
+
+# AIOX Local (AIOX)
+.aiox-core/local/
+.claude/settings.local.json
+.aiox/install-log.txt

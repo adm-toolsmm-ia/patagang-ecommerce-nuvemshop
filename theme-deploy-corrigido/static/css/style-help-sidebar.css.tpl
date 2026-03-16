@@ -32,18 +32,18 @@
     writing-mode: vertical-rl;
     text-orientation: mixed;
     font-family: 'Familjen Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 0.05em;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.03em;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: #1A1A1A;
 }
 
 .pg-help-btn__icon {
     width: 20px;
     height: 20px;
-    fill: #1A1A1A; /* Black Icon */
+    color: #1A1A1A; /* Black Icon - stroke-based SVG uses currentColor */
 }
 
 /* 2. Sidebar Overlay */
@@ -312,15 +312,17 @@ img.pg-help-item__icon {
     pointer-events: none;
 }
 
-/* Mobile Tweaks */
+/* Mobile Tweaks - botão centralizado verticalmente (igual ao WhatsApp) */
 @media (max-width: 768px) {
     .pg-help-btn {
-        top: auto;
-        bottom: 20px; /* Standard bottom positioning */
+        top: 50%;
+        transform: translateY(-50%);
         right: 0;
-        transform: none;
-        padding: 10px 4px; /* Slightly smaller padding */
-        z-index: 990; /* Standard high z-index, but below modals */
+        padding: 10px 6px;
+        z-index: 9990;
+    }
+    .pg-help-btn__text {
+        font-size: 11px;
     }
     
     .pg-help-sidebar {

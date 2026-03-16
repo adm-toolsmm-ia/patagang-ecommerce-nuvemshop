@@ -96,7 +96,6 @@ body {
 /* Seções que devem ter background global #E2E2E2 forçado */
 .section-products-related,
 #reviewsapp,
-.pg-pdp-reviews-container,
 .pg-pdp-extras-container,
 .js-related-products,
 .js-complementary-products,
@@ -1386,7 +1385,7 @@ body.pg-search-overlay-open {
   vertical-align:middle;
 }
 
-/* WhatsApp Left - Vertical Centered (Side Tab) */
+/* WhatsApp Left - Vertical Centered (Side Tab) - Design alinhado ao botão AJUDA? */
 .btn-whatsapp-left {
     position: fixed;
     top: 50%;
@@ -1396,37 +1395,36 @@ body.pg-search-overlay-open {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #e2e2e2;
-    border-left: none; /* Grudado na borda */
-    border-radius: 0 12px 12px 0; /* Arredondado apenas na direita */
-    padding: 12px 4px; /* Mais altura, menos largura */
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    background-color: #EAFE67; /* Store Yellow - mesmo do AJUDA? */
+    border: none;
+    border-radius: 0 4px 4px 0; /* Arredondado apenas na direita */
+    padding: 12px 8px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     text-decoration: none !important;
-    gap: 12px;
+    gap: 8px;
 }
 
 .btn-whatsapp-left:hover {
     transform: translateY(-50%) translateX(2px);
-    box-shadow: 4px 4px 14px rgba(0,0,0,0.15);
-    background-color: #f9f9f9;
+    box-shadow: 4px 0 12px rgba(0,0,0,0.15);
+    background-color: #d4e65d; /* Mesmo hover do AJUDA? */
 }
 
 .btn-whatsapp-left svg {
-    width: 24px;
-    height: 24px;
-    fill: #25D366; /* Verde oficial WhatsApp */
+    width: 20px;
+    height: 20px;
+    fill: #25D366; /* Verde oficial WhatsApp - reconhecimento de marca */
     padding: 0;
 }
 
 .btn-whatsapp-left span {
     font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: #4A4A4A;
-    letter-spacing: 0.05em;
-    /* Texto Vertical (Leitura de baixo para cima - Padrão Aba Lateral) */
+    font-size: 12px;
+    font-weight: 500;
+    color: #1A1A1A;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
     writing-mode: vertical-rl;
     text-orientation: mixed;
     transform: rotate(180deg);
@@ -1436,11 +1434,11 @@ body.pg-search-overlay-open {
 /* Mobile: Ajustes para não ocupar muito espaço vertical */
 @media (max-width: 480px) {
     .btn-whatsapp-left {
-        padding: 10px 3px;
+        padding: 10px 6px;
     }
     .btn-whatsapp-left svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
     .btn-whatsapp-left span {
         font-size: 11px;
@@ -2143,38 +2141,29 @@ body.has-ad-bar .pg-header {
   opacity: 0.85;
 }
 
-/* Banner marquee - texto rotativo direita para esquerda */
+/* Banner fixo - estrutura original, sem animação de rolagem */
 .section-advertising__marquee {
-  overflow: hidden;
+  overflow: visible;
   width: 100%;
   padding: 0 12px; /* Evita texto cortado nas bordas no mobile */
 }
 
 .section-advertising__track {
-  display: inline-flex;
-  white-space: nowrap;
-  animation: pg-marquee 60s linear infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .section-advertising__copy {
   flex-shrink: 0;
+  white-space: pre;
 }
 
 .section-advertising__sep {
   margin-left: 5em;
   margin-right: 5em;
   flex-shrink: 0;
-}
-
-@keyframes pg-marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .section-advertising__track {
-    animation: none;
-  }
 }
 
 
@@ -4172,8 +4161,9 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	background-color: #E2E2E2;
 	min-height: calc(100vh - 60px);
 	display: flex;
-	align-items: flex-start;
-	justify-content: center;
+	flex-direction: column; /* Produto acima, reviews abaixo (Konfidency precisa estar dentro) */
+	align-items: stretch;
+	justify-content: flex-start;
 }
 
 /* Row principal - Bootstrap row */
@@ -4261,7 +4251,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	.pg-product-title {
-		font-size: 14px !important;
+		font-size: 13px !important;
 		letter-spacing: 0.5px !important;
 	}
 
@@ -4619,7 +4609,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* Título do produto — DESTAQUE PRINCIPAL */
 .pg-product-title {
 	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 1px;
@@ -4868,19 +4858,36 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 768px) {
     .pg-trust-strip {
         margin-top: 100px; /* Ajuste Mobile */
-        padding: 5px 15px;
+        padding: 6px 12px;
         height: auto;
     }
     .pg-trust-strip__content {
-        gap: 6px 12px;
-        justify-content: center;
-        flex-wrap: wrap; 
+        display: grid !important;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto auto;
+        gap: 4px 12px;
+        align-items: center;
     }
-    .pg-trust-strip__item {
-        white-space: normal; /* Permite quebra dentro do item se necessário */
-        text-align: center;
-        width: auto;
+    /* Coluna esquerda: textos maiores (1 e 2) */
+    .pg-trust-strip__item:nth-child(1),
+    .pg-trust-strip__item:nth-child(2) {
+        grid-column: 1;
+        text-align: left;
+        font-size: 9px;
+        white-space: normal;
     }
+    .pg-trust-strip__item:nth-child(1) { grid-row: 1; }
+    .pg-trust-strip__item:nth-child(2) { grid-row: 2; }
+    /* Coluna direita: textos menores (3 e 4) */
+    .pg-trust-strip__item:nth-child(3),
+    .pg-trust-strip__item:nth-child(4) {
+        grid-column: 2;
+        text-align: right;
+        font-size: 9px;
+        white-space: nowrap;
+    }
+    .pg-trust-strip__item:nth-child(3) { grid-row: 1; }
+    .pg-trust-strip__item:nth-child(4) { grid-row: 2; }
 }
 
 .pg-trust-bar__text {
@@ -5079,25 +5086,39 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	display: none !important;
 }
 
-/* Containers extras (FB comments, Reviews) - ocultos quando vazios */
-.pg-pdp-extras-container:empty,
-.pg-pdp-reviews-container:empty,
-#reviewsapp:empty {
+/* Containers extras (FB comments) - ocultos quando vazios */
+.pg-pdp-extras-container:empty {
 	display: none !important;
 }
+/* NOTA: #reviewsapp NÃO usa :empty - o Konfidency injeta async e precisa do container visível */
 
 .pg-pdp-extras-container,
-.pg-pdp-reviews-container {
+#reviewsapp {
 	background: transparent;
 	padding: 0;
 	margin: 0;
 }
 
-/* Ocultar container vazio do Bootstrap dentro do PDP */
-.pg-pdp-container > .container:empty {
+/* Seção Avaliações e Perguntas (Konfidency) - entre produto e similares */
+.pg-pdp-reviews-section {
+	width: 100%;
+	align-self: stretch;
+	padding: 24px 0;
+}
+.pg-pdp-reviews-section .container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+/* Reviews dentro do PDP - ocupa largura para o Konfidency renderizar */
+.pg-pdp-container #reviewsapp {
+	width: 100%;
+	align-self: stretch;
+}
+
+/* Ocultar container vazio (FB comments) - NÃO afeta .pg-pdp-reviews-section .container */
+.pg-pdp-extras-container:empty {
 	display: none !important;
-	padding: 0;
-	margin: 0;
 }
 
 /* Responsivo - Tablet e Mobile */

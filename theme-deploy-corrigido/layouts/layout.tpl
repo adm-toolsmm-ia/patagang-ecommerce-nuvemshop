@@ -121,16 +121,20 @@
                 body .section-advertising {
                     font-size: 10px !important;
                     min-height: 24px !important;
-                    height: 24px !important;
-                    line-height: 24px !important;
-                    overflow: hidden !important;
-                    padding: 0 !important;
+                    height: auto !important;
+                    line-height: 1.3 !important;
+                    overflow-wrap: break-word !important;
+                    word-break: break-word !important;
+                    white-space: normal !important;
+                    padding: 8px 4px !important;
                 }
                 body .section-advertising * {
                     font-size: 10px !important;
-                    line-height: 24px !important;
+                    line-height: 1.3 !important;
                     padding: 0 !important;
                     margin: 0 !important;
+                    word-break: break-word !important;
+                    overflow-wrap: break-word !important;
                 }
                 body .section-advertising .section-advertising__sep {
                     margin-left: 2em !important;
@@ -138,9 +142,9 @@
                 }
                 body .section-advertising .section-advertising__marquee {
                     padding: 0 4px !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    height: 100% !important;
+                    display: block !important;
+                    width: 100% !important;
+                    height: auto !important;
                 }
                 /* Ajuste do header para acompanhar a nova altura da barra */
                 body .pg-header,
@@ -226,7 +230,7 @@
             padding-right: 12px !important;
         }
         body .pg-help-btn__text {
-            font-weight: 400 !important;
+            font-weight: 700 !important;
             font-size: 12px !important;
             color: #666666 !important;
         }
@@ -246,15 +250,22 @@
             body .pg-help-btn__text { font-size: 11px !important; }
         }
         body .btn-whatsapp-left {
-            background-color: #EAFE67 !important;
+            background-color: #F0F0F0 !important;
+            border: 1px solid #E0E0E0 !important;
+            padding: 12px 8px !important;
         }
         body .btn-whatsapp-left:hover {
-            background-color: #d4e65d !important;
+            background-color: #E8E8E8 !important;
+            border: 1px solid #D0D0D0 !important;
+            padding-right: 12px !important;
+        }
+        body .btn-whatsapp-left svg {
+            color: #25D366 !important;
         }
         body .btn-whatsapp-left span {
-            font-weight: 500 !important;
+            font-weight: 700 !important;
             font-size: 12px !important;
-            color: #1A1A1A !important;
+            color: #666666 !important;
         }
         @media (max-width: 480px) {
             body .pg-help-btn__text { font-size: 11px !important; }

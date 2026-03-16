@@ -6,5 +6,41 @@
       "WebFetch(domain:docs.nuvemshop.com.br)",
       "WebFetch(domain:tiendanube.github.io)"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\Gabriel Cristofolini\\\\Documents\\\\SOLUCOESSISTEMAS\\\\patagang-ecommerce-nuvemshop\\\\.claude\\\\hooks\\\\code-intel-pretool.cjs\"",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Write|Edit"
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\Gabriel Cristofolini\\\\Documents\\\\SOLUCOESSISTEMAS\\\\patagang-ecommerce-nuvemshop\\\\.claude\\\\hooks\\\\precompact-session-digest.cjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:\\\\Users\\\\Gabriel Cristofolini\\\\Documents\\\\SOLUCOESSISTEMAS\\\\patagang-ecommerce-nuvemshop\\\\.claude\\\\hooks\\\\synapse-engine.cjs\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   }
 }
