@@ -1,12 +1,5 @@
 {# PATAGANG - Product Detail Page (PDP) #}
-{# PATAGANG - Product Detail Page (PDP) #}
-
-{# PATAGANG: Faixa de Texto (Trust Strip) - Abaixo do Header, Acima do Produto #}
-{% include 'snipplets/product/product-trust-strip.tpl' %}
-
 <div id="single-product" class="js-has-new-shipping js-product-detail js-product-container js-shipping-calculator-container pg-pdp-container" data-variants="{{product.variants_object | json_encode }}" data-store="product-detail">
-    
-{# PATAGANG: Trust Bar - REMOVIDO (Solicitação do Usuário) #}
 
     <div class="row section-single-product g-0">
         <div class="col-12 col-lg-7 pg-pdp-image-col" data-store="product-image-{{ product.id }}">
