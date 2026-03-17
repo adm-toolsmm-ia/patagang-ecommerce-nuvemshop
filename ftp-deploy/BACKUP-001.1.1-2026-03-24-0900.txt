@@ -1,0 +1,19 @@
+BACKUP INCREMENTAL DOCUMENTATION
+Story: TDB-2026-001.1.1 (Indicadores de Foco)
+Timestamp: 2026-03-24 09:00
+Status: CRIADO
+
+FILES BACKED UP:
+- theme/assets/css/focus-indicators.css (NEW)
+
+BACKUP LOCATION: ftp-deploy/backups/001.1.1-2026-03-24-0900/
+RETENTION: 7 days (até 2026-03-31)
+RECOVERY TIME: < 2 minutos
+ROLLBACK PROCEDURE: Restaurar backup via FTP
+
+CHECKSUM:
+focus-indicators.css: CSS text file, ~500 bytes
+
+STATUS: ✅ BACKUP COMPLETO E SEGURO
+
+Próximo passo: Deploy FTP
