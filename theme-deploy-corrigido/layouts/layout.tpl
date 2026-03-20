@@ -27,8 +27,10 @@
         {# <meta name="google-site-verification" content="CODIGO_AQUI" /> #}
 
         {# Versão do Deploy - Atualizado automaticamente pelo script de deploy #}
-        {# DEPLOY_VERSION: PLACEHOLDER_VERSION_ID #}
-        <meta name="deploy-version" content="PLACEHOLDER_VERSION_ID" />
+        {# DEPLOY_VERSION: 1.1.1-PDP-LAYOUT-FIX-2026-03-20 #}
+        <meta name="deploy-version" content="1.1.1-PDP-LAYOUT-FIX-2026-03-20" />
+        <meta name="deploy-commit" content="9502c44" />
+        <meta name="deploy-date" content="2026-03-20T03:46:27Z" />
 
         <link rel="preload" as="style" href="{{ [settings.font_headings, settings.font_rest] | google_fonts_url('300, 400, 700') }}" />
         <link rel="preload" href="{{ 'css/style-colors.scss.tpl' | static_url }}" as="style" />
@@ -623,6 +625,9 @@
             .pg-trust-strip__item:nth-child(4) { grid-row: 2 !important; }
         }
         </style>
+
+        {# PATAGANG Version Info - Deployment Status Console #}
+        <script src="{{ 'js/version-info.js' | static_url }}" defer></script>
     </body>
 </html>
 
