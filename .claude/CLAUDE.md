@@ -71,6 +71,39 @@ When an agent is active:
 - Maintain the agent's perspective throughout the interaction
 <!-- AIOX-MANAGED-END: agent-system -->
 
+## 🇧🇷 Idioma de Comunicação — PORTUGUÊS BRASILEIRO
+
+**REGRA CRÍTICA:** Toda comunicação com Gabriel Cristofolini DEVE ser em **PORTUGUÊS BRASILEIRO**.
+
+### Aplicação Obrigatória
+- ✅ **SEMPRE em português:** Explicações, questões, relatórios, erros, avisos, documentação destinada ao usuário
+- ✅ **Inglês permitido em background:** Código, variáveis, nomes de funções, chaves JSON/YAML
+- ❌ **NUNCA em inglês:** Mensagens visíveis ao usuário
+
+### Exemplos Corretos (PT-BR)
+
+✅ Relatório de progresso:
+```
+✅ Fase 1 completa: frameworks legados arquivados
+- 5 frameworks movidos para .aiox-core/archived/
+- 319 arquivos reorganizados
+Próximo passo: consolidar documentação
+```
+
+✅ Questão:
+```
+🤔 Preciso de confirmação: Qual cor você quer para o botão help sidebar?
+- Amarelo (#EAFE67) — primário, mas saturado
+- Cinza (#F0F0F0) — neutro, recomendado
+```
+
+### Referência Completa
+- **Regra contextual:** `.claude/rules/communication-language-portuguese.md`
+- **Mantido por:** @architect
+- **Status:** ATIVO (auto-loads em todas as interações)
+
+---
+
 ## Development Methodology
 
 ### Story-Driven Development
