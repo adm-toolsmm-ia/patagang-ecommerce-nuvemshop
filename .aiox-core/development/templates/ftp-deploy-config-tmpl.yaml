@@ -1,0 +1,233 @@
+# FTP Deploy Configuration Template - AIOX Standard
+# Patagang Nuvemshop Deployment
+#
+# Uso: Copiar para .aiox-core/data/ftp-deploy-config.yaml
+# Depois: node scripts/generate-ftp-config.js
+
+---
+# Identificação do Projeto
+project:
+  name: "Patagang E-commerce"
+  environment: "production"
+  platform: "Nuvemshop"
+  region: "BR"
+
+# Configuração FTP (⚠️ Credenciais sensíveis)
+ftp:
+  # Servidor FTP Nuvemshop
+  host: "ftp.nuvemshop.com.br"
+  port: 21
+  protocol: "ftps"  # FTP Seguro com TLS
+  timeout_ms: 300000  # 5 minutos
+
+  # Credenciais (usar env vars em produção)
+  auth:
+    username: "${FTP_USER}"  # Substituir por env var
+    password: "${FTP_PASS}"  # Substituir por env var
+
+  # Opções de segurança
+  secure_options:
+    reject_unauthorized: false  # Aceitar certs auto-assinados
+
+# Caminhos e Diretórios
+paths:
+  project_root: "../"
+  theme_source: "../theme-deploy-corrigido"
+  backups_dir: "../backups"
+  backups_incremental: "../backups/incremental"
+  backups_full: "../backups/ftp-full"
+  logs_dir: "../logs"
+
+  # Arquivos de controle
+  cache_file: ".deploy-cache.json"
+  last_version_file: "LAST_DEPLOY_VERSION.txt"
+  history_file: "DEPLOY_HISTORY.json"
+  log_file: "deploy-log.txt"
+
+# Deploy Configuration
+deploy:
+  # Otimizações
+  batch_size: 10  # Arquivos por lote
+  max_retries: 3  # Tentativas por arquivo
+  reconnect_every: 50  # Reconectar a cada N arquivos
+
+  # Estratégia de upload
+  strategy: "incremental"  # incremental | full | critical-only
+
+  # Injeção de versão
+  version_injection:
+    enabled: true
+    target_file: "layouts/layout.tpl"
+    placeholder: "PLACEHOLDER_VERSION_ID"
+    format: "v{major}.{minor}.{patch}"  # Ex: v1.1.1
+
+  # Ignorar padrões
+  ignore_patterns:
+    - ".git"
+    - ".DS_Store"
+    - "Thumbs.db"
+    - "*.log"
+    - ".env"
+    - "node_modules"
+    - "*.bak"
+    - ".deploy-cache.json"
+
+# Backup Configuration
+backup:
+  # Backup automático antes de deploy
+  auto_backup_before_deploy: true
+
+  # Tipo de backup
+  type: "incremental"  # incremental | full
+
+  # Timestamp format
+  timestamp_format: "ISO"  # ISO | Unix | Custom
+
+  # Metadados
+  create_metadata: true
+  create_readme: true
+
+  # Retenção
+  retention_policy:
+    max_incremental: 20  # Manter últimos 20 incrementais
+    max_full: 5  # Manter últimos 5 completos
+    auto_cleanup: true
+
+# Versionamento
+versioning:
+  # Formato de versão
+  scheme: "semver"  # semver | date | custom
+
+  # Fonte de versão
+  source: "git"  # git | package.json | manual
+
+  # Informações incluídas
+  include:
+    - version
+    - git_commit
+    - git_branch
+    - deployment_date
+    - deployment_user
+    - environment
+
+  # Console browser output
+  console_message: "🚀 PATAGANG v{version} ({date}) - {description}"
+
+# Validação Pré-Deploy
+validation:
+  # Checklist de validação
+  pre_deploy_checks:
+    - verify_ftp_connection
+    - verify_local_structure
+    - verify_credentials
+    - check_available_space
+
+  # Confirmações obrigatórias
+  require_confirmation: true
+
+  # Tempo de espera antes de confirmar
+  confirmation_timeout_seconds: 30
+
+# Logging & Auditoria
+logging:
+  level: "info"  # debug | info | warn | error
+
+  format: "structured"  # structured | json | plain
+
+  log_to_file: true
+  log_to_console: true
+
+  # Arquivo de log
+  file: "deploy-log.txt"
+
+  # Histórico
+  history_file: "DEPLOY_HISTORY.json"
+  max_history_entries: 100
+
+# Rollback Configuration
+rollback:
+  # Ativar rollback automático em caso de erro
+  auto_rollback_on_failure: false
+
+  # Rollback manual
+  enable_manual_rollback: true
+  rollback_timeout_minutes: 30
+
+# Notificações & Alertas
+notifications:
+  # Slack
+  slack_webhook_url: "${SLACK_WEBHOOK}"  # Env var
+  notify_on_success: true
+  notify_on_failure: true
+
+  # Email
+  email_enabled: false
+  email_recipients:
+    - devops@solucoes.com
+
+  # Console output
+  console_notifications: true
+
+# Performance & Limits
+performance:
+  # Limites
+  max_file_size_mb: 100
+  max_total_size_mb: 500
+
+  # Conexão
+  connection_pool_size: 1
+  socket_timeout_ms: 30000
+
+  # Throttling
+  enable_throttle: false
+  throttle_speed_mbps: null  # null = unlimited
+
+# Integração com AIOX
+aiox:
+  # Framework
+  framework_version: "1.0.0"
+  task_id: "deploy-ftp-standard"
+  workflow_id: "ftp-deployment"
+
+  # Agent exclusivo
+  exclusive_executor: "@devops"
+
+  # Registry
+  register_in_ids: true
+  entity_type: "deployment-task"
+
+  # Hooks
+  pre_deploy_hook: "aiox-pre-deploy"
+  post_deploy_hook: "aiox-post-deploy"
+
+# Exemplos de Uso
+examples:
+  # Deploy normal (apenas alterados)
+  deploy_incremental: "npm run deploy"
+
+  # Deploy completo
+  deploy_full: "npm run deploy -- --force-all"
+
+  # Backup completo
+  backup_full: "npm run backup"
+
+  # Listar backups
+  list_backups: "npm run list"
+
+  # Rollback
+  rollback: "npm run rollback -- {TIMESTAMP}"
+
+# Documentação
+documentation:
+  task_url: ".aiox-core/development/tasks/deploy-ftp-standard.md"
+  workflow_url: ".aiox-core/development/workflows/ftp-deployment.yaml"
+  guide_url: ".aiox-core/development/docs/FTP_DEPLOY_GUIDE.md"
+  checklist_url: ".aiox-core/development/checklists/ftp-deploy-checklist.md"
+
+# Metadata
+metadata:
+  created_at: "2026-03-20T00:00:00Z"
+  updated_at: "2026-03-20T00:00:00Z"
+  version: "1.0.0"
+  author: "AIOX Framework"
+  license: "MIT"

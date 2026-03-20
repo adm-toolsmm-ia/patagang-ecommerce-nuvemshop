@@ -26,12 +26,6 @@
         {# SEO: Google Search Console - Inserir meta tag de verificacao abaixo quando receber do especialista #}
         {# <meta name="google-site-verification" content="CODIGO_AQUI" /> #}
 
-        {# Versão do Deploy - Atualizado automaticamente pelo script de deploy #}
-        {# DEPLOY_VERSION: 1.1.1-PDP-LAYOUT-FIX-2026-03-20 #}
-        <meta name="deploy-version" content="1.1.1-PDP-LAYOUT-FIX-2026-03-20" />
-        <meta name="deploy-commit" content="9502c44" />
-        <meta name="deploy-date" content="2026-03-20T03:46:27Z" />
-
         <link rel="preload" as="style" href="{{ [settings.font_headings, settings.font_rest] | google_fonts_url('300, 400, 700') }}" />
         <link rel="preload" href="{{ 'css/style-colors.scss.tpl' | static_url }}" as="style" />
 
@@ -306,14 +300,7 @@
 
     
     </head>
-    <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}{% if settings.ad_bar and settings.ad_text %} has-ad-bar{% endif %}" data-deploy-version="PLACEHOLDER_VERSION_ID">
-        {# Console log com versão do deploy - Para facilitar validação #}
-        <script>
-            console.log('%c📦 VERSÃO DO DEPLOY', 'color: #EAFE67; font-size: 16px; font-weight: bold; background: #000; padding: 4px 8px;');
-            console.log('%cVersão ID: PLACEHOLDER_VERSION_ID', 'color: #00ff00; font-size: 14px;');
-            console.log('%cPara validar: Verifique se esta versão corresponde ao deploy atual', 'color: #ffff00; font-size: 12px;');
-            console.log('%cCódigo-fonte: Procure por "DEPLOY_VERSION" no HTML', 'color: #00ffff; font-size: 12px;');
-        </script>
+    <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}{% if settings.ad_bar and settings.ad_text %} has-ad-bar{% endif %}">
         {# Facebook comments on product page #}
 
         {% if template == 'product' %}
@@ -627,7 +614,8 @@
         </style>
 
         {# PATAGANG Version Info - Deployment Status Console #}
-        <script src="{{ 'js/version-info.js' | static_url }}" defer></script>
+        {# Cache busting: força navegador a carregar versão mais recente (sem cache) #}
+        <script src="{{ 'js/version-info.js' | static_url }}?v={{ "now" | date('YmdHis') }}" defer></script>
     </body>
 </html>
 

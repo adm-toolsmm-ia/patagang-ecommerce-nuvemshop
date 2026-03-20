@@ -1,5 +1,7 @@
 {% raw %}@charset "UTF-8":
 
+/* DEPLOY TEST: 2026-03-20 - PDP Layout Fix v1.1.1 - Deploy Otimizado */
+
 /*============================================================================
 style-critical.tpl - PATAGANG
 

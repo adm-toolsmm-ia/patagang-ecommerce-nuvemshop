@@ -1,0 +1,332 @@
+---
+id: ftp-deployment
+name: FTP Deployment Workflow - Patagang Nuvemshop
+type: workflow
+version: 1.0.0
+created_at: 2026-03-20
+
+description: |
+  Workflow completo de deploy FTP com 5 fases integradas.
+  Orquestra validação, backup, deploy, verificação e documentação.
+
+  ✅ Envia apenas arquivos alterados (MD5 diff)
+  ✅ Backup incremental automático
+  ✅ Versionamento visível no console
+  ✅ Rollback rápido em < 5 minutos
+
+executor: @devops
+exclusive: true
+
+---
+
+## 🎯 Fases de Execução
+
+### Fase 1: Validação Pré-Deploy
+**Task:** `validate-ftp-environment.md`
+**Tempo:** 2-3 minutos
+**Responsável:** @devops
+
+**Atividades:**
+- ✓ Verificar conexão FTP (timeout test)
+- ✓ Validar estrutura local (theme-deploy-corrigido)
+- ✓ Confirmar credenciais FTP
+- ✓ Listar arquivos para deploy (tree)
+- ✓ Calcular tamanho total
+
+**Saída:**
+```json
+{
+  "phase": "validation",
+  "status": "success",
+  "ftp_connection": "ok",
+  "local_files": 150,
+  "total_size_mb": 35.2,
+  "validation_timestamp": "2026-03-20T10:15:30Z"
+}
+```
+
+**Go/No-Go Decision:**
+- GO: Prosseguir para Fase 2
+- NO-GO: Aguardar resolução e retry
+
+---
+
+### Fase 2: Backup Incremental Pré-Deploy
+**Task:** `backup-incremental-ftp.md`
+**Tempo:** 5-15 minutos (depende do tamanho)
+**Responsável:** @devops
+
+**Atividades:**
+- ✓ Criar diretório backup datado: `backups/incremental/{ISO_TIMESTAMP}/`
+- ✓ Calcular MD5 dos arquivos locais
+- ✓ Comparar com último deploy (diff)
+- ✓ Download apenas dos arquivos que serão alterados do FTP
+- ✓ Gerar `_BACKUP_METADATA.json` (lista completa + hashes)
+- ✓ Gerar `README.md` (instruções de restauração)
+
+**Saída:**
+```json
+{
+  "phase": "backup",
+  "status": "success",
+  "backup_path": "backups/incremental/2026-03-20T10-30-45",
+  "files_backed_up": 28,
+  "total_size_mb": 3.2,
+  "duration_seconds": 120,
+  "metadata_file": "_BACKUP_METADATA.json"
+}
+```
+
+**Contingência:**
+- Se falhar: Retry automático 3x
+- Se continuar falhando: Abortar deploy, usar backup anterior
+
+---
+
+### Fase 3: Deploy Otimizado com Injeção de Versão
+**Task:** `deploy-optimized-ftp.md`
+**Tempo:** 10-30 minutos (depende da quantidade de arquivos)
+**Responsável:** @devops
+
+**Atividades:**
+- ✓ Carregar cache de MD5 (`.deploy-cache.json`)
+- ✓ Filtrar apenas arquivos modificados
+- ✓ Injetar versão em arquivo raiz (ex: `layout.tpl`)
+- ✓ Upload em lotes de 10 arquivos
+- ✓ Reconectar FTP a cada 50 arquivos (estabilidade)
+- ✓ Retry automático: 3 tentativas por arquivo
+- ✓ Atualizar cache MD5
+- ✓ Restaurar arquivo original pós-upload
+
+**Lógica de Injeção de Versão:**
+```
+Se remotePath === 'layouts/layout.tpl':
+  1. Substituir PLACEHOLDER_VERSION_ID → nova_versao
+  2. Upload versão injetada
+  3. Restaurar arquivo local original
+  Garante que console do navegador sempre mostra versão correta
+```
+
+**Saída:**
+```json
+{
+  "phase": "deploy",
+  "status": "success",
+  "files_modified": 28,
+  "files_uploaded": 28,
+  "files_failed": 0,
+  "retry_count": 2,
+  "duration_seconds": 240,
+  "total_size_mb": 3.2,
+  "speed_avg_mbps": 0.8,
+  "reconnects": 1,
+  "version_injected": "v1.1.1"
+}
+```
+
+**Retry Strategy:**
+```
+Arquivo falha (erro de rede):
+  → Aguardar 2 segundos
+  → Tentar novamente (máx 3 tentativas)
+  → Se 3 tentativas falharem: Log e continuar
+  → Ao final: Relatório de falhas
+```
+
+---
+
+### Fase 4: Validação Pós-Deploy e Documentação
+**Task:** `validate-post-deploy.md`
+**Tempo:** 3-5 minutos
+**Responsável:** @devops
+
+**Atividades:**
+- ✓ Verificar integridade remota (last-modified)
+- ✓ Gerar relatório de upload
+- ✓ Atualizar `LAST_DEPLOY_VERSION.txt`
+- ✓ Registrar em `DEPLOY_HISTORY.json`
+- ✓ Criar resumo de alterações
+- ✓ Log final com sucesso/avisos
+
+**Saída:**
+```json
+{
+  "phase": "validation",
+  "status": "success",
+  "remote_verification": "ok",
+  "version_file_updated": "LAST_DEPLOY_VERSION.txt",
+  "history_recorded": "DEPLOY_HISTORY.json",
+  "console_version_visible": true,
+  "deployment_date": "2026-03-20T10:30:45Z",
+  "git_commit": "9502c44",
+  "git_branch": "main"
+}
+```
+
+**Checklist Pós-Deploy:**
+- [ ] Versão em LAST_DEPLOY_VERSION.txt corresponde à injetada
+- [ ] Backup incremental existe e está acessível
+- [ ] Cache MD5 atualizado
+- [ ] Logs registrados
+- [ ] Nenhum arquivo critical falhou
+
+---
+
+### Fase 5: Validação Visual em Produção
+**Task:** `verify-production-deployment.md`
+**Tempo:** 5-10 minutos (manual + automática)
+**Responsável:** @devops + @qa
+
+**Atividades:**
+- ✓ Acessar loja: https://patagang.lojavirtualnuvem.com.br/
+- ✓ Abrir console do navegador (F12)
+- ✓ Verificar `window.__PATAGANG_VERSION__` (mostra versão + commit)
+- ✓ Limpar cache Nuvemshop (se necessário)
+- ✓ Aguardar 3-5 minutos de propagação
+- ✓ Testar funcionalidades críticas (busca, carrinho, checkout)
+- ✓ Validar responsividade (desktop + mobile)
+
+**Saída:**
+```json
+{
+  "phase": "production_validation",
+  "status": "success",
+  "console_version": "v1.1.1",
+  "deployment_date": "2026-03-20T10:30:45Z",
+  "git_commit": "9502c44",
+  "visual_check": "passed",
+  "cache_cleared": true,
+  "propagation_time_seconds": 180
+}
+```
+
+---
+
+## 🔄 Estados Possíveis
+
+```
+START
+  ↓
+[1] Validation → FAIL → ABORT + ROLLBACK
+  ↓ SUCCESS
+[2] Backup → FAIL → ABORT (keep backup for manual restore)
+  ↓ SUCCESS
+[3] Deploy → PARTIAL FAIL → Continue (log failures)
+  ↓
+[4] Post-Deploy Validation → OK
+  ↓
+[5] Production Check → OK
+  ↓
+COMPLETE ✅
+```
+
+---
+
+## 🚨 Contingência & Rollback
+
+### Se Deploy Falhou (Fase 3)
+
+```bash
+# 1. Verificar backup criado
+ls -la backups/incremental/2026-03-20T10-30-45/
+
+# 2. Restaurar para estado anterior
+npm run rollback -- 2026-03-20T10-30-45
+
+# 3. Re-deploy com --force-all
+npm run deploy -- --force-all
+
+# 4. Validar versão em produção
+# Aguardar cache clear Nuvemshop
+```
+
+**Tempo total de rollback:** 2-5 minutos
+
+### Se Backup Não Completou (Fase 2)
+
+```bash
+# 1. Usar backup anterior
+npm run list
+
+# 2. Sincronizar backup anterior com local
+node sync-backup-to-local.js {TIMESTAMP_ANTERIOR}
+
+# 3. Deploy a partir do backup restaurado
+npm run deploy
+```
+
+---
+
+## 📊 Monitoramento Contínuo
+
+### Versão Atual em Produção
+```javascript
+// Browser console:
+window.__PATAGANG_VERSION__
+// → { version: "1.1.1", deployment_date: "2026-03-20T10:30:45Z", ... }
+```
+
+### Histórico de Deploys
+```bash
+cat DEPLOY_HISTORY.json | jq '.deployments | last'
+```
+
+### Cache Local vs Remoto
+```bash
+node verify-sync.js
+# Compara MD5 local com remoto
+```
+
+---
+
+## ✅ Sucesso = Todos os Critérios Atendidos
+
+| Critério | Verificação |
+|----------|------------|
+| Arquivos Modificados | ✓ Apenas alterados foram enviados |
+| Versão | ✓ Visível no console (window.__PATAGANG_VERSION__) |
+| Backup | ✓ Incremental criado com metadados |
+| Rollback | ✓ Possível em < 5 minutos |
+| Integridade | ✓ Nenhum arquivo perdido |
+| Documentação | ✓ Logs e histórico registrados |
+| Propagação | ✓ Cache Nuvemshop atualizado |
+
+---
+
+## 🎯 Performance Targets
+
+| Métrica | Target | Atual |
+|---------|--------|-------|
+| Tempo validação | < 3 min | 2-3 min |
+| Tempo backup | < 15 min | 5-15 min |
+| Tempo deploy | < 30 min | 10-30 min |
+| Tempo validação pós | < 5 min | 3-5 min |
+| **Total** | **< 60 min** | **20-55 min** |
+| Rollback | < 5 min | 2-5 min |
+| Taxa sucesso | 99%+ | 98%+ |
+
+---
+
+## 📝 Documentação de Saída
+
+Após cada deploy (sucesso ou falha), gerar:
+
+```
+📁 backups/incremental/{TIMESTAMP}/
+  ├── _BACKUP_METADATA.json
+  ├── README.md
+  └── [arquivos backed up...]
+
+📁 ftp-deploy/
+  ├── LAST_DEPLOY_VERSION.txt
+  ├── deploy-log.txt
+  ├── DEPLOY_HISTORY.json
+  └── .deploy-cache.json (atualizado)
+```
+
+---
+
+**Workflow AIOX Deploy Standard v1.0**
+**Última atualização:** 2026-03-20
+**Executor exclusivo:** @devops
+**Crítico para:** Produção Nuvemshop

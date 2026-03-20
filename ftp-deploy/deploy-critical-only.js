@@ -5,8 +5,8 @@ const path = require('path');
 const { FTP_CONFIG, DIRS } = require('./config.js');
 
 const FILES_TO_DEPLOY = [
-    { local: '../theme-deploy-corrigido/templates/product.tpl', remote: '/templates/product.tpl' },
-    { local: '../theme-deploy-corrigido/snipplets/home/home-banners.tpl', remote: '/snipplets/home/home-banners.tpl' }
+    { local: '../theme-deploy-corrigido/layouts/layout.tpl', remote: '/layouts/layout.tpl' },
+    { local: '../theme-deploy-corrigido/static/js/version-info.js', remote: '/static/js/version-info.js' }
 ];
 
 async function deployCriticalFiles() {

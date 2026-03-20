@@ -1,0 +1,81 @@
+
+╔════════════════════════════════════════════════════════════╗
+║              ✅ DEPLOY REALIZADO COM SUCESSO               ║
+╚════════════════════════════════════════════════════════════╝
+
+📦 INFORMAÇÕES DO DEPLOY
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Versão Enviada:     v1.1.3
+Data/Hora:          20/03/2026, 19:40:16
+Timestamp:          20260320224016
+Arquivos:           2 (layout.tpl + version-info.js)
+Status:             ✅ ENVIADO PARA FTP
+
+🔄 CACHE BUSTING (Força Atualização)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+O arquivo version-info.js foi configurado com cache busting:
+
+    src="{{ 'js/version-info.js' | static_url }}?v=20260320224016"
+
+Isso força o navegador a carregar a NOVA versão, mesmo com
+cache antigo. O parâmetro "v=20260320224016" muda a cada deploy.
+
+🧹 ETAPAS DE LIMPEZA (Importante!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  CACHE NUVEMSHOP (Obrigatório)
+    ├─ Acesse Admin Nuvemshop
+    ├─ Vá em: Temas → Menu (⋯) → Limpar Cache
+    └─ Aguarde 3-5 minutos
+
+2️⃣  CACHE NAVEGADOR (Seu Navegador)
+    ├─ Pressione: Ctrl+Shift+Delete (ou Cmd+Shift+Delete)
+    ├─ Selecione: "Cookies e dados armazenados"
+    ├─ Marque: Site da loja (patagang-ecommerce...)
+    └─ Clique em "Limpar"
+
+3️⃣  RECARREGAR PÁGINA
+    ├─ Abra a loja em ABA INCÓGNITA (Ctrl+Shift+N)
+    ├─ Pressione: Ctrl+Shift+R (force reload sem cache)
+    └─ Pressione: F12 → Console
+
+📱 VALIDAÇÃO NO CONSOLE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Após limpar cache e recarregar:
+
+    ✅ Esperado ver no Console:
+       📦 PATAGANG v1.1.3 (2026-03-20)
+       ℹ️ Version Info: {version: "1.1.3", ...}
+
+    ❌ Se continuar mostrando v1.1.1:
+       → Cache Nuvemshop ainda não foi limpo
+       → Aguarde mais 5-10 minutos
+       → Tente novamente em outro navegador/aba incógnita
+
+🔗 VERIFICAÇÃO RÁPIDA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+No Console do Navegador (F12), execute:
+    window.__PATAGANG_VERSION__.version
+    // Deve retornar: "1.1.3"
+
+╔════════════════════════════════════════════════════════════╗
+║  ⚠️  IMPORTANTE: Você NÃO consegue limpar cache manualmente║
+║      na Nuvemshop (customização via FTP). Use as etapas    ║
+║      acima para limpar seu navegador local.                ║
+║      Cache Nuvemshop será limpo automaticamente em 3-5min. ║
+╚════════════════════════════════════════════════════════════╝
+
+📊 PRÓXIMAS AÇÕES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+□ Aguardar 3-5 minutos de propagação
+□ Limpar cache Nuvemshop (Admin → Temas → ⋯ → Limpar Cache)
+□ Limpar cache navegador (Ctrl+Shift+Delete)
+□ Abrir loja em ABA INCÓGNITA
+□ Pressionar Ctrl+Shift+R (force reload)
+□ F12 → Console → Procurar por "📦 PATAGANG v1.1.3"
+□ Executar: window.__PATAGANG_VERSION__.version
+
+Deploy completo: 2026-03-20T22:40:16.673Z
