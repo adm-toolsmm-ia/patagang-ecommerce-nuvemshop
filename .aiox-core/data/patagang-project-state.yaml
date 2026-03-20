@@ -1,0 +1,112 @@
+# Patagang Ecommerce — Project State
+# Type: Configuration (L3 — Project Config, mutable)
+# Purpose: Track active stories, epics, and project progress in SDC/QA Loop workflows
+# Updated: Daily (on story phase transitions)
+# Consumed by: @sm, @po, @dev, @qa, @devops, @aiox-master
+
+---
+
+version: "1.0"
+lastUpdated: "2026-03-20T00:00:00.000Z"
+project: "Patagang Ecommerce (Nuvemshop FTP Theme)"
+
+## ============================================================================
+## ACTIVE EPICS (Managed by @pm via *execute-epic)
+## ============================================================================
+epics:
+
+  epic_01_design_system:
+    id: "EPIC-01"
+    title: "Design System & Styling Foundation"
+    status: "active"
+    description: "Establish cohesive design system for Patagang ecommerce"
+    createdDate: "2026-03-10"
+    targetCompletion: "2026-04-30"
+    stories: []  # Stories populated as created
+    notes: "Foundation for all future feature work"
+
+  epic_02_ftp_constraints_enforcement:
+    id: "EPIC-02"
+    title: "FTP Constraint Enforcement & Validation"
+    status: "active"
+    description: "Implement automated validation of Nuvemshop FTP constraints"
+    createdDate: "2026-03-15"
+    targetCompletion: "2026-04-15"
+    stories: []
+    notes: "Prevents deployment violations (checkout, footer, forms)"
+
+## ============================================================================
+## ACTIVE STORIES (Story Development Cycle progress)
+## ============================================================================
+stories: []
+# Format (when stories exist):
+# - storyId: "1.1.1"
+#   title: "Implement Help Sidebar Button"
+#   epic: "EPIC-01"
+#   status: "InProgress"
+#   phase: "implement"  # draft | validate | implement | qa | done
+#   assignedAgent: "dev"
+#   filePath: "docs/stories/1.1.1.story.md"
+#   createdDate: "2026-03-18"
+#   lastUpdated: "2026-03-20"
+#   qaLoopIteration: 0
+#   files:
+#     - "theme-deploy-corrigido/snipplets/help-sidebar.tpl"
+#     - "theme-deploy-corrigido/static/css/style-help-sidebar.scss"
+
+## ============================================================================
+## QA LOOP STATE (Tracked for iterative review cycles)
+## ============================================================================
+qaLoopState:
+  active: false
+  storyId: null
+  iteration: 0
+  maxIterations: 5
+  lastVerdict: null  # PASS | CONCERNS | FAIL | BLOCKED
+  verdictTimestamp: null
+  nextAction: null  # review | fix | escalate
+  lastUpdated: "2026-03-20T00:00:00.000Z"
+
+## ============================================================================
+## PROJECT METRICS & TRACKING
+## ============================================================================
+metrics:
+  storiesCreated: 0
+  storiesCompleted: 0
+  storiesInProgress: 0
+  qaLoopsCompleted: 0
+  averageQaIterations: 0
+  deploymentCount: 0
+  lastDeploymentDate: null
+  fptViolationsDetected: 0
+  fptViolationsFixed: 0
+
+## ============================================================================
+## RELEASE TRACKING
+## ============================================================================
+releases:
+  current: "v0.0.0"
+  previous: []
+  nextTarget: "v1.0.0"
+  releaseDate: null
+  backupLocations:
+    - "backups/incremental/"
+  lastBackupDate: null
+
+## ============================================================================
+## NOTES & CONTEXT
+## ============================================================================
+notes:
+  - "Project started 2026-03-10 (Patagang redesign)"
+  - "Nuvemshop FTP constraints strict (Article V - Quality First)"
+  - "Auto-backup on each FTP deploy (versioning enabled)"
+  - "Design system colors finalized; colors reference in agent memories"
+
+## ============================================================================
+## METADATA
+## ============================================================================
+metadata:
+  refreshFrequency: "daily"
+  staleSinceLastUpdate: false
+  staleSinceLastUpdateSeconds: 0
+  archiveLocation: ".aiox-core/data/archived-states/"

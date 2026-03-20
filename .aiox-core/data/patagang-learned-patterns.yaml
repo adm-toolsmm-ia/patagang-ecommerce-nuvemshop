@@ -1,0 +1,309 @@
+# Patagang Ecommerce — Learned Patterns
+# Type: Configuration (L3 — Project Config, mutable)
+# Purpose: Capture feedback patterns from completed stories/QA gates
+# Updated: As patterns emerge (quarterly review)
+# Consumed by: All agents (@dev, @qa, @architect, @po, etc.)
+
+---
+
+version: "1.0"
+lastUpdated: "2026-03-20T00:00:00.000Z"
+project: "Patagang Ecommerce (Nuvemshop FTP Theme)"
+
+## ============================================================================
+## DEVELOPMENT PATTERNS (Feedback from @dev)
+## ============================================================================
+devPatterns:
+
+  ftpThemeEditing:
+    name: "FTP Theme File Editing (Twig + SCSS)"
+    discovered: "2026-03-20"
+    status: "verified"
+    pattern: |
+      1. Edit `.tpl` or `.scss.tpl` files in theme-deploy-corrigido/
+      2. Test locally (visual inspection or static analysis)
+      3. Verify FTP constraints via checklist before commit
+      4. Reference Nuvemshop Twig conditionals (template variable)
+      5. Update story File List with all modified files
+    tools:
+      - "coderabbit" (for linting)
+      - "ftp-deploy-checklist" (for validation)
+    gotchas:
+      - "CSS load order matters (see agent memories)"
+      - "!important in layout.tpl overrides everything"
+      - "Nuvemshop auto-generates sitemap/robots.txt (don't modify)"
+    source: "observed"
+    confidence: "high"
+
+  cssOptimization:
+    name: "CSS Size Optimization (< 50 KB requirement)"
+    discovered: "2026-03-20"
+    status: "pattern"
+    pattern: |
+      style-critical.tpl MUST stay < 50 KB (architecture constraint)
+      - Audit with: wc -c theme-deploy-corrigido/static/css/style-critical.tpl
+      - Remove unused rules (Chrome DevTools Coverage tab)
+      - Move non-critical to style-async.scss.tpl
+      - Compress images referenced in CSS
+      - Use variables/mixins to reduce duplication
+    tools:
+      - "Chrome DevTools Coverage"
+      - "ImageOptim or TinyPNG"
+    gotchas:
+      - "Embedded base64 images bloat CSS"
+      - "Multiple @import statements slow render"
+    source: "architecture constraint"
+    confidence: "critical"
+
+  nuvemshopFormHandling:
+    name: "Nuvemshop Form Field Modifications (Strictly Limited)"
+    discovered: "2026-03-20"
+    status: "critical_constraint"
+    pattern: |
+      Contact, Registration, Newsletter forms have LOCKED structure:
+      - ✅ SAFE: Modify label text, placeholder, styling, colors
+      - ✅ SAFE: Add CSS classes for styling
+      - ❌ BLOCKED: Remove form fields
+      - ❌ BLOCKED: Change form field order
+      - ❌ BLOCKED: Change form submission endpoint
+
+      Rationale: Forms integrate with Nuvemshop backend for email/CRM.
+      Structural changes break email delivery and customer data flow.
+    tools:
+      - "nuvemshop-ftp-constraints.md (rule)"
+      - "ftp-deploy-checklist.md"
+    gotchas:
+      - "CSS display:none hides field but doesn't remove it (OK)"
+      - "Adding custom fields outside form is OK (custom JS scope)"
+    source: "platform constraint (Nuvemshop TOS)"
+    confidence: "critical"
+
+## ============================================================================
+## QA GATE PATTERNS (Feedback from @qa)
+## ============================================================================
+qaPatterns:
+
+  fptDeploymentValidation:
+    name: "FTP Deployment Pre-Gate Validation"
+    discovered: "2026-03-20"
+    status: "gate_pattern"
+    pattern: |
+      Before QA gate PASS verdict, @qa MUST verify:
+      1. Checkout form structure NOT modified
+      2. Footer attribution VISIBLE (auto-detect check)
+      3. All form fields intact (contact, registration, newsletter)
+      4. CSS file size < 50 KB (wc -c check)
+      5. No Nuvemshop global JS overrides
+      6. FTP version properly bumped (auto-tracked)
+
+      If ANY fails → FAIL verdict, return to @dev
+    tools:
+      - "ftp-deploy-checklist.md"
+      - "nuvemshop-ftp-constraints.md"
+    checklist: ".aiox-core/development/checklists/ftp-deploy-checklist.md"
+    source: "Constitution Article V (Quality First)"
+    confidence: "critical"
+
+  coderabbitIntegration:
+    name: "CodeRabbit Max Iterations (Self-Healing)"
+    discovered: "2026-03-20"
+    status: "verified"
+    pattern: |
+      CodeRabbit auto-fix cycle (during @dev implementation):
+      - Iteration 1: Initial review + auto-fix
+      - Iteration 2: Review fixed code + re-fix if needed
+      - Iteration 3+: MANUAL @dev review (CodeRabbit doesn't help more)
+
+      Max 3 iterations before human judgment required.
+      CRITICAL issues MUST be fixed (not waived).
+    source: "Constitution Article V (Quality First)"
+    confidence: "high"
+
+## ============================================================================
+## ARCHITECTURE PATTERNS (Feedback from @architect)
+## ============================================================================
+architectPatterns:
+
+  cssLoadOrder:
+    name: "CSS Cascata Load Order (Critical for Specificity)"
+    discovered: "2026-03-20"
+    status: "foundational"
+    pattern: |
+      Load order is CRITICAL for CSS specificity:
+      1. style-critical.tpl (inline, FIRST PAINT, lowest specificity)
+      2. style-colors.scss.tpl (async, theme colors)
+      3. style-async.scss.tpl (async, non-critical styles)
+      4. layout.tpl <style> block (inline, FINAL OVERRIDE with !important)
+
+      Pattern: Use layout.tpl final override for cross-cutting fixes.
+      Example: Help button color change goes in layout.tpl <style> with !important
+    rationale: "Nuvemshop auto-injects styles; final override ensures consistency"
+    source: "observed in production theme"
+    confidence: "critical"
+
+  nuvemshopTwigConditionals:
+    name: "Nuvemshop Template Conditionals for Page-Specific Styling"
+    discovered: "2026-03-20"
+    status: "pattern"
+    pattern: |
+      Use Twig conditionals to apply styles to specific pages:
+
+      {% if template == 'product' %}
+        <style>/* Product page styles */</style>
+      {% endif %}
+
+      Available conditionals:
+      - {% if template == 'product' %}
+      - {% if template == 'category' %}
+      - {% if template == 'home' %}
+      - {% if template == 'cart' %}
+      - {% if template == 'checkout' %} (LOCKED structure)
+      - {% if template == 'account.*' %}
+      - {% if template == 'search' %}
+    rationale: "Avoid global CSS; keep styles scoped to pages that need them"
+    source: "Nuvemshop platform documentation"
+    confidence: "high"
+
+## ============================================================================
+## PRODUCT OWNER PATTERNS (Feedback from @po)
+## ============================================================================
+poPatterns:
+
+  storyValidationChecklist:
+    name: "@po Story Validation Checklist (10-Point)"
+    discovered: "2026-03-20"
+    status: "process"
+    pattern: |
+      @po MUST validate stories before @dev implementation (Phase 2 SDC):
+
+      1. Story title is clear and actionable
+      2. Acceptance criteria are testable (SMART)
+      3. No invented features (traceability to requirement)
+      4. Story scope is appropriate for 1 iteration
+      5. Dependencies identified
+      6. Definition of Done present
+      7. No ambiguity in AC language
+      8. Story aligns with epic/roadmap
+      9. Risk assessment done (if needed)
+      10. File list prepared (optional, @dev adds)
+
+      Scoring: >= 7 = GO, < 7 = NO-GO (return with feedback)
+    source: "Constitution Article III (Story-Driven)"
+    confidence: "high"
+
+## ============================================================================
+## DEPLOYMENT PATTERNS (Feedback from @devops)
+## ============================================================================
+deploymentPatterns:
+
+  ftpVersioning:
+    name: "FTP Auto-Versioning on Deploy"
+    discovered: "2026-03-20"
+    status: "process"
+    pattern: |
+      Each FTP deploy is automatically versioned:
+      - Format: v{YYYY-MM-DD}-{iteration}
+      - Example: v2026-03-20-01, v2026-03-20-02
+      - Backup: Previous version backed up to backups/incremental/
+
+      Rollback: Manual FTP restore from backup folder if deployment fails
+    tools:
+      - ".aiox-core/infrastructure/ftp-deployment/"
+    source: "implemented in deploy scripts"
+    confidence: "verified"
+
+  preDeploymentGates:
+    name: "Pre-Deployment Checklist (Before @devops Push)"
+    discovered: "2026-03-20"
+    status: "gate_pattern"
+    pattern: |
+      @devops MUST verify BEFORE pushing:
+      1. @dev provided story marked DONE
+      2. @qa provided PASS verdict
+      3. FTP deployment checklist ✅
+      4. No Nuvemshop constraint violations
+      5. PR description includes story ID + AC + files
+      6. All GitHub checks ✅ (CodeRabbit, lint, tests)
+      7. No merge conflicts
+
+      Any gate failure → BLOCK and return to earlier phase
+    source: "Constitution Article II (Agent Authority) + Article V (Quality First)"
+    confidence: "critical"
+
+## ============================================================================
+## HANDOFF PROTOCOL PATTERNS
+## ============================================================================
+handoffPatterns:
+
+  agentHandoffCheckpoint:
+    name: "Agent Handoff via Project State File"
+    discovered: "2026-03-20"
+    status: "process"
+    pattern: |
+      When switching between agents in SDC:
+
+      Outgoing Agent:
+      - Update patagang-project-state.yaml with current story status
+      - Document last decision/issue in story File List
+
+      Incoming Agent:
+      - Load patagang-project-state.yaml (checkpoint)
+      - Load agent-specific MEMORY.md (Patagang patterns)
+      - Resume from last checkpoint
+
+      Result: Zero context loss, agent resumes from saved state
+    tools:
+      - "patagang-project-state.yaml" (handoff checkpoint)
+      - "agents/*/MEMORY.md" (agent patterns)
+    source: "AIOX Handoff Protocol"
+    confidence: "high"
+
+## ============================================================================
+## CONSTITUTION ENFORCEMENT PATTERNS
+## ============================================================================
+constitutionPatterns:
+
+  articleICliFirst:
+    name: "Article I — CLI First (NON-NEGOTIABLE)"
+    pattern: |
+      CLI is source of truth for all decisions. No UI work without CLI foundation.
+      Observed: FTP deployment via CLI scripts, not UI uploader.
+    enforcedBy: "developer awareness"
+
+  articleIIAgentAuthority:
+    name: "Article II — Agent Authority (NON-NEGOTIABLE)"
+    pattern: |
+      @devops is EXCLUSIVE for git push, gh pr create, MCP management.
+      Other agents delegate or are blocked.
+    enforcedBy: "CLAUDE.md + .claude/rules/agent-authority.md"
+
+  articleIIIStoryDriven:
+    name: "Article III — Story-Driven Development (MUST)"
+    pattern: |
+      All development starts with validated story. No code without story.
+      Tracked in: patagang-project-state.yaml (active stories list)
+    enforcedBy: "@po validation gate + @sm story creation"
+
+  articleIVNoInvention:
+    name: "Article IV — No Invention (MUST)"
+    pattern: |
+      Spec Pipeline requires every statement to trace to requirement/research.
+      Nuvemshop constraints are firm requirements (not inventions).
+    enforcedBy: "@analyst research findings + @architect design decisions"
+
+  articleVQualityFirst:
+    name: "Article V — Quality First (MUST)"
+    pattern: |
+      FTP deployment checklist is enforcer.
+      Quality gates (lint, test, CodeRabbit, FTP validation) are mandatory.
+      Checkout/footer/form constraints are inviolable.
+    enforcedBy: "@qa gate verdicts + @devops pre-deploy checks"
+
+## ============================================================================
+## METADATA
+## ============================================================================
+metadata:
+  refreshFrequency: "quarterly"
+  nextReviewDate: "2026-06-20"
+  source: "Session observations + Constitution alignment"
+  maintainedBy: "@architect"

@@ -41,6 +41,51 @@
 - **Conventional commits format** | Source: dev, devops, analyst, sm, data-engineer, ux (6 agents) | Detected: 2026-02-22 | Status: Already in CLAUDE.md (Convencoes Git)
 - **kebab-case for files** | Source: dev, analyst, sm, data-engineer, ux (5 agents) | Detected: 2026-02-22 | Status: Already in CLAUDE.md (Padroes de Codigo)
 
+## Patagang Nuvemshop Project Patterns
+<!-- Verified patterns specific to Patagang ecommerce (FTP-deployed Nuvemshop theme) -->
+<!-- Last Updated: 2026-03-20 -->
+
+### FTP Theme Structure
+- **Base folder**: `theme-deploy-corrigido/` (FTP root)
+- **Templates**: `layouts/layout.tpl` (master), `snipplets/*.tpl` (components), `templates/*.tpl` (pages)
+- **Styles**: `static/css/style-*.scss.tpl` (CSS files are Twig-templated)
+- **Load order**: style-critical.tpl (inline) → style-colors.scss.tpl (async) → style-async.scss.tpl → layout.tpl `<style>` (final override)
+
+### Nuvemshop FTP Constraints (CRITICAL - Article V Quality First)
+**See:** `.claude/rules/nuvemshop-ftp-constraints.md`
+- 🔴 **CRITICAL:** Checkout structure locked (no field modifications)
+- 🔴 **CRITICAL:** Footer attribution MUST be visible (TOS requirement)
+- 🔴 **CRITICAL:** Contact/Registration/Newsletter forms — structure locked
+- 🟡 **HIGH:** CSS file size limit (style-critical.tpl < 50 KB)
+- 🟡 **HIGH:** JavaScript safety (no override of Nuvemshop globals)
+- 🟡 **MEDIUM:** Auto-generated files locked (sitemap.xml, robots.txt)
+
+**Implementation Pattern:**
+- Only modify: Colors, fonts, spacing, visibility (UI enhancements)
+- Never modify: Form fields, checkout logic, form submission, global JS overrides
+- Test: FTP deploy checklist in `.aiox-core/development/checklists/ftp-deploy-checklist.md`
+
+### Nuvemshop Twig Template Conditionals
+- `{% if template == 'product' %}` → Product detail page
+- `{% if template == 'category' %}` → Category listing
+- `{% if template == 'home' %}` → Homepage
+- `{% if template == 'cart' %}` → Shopping cart
+- `{% if template == 'checkout' %}` → Checkout (LOCKED STRUCTURE)
+- `{% if template == 'account.*' %}` → Account pages
+
+### Design System (Current)
+- **Primary Yellow**: #EAFE67 (saturated, use sparingly)
+- **Primary Black**: #1A1A1A
+- **Gray Neutral**: #F0F0F0, #E8E8E8 (recommended for UI)
+- **Green (success)**: #00CC66
+
+### File Updates in Story
+- **Update always**: File List section, checkbox progress [x]
+- **Never modify**: Story title, Status, AC, scope, Dev Notes
+- **Story file location**: `docs/stories/{storyID}.story.md`
+
+---
+
 ## Archived
 <!-- Patterns no longer relevant — kept for history -->
 <!-- Format: - ~~{pattern}~~ | Archived: {YYYY-MM-DD} | Reason: {reason} -->
