@@ -315,6 +315,42 @@ tail -f .aiox/logs/agent.log
 npm run trace -- workflow-name
 ```
 
+## File Structure Standards (AIOX L1-L4)
+
+All files created in this project MUST follow the AIOX organizational framework:
+
+**See:** `.claude/rules/file-structure-standards.md` (auto-loads on file creation)
+
+**Quick Reference:**
+- **L1** (`.aiox-core/core/`) — Framework core (never modify)
+- **L2** (`.aiox-core/development/`) — Reusable templates, tasks, checklists
+- **L3** (`.aiox-core/data/`, `.claude/rules/`) — Project configuration, patterns
+- **L4** (`docs/`, `src/`, `tests/`) — Project runtime (always modify)
+
+**File Creation Rule:**
+```
+Documentation → docs/[type]/[domain]/
+  - Guides → docs/guides/[domain]/
+  - Reports → docs/reports/[domain]/
+  - Architecture → docs/architecture/[domain]/
+  - Reviews → docs/reviews/[domain]/
+
+Configuration → .aiox-core/data/ or .claude/rules/
+  - Patterns → .aiox-core/data/[domain]-patterns.yaml
+  - Rules → .claude/rules/[rule-name].md
+
+Templates/Tasks → .aiox-core/development/
+  - Tasks → .aiox-core/development/tasks/
+  - Workflows → .aiox-core/development/workflows/
+  - Checklists → .aiox-core/development/checklists/
+
+Source Code → src/, tests/, scripts/
+```
+
+**Zero scattered files in project root.** Every file has a home.
+
+---
+
 ## Claude Code Specific Configuration
 
 ### Performance Optimization
@@ -327,6 +363,12 @@ npm run trace -- workflow-name
 - Use the Task tool for complex multi-step operations
 - Batch file reads/writes when processing multiple files
 - Prefer editing existing files over creating new ones
+
+### File Creation Protocol
+- **ALWAYS** consult `.claude/rules/file-structure-standards.md` before creating files
+- Verify correct folder based on file type and purpose
+- Create README.md in new doc folders for navigation
+- Update cross-references when creating/moving files
 
 ### Session Management
 - Track story progress throughout the session
