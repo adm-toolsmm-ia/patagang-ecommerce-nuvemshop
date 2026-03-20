@@ -4188,18 +4188,18 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 	/* COLUNA ESQUERDA - Imagem - MAIOR */
 	.pg-pdp-container .pg-pdp-image-col.col-lg-7 {
-		flex: 0 0 58% !important;
-		max-width: 58% !important;
-		width: 58% !important;
+		flex: 0 0 57% !important;
+		max-width: 57% !important;
+		width: 57% !important;
 		padding: 0 !important;
 		align-self: flex-start !important; /* Imagem alinha no topo */
 	}
 
 	/* COLUNA DIREITA - Info - STICKY SCROLL */
 	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
-		flex: 0 0 40% !important;
-		max-width: 40% !important;
-		width: 40% !important;
+		flex: 0 0 43% !important;
+		max-width: 43% !important;
+		width: 43% !important;
 		padding: 0 !important;
 		padding-top: 16px !important; /* Alinha com grid de imagens */
 		align-self: flex-start !important; /* Alinha ao topo */
