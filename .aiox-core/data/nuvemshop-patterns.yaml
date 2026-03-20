@@ -1,0 +1,351 @@
+# Nuvemshop FTP Constraint Patterns Registry
+#
+# Purpose: Centralized pattern registry for automated validation
+# Used by: .claude/rules/nuvemshop-ftp-constraints.md, npm validation scripts
+# Type: Configuration (L3)
+# Status: ACTIVE
+# Last Updated: 2026-03-20
+
+---
+
+patterns:
+
+  # ============================================================================
+  # PATTERN 1: Checkout Structure Protection
+  # ============================================================================
+  checkout_structure:
+    name: "Checkout Structure Lock"
+    severity: CRITICAL
+    category: "form_integrity"
+    description: |
+      Checkout page structure and form fields are locked by Nuvemshop.
+      Only colors and styling can be modified.
+
+    trigger_files:
+      - "static/css/checkout.scss"
+      - "layouts/layout.tpl"
+      - "snipplets/**/checkout*.tpl"
+
+    forbidden_patterns:
+      # CSS: Removing checkout form visibility
+      - pattern: '\.checkout-form\s*\{[^}]*(display\s*:\s*none|visibility\s*:\s*hidden)'
+        type: regex
+        match_context: 50
+        severity: CRITICAL
+        message: "❌ Checkout form cannot be hidden. Only color customization allowed."
+
+      # CSS: Modifying checkout structure
+      - pattern: '\.checkout-\w+\s*\{\s*display\s*:\s*(none|inline)'
+        type: regex
+        match_context: 50
+        severity: CRITICAL
+        message: "❌ Checkout display property locked. Use colors/styling only."
+
+      # HTML: Form field modifications (checking for removed/added fields)
+      - pattern: '<input[^>]*name="(subtotal|shipping|discount|total)"'
+        type: regex
+        inverted: true  # Check if field was REMOVED
+        message: "❌ Checkout form fields cannot be removed or modified."
+
+      # HTML: Checkout structure elements
+      - pattern: '<form[^>]*id=".*checkout.*"[^>]*action="[^"]*"'
+        type: regex
+        inverted: true  # Check if form action changed
+        message: "❌ Checkout form action cannot be modified."
+
+      # Opacity hidden checkout
+      - pattern: '\.checkout\s*\{[^}]*opacity\s*:\s*0'
+        type: regex
+        severity: CRITICAL
+        message: "❌ Hiding checkout via opacity is forbidden."
+
+    allowed_patterns:
+      # CSS: Color modifications
+      - pattern: '\.checkout-\w+\s*\{[^}]*(color|background|border):'
+        type: regex
+        message: "✅ Color customization allowed."
+
+      # CSS: Spacing modifications
+      - pattern: '\.checkout-\w+\s*\{[^}]*(padding|margin|gap):'
+        type: regex
+        message: "✅ Spacing adjustments allowed."
+
+  # ============================================================================
+  # PATTERN 2: Footer Attribution Protection
+  # ============================================================================
+  footer_attribution:
+    name: "Footer Attribution Lock"
+    severity: CRITICAL
+    category: "legal_requirement"
+    description: |
+      Footer store attribution is mandatory per Nuvemshop terms of service.
+      Cannot be hidden, removed, or made invisible.
+
+    trigger_files:
+      - "layouts/layout.tpl"
+      - "snipplets/footer/*.tpl"
+      - "static/css/style-critical.tpl"
+      - "static/css/style-async.scss"
+
+    forbidden_patterns:
+      # CSS: Hiding via display
+      - pattern: '\.store-attribution\s*\{[^}]*display\s*:\s*none'
+        type: regex
+        severity: CRITICAL
+        message: "❌ Store attribution cannot be hidden (display:none). Required by Nuvemshop terms."
+
+      # CSS: Hiding via visibility
+      - pattern: '\.store-attribution\s*\{[^}]*visibility\s*:\s*hidden'
+        type: regex
+        severity: CRITICAL
+        message: "❌ Store attribution cannot be hidden (visibility:hidden). Required by Nuvemshop terms."
+
+      # CSS: Hiding via opacity
+      - pattern: '\.store-attribution\s*\{[^}]*opacity\s*:\s*0'
+        type: regex
+        severity: CRITICAL
+        message: "❌ Store attribution cannot be hidden (opacity:0). Required by Nuvemshop terms."
+
+      # CSS: Positioning off-screen
+      - pattern: '\.store-attribution\s*\{[^}]*(left|right|top|bottom)\s*:\s*(-?\d+px|-?\d+rem|-\d+vh)'
+        type: regex
+        severity: HIGH
+        match_context: 30
+        message: "⚠️ Check if store attribution is positioned off-screen (forbidden)."
+
+      # CSS: Hiding via CSS transform (translate/skew)
+      - pattern: '\.store-attribution\s*\{[^}]*transform\s*:\s*(translate|skew)'
+        type: regex
+        severity: CRITICAL
+        message: "❌ Store attribution cannot be hidden via CSS transform. Required by Nuvemshop terms."
+
+      # CSS: Width/height zero hiding
+      - pattern: '\.store-attribution\s*\{[^}]*(width|height)\s*:\s*0'
+        type: regex
+        severity: CRITICAL
+        message: "❌ Store attribution cannot be hidden via zero dimensions. Required by Nuvemshop terms."
+
+      # HTML: Footer structure removed (check length)
+      - pattern: 'store.name'
+        type: regex
+        inverted: true
+        match_context: 100
+        message: "⚠️ Store name reference removed from footer template."
+
+      # HTML: Attribution HTML comment
+      - pattern: '<!-- Nuvemshop -->'
+        type: regex
+        inverted: true
+        message: "⚠️ Nuvemshop attribution comment missing from footer."
+
+    allowed_patterns:
+      # CSS: Footer styling
+      - pattern: '\.store-attribution\s*\{[^}]*(color|font|text-align):'
+        type: regex
+        message: "✅ Attribution styling allowed (colors, fonts)."
+
+  # ============================================================================
+  # PATTERN 3: Contact Form Backend Protection
+  # ============================================================================
+  contact_form_integrity:
+    name: "Contact Form Backend Lock"
+    severity: HIGH
+    category: "form_integration"
+    description: |
+      Contact form backend integration is locked. Form structure,
+      field names, and submission method cannot be modified.
+
+    trigger_files:
+      - "snipplets/**/contact*.tpl"
+      - "static/js/store.js.tpl"
+
+    forbidden_patterns:
+      # Form action changed
+      - pattern: '<form[^>]*id=".*contact.*"[^>]*action="[^"]*"'
+        type: regex
+        inverted: true
+        message: "❌ Contact form action cannot be modified."
+
+      # Field removed or renamed
+      - pattern: '<input[^>]*name="(name|email|message)"'
+        type: regex
+        inverted: true
+        message: "❌ Contact form field cannot be removed or renamed."
+
+      # Form method changed
+      - pattern: '<form[^>]*method="POST"[^>]*id=".*contact'
+        type: regex
+        inverted: true
+        message: "❌ Contact form submission method must remain POST."
+
+    allowed_patterns:
+      # Styling via CSS class
+      - pattern: '<input[^>]*class=".*"'
+        type: regex
+        message: "✅ Input styling via CSS classes allowed."
+
+      # Placeholder text
+      - pattern: '<input[^>]*placeholder="[^"]*"'
+        type: regex
+        message: "✅ Placeholder customization allowed."
+
+  # ============================================================================
+  # PATTERN 4: Registration Form Protection
+  # ============================================================================
+  registration_form_integrity:
+    name: "Registration Form Backend Lock"
+    severity: HIGH
+    category: "form_integration"
+    description: |
+      Customer registration backend integration is locked.
+      Cannot modify form structure, fields, or submission.
+
+    trigger_files:
+      - "snipplets/**/register*.tpl"
+      - "snipplets/**/account*.tpl"
+
+    forbidden_patterns:
+      # Form action changed
+      - pattern: '<form[^>]*id=".*register.*"[^>]*action="[^"]*"'
+        type: regex
+        inverted: true
+        message: "❌ Registration form action cannot be modified."
+
+      # Required field removed
+      - pattern: '<input[^>]*name="(customer_email|customer_password)"'
+        type: regex
+        inverted: true
+        message: "❌ Registration required fields cannot be removed."
+
+  # ============================================================================
+  # PATTERN 5: Newsletter Form Protection
+  # ============================================================================
+  newsletter_form_integrity:
+    name: "Newsletter Form Backend Lock"
+    severity: HIGH
+    category: "form_integration"
+    description: |
+      Newsletter subscription backend is locked.
+      Form structure and submission cannot be modified.
+
+    trigger_files:
+      - "snipplets/**/newsletter*.tpl"
+      - "snipplets/**/subscribe*.tpl"
+
+    forbidden_patterns:
+      # Form endpoint changed
+      - pattern: '<form[^>]*action="/newsletter'
+        type: regex
+        inverted: true
+        message: "❌ Newsletter form endpoint cannot be modified."
+
+  # ============================================================================
+  # PATTERN 6: Auto-Generated Content Protection
+  # ============================================================================
+  autogenerated_content:
+    name: "Auto-Generated Content Lock"
+    severity: MEDIUM
+    category: "content_protection"
+    description: |
+      Sitemap, RSS feeds, and platform-generated metadata
+      cannot be customized. Read-only.
+
+    trigger_files:
+      - "snipplets/**/sitemap*.tpl"
+      - "snipplets/**/rss*.tpl"
+      - "snipplets/**/feed*.tpl"
+
+    forbidden_patterns:
+      # Modifying sitemap generation
+      - pattern: 'sitemap.xml|sitemap.tpl'
+        type: regex
+        message: "⚠️ Sitemap generation cannot be modified (auto-generated)."
+
+      # Modifying RSS feed
+      - pattern: 'rss.xml|feed.tpl'
+        type: regex
+        message: "⚠️ RSS feed generation cannot be modified (auto-generated)."
+
+  # ============================================================================
+  # PATTERN 7: Performance Budget
+  # ============================================================================
+  performance_budget:
+    name: "Critical CSS Performance Budget"
+    severity: HIGH
+    category: "performance"
+    description: |
+      Critical CSS file must be < 50KB to maintain performance.
+      This is a hard limit for above-the-fold rendering.
+
+    trigger_files:
+      - "static/css/style-critical.tpl"
+
+    checks:
+      - type: file_size
+        path: "static/css/style-critical.tpl"
+        max_bytes: 51200  # 50KB in bytes
+        message: "❌ Critical CSS exceeds 50KB limit. Optimize or move to async CSS."
+
+    allowed_patterns:
+      # Above-fold styles
+      - pattern: '/\*\s*critical\s*\*/'
+        type: regex
+        message: "✅ Critical CSS section properly marked."
+
+  # ============================================================================
+  # PATTERN 8: JavaScript Error Prevention
+  # ============================================================================
+  javascript_integrity:
+    name: "JavaScript Quality Checks"
+    severity: MEDIUM
+    category: "code_quality"
+    description: |
+      Custom JavaScript must not break Nuvemshop core functionality.
+      Syntax errors are automatically caught.
+
+    trigger_files:
+      - "static/js/store.js.tpl"
+      - "static/js/external*.js.tpl"
+
+    checks:
+      - type: syntax_validation
+        message: "❌ JavaScript syntax error detected. Check console for details."
+
+      - type: forbidden_apis
+        patterns:
+          - "document.write"  # Breaks modern page rendering
+          - "eval("  # Security risk
+          - "innerHTML.*<script"  # XSS risk
+        message: "❌ Forbidden JavaScript API detected. Use safe alternatives."
+
+---
+
+# Metadata
+metadata:
+  version: "1.0.0"
+  created: "2026-03-20"
+  last_updated: "2026-03-20"
+  total_patterns: 8
+  critical_patterns: 3
+  high_patterns: 3
+  medium_patterns: 2
+
+  maintainer:
+    name: "Aria (@architect)"
+    responsibility: "Add/update patterns when constraints change"
+
+  usage:
+    rule_file: ".claude/rules/nuvemshop-ftp-constraints.md"
+    checklist_file: ".aiox-core/development/checklists/nuvemshop-ftp-constraints.md"
+    npm_scripts:
+      - "npm run validate:ftp"
+      - "npm run validate:constraints"
+
+  next_review: "2026-06-20"
+  changelog:
+    - date: "2026-03-20"
+      version: "1.0.0"
+      changes:
+        - "Initial 8-pattern registry created"
+        - "Extracted from NUVEMSHOP_FTP_STANDARDS.md"
+        - "Integrated with validation framework"
