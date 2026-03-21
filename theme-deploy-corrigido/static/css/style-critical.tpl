@@ -4183,8 +4183,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		flex-direction: row !important;
 		flex-wrap: nowrap !important;
 		align-items: flex-start !important; /* FLEX-START para sticky funcionar */
-		justify-content: center !important;
-		gap: 40px;
+		justify-content: flex-start !important;
+		gap: 0px; /* Removido gap excessivo que causava espaço vazio à direita */
 		padding: 30px 40px;
 	}
 

@@ -151,12 +151,7 @@
         </style>
         {% endif %}
 
-        {# Override final: PDP - modal "Seja o primeiro a avaliar" na frente no mobile (z-index acima do card) #}
-        {% if template == 'product' %}
-        <style>
-            body #reviewsapp { position: relative !important; z-index: 10 !important; }
-        </style>
-        {% endif %}
+        {# Konfidence widget removido - será reimplementado posteriormente #}
 
         {# Override V3: listagem (categoria/busca) - padding-top da página #}
         {% if template == 'category' or template == 'search' %}

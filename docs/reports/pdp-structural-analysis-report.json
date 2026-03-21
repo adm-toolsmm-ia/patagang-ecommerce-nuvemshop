@@ -1,0 +1,368 @@
+{
+  "analysisMetadata": {
+    "timestamp": "2026-03-20T00:00:00.000Z",
+    "source": "elements-pagina-produto.txt (DOM snapshot)",
+    "scope": "PDP (Product Detail Page) — Patagang",
+    "analyzer": "Structural HTML/DOM Analysis",
+    "reportVersion": "1.0"
+  },
+  "executiveSummary": {
+    "criticalIssuesFound": 7,
+    "totalIssuesFound": 7,
+    "overallStatus": "MÚLTIPLOS PROBLEMAS CRÍTICOS IDENTIFICADOS",
+    "recommendedAction": "Auditoria urgente de integração Nuvemshop + JavaScript"
+  },
+  "criticalIssues": [
+    {
+      "id": "PDP-001",
+      "title": "Botão 'Adicionar ao Carrinho' em Estado DISABLED por Padrão",
+      "severity": "CRÍTICA",
+      "component": ".js-addtocart (múltiplas instâncias)",
+      "htmlSignature": "class=\"js-addtocart js-addtocart-placeholder btn btn-primary btn-transition disabled btn-block\"",
+      "problem": "Elemento com classe 'disabled' está presente no DOM. Isso indica que o botão está desabilitado visualmente e interativamente por padrão, aguardando JavaScript para habilitá-lo.",
+      "rootCause": "JavaScript não está gerando evento de 'enable' no botão após carregamento de variantes. Possível falha em: (1) inicialização de LS.variants, (2) binding de evento onChange em seletores de tamanho, (3) função que habilita botão após seleção válida",
+      "userImpact": "CRÍTICO — Usuário não consegue adicionar produto ao carrinho mesmo que tenha selecionado tamanho. Botão permanece desabilitado.",
+      "detectableIn": [
+        "class=\"js-addtocart js-addtocart-placeholder ... disabled\"",
+        "class=\"js-addtocart js-prod-submit-form ... disabled\"",
+        "class=\"js-addtocart-placeholder ... d-none\" (variante escondida)"
+      ],
+      "suspectedJSFiles": [
+        "Nuvemshop core cart.js (não visível em análise)",
+        "Theme-specific product-form handler (theme-deploy-corrigido/static/js/)"
+      ],
+      "proposedFix": "1. Verificar se LS.variants está carregando dados corretamente\n2. Inspecionar console.log() para erros de undefined/null\n3. Verificar se onChange handler existe no select.js-variation-option\n4. Garantir que btn.classList.remove('disabled') é chamado após seleção válida\n5. Adicionar log de debug: 'Variant selected: ' + currentVariant.id",
+      "nuvemshopConstraintViolation": "POSSÍVEL — Se JS foi modificado em tema customizado, pode estar violando padrão Nuvemshop de inicialização de form"
+    },
+    {
+      "id": "PDP-002",
+      "title": "Dados de Variantes (LS.variants) Carregam com option1/option2 = null",
+      "severity": "ALTA",
+      "component": "LS.variants array (JavaScript global)",
+      "htmlSignature": "LS.variants = [{...\"option1\":null,\"option2\":null,...}]",
+      "problem": "Cada variante no array LS.variants tem only 'option0' preenchido (ex: 'PP', 'P', 'M', 'G', 'GG'). Campos option1 e option2 estão como null. Isso sugere que o produto tem APENAS 1 dimensão (tamanho) de variação, mas possível que o template espere 2-3 dimensões.",
+      "rootCause": "Configuração de produto em Nuvemshop tem apenas 1 atributo de variação (tamanho). Isso pode estar causando incompatibilidade se o tema foi desenvolvido para produtos multi-atributo. Também pode indicar que seletores secundários não foram carregados por negligência.",
+      "userImpact": "ALTA — Se usuário tentar selecionar segunda dimensão (ex: cor), não haverá opção disponível. JavaScript pode ficar em estado indefinido ou renderizar seletores vazios.",
+      "detectableIn": [
+        "LS.variants[0].option1 === null",
+        "LS.variants[0].option2 === null",
+        "All 5 variants have same null pattern"
+      ],
+      "expectedData": {
+        "correctPattern": "option0: 'Size', option1: 'Color', option2: 'Material' (ex)",
+        "currentPattern": "option0: 'PP'|'P'|'M'|'G'|'GG', option1: null, option2: null"
+      },
+      "proposedFix": "1. Verificar no Admin Nuvemshop se produto tem variantes multi-atributo definidas\n2. Confirmar que seletores .js-variation-option estão renderizados só para option0\n3. Se product.tpl está customizado, remover seletores para option1/option2 que não existem\n4. Adicionar log: console.log('Variant options:', LS.variants[0]) para confirmar estrutura",
+      "nuvemshopConstraintViolation": "NÃO VIOLA — Estrutura está correta para produto single-attribute"
+    },
+    {
+      "id": "PDP-003",
+      "title": "Elemento .pg-pdp-extras-container Vazio ou Oculto (div:empty)",
+      "severity": "ALTA",
+      "component": ".pg-pdp-extras-container",
+      "cssRule": ".pg-pdp-extras-container:empty { display: none; }",
+      "problem": "CSS explicitamente oculta o container se estiver vazio. Análise do snapshot mostra que o container ESTÁ vazio. Isso pode estar ocultando: (1) comentários Facebook, (2) Reviews/ratings, (3) UGC widgets, (4) Cupom/promo cards.",
+      "rootCause": "Possível que: (1) JavaScript não carregou reviews widget, (2) Nuvemshop retornou resposta vazia para reviews, (3) Template está esperando widget que não foi incluído, (4) CSS foi adicionado para esconder elemento durante desenvolvimento e não foi removido",
+      "userImpact": "MÉDIA-ALTA — Usuário não vê reviews/ratings de outros, resenhas, ou promoções. Reduz confiança na compra.",
+      "detectableIn": [
+        "CSS: .pg-pdp-extras-container:empty { display: none; }",
+        "CSS: .pg-pdp-extras-container { ... } (linha 5203, 5209)"
+      ],
+      "suspectedContent": [
+        "#reviewsapp container (Nuvemshop reviews)",
+        "Facebook comments widget",
+        "UGC/social proof widgets"
+      ],
+      "proposedFix": "1. Remover CSS .pg-pdp-extras-container:empty { display: none; }\n2. Verificar se #reviewsapp script está carregando: <script data-component='reviews'></script>\n3. Confirmar que Nuvemshop reviews estão habilitadas no Admin\n4. Se reviews não são necessários, documentar por que container deve ficar oculto\n5. Adicionar fallback HTML se reviews não carregarem",
+      "nuvemshopConstraintViolation": "POSSÍVEL VIOLAÇÃO — CSS que oculta Reviews widget pode violar Nuvemshop Terms (reduz transparency)"
+    },
+    {
+      "id": "PDP-004",
+      "title": "Seletor de Variantes (select.js-variation-option) Pode Ter JavaScript Binding Quebrado",
+      "severity": "CRÍTICA",
+      "component": "select.js-variation-option (class selector)",
+      "htmlPattern": "class=\"form-select js-variation-option js-refresh-installment-data\"",
+      "problem": "Elemento <select> com classe 'js-variation-option' existe no DOM, com event handler binding esperado para mudança de tamanho. Se binding falhar, mudança de tamanho não atualiza: (1) preço, (2) parcelamento, (3) stock, (4) imagem do produto, (5) botão 'Adicionar ao Carrinho' (desabilita/habilita).",
+      "rootCause": "Código JavaScript procura por querySelector ou event listener: document.querySelector('.js-variation-option').addEventListener('change', handler). Se esse handler: (1) não existe, (2) tem erro interno, (3) foi sobrescrito por código customizado, a seleção de tamanho não funcionará.",
+      "userImpact": "CRÍTICO — Usuário seleciona tamanho, mas preço não muda, parcelamento não atualiza, botão Carrinho não habilita. Checkout quebrado.",
+      "detectableIn": [
+        "select.js-variation-option rendered in DOM",
+        "No error logs visible in snapshot (but likely in console)",
+        "Múltiplas classes indicating: js-refresh-installment-data"
+      ],
+      "likelyFailurePoints": [
+        "window.productForm is undefined",
+        "LS.variants is null or empty",
+        "Event listener not attached due to DOM timing issue",
+        "Custom theme JavaScript overrides Nuvemshop handler"
+      ],
+      "proposedFix": "1. Abrir DevTools Console e testar manualmente:\n   document.querySelector('.js-variation-option').dispatchEvent(new Event('change'))\n2. Procurar por erro: 'Cannot read property addEventListener of null'\n3. Verificar se window.productForm é inicializado\n4. Confirmar que LS.variants não é null\n5. Adicionar handler manual se built-in handler falhar:\n   document.querySelector('.js-variation-option').addEventListener('change', updateProduct)",
+      "nuvemshopConstraintViolation": "POSSÍVEL VIOLAÇÃO — Se tema foi editado para modificar seletores de variante, pode violar Nuvemshop produto form constraint"
+    },
+    {
+      "id": "PDP-005",
+      "title": "Frete/Shipping Calculator pode não estar Carregando via AJAX",
+      "severity": "ALTA",
+      "component": ".js-shipping-calculator-container, #product-shipping-container, .shipping-calculator-head",
+      "htmlPattern": "class=\"js-shipping-calculator-container\" / id=\"product-shipping-container\"",
+      "problem": "Elemento shipping calculator existe no DOM, mas há múltiplos pontos de falha: (1) CEP input pode não estar aceitando entrada, (2) Botão 'Calcular Frete' pode não disparar AJAX, (3) Spinner de loading pode não aparecer, (4) Resultado de frete pode não renderizar. CSS mostra estados: .shipping-calculator-head.with-error, .shipping-calculator-head.with-zip, .shipping-calculator-head.with-form — se nenhum estado está ativo, o container pode estar 'pendurado'.",
+      "rootCause": "JavaScript não está: (1) attached ao botão .js-calculate-shipping, (2) fazendo POST para API Nuvemshop /shipping, (3) atualizando DOM com resultado. Possível que: (1) script Nuvemshop não carregou, (2) CEP validação falha, (3) CORS error em requisição, (4) resposta vazia do servidor",
+      "userImpact": "ALTA — Usuário não consegue calcular frete. Não sabe custo de entrega antes de ir para checkout. Reduz confiança.",
+      "detectableIn": [
+        "class=\"js-calculate-shipping btn btn-default btn-block\"",
+        ".shipping-calculator-head.with-error (if error state)",
+        ".js-shipping-calculator-response (empty or loading)"
+      ],
+      "stateClasses": {
+        "expected_flow": "with-form → loading (with-spinner) → with-zip (resultado) OR with-error",
+        "current_state": "unknown (not visible in snapshot)"
+      },
+      "proposedFix": "1. Abrir DevTools Network e testar Calcular Frete\n2. Procurar por erro CORS ou 404 em requisição /shipping\n3. Verificar se resposta tem 'options' array\n4. Se AJAX falha, adicionar fallback: mostrar mensagem 'Frete será calculado no checkout'\n5. Verificar se Nuvemshop shipping integração está ativa no Admin",
+      "nuvemshopConstraintViolation": "NÃO VIOLA — Shipping calculator é widget padrão Nuvemshop"
+    },
+    {
+      "id": "PDP-006",
+      "title": "Parcelamento (js-max-installments) pode não estar Renderizando Corretamente",
+      "severity": "MÉDIA",
+      "component": ".js-max-installments, .product-installments, .pg-price-installments",
+      "htmlPattern": "class=\"js-max-installments product-installments installment-no-interest\"",
+      "dataPresent": "LS.variants[0].installments_data = {...JSON.stringify com 12 parcelas}",
+      "problem": "Dados de parcelamento EXISTEM em LS.variants[0].installments_data (JSON com 1-12x sem juros). Porém, elemento .js-max-installments pode não estar renderizando esses dados: (1) JavaScript não está parsing JSON.parse() da string, (2) DOM não está sendo atualizado com número de parcelas, (3) CSS pode estar ocultando elemento, (4) display format incorreto",
+      "rootCause": "JavaScript deve fazer: JSON.parse(variant.installments_data) para extrair dados de parcelamento. Se isso falha (ex: JSON malformado), JavaScript quebra silenciosamente. Possível que: (1) try/catch existe mas não mostra erro, (2) update DOM não acontece, (3) elemento fica vazio",
+      "userImpact": "MÉDIA — Usuário vê preço à vista mas não consegue ver opções de parcelamento. Menos conversões de compra.",
+      "detectableIn": [
+        "LS.variants with installments_data field",
+        "class=\"js-max-installments ...\"",
+        "class=\"pg-price-installments\" (container para render)"
+      ],
+      "dataQuality": {
+        "status": "PRESENTE E VÁLIDA",
+        "example": "installments_data: {...12 installment options from R$169 to R$17.38}",
+        "issue": "JSON renderização pode estar falhando"
+      },
+      "proposedFix": "1. Testar no console: JSON.parse(LS.variants[0].installments_data)\n2. Se erro de JSON, revisar formato da string no servidor\n3. Verificar se classe .js-max-installments tem innerHTML atualizado\n4. Confirmar que CSS não está ocultando com display: none ou opacity: 0\n5. Adicionar fallback: se parcelamento falha, mostrar apenas preço à vista",
+      "nuvemshopConstraintViolation": "NÃO VIOLA — Parcelamento é feature padrão Nuvemshop"
+    },
+    {
+      "id": "PDP-007",
+      "title": "Possível Cascata de CSS Conflitante Afetando .pg-product-form e Seletores de Variante",
+      "severity": "MÉDIA",
+      "component": ".pg-product-form, .pg-variants-container, .js-product-variants-group",
+      "cssIssues": [
+        {
+          "rule": ".pg-product-form { ... }",
+          "location": "linha 4753",
+          "impact": "form wrapper styles podem estar quebrando layout de variantes"
+        },
+        {
+          "rule": ".pg-variants-container { ... }",
+          "location": "linha 4374, 4758",
+          "impact": "container está definido 2x com possível cascata não-intencional"
+        },
+        {
+          "rule": ".pg-variant-group { ... }",
+          "location": "linha 4378, 4762",
+          "impact": "duplicação de regra pode causar override conflitante"
+        },
+        {
+          "rule": ".form-select .form-select-icon { transform: translateY(-50%); }",
+          "location": "linha 1980",
+          "impact": "select dentro de form pode ter icon desalinhado ou invisível"
+        }
+      ],
+      "problem": "CSS contém múltiplas definições para mesmas classes (.pg-variants-container, .pg-variant-group). Isso pode resultar em: (1) último CSS vence (não intencional), (2) specificity wars, (3) elemento com tamanho zero, (4) overflow hidden que corta seletor, (5) display mismatch entre desktop/mobile.",
+      "rootCause": "Desenvolvimento iterativo resultou em CSS não consolidado. Escopamento de CSS por `.pg-product-form` e media queries criou múltiplas regras para mesma classe.",
+      "userImpact": "MÉDIA — Seletores de tamanho podem ficar: (1) desalinhados, (2) truncados, (3) overflow hidden, (4) invisible em mobile. Difícil clicar/usar.",
+      "detectableIn": [
+        "Grep: '.pg-variants-container' appears in lines 4374 and 4758",
+        "Grep: '.pg-variant-group' appears in lines 4378 and 4762",
+        "Chrome DevTools: Computed styles mostra última regra ganhando"
+      ],
+      "proposedFix": "1. Auditar CSS e consolidar regras duplicadas\n2. Remover uma das definições ou mesclar em media query\n3. Testar em DevTools: select.js-variation-option { outline: 1px red; } para ver bounds\n4. Verificar se height: auto está sendo sobrescrito por height: 100% ou specific px\n5. Garantir que select não tem overflow: hidden no parent\n6. Usar !important sparingly se necessário (ex: para mobile override)",
+      "nuvemshopConstraintViolation": "NÃO VIOLA — CSS interno, não afeta estrutura Nuvemshop"
+    }
+  ],
+  "componentHealthStatus": {
+    "formulario_produto": {
+      "presente": true,
+      "classe": ".js-product-form",
+      "status": "PRESENTE mas LIKELY BROKEN",
+      "evidencia": "Elemento existe, mas botão desabilitado e seletores podem ter binding quebrado"
+    },
+    "botao_adicionar_carrinho": {
+      "presente": true,
+      "classe": ".js-addtocart",
+      "status": "DESABILITADO (disabled)",
+      "evidencia": "class=\"js-addtocart ... disabled btn-block\"",
+      "risco": "CRÍTICO — Usuário não consegue comprar"
+    },
+    "seletor_variantes": {
+      "presente": true,
+      "classe": ".js-variation-option",
+      "status": "PRESENTE mas BINDING QUEBRADO",
+      "evidencia": "select existe mas onChange handler pode não estar funcionando"
+    },
+    "preco_parcelamento": {
+      "presente": true,
+      "preco_atual": "R$169,00",
+      "parcelamento_data": "LS.variants[0].installments_data",
+      "status": "DADOS PRESENTES mas RENDERIZAÇÃO PODE FALHAR",
+      "evidencia": "JSON data exists, mas .js-max-installments pode não estar parseando"
+    },
+    "galeria_imagens": {
+      "presente": true,
+      "classe": ".js-swiper-product",
+      "status": "PRESENTE (swiper inicializado)",
+      "evidencia": "class=\"js-swiper-product swiper-container swiper-container-initialized\""
+    },
+    "frete_shipping": {
+      "presente": true,
+      "classe": ".js-shipping-calculator-container",
+      "status": "PRESENTE mas POSSÍVEL FALHA AJAX",
+      "evidencia": "Container existe, mas sem evidência de estado ativo (com-zip, with-form, with-error)"
+    },
+    "formulario_checkout": {
+      "presente": false,
+      "nota": "PDP não contém formulário de checkout — checkout é em página separada"
+    }
+  },
+  "dataLayerQuality": {
+    "LS.variants": {
+      "status": "CARREGADO",
+      "quantidade": 5,
+      "campos_obrigatorios": "PRESENTES",
+      "campos_opcionais": {
+        "option1": "NULL (esperado para single-attribute product)",
+        "option2": "NULL (esperado para single-attribute product)"
+      },
+      "installments_data": "PRESENTE em cada variante"
+    },
+    "window.initialCart": {
+      "status": "INICIALIZADO",
+      "valor": "{'id': null, 'subtotal': 0, 'total': 0}",
+      "observacao": "Carrinho vazio (esperado em PDP)"
+    },
+    "LS.customer": {
+      "status": "NULL (user not logged in)"
+    }
+  },
+  "nuvemshopIntegrationChecklist": {
+    "variantes_estrutura": {
+      "status": "OK",
+      "nota": "Estrutura está correta para produto com 1 atributo"
+    },
+    "parcelamento_nuvem_pago": {
+      "status": "INTEGRADO",
+      "nota": "installments_data contém dados de Nuvem Pago"
+    },
+    "frete_nuvemshop": {
+      "status": "ELEMENTO PRESENTE, FUNCIONALIDADE DESCONHECIDA",
+      "nota": "Calculadora de frete existe, mas AJAX status unknown"
+    },
+    "checkout_link": {
+      "status": "PRESENTE",
+      "elemento": "btn-primary[name='go_to_checkout']",
+      "nota": "Botão existe, funcionará após carrinho populado"
+    },
+    "reviews_widget": {
+      "status": "CONTAINER VAZIO",
+      "elemento": "#reviewsapp",
+      "nota": "Script pode não ter carregado ou Nuvemshop retornou vazio"
+    }
+  },
+  "recommendedActions": [
+    {
+      "priority": "CRÍTICA",
+      "action": "Verificar JavaScript de seletor de variante",
+      "steps": [
+        "Abrir DevTools Console",
+        "Testar: document.querySelector('.js-variation-option')",
+        "Procurar por erro: 'Cannot read property'",
+        "Se ok, testar: dispatchEvent(new Event('change'))",
+        "Verificar se preço e botão atualizam"
+      ]
+    },
+    {
+      "priority": "CRÍTICA",
+      "action": "Verificar por quê botão 'Adicionar ao Carrinho' está disabled",
+      "steps": [
+        "Abrir DevTools Console",
+        "Testar: document.querySelector('.js-addtocart').classList",
+        "Se 'disabled' está presente, procurar por código que remove 'disabled'",
+        "Verificar se evento change em select está disparando handler"
+      ]
+    },
+    {
+      "priority": "ALTA",
+      "action": "Remover CSS que oculta .pg-pdp-extras-container",
+      "steps": [
+        "Procurar: .pg-pdp-extras-container:empty { display: none; }",
+        "Comentar ou remover essa regra",
+        "Verificar se reviews widget aparecem",
+        "Se reviews não carregam, investigar #reviewsapp script"
+      ]
+    },
+    {
+      "priority": "ALTA",
+      "action": "Testar calculadora de frete",
+      "steps": [
+        "Ir para PDP",
+        "Entrar CEP válido",
+        "Clicar 'Calcular'",
+        "Abrir DevTools Network",
+        "Procurar por erro CORS ou 404 em /shipping"
+      ]
+    },
+    {
+      "priority": "MÉDIA",
+      "action": "Consolidar CSS duplicado para variantes",
+      "steps": [
+        "Procurar: .pg-variants-container (linhas 4374, 4758)",
+        "Mesclar em 1 regra ou organizar por media query",
+        "Testar que select não tem altura zero ou overflow hidden"
+      ]
+    },
+    {
+      "priority": "MÉDIA",
+      "action": "Testar parcelamento em cada variante",
+      "steps": [
+        "Selecionar cada tamanho",
+        "Verificar se .js-max-installments mostra 'até 12x' ou similar",
+        "Se vazio, testar: JSON.parse(LS.variants[0].installments_data) no console"
+      ]
+    }
+  ],
+  "fileLocationsToInvestigate": [
+    {
+      "file": "theme-deploy-corrigido/layouts/product.tpl (ou similar)",
+      "reason": "Contém HTML structure, pode ter seletores customizados"
+    },
+    {
+      "file": "theme-deploy-corrigido/static/js/product-form.js (ou similar)",
+      "reason": "Contém lógica de variante selection, parcelamento, botão enable/disable"
+    },
+    {
+      "file": "theme-deploy-corrigido/static/css/product-styles.css",
+      "reason": "CSS está consolidado aqui, contém duplicatas e regras conflitantes"
+    },
+    {
+      "file": ".aiox-core/data/nuvemshop-patterns.yaml",
+      "reason": "Deve documentar quais modificações em product.tpl são permitidas vs proibidas"
+    },
+    {
+      "file": "docs/guides/nuvemshop/NUVEMSHOP_FTP_STANDARDS.md",
+      "reason": "Deve documentar que modificações de form de produto são CRÍTICAS e podem quebrar checkout"
+    }
+  ],
+  "conclusao": {
+    "resumo": "PDP tem MÚLTIPLOS PROBLEMAS ESTRUTURAIS que afetam fluxo de compra. Dados (variantes, preços, parcelamento) estão presentes no JavaScript, mas binding de eventos ou renderização DOM pode estar quebrado.",
+    "root_causes": [
+      "JavaScript event handling falhou (select onChange não funciona)",
+      "CSS conflitante ou ocultando elementos críticos",
+      "Possível modificação no tema que violou padrões Nuvemshop",
+      "Widget externo (reviews) não carregou"
+    ],
+    "impacto_usuario": "CRÍTICO — Usuário não consegue selecionar tamanho → não consegue ativar botão → não consegue comprar",
+    "timeframe_fix": "2-4 horas se é problema de JavaScript binding, 1 hora se é CSS"
+  }
+}

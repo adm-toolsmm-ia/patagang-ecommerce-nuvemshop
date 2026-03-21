@@ -4,20 +4,20 @@
     {# Informative Banner - Desconto e outras informações (acima das imagens/card) #}
     {% include 'snipplets/product/product-informative-banner.tpl' %}
 
-    {# ===== TRUST STRIP (4 itens de confiança) ===== #}
+    {# ===== TRUST STRIP (4 itens de propósito) ===== #}
     <div class="pg-trust-strip">
         <div class="pg-trust-strip__content">
             <span class="pg-trust-strip__item">
-                🎁 3% DO PEDIDO DOADO PARA EDUCAÇÃO
+                <strong>3% DO PEDIDO</strong> DESTINADO À CAUSA ANIMAL
             </span>
             <span class="pg-trust-strip__item">
-                🚚 FRETE GRÁTIS ACIMA DE R$250
+                <strong>IMPACTO REAL</strong>, NÃO DISCURSO
             </span>
             <span class="pg-trust-strip__item">
-                🛡️ SEGURO COMPRADOR 100%
+                <strong>VISTA O PROPÓSITO</strong>
             </span>
             <span class="pg-trust-strip__item">
-                ↩️ 30 DIAS PARA TROCA
+                <strong>ENTRE PARA A GANG</strong>
             </span>
         </div>
     </div>
@@ -45,8 +45,6 @@
             <div class="fb-comments section-fb-comments" data-href="{{ product.social_url }}" data-num-posts="5" data-width="100%"></div>
         </div>
     {% endif %}
-    {# Reviews app - kreviews widget da Nuvemshop (Konfidency) #}
-    <div id="reviewsapp" class="pg-pdp-reviews-container"></div>
 </div>
 
 {# Related products #}

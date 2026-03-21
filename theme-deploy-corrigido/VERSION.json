@@ -1,12 +1,36 @@
 {
   "app_name": "PATAGANG Nuvemshop",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "environment": "production",
-  "deployment_date": "2026-03-21T01:20:07.608Z",
-  "deployment_timestamp": "2026-03-21 01:20:07",
-  "git_commit": "ca3cd37",
+  "deployment_date": "2026-03-21T02:20:00.000Z",
+  "deployment_timestamp": "2026-03-21 02:20:00 UTC",
+  "git_commit": "PENDING_NEW_COMMIT",
   "git_branch": "main",
   "recent_changes": [
+    {
+      "id": 6,
+      "type": "fix",
+      "title": "Ajustes finais PDP: textos trust-strip, espaço vazio, Konfidence",
+      "description": "Story 1-3: (1) Corrigir textos trust-strip para versão correta: '3% DESTINADO À CAUSA ANIMAL', 'IMPACTO REAL NÃO DISCURSO', 'VISTA O PROPÓSITO', 'ENTRE PARA A GANG'. (2) Remover gap: 40px que causava espaço vazio à direita (57% + 40px + 43% = >100%). (3) Remover widget Konfidence #reviewsapp exceto do card.",
+      "files_changed": [
+        "theme-deploy-corrigido/templates/product.tpl",
+        "theme-deploy-corrigido/static/css/style-critical.tpl",
+        "theme-deploy-corrigido/layouts/layout.tpl"
+      ],
+      "status": "deployed",
+      "timestamp": "2026-03-21T02:20:00Z"
+    },
+    {
+      "id": 5,
+      "type": "fix",
+      "title": "Restaurar seção trust-strip na página de produto",
+      "description": "Story 1-2: Implementar HTML trust-strip com 4 itens de confiança (3% doado, frete grátis, seguro, 30 dias). Corrige espaçamento vazio à direita e header invadindo conteúdo. CSS já existia, implementado HTML correspondente.",
+      "files_changed": [
+        "theme-deploy-corrigido/templates/product.tpl"
+      ],
+      "status": "deployed",
+      "timestamp": "2026-03-20T18:30:45Z"
+    },
     {
       "id": 4,
       "type": "fix",
@@ -17,7 +41,7 @@
         "theme-deploy-corrigido/snipplets/product/product-form.tpl",
         "theme-deploy-corrigido/snipplets/product/product-informative-banner.tpl"
       ],
-      "status": "pending_deploy",
+      "status": "deployed",
       "timestamp": "2026-03-21T13:45:00Z"
     },
     {
@@ -48,7 +72,7 @@
       "timestamp": "2026-03-20T03:46:27Z"
     }
   ],
-  "deployment_status": "READY_FOR_DEPLOYMENT",
-  "console_message": "📦 PATAGANG v1.1.5 — PDP Critical Fix Ready",
-  "cache_bust_timestamp": "1711018500"
+  "deployment_status": "DEPLOYED",
+  "console_message": "📦 PATAGANG v1.1.7 — PDP Final Adjustments ✅",
+  "cache_bust_timestamp": "1711018800"
 }
