@@ -1640,8 +1640,107 @@ p{
 
 {# /* // Ad Bar */ #}
 
+/* ============================================================================
+   #Ad Bar - Marquee Deslizante (Patagang)
+   ============================================================================ */
+
 .section-advertising {
-  padding: 5px 0;
+  background-color: #EAFE67;
+  padding: 8px 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.section-advertising__marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.section-advertising__track {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+  padding: 0 15px;
+}
+
+.section-advertising__copy {
+  display: inline-block;
+  margin-right: 60px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: #000;
+}
+
+.section-advertising__link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  width: 100%;
+}
+
+/* Keyframes animação marquee */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Mobile - Fonte menor, animation mais rápida */
+@media (max-width: 576px) {
+  .section-advertising {
+    padding: 6px 0;
+  }
+
+  .section-advertising__track {
+    animation: marquee 25s linear infinite;
+    padding: 0 10px;
+  }
+
+  .section-advertising__copy {
+    font-size: 0.75rem;
+    margin-right: 50px;
+  }
+}
+
+/* Tablet - Fonte média */
+@media (min-width: 577px) and (max-width: 991px) {
+  .section-advertising {
+    padding: 7px 0;
+  }
+
+  .section-advertising__track {
+    animation: marquee 28s linear infinite;
+    padding: 0 12px;
+  }
+
+  .section-advertising__copy {
+    font-size: 0.8rem;
+    margin-right: 55px;
+  }
+}
+
+/* Desktop - Fonte padrão, animation normal */
+@media (min-width: 992px) {
+  .section-advertising {
+    padding: 8px 0;
+  }
+
+  .section-advertising__track {
+    animation: marquee 30s linear infinite;
+    padding: 0 15px;
+  }
+
+  .section-advertising__copy {
+    font-size: 0.875rem;
+    margin-right: 60px;
+  }
 }
 
 {# /* // Logo */ #}
