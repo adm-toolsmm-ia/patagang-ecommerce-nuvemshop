@@ -864,15 +864,12 @@ DOMContentLoaded.addEventOrExecute(() => {
 
 		{# /* // Banner services slider */ #}
 
-        var width = window.innerWidth;
-        if (width < 767) {
-            createSwiper('.js-informative-banners', {
-                pagination: {
-                    el: '.js-informative-banners-pagination',
-                    clickable: true,
-                },
-            });
-        }
+        createSwiper('.js-informative-banners', {
+            pagination: {
+                el: '.js-informative-banners-pagination',
+                clickable: true,
+            },
+        });
 
     {% endif %}
 
