@@ -1647,7 +1647,7 @@ p{
    ============================================================================ */
 
 .section-advertising {
-  background-color: #EAFE67;
+  background-color: transparent;
   padding: 10px 20px;
   width: 100%;
   max-width: 100%;

@@ -103,7 +103,7 @@
         {% if settings.ad_bar and settings.ad_text %}
         <style>
             body .section-advertising {
-                background-color: #EAFE67 !important;
+                background-color: transparent !important;
                 position: static !important;
                 z-index: auto !important;
                 width: 100% !important;
