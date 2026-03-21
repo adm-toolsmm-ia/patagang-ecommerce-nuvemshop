@@ -3331,6 +3331,9 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	padding: 20px 20px;
 	margin: 0;
 	box-sizing: border-box;
+	position: relative;
+	z-index: 10;
+	clear: both;
 }
 
 .pg-identity-banner__content {
@@ -3361,6 +3364,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 991px) {
 	.pg-identity-banner {
 		padding: 16px 15px;
+		position: relative;
+		z-index: 10;
 	}
 
 	.pg-identity-banner__content {
@@ -3376,6 +3381,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 576px) {
 	.pg-identity-banner {
 		padding: 12px 10px;
+		position: relative;
+		z-index: 10;
 	}
 
 	.pg-identity-banner__content {
