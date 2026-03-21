@@ -129,39 +129,68 @@ async function phase0_validateContext(args) {
 function phase1_detectFiles() {
   log('section', 'FASE 1: Detecção de Arquivos Modificados');
 
-  let modifiedFiles = [];
+  let modifiedFiles = new Set();
 
   try {
-    // Obter arquivos modificados no HEAD (último commit)
-    const gitDiffOutput = execSync(
+    // AIOX FIX: Detectar arquivos modificados desde a ÚLTIMA versão deployada
+    // Strategy: Compare com a última git tag (última versão do deploy)
+    let compareRef = 'HEAD~1'; // fallback padrão
+
+    try {
+      // Tentar obter a última tag (última versão deployada)
+      const lastTag = execSync(
+        'git describe --tags --abbrev=0',
+        { encoding: 'utf-8' }
+      ).trim();
+      if (lastTag && lastTag.length > 0) {
+        compareRef = lastTag;
+        log('info', `Comparando com última versão: ${lastTag}`);
+      }
+    } catch (err) {
+      // Usar fallback se não houver tags
+      log('info', 'Nenhuma tag anterior encontrada, usando HEAD~1');
+    }
+
+    // 1. Working directory vs HEAD (unstaged changes)
+    const gitDiffWorking = execSync(
       'git diff --name-only HEAD -- theme-deploy-corrigido/',
       { encoding: 'utf-8' }
     ).trim();
 
-    if (gitDiffOutput) {
-      modifiedFiles = gitDiffOutput.split('\n').filter(f => f.length > 0);
+    if (gitDiffWorking) {
+      gitDiffWorking.split('\n').filter(f => f.length > 0).forEach(f => modifiedFiles.add(f));
+    }
+
+    // 2. Arquivos modificados desde a última versão
+    const gitDiffSinceLastVersion = execSync(
+      `git diff --name-only ${compareRef}..HEAD -- theme-deploy-corrigido/`,
+      { encoding: 'utf-8' }
+    ).trim();
+
+    if (gitDiffSinceLastVersion) {
+      gitDiffSinceLastVersion.split('\n').filter(f => f.length > 0).forEach(f => modifiedFiles.add(f));
     }
 
     // Sempre incluir version-info.js (será atualizado com nova versão)
     const versionInfoPath = 'theme-deploy-corrigido/static/js/version-info.js';
-    if (!modifiedFiles.includes(versionInfoPath)) {
-      modifiedFiles.push(versionInfoPath);
-    }
+    modifiedFiles.add(versionInfoPath);
 
-    log('success', `Arquivos detectados: ${modifiedFiles.length}`);
-    modifiedFiles.forEach(f => {
+    // Converter Set para Array
+    const filesArray = Array.from(modifiedFiles);
+
+    log('success', `Arquivos detectados: ${filesArray.length}`);
+    filesArray.forEach(f => {
       log('info', `  → ${f}`);
     });
+
+    return filesArray;
   } catch (err) {
-    log('warning', `Nenhum arquivo modificado detectado via git diff`);
+    log('warning', `Erro na detecção de arquivos: ${err.message}`);
+    // Fallback: pelo menos incluir version-info.js
+    const versionInfoPath = 'theme-deploy-corrigido/static/js/version-info.js';
+    log('info', `  → ${versionInfoPath} (fallback)`);
+    return [versionInfoPath];
   }
-
-  if (modifiedFiles.length === 0) {
-    log('warning', 'Nenhum arquivo para deploy. Abortando.');
-    process.exit(0);
-  }
-
-  return modifiedFiles;
 }
 
 // =============================================================================
