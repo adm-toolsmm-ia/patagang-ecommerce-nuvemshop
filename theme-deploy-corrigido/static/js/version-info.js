@@ -7,7 +7,7 @@
 
 (function() {
   // Single source of truth - matches VERSION.json
-  const VERSION = "1.1.4";
+  const VERSION = "1.1.5";
   const DEPLOY_DATE = "2026-03-21";
 
   // Console output - styled for visibility
