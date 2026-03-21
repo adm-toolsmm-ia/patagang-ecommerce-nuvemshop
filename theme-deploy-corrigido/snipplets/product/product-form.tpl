@@ -43,7 +43,7 @@
         
         {# Compare at price (de/por) se houver — opcional #}
         {% if product.compare_at_price and product.compare_at_price > product.price %}
-            <span class="js-compare-price-display pg-price-compare-at d-none">
+            <span class="js-compare-price-display pg-price-compare-at">
                 {{ product.compare_at_price | money }}
             </span>
         {% endif %}
