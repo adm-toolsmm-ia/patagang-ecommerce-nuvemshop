@@ -6,6 +6,7 @@ style.css
       --static/css/style-colors.scss.tpl --> For color and font styles related to config/settings.txt
       --static/css/style-critical.tpl --> For critical CSS rendered inline before the rest of the site
 
+    LAST UPDATED: 2026-03-21 — Blog CSS adjustments (margin-top: 40px + flex alignment)
 ==============================================================================*/#}
 
 {#/*============================================================================
