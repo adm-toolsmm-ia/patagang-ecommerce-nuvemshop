@@ -99,53 +99,70 @@
             {{ settings.css_code | raw }}
         </style>
 
-        {# Ad Bar: override final (vence platform/colors/async em TODAS as páginas, incl. home) #}
+        {# Ad Bar: override final (PATAGANG v1.5.17+ - Static layout, no fixed positioning) #}
         {% if settings.ad_bar and settings.ad_text %}
         <style>
             body .section-advertising {
-                background: transparent !important;
-                background-color: transparent !important;
-                position: fixed !important;
-                z-index: 10000 !important;
-                /* Mobile: 10px / Desktop: 12px */
-                font-size: 12px !important;
+                background-color: #EAFE67 !important;
+                position: static !important;
+                z-index: auto !important;
+                width: 100% !important;
+                padding: 10px 20px !important;
+                box-sizing: border-box !important;
             }
-            body .section-advertising .section-advertising__marquee {
-                padding: 0 12px !important;
+            body .section-advertising__marquee {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                width: 100% !important;
+                max-width: 1200px !important;
+                margin: 0 auto !important;
             }
-            @media (max-width: 768px) {
+            body .section-advertising__track {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                width: 100% !important;
+                padding: 0 !important;
+                animation: none !important;
+            }
+            body .section-advertising__copy {
+                display: block !important;
+                font-size: 0.875rem !important;
+                font-weight: 600 !important;
+                letter-spacing: 0.3px !important;
+                color: #000 !important;
+                margin: 0 !important;
+                line-height: 1.4 !important;
+            }
+            body .section-advertising__link {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-decoration: none !important;
+                color: inherit !important;
+                outline: none !important;
+                width: 100% !important;
+                transition: opacity 0.2s ease !important;
+            }
+            body .section-advertising__link:hover {
+                opacity: 0.8 !important;
+            }
+            @media (max-width: 576px) {
                 body .section-advertising {
-                    font-size: 10px !important;
-                    min-height: 24px !important;
-                    height: auto !important;
-                    line-height: 1.3 !important;
-                    overflow-wrap: break-word !important;
-                    word-break: break-word !important;
-                    white-space: normal !important;
-                    padding: 8px 4px !important;
+                    padding: 8px 15px !important;
                 }
-                body .section-advertising * {
-                    font-size: 10px !important;
-                    line-height: 1.3 !important;
-                    padding: 0 !important;
-                    margin: 0 !important;
-                    word-break: break-word !important;
-                    overflow-wrap: break-word !important;
+                body .section-advertising__copy {
+                    font-size: 0.75rem !important;
                 }
-                body .section-advertising .section-advertising__sep {
-                    margin-left: 2em !important;
-                    margin-right: 2em !important;
+            }
+            @media (min-width: 577px) and (max-width: 991px) {
+                body .section-advertising {
+                    padding: 9px 18px !important;
                 }
-                body .section-advertising .section-advertising__marquee {
-                    padding: 0 4px !important;
-                    display: block !important;
-                    width: 100% !important;
-                    height: auto !important;
-                }
-                /* Ajuste do header para acompanhar a nova altura da barra */
-                body .pg-header,
-                body .pg-header--sticky {
-                    top: 24px !important;
+                body .section-advertising__copy {
+                    font-size: 0.8rem !important;
                 }
             }
         </style>
