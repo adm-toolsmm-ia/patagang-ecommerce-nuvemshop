@@ -1,18 +1,12 @@
 {% raw %}@charset "UTF-8":
 
-/* DEPLOY TEST: 2026-03-20 - PDP Layout Fix v1.1.1 - Deploy Otimizado */
-
 /*============================================================================
-style-critical.tpl - PATAGANG
+critical-css.tpl
 
-    -Este arquivo contém CSS crítico carregado inline no head (first paint)
-    -Resto dos estilos:
-      --static/css/style-colors.scss.tpl --> Cores e fontes (config/settings.txt)
-      --static/css/style-async.scss.tpl --> Estilos não críticos (async)
-      --static/css/style-menu-patagang.css.tpl --> Menu/header (inline após critical)
-      --static/css/style-filters-patagang.css.tpl --> Filtros (inline após critical)
-      --static/css/style-home-v2.css --> Home (link condicional template==home)
-      --layouts/layout.tpl --> Override final listagem, ad bar, PDP
+    -This file contains all the theme critical styles wich will be loaded inline before the rest of the site
+    -Rest of styling can be found in:
+    	--static/css/style-async.css.tpl --> For non critical styles witch will be loaded asynchronously
+      --static/css/style-colors.scss.tpl --> For color and font styles related to config/settings.txt
 
 ==============================================================================*/
 
@@ -79,245 +73,6 @@ style-critical.tpl - PATAGANG
 
 ==============================================================================*/
 
-/* ============================================================================
-   PATAGANG - Background Global Padronizado
-   Cor #E2E2E2 conforme protótipo Adobe XD
-   Transição suave para rodapé branco #FFFFFF
-============================================================================ */
-
-body {
-    background-color: #E2E2E2 !important;
-    min-height: 100vh;
-}
-
-/* Barra de aviso - altura responsiva (clamp sem breakpoints fixos) */
-:root {
-  --ad-bar-height: clamp(14px, 2dvh, 28px);
-}
-
-/* Seções que devem ter background global #E2E2E2 forçado */
-.section-products-related,
-#reviewsapp,
-.pg-pdp-extras-container,
-.js-related-products,
-.js-complementary-products,
-.content-container,
-main#content,
-/* Componentes PDP */
-.section-fb-comments,
-.pg-section,
-.pg-products-grid,
-#single-product,
-#product-related,
-/* Containers de páginas internas */
-.page-content,
-.category-header,
-.search-results,
-.account-page-content,
-.login-container,
-.blog-container,
-.blog-wrapper,
-.institutional-page,
-.contact-page,
-.form-container,
-.cart-container,
-.checkout-container,
-/* Containers estruturais */
-.container-fluid,
-.row-fluid,
-.section,
-.main,
-.wrapper {
-    background-color: #E2E2E2 !important;
-    background: #E2E2E2 !important;
-}
-
-/* Exceção: barra de aviso sempre amarela em todas as páginas (incl. home) */
-.section-advertising {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* ============================================================================
-   PATAGANG - Footer com Transição Suave (Páginas Internas)
-   Cinza #E2E2E2 → Branco #FFFFFF
-============================================================================ */
-
-/* Footer base - sem divisoria, sem linha branca */
-.main-footer {
-    background-color: #E2E2E2 !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-    border-top: none !important;
-    position: relative;
-}
-
-/* Pseudo-elemento removido - a custom .footer cuida do gradiente */
-.main-footer::before {
-    display: none !important;
-    content: none !important;
-}
-
-/* ============================================
-   CORREÇÃO 1: SECTION ADVERTISING (cor/filtro; fundo amarelo no bloco Ad Bar mais abaixo)
-   ============================================ */
-.section-advertising {
-    color: #000000 !important;
-    opacity: 1 !important;
-    z-index: 10001 !important; /* Acima de tudo e overlays */
-    -webkit-filter: none !important;
-    filter: none !important;
-}
-
-/* Remover qualquer cor/filtro/cinza herdado em links/texto */
-.section-advertising *,
-.section-advertising a,
-.section-advertising p,
-.section-advertising span,
-.section-advertising div,
-.section-advertising .col,
-.section-advertising .row-fluid,
-.section-advertising .container,
-.section-advertising .text-center,
-.section-advertising .link-contrast {
-    color: #000000 !important;
-    opacity: 1 !important;
-    text-shadow: none !important;
-    -webkit-filter: none !important;
-    filter: none !important;
-    background-color: transparent !important;
-    background: transparent !important;
-}
-
-/* ============================================
-   CORREÇÃO 2: PÁGINAS DE CONTA - PADRÃO PATAGANG
-   Background #E2E2E2, card branco centralizado
-   ============================================ */
-.pg-account-page {
-    min-height: calc(100vh - 100px);
-    background-color: #E2E2E2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 120px 20px 80px;
-}
-
-.pg-account-page__container {
-    width: 100%;
-    max-width: 960px;
-    margin: 0 auto;
-}
-
-.pg-account-card {
-    background: #FFFFFF;
-    border: 2px solid #000000;
-    border-radius: 12px;
-    padding: 32px 28px;
-}
-
-.pg-account-card__title {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #000;
-    margin: 0 0 24px 0;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-@media (min-width: 768px) {
-    .pg-account-page {
-        padding: 140px 20px 100px;
-    }
-    .pg-account-card {
-        padding: 40px 36px;
-    }
-}
-
-/* Fallback: old .account-page class (caso algum template antigo permaneça) */
-.account-page,
-#account-orders,
-#account-addresses,
-#account-info,
-.page-account {
-    padding-top: 200px !important;
-    padding-bottom: 80px;
-    min-height: 80vh;
-}
-
-.account-page .container,
-.page-account .container {
-    background: #FFFFFF;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    position: relative;
-    z-index: 10;
-}
-
-.account-page .page-header h1,
-.account-page .page-header,
-.page-account .page-header {
-    margin-top: 0;
-    padding-top: 0;
-    margin-bottom: 30px;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
-}
-
-.account-page .breadcrumb,
-.page-account .breadcrumb {
-    display: none;
-}
-
-/* ============================================
-   CORREÇÃO 3: REMOVER MARGEM RODAPÉ
-   ============================================ */
-main > .container-fluid:last-child,
-.account-page,
-.pg-page,
-.pg-login-page {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-}
-
-.pg-account-page {
-    margin-bottom: 0 !important;
-}
-
-.section-products-related {
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-    background-color: #E2E2E2 !important;
-}
-
-/* Garantir que nenhum gap branco apareca entre conteudo e footer */
-.main-footer,
-.footer {
-    background-color: #E2E2E2 !important;
-}
-
-/* Remover my-3 margin-bottom em related products (ultimo elemento antes do footer) */
-.section-products-related.my-3 {
-    margin-bottom: 0 !important;
-}
-
-/* Home mantém sua transição amarela específica (exceção) */
-.footer-home.main-footer::before {
-    background: linear-gradient(to bottom,
-        rgba(234, 254, 103, 0.15) 0%,
-        rgba(234, 254, 103, 0.05) 50%,
-        transparent 100%);
-    top: 0;
-    height: 300px;
-}
-
-/* ============================================================================ */
-
-
 /*============================================================================
   #External CSS libraries and plugins
 ==============================================================================*/
@@ -340,15 +95,6 @@ main > .container-fluid:last-child,
 }
 .display-when-content-ready{
 	display: none!important;
-}
-
-/* Home V2: garante visibilidade mesmo se CSS async falhar */
-body.template-home .visible-when-content-ready{
-	visibility: visible!important;
-}
-body.template-home .pg-hero-v2,
-body.template-home .pg-section--grid-bg{
-	visibility: visible!important;
 }
 
 /*============================================================================
@@ -452,6 +198,55 @@ body{
   .pg-grid--products {
     grid-template-columns: repeat(3, 1fr);
   }
+}
+
+.pg-card {
+  background: var(--pg-color-primary);
+  border-radius: var(--pg-radius-card);
+  padding: var(--pg-spacing-5);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pg-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+}
+
+.pg-product-card__media {
+  display: block;
+  background: transparent;          /* Remove fundo branco */
+  border-radius: var(--pg-radius-card);
+  padding: 0;                       /* Remove padding */
+  margin-bottom: var(--pg-spacing-4);
+  overflow: hidden;                 /* Garante que bordas arredondadas funcionem */
+}
+
+.pg-product-card__media img {
+  width: 100%;
+  height: auto;                     /* Altura automática baseada na proporção */
+  max-height: 180px;                /* Limite máximo mais razoável */
+  object-fit: contain;
+  display: block;                   /* Remove espaço extra embaixo */
+}
+
+.pg-product-card__body h3 {
+  font-family: var(--pg-font-display);
+  font-size: 1.2rem;
+  margin: var(--pg-spacing-3) 0 var(--pg-spacing-2);
+}
+
+.pg-product-card__price {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: var(--pg-spacing-4);
+}
+
+.pg-product-card__price-compare {
+  font-size: 0.85rem;
+  color: var(--pg-color-gray-dark);
+  text-decoration: line-through;
+  margin-left: var(--pg-spacing-2);
 }
 
 .pg-hero {
@@ -579,13 +374,11 @@ body{
   }
 }
 
-{# /* // Header Patagang */ #}
-
 .pg-header {
   background: transparent;
   border-bottom: none;
   position: absolute;
-  top: 30px; /* AJUSTADO: Espaço para banner fixo no topo */
+  top: 0;
   left: 0;
   right: 0;
   z-index: 9999;
@@ -596,7 +389,7 @@ body{
 
 .pg-header--sticky {
   position: fixed;
-  top: 30px !important; /* SOLUÇÃO DEFINITIVA: Espaço para banner fixo (28-30px) */
+  top: 0;
 }
 
 .pg-header__container {
@@ -703,6 +496,108 @@ body{
   height: 100%;
 }
 
+/* Busca inline expansível - hover */
+.pg-header__search-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 44px; /* Mesma altura dos botões */
+}
+
+.pg-header__search-form {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 44px; /* Mesma largura dos botões */
+  height: 44px; /* Mesma altura dos botões */
+  border-radius: 6px;
+  background: rgba(200, 200, 200, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: width 0.3s ease;
+}
+
+.pg-header__search-wrapper:hover .pg-header__search-form,
+.pg-header__search-wrapper:focus-within .pg-header__search-form,
+.pg-header__search-wrapper.is-open .pg-header__search-form {
+  width: 200px;
+}
+
+@media (min-width: 768px) {
+  .pg-header__search-wrapper:hover .pg-header__search-form,
+  .pg-header__search-wrapper:focus-within .pg-header__search-form,
+  .pg-header__search-wrapper.is-open .pg-header__search-form {
+    width: 240px;
+  }
+}
+
+.pg-header__search-input {
+  flex: 1;
+  height: 100%;
+  padding: 0 8px 0 12px;
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: var(--pg-color-black);
+  outline: none;
+  min-width: 0;
+  opacity: 0;
+  transition: opacity 0.2s ease 0.1s;
+}
+
+.pg-header__search-wrapper:hover .pg-header__search-input,
+.pg-header__search-wrapper:focus-within .pg-header__search-input,
+.pg-header__search-wrapper.is-open .pg-header__search-input {
+  opacity: 1;
+}
+
+.pg-header__search-input::placeholder {
+  color: #EAFE67;
+  font-weight: 500;
+}
+
+.pg-header__search-submit {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.pg-header__search-submit img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.pg-header__search-toggle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.pg-header__search-wrapper:hover .pg-header__search-toggle,
+.pg-header__search-wrapper:focus-within .pg-header__search-toggle,
+.pg-header__search-wrapper.is-open .pg-header__search-toggle {
+  opacity: 0;
+  pointer-events: none; /* Desabilitar apenas quando invisível */
+}
+
 .pg-header__cart-count {
   position: absolute;
   top: -4px;
@@ -721,32 +616,112 @@ body{
   line-height: 1;
 }
 
-/* ===========================================
-   MOBILE HEADER FIX
-   =========================================== */
+/* MOBILE SEARCH FIX - Opção 1: Logo oculta ao expandir busca */
 @media (max-width: 767px) {
-
-  /* Logo centralizada */
+  /* Logo: aplicar z-index menor para ficar atrás da busca */
   .pg-header__logo {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     z-index: 5;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
   }
 
+  /* Wrapper da busca: z-index maior quando expandida */
+  .pg-header__search-wrapper {
+    position: relative;
+    z-index: 10;
+  }
+
+  .pg-header__search-wrapper.is-open {
+    z-index: 100; /* Garante que fica sobre a logo */
+  }
+
+  /* Logo oculta quando busca está expandida */
+  .pg-header__search-wrapper.is-open ~ .pg-header__logo {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* Busca expande ocupando espaço disponível */
+  .pg-header__search-wrapper.is-open .pg-header__search-form {
+    width: calc(100vw - 180px) !important; /* Mais espaço - apenas menu (44px) + perfil (44px) + carrinho (44px) + gaps (48px) */
+    background: rgba(255, 255, 255, 0.98) !important; /* Mais opaco para cobrir logo */
+    border: 1px solid rgba(234, 254, 103, 0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 110; /* Sobre tudo */
+  }
+
+  /* Ocultar botão toggle (lupa externa) quando busca aberta */
+  .pg-header__search-wrapper.is-open .pg-header__search-toggle {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Botão de fechar (X) - oculto por padrão */
+  .pg-header__search-close {
+    display: none;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font-size: 20px;
+    color: var(--pg-color-black);
+    font-weight: 300;
+    line-height: 1;
+    z-index: 120; /* Acima de tudo para ser clicável */
+    position: relative;
+    pointer-events: auto !important; /* Garantir que seja clicável */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Mostra botão X quando busca expandida */
+  .pg-header__search-wrapper.is-open .pg-header__search-close {
+    display: flex;
+    pointer-events: auto !important; /* Forçar clicável quando visível */
+  }
+
+  /* Botão submit dentro do form: sempre visível mas muda comportamento via JS */
+  .pg-header__search-submit {
+    /* Mantém visível, JS controla o comportamento */
+  }
+
+  /* ========================================= */
+  /* FIX: Remover cor azul padrão do mobile   */
+  /* ========================================= */
+
   /* Remover highlight azul ao tocar (Safari/iOS/Android) */
+  .pg-header__search-toggle,
+  .pg-header__search-submit,
+  .pg-header__search-close,
   .pg-header__icon-button {
     -webkit-tap-highlight-color: transparent !important;
     -webkit-tap-highlight-color: rgba(0,0,0,0) !important;
+    tap-highlight-color: transparent !important;
   }
 
-  /* Forçar apenas STROKE nos SVGs dos botões */
+  /* Forçar apenas STROKE (contorno) nos SVGs - SEM FILL (preenchimento) */
+  .pg-header__search-toggle svg,
+  .pg-header__search-submit svg,
   .pg-header__icon-button svg {
-    fill: none !important;
-    stroke: currentColor !important;
+    fill: none !important; /* Remove preenchimento */
+    stroke: currentColor !important; /* Mantém apenas contorno */
     color: var(--pg-color-black) !important;
   }
 
+  /* Remover estilos azuis de :active, :focus, :visited */
+  .pg-header__search-toggle:active,
+  .pg-header__search-toggle:focus,
+  .pg-header__search-toggle:visited,
+  .pg-header__search-submit:active,
+  .pg-header__search-submit:focus,
+  .pg-header__search-submit:visited,
   .pg-header__icon-button:active,
   .pg-header__icon-button:focus,
   .pg-header__icon-button:visited {
@@ -756,393 +731,16 @@ body{
     border: none !important;
   }
 
+  /* Garantir que SVGs dentro dos botões também fiquem apenas com contorno */
+  .pg-header__search-toggle:active svg,
+  .pg-header__search-toggle:focus svg,
+  .pg-header__search-submit:active svg,
+  .pg-header__search-submit:focus svg,
   .pg-header__icon-button:active svg,
   .pg-header__icon-button:focus svg {
-    fill: none !important;
-    stroke: currentColor !important;
+    fill: none !important; /* Remove preenchimento */
+    stroke: currentColor !important; /* Apenas contorno */
     color: var(--pg-color-black) !important;
-  }
-}
-
-/* ============================================
-   PataGang Search Overlay
-   ============================================ */
-
-.pg-search-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  display: none;
-  flex-direction: column;
-}
-
-.pg-search-overlay.is-active {
-  display: flex;
-}
-
-/* Body lock quando overlay aberto */
-body.pg-search-overlay-open {
-  overflow: hidden;
-}
-
-/* Backdrop semi-transparente */
-.pg-search-overlay__backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1;
-}
-
-/* Painel principal - desliza do topo */
-.pg-search-overlay__panel {
-  position: relative;
-  z-index: 2;
-  background: #E2E2E2;
-  max-height: 85vh;
-  overflow-y: auto;
-  animation: pgSearchSlideDown 0.25s ease-out;
-}
-
-@keyframes pgSearchSlideDown {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-/* Barra superior com fechar */
-.pg-search-overlay__topbar {
-  display: flex;
-  justify-content: flex-end;
-  padding: 12px 24px;
-}
-
-.pg-search-overlay__close {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--pg-color-black);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px;
-}
-
-.pg-search-overlay__close:hover {
-  opacity: 0.7;
-}
-
-/* Desktop: "Fechar" texto. Mobile: X ícone */
-.pg-search-overlay__close-icon { display: none; }
-
-/* Wrapper do form */
-.pg-search-overlay__form-wrapper {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 0 24px 32px;
-  width: 100%;
-  position: relative;
-}
-
-.pg-search-overlay__form {
-  margin: 0;
-}
-
-.pg-search-overlay__input-group {
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 28px;
-  overflow: hidden;
-  height: 52px;
-}
-
-.pg-search-overlay__input {
-  flex: 1;
-  height: 100%;
-  padding: 0 20px;
-  border: none;
-  background: transparent;
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 16px;
-  color: var(--pg-color-black);
-  outline: none;
-}
-
-.pg-search-overlay__input::placeholder {
-  color: #888;
-  font-weight: 400;
-}
-
-.pg-search-overlay__submit {
-  width: 52px;
-  height: 52px;
-  flex-shrink: 0;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--pg-color-black);
-}
-
-.pg-search-overlay__submit:hover {
-  opacity: 0.7;
-}
-
-/* Sugestões AJAX */
-.pg-search-overlay__suggestions {
-  margin-top: 16px;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.pg-search-overlay__suggestions .search-suggest-list {
-  margin: 0;
-  padding: 12px 0;
-  list-style: none;
-}
-
-.pg-search-overlay__suggestions .search-suggest-item {
-  padding: 10px 20px;
-}
-
-.pg-search-overlay__suggestions .search-suggest-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  color: var(--pg-color-black);
-}
-
-.pg-search-overlay__suggestions .search-suggest-image {
-  width: 48px;
-  height: 48px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.pg-search-overlay__suggestions .js-search-suggest-all-link {
-  display: block;
-  text-align: center;
-  padding: 14px;
-  font-weight: 600;
-  font-size: 14px;
-  background: var(--pg-color-black);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 0 0 12px 12px;
-  margin-top: 4px;
-}
-
-/* Conteúdo default: colunas */
-.pg-search-overlay__default-content {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 16px 24px 40px;
-}
-
-.pg-search-overlay__columns {
-  display: flex;
-  gap: 48px;
-}
-
-.pg-search-overlay__col--tags {
-  flex: 0 0 200px;
-}
-
-.pg-search-overlay__col--products {
-  flex: 1;
-  min-width: 0;
-}
-
-.pg-search-overlay__section-title {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin: 0 0 16px 0;
-  color: var(--pg-color-black);
-}
-
-/* Tags / chips de busca rápida */
-.pg-search-overlay__tags {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.pg-search-overlay__tag {
-  display: block;
-  padding: 8px 0;
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--pg-color-black);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.pg-search-overlay__tag:hover {
-  color: #666;
-}
-
-/* Carrossel de produtos */
-.pg-search-overlay__products-carousel {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 8px;
-  scrollbar-width: none;
-}
-
-.pg-search-overlay__products-carousel::-webkit-scrollbar {
-  display: none;
-}
-
-.pg-search-overlay__product-card {
-  flex: 0 0 160px;
-  scroll-snap-align: start;
-  text-decoration: none;
-  color: var(--pg-color-black);
-  transition: transform 0.2s;
-}
-
-.pg-search-overlay__product-card:hover {
-  transform: translateY(-2px);
-}
-
-.pg-search-overlay__product-img {
-  width: 160px;
-  height: 160px;
-  border-radius: 12px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.5);
-  margin-bottom: 8px;
-}
-
-.pg-search-overlay__product-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pg-search-overlay__product-name {
-  font-size: 12px;
-  font-weight: 500;
-  margin: 0 0 2px;
-  line-height: 1.3;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.pg-search-overlay__product-price {
-  font-size: 13px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.pg-search-overlay__product-price--compare {
-  font-weight: 400;
-  font-size: 12px;
-}
-
-.pg-search-overlay__product-price--compare strong {
-  font-weight: 700;
-  font-size: 13px;
-}
-
-.pg-search-overlay__empty {
-  font-size: 13px;
-  color: #888;
-  margin: 0;
-}
-
-/* ============================================
-   SEARCH OVERLAY - Mobile (< 768px)
-   ============================================ */
-@media (max-width: 767px) {
-  .pg-search-overlay__panel {
-    max-height: 100vh;
-    min-height: 100vh;
-  }
-
-  .pg-search-overlay__close-text { display: none; }
-  .pg-search-overlay__close-icon {
-    display: block;
-    font-size: 28px;
-    line-height: 1;
-  }
-
-  .pg-search-overlay__topbar {
-    padding: 12px 16px;
-  }
-
-  .pg-search-overlay__form-wrapper {
-    padding: 0 16px 24px;
-  }
-
-  .pg-search-overlay__default-content {
-    padding: 12px 16px 32px;
-  }
-
-  .pg-search-overlay__columns {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .pg-search-overlay__col--tags {
-    flex: none;
-  }
-
-  /* Tags scrollam horizontal no mobile */
-  .pg-search-overlay__tags {
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    gap: 8px;
-    padding-bottom: 4px;
-  }
-
-  .pg-search-overlay__tags::-webkit-scrollbar { display: none; }
-
-  .pg-search-overlay__tag {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    white-space: nowrap;
-    font-size: 13px;
-  }
-
-  .pg-search-overlay__product-card {
-    flex: 0 0 130px;
-  }
-
-  .pg-search-overlay__product-img {
-    width: 130px;
-    height: 130px;
   }
 }
 
@@ -1387,68 +985,6 @@ body.pg-search-overlay-open {
   vertical-align:middle;
 }
 
-/* WhatsApp Left - Vertical Centered (Side Tab) - Design alinhado ao botão AJUDA? */
-.btn-whatsapp-left {
-    position: fixed;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    z-index: 9990;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #EAFE67; /* Store Yellow - mesmo do AJUDA? */
-    border: none;
-    border-radius: 0 4px 4px 0; /* Arredondado apenas na direita */
-    padding: 12px 8px;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
-    text-decoration: none !important;
-    gap: 8px;
-}
-
-.btn-whatsapp-left:hover {
-    transform: translateY(-50%) translateX(2px);
-    box-shadow: 4px 0 12px rgba(0,0,0,0.15);
-    background-color: #d4e65d; /* Mesmo hover do AJUDA? */
-}
-
-.btn-whatsapp-left svg {
-    width: 20px;
-    height: 20px;
-    fill: #25D366; /* Verde oficial WhatsApp - reconhecimento de marca */
-    padding: 0;
-}
-
-.btn-whatsapp-left span {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    color: #1A1A1A;
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    transform: rotate(180deg);
-    white-space: nowrap;
-}
-
-/* Mobile: Ajustes para não ocupar muito espaço vertical */
-@media (max-width: 480px) {
-    .btn-whatsapp-left {
-        padding: 10px 6px;
-    }
-    .btn-whatsapp-left svg {
-        width: 18px;
-        height: 18px;
-    }
-    .btn-whatsapp-left span {
-        font-size: 11px;
-    }
-}
-
-
-
 {# /* // Links */ #}
 
 a {
@@ -1471,17 +1007,12 @@ h1,
   font-weight: 700;
 }
 
-/* Títulos de páginas de texto - Estilo suave e menos chamativo */
-.pg-page__title,
-.pg-movimento__title,
-h1.pg-page__title,
-h1.pg-movimento__title {
+.pg-page__title {
   font-size: 30px !important;
   text-align: center;
   margin-bottom: 30px;
-  font-family: 'Familjen Grotesk', sans-serif !important;
-  font-weight: 400 !important; /* Removido negrito - estava muito chamativo */
-  color: #333 !important; /* Cinza escuro ao invés de preto puro */
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -2110,64 +1641,8 @@ p{
 {# /* // Ad Bar */ #}
 
 .section-advertising {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 10000; /* Acima do header (9999) */
-  padding: calc(var(--ad-bar-height) / 2) 8px; /* Responsivo: usa variável clamp */
-
-  /* Design Patagang - mesmo amarelo dos botões da home (Vista o Propósito / Produtos para Cachorro) */
-  background: #EAFE67 !important;
-  color: #000000;
-  font-size: clamp(9px, 1.2vw + 7px, 12px); /* Proporcional no mobile; teto 12px */
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-align: center;
+  padding: 5px 0;
 }
-
-/* Header: offset igual à altura da barra quando aviso está ativo */
-body.has-ad-bar .pg-header {
-  padding-top: var(--ad-bar-height) !important;
-}
-
-.section-advertising a {
-  color: #000000 !important;
-  font-weight: 700;
-  text-decoration: none;
-  transition: opacity 0.3s ease;
-}
-
-.section-advertising a:hover {
-  opacity: 0.85;
-}
-
-/* Banner fixo - estrutura original, sem animação de rolagem */
-.section-advertising__marquee {
-  overflow: visible;
-  width: 100%;
-  padding: 0 12px; /* Evita texto cortado nas bordas no mobile */
-}
-
-.section-advertising__track {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.section-advertising__copy {
-  flex-shrink: 0;
-  white-space: pre;
-}
-
-.section-advertising__sep {
-  margin-left: 5em;
-  margin-right: 5em;
-  flex-shrink: 0;
-}
-
 
 {# /* // Logo */ #}
 
@@ -2346,317 +1821,70 @@ body.has-ad-bar .pg-header {
   text-align: center;
 }
 
-/* ============================================================================
-   PATAGANG - Seção de Produtos Similares (V3 - Alinhado com grid categoria)
-   Usa classes pg-card V3 geradas por item.tpl
-============================================================================ */
-
+/* Seção de produtos relacionados - espaçamento reduzido */
 .section-products-related {
-  padding: 40px 0 60px;
-  background-color: #E2E2E2 !important;
+  padding: 30px 0 40px;     /* Padding vertical reduzido */
 }
 
 .section-products-related .h3,
 .section-products-related .title {
-  margin-bottom: 28px;
-  font-size: 1.4rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #000;
+  margin-bottom: 20px;      /* Espaçamento mais compacto */
+  font-size: 1.5rem;
 }
 
-/* Card pg-card V3 — mesmo visual do grid de categoria/busca */
-.section-products-related .pg-card {
-  background: #FFFFFF;
-  border-radius: 16px;
-  padding: 8px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: center;
-  height: auto !important;
-  min-height: auto !important;
-  margin-bottom: 0 !important;
-}
-
-.section-products-related .pg-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-}
-
-/* Imagem — 1:1, contain */
-.section-products-related .pg-card__image {
-  background: #F9F9F9;
-  border-radius: 12px;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
-  margin-bottom: 6px;
-}
-
-.section-products-related .pg-card__image-container {
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.section-products-related .pg-card__image-container > div {
-  padding-bottom: 100% !important;
-}
-
-.section-products-related .pg-card__image-container img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain;
-  object-position: center;
-  transition: transform 0.3s ease;
-}
-
-.section-products-related .pg-card:hover .pg-card__image-container img {
-  transform: scale(1.05);
-}
-
-/* Info */
-.section-products-related .pg-card__info {
-  padding: 4px 4px 0;
-  text-align: center;
-}
-
-.section-products-related .pg-card__name {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.3;
-  color: #000;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0 0 4px;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 31px;
-}
-
-.section-products-related .pg-card__price {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 2px;
-}
-
-.section-products-related .pg-card__price-old {
-  font-size: 11px;
-  color: #888;
-  text-decoration: line-through;
-}
-
-.section-products-related .pg-card__price-main {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: #000;
-}
-
-/* Desconto PIX/Boleto */
-.section-products-related .pg-card__discount {
-  font-size: 11px;
-  color: #2d3a00 !important;
-  font-weight: 600;
-  margin-bottom: 2px;
-  text-align: center;
-}
-
-.section-products-related .pg-card__discount .text-accent {
-  color: #2d3a00 !important;
-  font-weight: 600 !important;
-  font-size: 11px !important;
-}
-
-/* Parcelas */
-.section-products-related .pg-card__installments {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 10px;
-  color: #666;
-  margin-bottom: 4px;
-  text-align: center;
-}
-
-/* Botão "Comprar" — mesmo estilo do grid de categoria */
-.section-products-related .pg-card__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  min-height: 36px;
-  padding: 8px 12px;
-  margin-top: auto;
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  text-decoration: none !important;
-  background: #EAFE67;
-  color: #000 !important;
-  border: none;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-.section-products-related .pg-card__btn:hover {
-  background: #D4E600;
-  transform: translateY(-2px);
-  color: #000 !important;
-  text-decoration: none !important;
-}
-
-/* Swiper slide — garante que o card preenche o slide */
-.section-products-related .swiper-slide {
-  height: auto !important;
-  display: flex;
-}
-
-.section-products-related .swiper-slide .pg-card {
-  width: 100%;
-  flex: 1;
-}
-
-/* Swiper pagination */
-.section-products-related .swiper-pagination {
-  margin-top: 20px;
-}
-
-.section-products-related .swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  background: #CCC;
-  opacity: 1;
-}
-
-.section-products-related .swiper-pagination-bullet-active {
-  background: #000;
-}
-
-/* Navegação do slider */
-.section-products-related .swiper-button-prev,
-.section-products-related .swiper-button-next {
-  color: #000;
-  opacity: 0.7;
-}
-
-.section-products-related .swiper-button-prev:hover,
-.section-products-related .swiper-button-next:hover {
-  opacity: 1;
-}
-
-/* Hover de imagem secundária */
-.section-products-related .pg-card__img-hover,
-.section-products-related .pg-card__img-hover.lazyloaded {
-  opacity: 0 !important;
-}
-
-.section-products-related .pg-card:hover .pg-card__img-featured {
-  opacity: 0 !important;
-}
-
-.section-products-related .pg-card:hover .pg-card__img-hover,
-.section-products-related .pg-card:hover .pg-card__img-hover.lazyloaded {
-  opacity: 1 !important;
-}
-
-/* Responsivo — mobile */
-@media (max-width: 768px) {
-  .section-products-related .pg-card__name {
-    font-size: 11px;
-    min-height: 28px;
-  }
-
-  .section-products-related .pg-card__price-main {
-    font-size: 14px;
-  }
-
-  .section-products-related .pg-card__btn {
-    min-height: 32px;
-    font-size: 10px;
-    padding: 6px 10px;
-  }
-}
-
-/* ============================================================================
-   FIM - Produtos Similares
-============================================================================ */
-
-/* Listagem (categoria/busca): item-image e filhos - escopo explícito */
-body.template-category .pg-product-grid .item-image,
-body.template-search .pg-product-grid .item-image {
+.item-image {
   position: relative;
   overflow: hidden;
-  background: #FFFFFF;
-  border-radius: 16px;
-  padding: 20px;
+  background: #FFFFFF;        /* Fundo branco como no protótipo */
+  border-radius: 16px;        /* Bordas arredondadas */
+  padding: 20px;              /* Padding ao redor da imagem */
   margin-bottom: 16px;
-  display: flex;
+  display: flex;              /* Flex para centralizar */
   align-items: center;
   justify-content: center;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1 / 1;        /* Container quadrado */
 }
-body.template-category .pg-product-grid .item-image img,
-body.template-search .pg-product-grid .item-image img {
+
+.item-image img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain;        /* Mantém proporção */
   object-position: center;
   display: block;
 }
-body.template-category .pg-product-grid .item-image-slide img,
-body.template-search .pg-product-grid .item-image-slide img {
+.item-image-slide img{
   max-width: 100%;
   object-fit: contain;
   object-position: top;
 }
-body.template-category .pg-product-grid .item-thumbnail,
-body.template-search .pg-product-grid .item-thumbnail {
+.item-thumbnail {
   display: block;
   width: 100%;
 }
-body.template-category .pg-product-grid .item-image:not(.product-item-image-secondary).lazyloaded,
-body.template-search .pg-product-grid .item-image:not(.product-item-image-secondary).lazyloaded {
+.item-image:not(.product-item-image-secondary).lazyloaded {
   z-index: 9;
   opacity: 1;
 }
-body.template-category .pg-product-grid .item-image-secondary,
-body.template-category .pg-product-grid .item-image-secondary.fade-in.lazyloaded,
-body.template-search .pg-product-grid .item-image-secondary,
-body.template-search .pg-product-grid .item-image-secondary.fade-in.lazyloaded {
+.item-image-secondary,
+.item-image-secondary.fade-in.lazyloaded  {
   display: none;
   opacity: 0;
 }
-body.template-category .pg-product-grid .product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured,
-body.template-search .pg-product-grid .product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured {
+.product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured{
   opacity: 0;
   transition-delay: .05s;
 }
-body.template-category .pg-product-grid .product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured ~ .item-image-secondary,
-body.template-search .pg-product-grid .product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured ~ .item-image-secondary {
+.product-item-secondary-images-loaded:not(.product-item-secondary-images-disabled):hover .item-image-featured ~ .item-image-secondary {
   opacity: 1;
 }
-body.template-category .pg-product-grid .item-colors,
-body.template-search .pg-product-grid .item-colors {
+.item-colors {
   position: absolute;
   bottom: 0;
   z-index: 9;
   width: 100%;
   padding: 5px 0;
 }
-body.template-category .pg-product-grid .item-colors-bullet,
-body.template-search .pg-product-grid .item-colors-bullet {
+.item-colors-bullet {
   display: inline-block;
   min-width: 18px;
   height: 18px;
@@ -2674,14 +1902,11 @@ body.template-search .pg-product-grid .item-colors-bullet {
   -o-transition: all 0.4s ease;
   transition: all 0.4s ease;
 }
-body.template-category .pg-product-grid .item-colors-bullet:hover,
-body.template-category .pg-product-grid .item-colors-bullet.selected,
-body.template-search .pg-product-grid .item-colors-bullet:hover,
-body.template-search .pg-product-grid .item-colors-bullet.selected {
+.item-colors-bullet:hover,
+.item-colors-bullet.selected {
   opacity: 1;
 }
-body.template-category .pg-product-grid .item-name,
-body.template-search .pg-product-grid .item-name {
+.item-name {
   font-size: 11px;
   line-height: 15px;
   text-transform: uppercase;
@@ -2692,13 +1917,11 @@ body.template-search .pg-product-grid .item-name {
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
-body.template-category .pg-product-grid .item-price-container,
-body.template-search .pg-product-grid .item-price-container {
+.item-price-container {
   margin-bottom: 10px;
   font-size: 12px;
 }
-body.template-category .pg-product-grid .item-installments,
-body.template-search .pg-product-grid .item-installments {
+.item-installments {
   font-size: 10px;
 }
 .item-product-reduced .item-image {
@@ -2831,450 +2054,6 @@ body.template-search .pg-product-grid .item-installments {
 }
 
 /*============================================================================
-#Blog
-==============================================================================*/
-
-.post-item-image-container {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
-}
-
-.post-item-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.post-item-title,
-.post-item-summary {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.5em;
-}
-
-.post-content,
-.post-content p {
-  font-size: 16px;
-  line-height: 1.8rem;
-}
-
-.post-content img {
-  max-width: 100%;
-  height: auto;
-}
-
-.post-content h1,
-.post-content h2,
-.post-content h3,
-.post-content h4,
-.post-content h5,
-.post-content h6 {
-  margin: 2rem 0 1rem 0;
-  line-height: initial;
-}
-
-.post-content h1,
-.post-content .h1 {
-  font-size: 28px;
-}
-
-.post-content h2,
-.post-content .h2 {
-  font-size: 24px;
-}
-
-.post-content h3,
-.post-content .h3 {
-  font-size: 20px;
-}
-
-.post-content h4,
-.post-content .h4 {
-  font-size: 18px;
-}
-
-.post-content h5,
-.post-content .h5 {
-  font-size: 16px;
-}
-
-.post-content h6,
-.post-content .h6 {
-  font-size: 14px;
-}
-
-/* Blog PataGang Custom */
-.pg-blog-page {
-  padding: 48px 0;
-  background-color: #f5f5f5;
-}
-
-.pg-blog-header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.pg-blog-header h1 {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 40px;
-  font-weight: 700;
-  color: #000;
-  margin-bottom: 16px;
-}
-
-.pg-blog-grid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 24px;
-}
-
-@media (min-width: 768px) {
-  .pg-blog-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .pg-blog-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.pg-blog-card {
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.pg-blog-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-}
-
-.pg-blog-card__image {
-  position: relative;
-  height: 220px;
-  overflow: hidden;
-}
-
-.pg-blog-card__image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.pg-blog-card:hover .pg-blog-card__image img {
-  transform: scale(1.05);
-}
-
-.pg-blog-card__content {
-  padding: 24px;
-}
-
-.pg-blog-card__title {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 20px;
-  color: #000;
-  margin-bottom: 12px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-
-.pg-blog-card__summary {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
-
-.pg-blog-card__link {
-  display: inline-block;
-  background: #EAFE67;
-  color: #000;
-  padding: 10px 20px;
-  border-radius: 4px;
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.pg-blog-card__link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(234, 254, 103, 0.4);
-}
-
-/* Blog Post Page */
-.pg-blog-post {
-  padding: 48px 0;
-}
-
-.pg-blog-post__header {
-  text-align: center;
-  margin-bottom: 32px;
-}
-
-.pg-blog-post__title {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  color: #000;
-  margin-bottom: 16px;
-}
-
-@media (min-width: 768px) {
-  .pg-blog-post__title {
-    font-size: 48px;
-  }
-}
-
-.pg-blog-post__date {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 14px;
-  color: #666;
-}
-
-.pg-blog-post__image {
-  margin-bottom: 32px;
-  border-radius: 16px;
-  overflow: hidden;
-}
-
-.pg-blog-post__image img {
-  width: 100%;
-  height: auto;
-}
-
-.pg-blog-post__content {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 18px;
-  line-height: 1.8;
-  color: #333;
-}
-
-.pg-blog-post__content p {
-  margin-bottom: 24px;
-}
-
-.pg-blog-post__content h2 {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 40px 0 20px;
-}
-
-.pg-blog-post__content h3 {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 32px 0 16px;
-}
-
-/* Social Share */
-.pg-blog-post__share {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 40px 0;
-  padding: 24px 0;
-  border-top: 1px solid #e5e5e5;
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.pg-blog-post__share-title {
-  width: 100%;
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: #000;
-  text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.share-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 4px;
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.share-btn:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
-}
-
-.share-btn--whatsapp {
-  background: #25D366;
-  color: #fff;
-}
-
-.share-btn--facebook {
-  background: #1877F2;
-  color: #fff;
-}
-
-.share-btn--twitter {
-  background: #000;
-  color: #fff;
-}
-
-.share-btn svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
-
-/*============================================================================
-  #Media queries
-==============================================================================*/
-
-{# /* // Min width 768px */ #}
-
-@media (min-width: 768px) {
-
-  {# /* //// Nav */ #}
-
-  .logo-img {
-    max-width: 320px;
-  }
-
-  {# /* //// Placeholders */ #}
-
-  .blur-up {
-    -webkit-filter: blur(4px);
-    filter: blur(4px);
-    -moz-filter: blur(4px);
-    -ms-filter: blur(4px);
-    -o-filter: blur(4px);
-    transition: filter .5s, -webkit-filter .2s;
-  }
-
-  {# /* //// Components */ #}
-
-  .container-narrow {
-    max-width: 680px;
-  }
-
-  .h1-md {
-    font-size: 28px;
-    font-weight: 700;
-  }
-
-  .h2-md {
-    font-size: 24px;
-    font-weight: 700;
-  }
-
-  .h3-md {
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  .h4-md {
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  .h5-md {
-    font-size: 16px;
-    font-weight: 700;
-  }
-
-  .h6-md {
-    font-size: 14px;
-    font-weight: 700;
-  }
-
-  .font-md-normal {
-    font-size: 14px;
-  }
-
-
-  {# /* //// Banners */ #}
-
-  {# /* Home Banners */ #}
-
-  .textbanner-text {
-    padding: 30px 20%;
-  }
-
-  {# /* //// Home */ #}
-
-  {# /* //// Product grid */ #}
-
-  .category-controls {
-    position: relative;
-    padding: 0;
-  }
-
-  .item-colors {
-    padding: 10px 0;
-  }
-
-  .item-product-reduced .item-image,
-  .item-product-reduced .item-image img {
-    height: 180px;
-  }
-
-  .item-slider-controls-container {
-    opacity: 0;
-    transition: opacity .2s ease;
-  }
-  .item-slider-controls-container.swiper-button-disabled {
-    opacity: 0;
-    cursor: auto;
-  }
-  .item-image:hover .item-slider-controls-container:not(.swiper-button-disabled) {
-    opacity: 1;
-  }
-
-
-  {# /* //// Product detail */ #}
-
-  .product-video .video-image,
-  .product-video .embed-responsive {
-    width: 100%;
-    height: auto;
-  }
-
-  .product-video .embed-responsive {
-    padding-bottom: 56.25%;
-  }
-
-  {# /* //// Helper classes */ #}
-
-  {# /* // Float */ #}
-
-  .float-md-left{float:left!important}.float-md-right{float:right!important}.float-md-none{float:none!important}
-
-  {# /* // Position */ #}
-
-  .position-relative-md{position:relative!important;}.position-sticky-md{position:sticky!important;position:-webkit-sticky!important;}
-}
-
-/*============================================================================
   #Helper classes
 ==============================================================================*/
 
@@ -3361,10 +2140,10 @@ body.template-search .pg-product-grid .item-installments {
 
 .pg-cart-item__name {
 	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: 500;
 	color: #000;
-	line-height: 1.2;
+	line-height: 1.3;
 	margin: 0 0 2px 0;
 }
 
@@ -3539,11 +2318,11 @@ body.template-search .pg-product-grid .item-installments {
 /* Responsivo */
 @media (max-width: 480px) {
 	.pg-cart-item__image {
-		width: 110px;
+		width: 80px;
 	}
 
 	.pg-cart-item__name {
-		font-size: 11px;
+		font-size: 13px;
 	}
 
 	.pg-cart-item__price {
@@ -3681,79 +2460,15 @@ body.template-search .pg-product-grid .item-installments {
 }
 
 /* ============================================
-   ONG SELECTOR - PATAGANG DOAÇÃO (Compacto)
-   ============================================ */
-
-.pg-ong-selector {
-	margin: 20px 0 16px 0;
-	padding: 10px 12px;
-	background: transparent; /* Removido background para não sobrepor info do CEP */
-	border-radius: 8px;
-	border: 1px solid #e5e5e5;
-	overflow: hidden; /* Garante que nada extrapole */
-}
-
-.pg-ong-selector__label {
-	display: block;
-	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 11px;
-	color: #666;
-	font-weight: 500;
-	margin-bottom: 6px;
-}
-
-.pg-ong-selector__select {
-	width: 100%;
-	padding: 8px 32px 8px 10px;
-	border: 1px solid #ddd;
-	border-radius: 6px;
-	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 13px;
-	font-weight: 500;
-	background: #fff;
-	color: #000;
-	cursor: pointer;
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	appearance: none;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-	background-repeat: no-repeat;
-	background-position: right 10px center;
-}
-
-.pg-ong-selector__select:focus {
-	outline: none;
-	border-color: #EAFE67;
-}
-
-/* Responsivo */
-@media (max-width: 480px) {
-	.pg-ong-selector {
-		padding: 8px 10px;
-		margin: 10px 0 14px 0;
-	}
-
-	.pg-ong-selector__label {
-		font-size: 10px;
-		margin-bottom: 4px;
-	}
-
-	.pg-ong-selector__select {
-		font-size: 12px;
-		padding: 6px 28px 6px 8px;
-	}
-}
-
-/* ============================================
    CART MODAL STYLES - ADOBE XD PROTOTYPE
    ============================================ */
 
 /* Overlay with Enhanced Blur Effect - PATAGANG */
 .modal-overlay[data-modal-id="#modal-cart"],
 .modal-overlay {
-	background-color: rgba(0, 0, 0, 0.2) !important;
-	backdrop-filter: blur(30px) saturate(180%);
-	-webkit-backdrop-filter: blur(30px) saturate(180%);
+	background-color: rgba(0, 0, 0, 0.3) !important;
+	backdrop-filter: blur(20px) saturate(180%);
+	-webkit-backdrop-filter: blur(20px) saturate(180%);
 }
 
 /* Modal cart glassmorphism effect */
@@ -3817,11 +2532,11 @@ body.template-search .pg-product-grid .item-installments {
 .modal-cart .pg-cart-item-name,
 .modal-cart .pg-cart-item-name a {
 	font-family: 'Familjen Grotesk', sans-serif !important;
-	font-size: 12px !important; /* Compactado para dar mais destaque à imagem */
+	font-size: 14px !important; /* Reduzido de 20px */
 	font-weight: 500 !important; /* Peso médio */
 	color: #000000 !important;
 	text-decoration: none !important;
-	line-height: 1.2;
+	line-height: 1.4;
 }
 
 /* Product Price */
@@ -4006,101 +2721,6 @@ body.template-search .pg-product-grid .item-installments {
 	border-radius: 0 !important;
 }
 
-/* Shipping Calculator Compacto no Modal */
-.modal-cart .shipping-calculator-head {
-	height: auto !important;
-	min-height: 45px;
-}
-
-.modal-cart .shipping-calculator-head.with-zip {
-	height: auto !important;
-	min-height: 55px;
-}
-
-.modal-cart .shipping-calculator-head.with-form {
-	height: auto !important;
-}
-
-.modal-cart .radio-button-item,
-.modal-cart .list-item {
-	padding: 8px 0 !important;
-	margin: 0 !important;
-}
-
-.modal-cart .radio-button {
-	padding: 8px 10px !important;
-	margin-bottom: 6px !important;
-}
-
-.modal-cart .radio-button-content {
-	padding: 6px 8px !important;
-	font-size: 13px !important;
-}
-
-.modal-cart .radio-button-content .unchecked,
-.modal-cart .radio-button-content .checked {
-	width: 16px !important;
-	height: 16px !important;
-	top: 50% !important;
-	transform: translateY(-50%);
-}
-
-.modal-cart .shipping-option,
-.modal-cart .branch-option {
-	padding: 8px 10px !important;
-	margin: 4px 0 !important;
-	font-size: 13px !important;
-}
-
-.modal-cart .shipping-option-name,
-.modal-cart .branch-name {
-	font-size: 13px !important;
-	line-height: 1.3 !important;
-}
-
-.modal-cart .shipping-option-price,
-.modal-cart .shipping-price {
-	font-size: 13px !important;
-	font-weight: 600 !important;
-}
-
-.modal-cart .shipping-option-extra,
-.modal-cart .shipping-time {
-	font-size: 11px !important;
-	color: #666 !important;
-	margin-top: 2px !important;
-}
-
-/* Container de frete mais compacto */
-.modal-cart #cart-shipping-container,
-.modal-cart .js-shipping-calculator-container {
-	padding: 0 !important;
-}
-
-.modal-cart .js-shipping-list-container,
-.modal-cart .shipping-list {
-	margin-top: 8px !important;
-}
-
-/* Título "ENVÍO A DOMICILIO" e "RETIRAR EM" mais compacto */
-.modal-cart .js-branch-label,
-.modal-cart .shipping-extra-options-title,
-.modal-cart h6 {
-	font-size: 11px !important;
-	font-weight: 600 !important;
-	text-transform: uppercase;
-	letter-spacing: 0.5px;
-	margin: 12px 0 6px 0 !important;
-	color: #666 !important;
-}
-
-/* Link "VER MAIS OPÇÕES" mais compacto */
-.modal-cart .js-shipping-see-more,
-.modal-cart .shipping-see-more {
-	font-size: 11px !important;
-	padding: 6px 0 !important;
-}
-
 /* Responsive Adjustments */
 @media (max-width: 767px) {
 	.modal-cart.modal-docked-md {
@@ -4154,18 +2774,23 @@ body.template-search .pg-product-grid .item-installments {
 REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 ==============================================================================*/
 
-/* Container principal - BACKGROUND PADRÃO #E2E2E2 */
+/* Container principal - FUNDO CLARO COM DEGRADÊ PARA O FOOTER AMARELO */
 .pg-pdp-container {
 	padding-top: 90px;
-	padding-bottom: 0; /* Sem padding - footer sucede direto */
+	padding-bottom: 0; /* Sem padding - degradê conecta direto com footer */
 	margin: 0 !important;
-	/* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
-	background-color: #E2E2E2;
+	/* FUNDO CLARO com degradê suave para o footer amarelo */
+	background: linear-gradient(180deg,
+		#FFFFFF 0%,           /* Topo - branco */
+		#FFFFFF 50%,          /* Mantém branco na área dos cards */
+		#F5F5DC 70%,          /* Transição para tom creme/bege */
+		#E8F5A3 85%,          /* Amarelo bem claro */
+		#EAFE67 100%          /* Conecta com início do footer amarelo */
+	);
 	min-height: calc(100vh - 60px);
 	display: flex;
-	flex-direction: column; /* Produto acima, reviews abaixo (Konfidency precisa estar dentro) */
-	align-items: stretch;
-	justify-content: flex-start;
+	align-items: flex-start;
+	justify-content: center;
 }
 
 /* Row principal - Bootstrap row */
@@ -4173,8 +2798,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	margin: 0 !important;
 	padding: 30px 20px;
 	width: 100%;
-	max-width: none; /* Removido max-width para preencher 100% da tela */
-	box-sizing: border-box; /* Padding não aumenta width total */
+	max-width: 1400px; /* Mais largo */
 }
 
 /* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
@@ -4183,180 +2807,29 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		display: flex !important;
 		flex-direction: row !important;
 		flex-wrap: nowrap !important;
-		align-items: flex-start !important; /* FLEX-START para sticky funcionar */
-		justify-content: flex-start !important;
-		gap: 0px; /* Removido gap excessivo que causava espaço vazio à direita */
-		padding: 30px 0; /* REMOVIDO padding horizontal - aplicado nas colunas */
-		width: 100%;
-		max-width: none;
-		box-sizing: border-box;
+		align-items: center !important; /* CENTRALIZADO em relação à imagem */
+		justify-content: center !important;
+		gap: 40px;
+		padding: 30px 40px;
 	}
 
 	/* COLUNA ESQUERDA - Imagem - MAIOR */
 	.pg-pdp-container .pg-pdp-image-col.col-lg-7 {
-		flex: 0 0 57% !important;
-		max-width: 57% !important;
-		width: 57% !important;
-		padding: 0 40px 0 40px !important; /* Padding horizontal aqui, sem deixar espaço vazio */
+		flex: 0 0 58% !important;
+		max-width: 58% !important;
+		width: 58% !important;
+		padding: 0 !important;
 		align-self: flex-start !important; /* Imagem alinha no topo */
 	}
 
-	/* COLUNA DIREITA - Info - STICKY SCROLL */
+	/* COLUNA DIREITA - Info - CENTRALIZADA VERTICALMENTE */
 	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
-		flex: 0 0 43% !important;
-		max-width: 43% !important;
-		width: 43% !important;
-		padding: 0 40px 0 0 !important; /* Padding direito apenas, esquerda fica colada na imagem */
-		padding-top: 16px !important; /* Alinha com grid de imagens */
-		align-self: flex-start !important; /* Alinha ao topo */
-		/* STICKY: Card fica fixo enquanto imagens rolam */
-		position: sticky !important;
-		top: 16px !important; /* Mínimo - logo abaixo do topo visível */
-		/* REMOVIDO overflow daqui - vai para o card interno */
+		flex: 0 0 40% !important;
+		max-width: 40% !important;
+		width: 40% !important;
+		padding: 0 !important;
+		align-self: center !important; /* Card centralizado em relação à imagem */
 	}
-
-	/* Card interno com scroll e altura máxima */
-	.pg-pdp-info-card {
-		max-height: calc(100vh - 120px) !important; /* Cabe na viewport */
-		overflow-y: auto !important; /* Scroll interno */
-		display: flex !important;
-		flex-direction: column !important;
-		/* Esconde scrollbar */
-		scrollbar-width: none;
-		-ms-overflow-style: none;
-	}
-
-	.pg-pdp-info-card::-webkit-scrollbar {
-		display: none;
-		width: 0;
-		height: 0;
-	}
-}
-
-/* TELAS GRANDES (1200px+): Ajuste fino do sticky */
-@media (min-width: 1200px) {
-	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
-		top: 20px !important; /* Ligeiramente mais espaço em telas grandes */
-		max-height: calc(100vh - 100px);
-	}
-}
-
-/* =============================================================================
-   NOTEBOOKS MENORES (992-1199px): Card COMPACTO
-   Reduz padding, fontes e espaçamentos para caber em viewports menores
-   ============================================================================= */
-@media (min-width: 992px) and (max-width: 1199px) {
-	/* Card com padding reduzido */
-	.pg-pdp-info-card {
-		padding: 16px 20px !important;
-	}
-
-	/* Header mais compacto */
-	.pg-product-header {
-		margin-bottom: 8px !important;
-	}
-
-	.pg-product-title {
-		font-size: 13px !important;
-		letter-spacing: 0.5px !important;
-	}
-
-	/* Bloco de preços compacto */
-	.pg-price-block {
-		margin-bottom: 14px !important;
-		padding-bottom: 12px !important;
-	}
-
-	.pg-price-pix-highlight {
-		font-size: 18px !important;
-	}
-
-	.pg-price-original {
-		font-size: 12px !important;
-	}
-
-	.pg-price-installments {
-		font-size: 10px !important;
-		margin-top: 4px !important;
-	}
-
-	/* Botões de tamanho menores */
-	.pg-size-btn {
-		min-width: 28px !important;
-		height: 28px !important;
-		font-size: 10px !important;
-		padding: 0 8px !important;
-	}
-
-	/* Link tabela de medidas menor */
-	.pg-size-guide-link {
-		font-size: 9px !important;
-	}
-
-	/* Container de variantes mais compacto */
-	.pg-variants-container {
-		margin-bottom: 10px !important;
-	}
-
-	.pg-variant-group {
-		margin-bottom: 6px !important;
-	}
-
-	/* Botão ADICIONAR compacto (mantém amarelo) */
-	.pg-product-add-btn {
-		height: 40px !important;
-		font-size: 11px !important;
-		margin-bottom: 10px !important;
-	}
-
-	/* Banner cupom compacto */
-	.pg-coupon-banner {
-		padding: 10px 14px !important;
-		margin-bottom: 12px !important;
-	}
-
-	.pg-coupon-banner__highlight {
-		font-size: 12px !important;
-	}
-
-	.pg-coupon-banner__highlight strong {
-		font-size: 14px !important;
-	}
-
-	.pg-coupon-banner__code {
-		font-size: 10px !important;
-	}
-
-	/* Accordions mais compactos */
-	.pg-accordion-header {
-		padding: 8px 0 !important;
-		font-size: 10px !important;
-	}
-
-	.pg-accordion-icon {
-		font-size: 14px !important;
-	}
-
-	.pg-accordion-content {
-		font-size: 9px !important;
-		line-height: 1.4 !important;
-	}
-
-	.pg-accordion-item.active .pg-accordion-content {
-		max-height: 300px !important;
-		padding-bottom: 10px !important;
-	}
-
-	/* Watermark menor */
-	.pg-pdp-watermark {
-		width: 180px !important;
-		height: 180px !important;
-	}
-}
-
-/* Background agora é global no body - manter transparente aqui */
-#single-product {
-	background: transparent;
 }
 
 /* COLUNA ESQUERDA - Imagem SEM BORDAS, SEM CARD */
@@ -4434,80 +2907,34 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	box-shadow: 0 8px 32px rgba(0,0,0,0.1); /* Sombra na imagem */
 }
 
-/* ============================================
-   BOTÕES DE NAVEGAÇÃO DO CARROSSEL - LOGO DO CACHORRO
-   ============================================ */
-
-/* Container dos botões - Apenas logo visível */
-.pg-nav-btn {
-	display: flex !important;
-	align-items: center !important;
-	justify-content: center !important;
-	width: 48px !important;
-	height: 48px !important;
-	background: transparent !important;
-	border: none !important;
-	border-radius: 0 !important;
-	box-shadow: none !important;
-	cursor: pointer !important;
-	transition: all 0.3s ease !important;
-	z-index: 20 !important;
+/* Navegação do slider - mais discreta */
+.pg-pdp-image-col .swiper-button-prev,
+.pg-pdp-image-col .swiper-button-next {
+	color: #333;
+	background: rgba(255, 255, 255, 0.9);
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+	opacity: 0.7;
+	transition: opacity 0.3s ease;
+	background-image: url('{{ 'images/logos/logo-mark.svg' | static_url }}');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 18px 18px;
 }
 
-/* Logo dentro do botão - Sutil e discreta */
-.pg-nav-btn__logo {
-	width: 28px !important;
-	height: 28px !important;
-	object-fit: contain !important;
-	opacity: 0.35 !important; /* Logo mais sutil */
-	filter: blur(0.5px) !important; /* Leve blur para suavizar */
-	transition: all 0.3s ease !important;
+.pg-pdp-image-col:hover .swiper-button-prev,
+.pg-pdp-image-col:hover .swiper-button-next {
+	opacity: 1;
 }
 
-/* Botão anterior - logo virada para esquerda */
-.pg-nav-btn--prev {
-	left: 12px !important;
-}
+.pg-pdp-image-col .swiper-button-prev { left: 10px; transform: scaleX(-1); }
+.pg-pdp-image-col .swiper-button-next { right: 12px; }
 
-.pg-nav-btn--prev .pg-nav-btn__logo {
-	transform: scaleX(-1) !important; /* Espelha a logo para esquerda */
-}
-
-/* Botão próximo - logo normal */
-.pg-nav-btn--next {
-	right: 12px !important;
-}
-
-/* Hover nos botões */
-.pg-nav-btn:hover {
-	background: transparent !important;
-	transform: scale(1.15) !important;
-}
-
-/* Hover - Logo fica mais visível */
-.pg-nav-btn--prev:hover .pg-nav-btn__logo {
-	transform: scaleX(-1) scale(1.05) !important;
-	opacity: 0.6 !important;
-	filter: blur(0) !important;
-}
-
-.pg-nav-btn--next:hover .pg-nav-btn__logo {
-	transform: scale(1.05) !important;
-	opacity: 0.6 !important;
-	filter: blur(0) !important;
-}
-
-/* Remover seta padrão do Swiper */
-.pg-nav-btn::after {
-	display: none !important;
-	content: '' !important;
-}
-
-/* Estado disabled */
-.pg-nav-btn.swiper-button-disabled {
-	opacity: 0.4 !important;
-	pointer-events: none !important;
-	cursor: default !important;
+.pg-pdp-image-col .swiper-button-prev:after,
+.pg-pdp-image-col .swiper-button-next:after {
+	content: '';
 }
 
 /* Paginação */
@@ -4605,71 +3032,43 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	display: none;
 }
 
-/* Header do produto — Título com destaque */
+/* Header do produto - Nome + Preço na mesma linha - COMPACTO */
 .pg-product-header {
-	margin-bottom: 12px;
-	padding-bottom: 0;
-	border-bottom: none;
-}
-
-/* Título do produto — DESTAQUE PRINCIPAL */
-.pg-product-title {
-	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	font-size: 16px;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	line-height: 1.3;
-	margin: 0;
-	color: #000;
-}
-
-/* ============================================
-   BLOCO DE PREÇOS — Hierarquia visual
-   ============================================ */
-.pg-price-block {
-	margin-bottom: 20px;
-	padding-bottom: 16px;
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 16px; /* REDUZIDO */
+	gap: 16px;
+	padding-bottom: 12px; /* REDUZIDO */
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Preço PIX/Boleto — DESTAQUE PRINCIPAL */
-.pg-price-pix-highlight {
-	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 22px;
+/* Título do produto - DESTAQUE */
+.pg-product-title {
+	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	font-size: 13px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.8px;
+	line-height: 1.3;
+	margin: 0;
+	color: #000;
+	flex: 1;
+}
+
+/* Seção de preço - DESTAQUE */
+.pg-product-price-section {
+	margin: 0;
+	text-align: right;
+	flex-shrink: 0;
+}
+
+.pg-product-price {
+	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	font-size: 15px;
 	font-weight: 700;
 	color: #000;
 	letter-spacing: 0.3px;
-	line-height: 1.2;
-	display: block;
-	margin-bottom: 6px;
-}
-
-/* Preço original tachado (menor, abaixo do PIX) */
-.pg-price-original {
-	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 14px;
-	font-weight: 400;
-	color: #888;
-	text-decoration: line-through;
-	display: block;
-	margin-bottom: 8px;
-	letter-spacing: 0.3px;
-}
-
-/* Preço atual (escondido, só para JS) */
-.pg-price-current {
-	display: none;
-}
-
-/* Parcelamento */
-.pg-price-installments {
-	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 12px;
-	font-weight: 400;
-	color: #666;
-	margin-top: 6px;
-	line-height: 1.4;
 }
 
 /* Formulário do produto */
@@ -4772,235 +3171,31 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	color: #000;
 }
 
-/* Botão ADICIONAR — Amarelo Patagang */
+/* Botão adicionar - COMPACTO */
 .pg-product-add-btn {
 	width: 100%;
-	height: 48px;
-	background-color: #EAFE67;
-	border: none;
-	border-radius: 8px;
+	height: 38px; /* REDUZIDO */
+	background-color: transparent;
+	border: 1.5px solid #000;
 	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	font-size: 14px;
-	font-weight: 700;
+	font-size: 12px;
+	font-weight: 600;
 	text-transform: uppercase;
-	letter-spacing: 1.5px;
+	letter-spacing: 0.8px;
 	color: #000;
 	cursor: pointer;
-	transition: all 0.2s ease;
-	margin-bottom: 16px;
+	transition: all 0.3s ease;
+	margin-bottom: 16px; /* REDUZIDO */
 }
 
 .pg-product-add-btn:hover {
-	background-color: #D4E856;
-	color: #000;
-	transform: translateY(-2px);
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-}
-
-.pg-product-add-btn:active {
-	transform: translateY(0);
+	background-color: #000;
+	color: #fff;
 }
 
 .pg-product-add-btn:disabled {
-	opacity: 0.4;
+	opacity: 0.5;
 	cursor: not-allowed;
-	background-color: #ccc;
-	transform: none;
-	box-shadow: none;
-}
-
-/* ============================================
-   PATAGANG: TRUST STRIP (Faixa de Texto PDP)
-   ============================================ */
-.pg-trust-strip {
-    display: block;
-    width: 100%;
-    margin-top: 140px; /* Compensação Header Desktop */
-    margin-bottom: 0px; /* ZERADO para colar no produto */
-    padding: 8px 40px; /* Espaço interno */
-    background: transparent;
-    z-index: 900;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-}
-
-/* Ajuste específico para remover gap do produto quando a barra existe */
-#single-product.pg-pdp-container {
-    padding-top: 0 !important; /* Remove padding padrão de 30px */
-    margin-top: 15px; /* Pequeno respiro controlado apenas se necessário, ou 0 */
-}
-
-.pg-trust-strip__content {
-    display: flex;
-    justify-content: space-between; /* Extremos da tela */
-    align-items: center;
-    width: 100%;
-    flex-wrap: nowrap; /* Não quebrar linha */
-}
-
-.pg-trust-strip__item {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #000;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    text-align: center;
-}
-
-@media (max-width: 992px) {
-    .pg-trust-strip {
-        margin-top: 120px; /* Ajuste Tablet */
-        padding: 0 20px;
-    }
-    .pg-trust-strip__item {
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 768px) {
-    .pg-trust-strip {
-        margin-top: 100px; /* Ajuste Mobile */
-        padding: 6px 12px;
-        height: auto;
-    }
-    .pg-trust-strip__content {
-        display: grid !important;
-        grid-template-columns: 1fr auto;
-        grid-template-rows: auto auto;
-        gap: 4px 12px;
-        align-items: center;
-    }
-    /* Coluna esquerda: textos maiores (1 e 2) */
-    .pg-trust-strip__item:nth-child(1),
-    .pg-trust-strip__item:nth-child(2) {
-        grid-column: 1;
-        text-align: left;
-        font-size: 9px;
-        white-space: normal;
-    }
-    .pg-trust-strip__item:nth-child(1) { grid-row: 1; }
-    .pg-trust-strip__item:nth-child(2) { grid-row: 2; }
-    /* Coluna direita: textos menores (3 e 4) */
-    .pg-trust-strip__item:nth-child(3),
-    .pg-trust-strip__item:nth-child(4) {
-        grid-column: 2;
-        text-align: right;
-        font-size: 9px;
-        white-space: nowrap;
-    }
-    .pg-trust-strip__item:nth-child(3) { grid-row: 1; }
-    .pg-trust-strip__item:nth-child(4) { grid-row: 2; }
-}
-
-.pg-trust-bar__text {
-	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 11px;
-	font-weight: 600;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	color: #000;
-}
-
-.pg-trust-bar__separator {
-	color: #ccc;
-	font-size: 10px;
-}
-
-/* Mobile: Scroll horizontal (Snap) */
-@media (max-width: 768px) {
-	.pg-trust-bar {
-		padding: 10px 0;
-		overflow: hidden;
-		margin-top: 0; /* No mobile o header é menor/diferente */
-		border-left: 0;
-		border-right: 0;
-	}
-	
-	.pg-trust-bar__container {
-		justify-content: flex-start;
-		flex-wrap: nowrap;
-		overflow-x: auto;
-		gap: 16px;
-		padding: 0 16px;
-		scroll-snap-type: x mandatory;
-		-webkit-overflow-scrolling: touch;
-		scrollbar-width: none; /* Firefox */
-	}
-	
-	.pg-trust-bar__container::-webkit-scrollbar {
-		display: none; /* Chrome/Safari */
-	}
-	
-	.pg-trust-bar__item {
-		flex: 0 0 auto;
-		scroll-snap-align: center;
-		white-space: nowrap;
-	}
-	
-	.pg-trust-bar__separator {
-		display: none; /* Oculta separadores no mobile para limpar visual */
-	}
-}
-
-/* ============================================
-   BANNER CUPOM — Destaque promocional
-   ============================================ */
-.pg-coupon-banner {
-	background: transparent;
-	border: 1px solid #e5e5e5;
-	border-radius: 8px;
-	padding: 12px 16px;
-	margin-bottom: 20px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 12px;
-	text-align: left;
-}
-
-.pg-coupon-banner__highlight {
-	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 13px;
-	font-weight: 600;
-	color: #000;
-	line-height: 1.3;
-	margin-bottom: 0;
-	flex: 1;
-}
-
-.pg-coupon-banner__highlight strong {
-	font-size: 14px;
-	font-weight: 800;
-	display: block; /* Quebra linha pra destacar */
-}
-
-/* Logo SVG no lugar do emoji */
-.pg-coupon-banner__icon {
-	width: 24px;
-	height: 24px;
-	object-fit: contain;
-	flex-shrink: 0;
-}
-
-.pg-coupon-banner__code {
-	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 11px;
-	color: #666;
-	line-height: 1.4;
-	margin-top: 2px;
-}
-
-.pg-coupon-banner__coupon {
-	background: #000;
-	color: #fff;
-	padding: 2px 6px;
-	border-radius: 4px;
-	font-size: 11px;
-	font-weight: 700;
-	letter-spacing: 0.5px;
-	margin-left: 2px;
 }
 
 /* Accordions - COMPACTO */
@@ -5090,39 +3285,25 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	display: none !important;
 }
 
-/* Containers extras (FB comments) - ocultos quando vazios */
-.pg-pdp-extras-container:empty {
+/* Containers extras (FB comments, Reviews) - ocultos quando vazios */
+.pg-pdp-extras-container:empty,
+.pg-pdp-reviews-container:empty,
+#reviewsapp:empty {
 	display: none !important;
 }
-/* NOTA: #reviewsapp NÃO usa :empty - o Konfidency injeta async e precisa do container visível */
 
 .pg-pdp-extras-container,
-#reviewsapp {
+.pg-pdp-reviews-container {
 	background: transparent;
 	padding: 0;
 	margin: 0;
 }
 
-/* Seção Avaliações e Perguntas (Konfidency) - entre produto e similares */
-.pg-pdp-reviews-section {
-	width: 100%;
-	align-self: stretch;
-	padding: 24px 0;
-}
-.pg-pdp-reviews-section .container {
-	max-width: 1200px;
-	margin: 0 auto;
-}
-
-/* Reviews dentro do PDP - ocupa largura para o Konfidency renderizar */
-.pg-pdp-container #reviewsapp {
-	width: 100%;
-	align-self: stretch;
-}
-
-/* Ocultar container vazio (FB comments) - NÃO afeta .pg-pdp-reviews-section .container */
-.pg-pdp-extras-container:empty {
+/* Ocultar container vazio do Bootstrap dentro do PDP */
+.pg-pdp-container > .container:empty {
 	display: none !important;
+	padding: 0;
+	margin: 0;
 }
 
 /* Responsivo - Tablet e Mobile */
@@ -5131,8 +3312,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		padding-top: 80px;
 		padding-bottom: 0;
 		align-items: flex-start;
-		/* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
-		background-color: #E2E2E2;
+		/* FUNDO CLARO com degradê para o footer amarelo */
+		background: linear-gradient(180deg,
+			#FFFFFF 0%,
+			#FFFFFF 40%,
+			#F5F5DC 65%,
+			#E8F5A3 85%,
+			#EAFE67 100%
+		);
 	}
 
 	.pg-pdp-container .section-single-product {
@@ -5177,34 +3364,12 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 @media (max-width: 576px) {
 	.pg-product-title {
-		font-size: 16px;
+		font-size: 14px;
 		letter-spacing: 0.5px;
 	}
 
-	.pg-price-pix-highlight {
-		font-size: 20px;
-	}
-
-	.pg-price-original {
-		font-size: 13px;
-	}
-
-	.pg-price-installments {
-		font-size: 11px;
-	}
-
-	.pg-product-add-btn {
-		height: 48px;
-		font-size: 13px;
-	}
-
-	.pg-coupon-banner {
-		padding: 14px 16px;
-		border-radius: 8px;
-	}
-
-	.pg-coupon-banner__highlight {
-		font-size: 14px;
+	.pg-product-price {
+		font-size: 16px;
 	}
 
 	.pg-size-btn {
@@ -5511,10 +3676,9 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* ============================================
    CARD PRODUTO EM DESENVOLVIMENTO - PATAGANG
    Baseado no protótipo oficial
-   ESCOPO: Apenas página de produto (.pg-product-form)
    ============================================ */
 
-.pg-product-form .pg-dev-card {
+.pg-dev-card {
     position: relative;
     width: 100%;
     min-height: 350px;
@@ -5643,7 +3807,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 /* Responsivo */
 @media (max-width: 767px) {
-    .pg-product-form .pg-dev-card {
+    .pg-dev-card {
         min-height: 280px;
         padding: 32px 24px;
         border-radius: 24px;
@@ -6035,14 +4199,12 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 }
 
 /* 2. Standardized Page Titles (Search, Category, Institutional) */
-/* Listagem (category/search): MÓDULO LISTAGEM em style-async sobrescreve com 56px, #000 */
 .pg-page__title,
 .pg-search-page__title {
     font-family: 'Familjen Grotesk', sans-serif;
-    font-weight: 400 !important;
-    color: #333 !important;
+    font-weight: 700;
     text-transform: uppercase;
-    font-size: 30px !important;
+    font-size: 30px !important; /* Standardized size */
     text-align: center;
     margin-bottom: 30px;
     letter-spacing: 0.05em;
@@ -6481,611 +4643,92 @@ select {
     width: 0 !important;
 }
 
-/* CSS LEGADO REMOVIDO - Sistema de busca unificado no bloco MOBILE SEARCH FIX acima */
-
-/* ============================================================================
-   PATAGANG - Grid de 2 Colunas de Imagens (Desktop)
-   Layout similar ZêDog - fotos lado a lado com card à direita
-============================================================================ */
-
-/* Container principal do grid */
-.pg-gallery-container {
-    position: relative;
-    width: 100%;
-    padding: 16px;
-}
-
-/* Grid de 2 colunas */
-.pg-gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    width: 100%;
-}
-
-/* Cada item do grid */
-.pg-gallery-item {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-    background: #f5f5f5;
-    border-radius: 4px;
-    aspect-ratio: 1 / 1; /* Quadrado como na referência */
-}
-
-/* Link clicável */
-.pg-gallery-link {
-    display: block;
-    position: absolute;
-    inset: 0;
-    cursor: zoom-in;
-}
-
-/* Imagem - preenche o quadrado */
-.pg-gallery-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
-}
-
-/* Hover effect - sutil */
-.pg-gallery-link:hover .pg-gallery-img {
-    transform: scale(1.03);
-}
-
-/* Ícone de zoom */
-.pg-gallery-zoom-icon {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    color: #333;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.pg-gallery-link:hover .pg-gallery-zoom-icon {
-    opacity: 1;
-}
-
-/* ============================================================================
-   PATAGANG - Modal Customizado com Thumbnails Laterais
-============================================================================ */
-
-/* Modal Overlay */
-.pg-modal-gallery {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.pg-modal-gallery.is-open {
-    display: flex;
-    opacity: 1;
-}
-
-/* Backdrop */
-.pg-modal-backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.98);
-    cursor: pointer;
-}
-
-/* Container principal */
-.pg-modal-container {
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    z-index: 1;
-}
-
-/* Sidebar com Thumbnails */
-.pg-modal-sidebar {
-    width: 90px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-right: 20px;
-}
-
-/* Container dos thumbnails com scroll */
-.pg-modal-thumbs {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 100%;
-    overflow-y: auto;
-    padding: 10px 0;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-}
-
-.pg-modal-thumbs::-webkit-scrollbar {
-    width: 4px;
-}
-
-.pg-modal-thumbs::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.pg-modal-thumbs::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-}
-
-/* Cada thumbnail */
-.pg-modal-thumb {
-    width: 64px;
-    height: 64px;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    background: #f5f5f5;
-    padding: 0;
-    transition: all 0.2s ease;
-    opacity: 0.6;
-    flex-shrink: 0;
-}
-
-.pg-modal-thumb:hover {
-    opacity: 0.85;
-    border-color: rgba(0, 0, 0, 0.2);
-}
-
-.pg-modal-thumb.is-active {
-    opacity: 1;
-    border-color: #000;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.pg-modal-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* Área da imagem principal */
-.pg-modal-main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Imagem principal */
-.pg-modal-main-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    transition: opacity 0.2s ease;
-}
-
-/* Navegação com setas */
-.pg-modal-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #333;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-    z-index: 10;
-}
-
-.pg-modal-nav:hover {
-    background: #fff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-
-.pg-modal-nav--prev {
-    left: 10px;
-}
-
-.pg-modal-nav--next {
-    right: 10px;
-}
-
-/* Botão fechar */
-.pg-modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #333;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-    z-index: 10;
-}
-
-.pg-modal-close:hover {
-    background: #fff;
-    transform: scale(1.05);
-}
-
-/* Contador */
-.pg-modal-counter {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 14px;
-    font-weight: 500;
-    color: #666;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 6px 16px;
-    border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* ============================================================================
-   Responsivo - Mobile
-============================================================================ */
-
-@media (max-width: 991px) {
-    /* Modal em fullscreen no mobile */
-    .pg-modal-container {
-        flex-direction: column;
-        padding: 10px;
-    }
-
-    /* Thumbnails na parte inferior */
-    .pg-modal-sidebar {
-        width: 100%;
-        order: 2;
-        padding: 10px 0 0;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-    .pg-modal-thumbs {
-        flex-direction: row;
-        overflow-x: auto;
-        overflow-y: hidden;
-        max-width: 100%;
-        gap: 8px;
-        padding: 0;
-    }
-
-    .pg-modal-thumb {
-        width: 52px;
-        height: 52px;
-    }
-
-    .pg-modal-main {
-        order: 1;
-        flex: 1;
-    }
-
-    /* Setas menores */
-    .pg-modal-nav {
-        width: 40px;
-        height: 40px;
-    }
-
-    .pg-modal-close {
-        top: 10px;
-        right: 10px;
-        width: 40px;
-        height: 40px;
-    }
-
-    .pg-modal-counter {
-        top: 10px;
-    }
-}
-
-
-
-/* FIM DOS ESTILOS PATAGANG */
-
-
-
-
-
-
-
-
-
-
-/* Forçar o carousel a NÃO usar transformações horizontais */
-.pg-fancybox-gallery .fancybox__thumbs .carousel,
-.pg-fancybox-gallery .fancybox__thumbs .f-carousel {
-    width: 100% !important;
-    height: auto !important;
-    max-height: 60vh !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-}
-
-/* Viewport - contém os slides */
-.pg-fancybox-gallery .fancybox__thumbs .carousel__viewport,
-.pg-fancybox-gallery .fancybox__thumbs .f-carousel__viewport {
-    width: 100% !important;
-    height: auto !important;
-    max-height: 60vh !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-}
-
-/* Track - CRÍTICO: forçar display flex em coluna e remover transforms */
-.pg-fancybox-gallery .fancybox__thumbs .carousel__track,
-.pg-fancybox-gallery .fancybox__thumbs .f-carousel__track {
-    display: flex !important;
-    flex-direction: column !important;
-    flex-wrap: nowrap !important;
-    gap: 8px !important;
-    width: 100% !important;
-    height: auto !important;
-    transform: none !important;
-    transition: none !important;
-    position: relative !important;
-}
-
-/* Cada slide - CRÍTICO: posição relativa, não absoluta */
-.pg-fancybox-gallery .fancybox__thumbs .carousel__slide,
-.pg-fancybox-gallery .fancybox__thumbs .f-carousel__slide {
-    position: relative !important;
-    width: 56px !important;
-    height: 56px !important;
-    min-height: 56px !important;
-    max-height: 56px !important;
-    flex: 0 0 56px !important;
-    padding: 0 !important;
-    margin: 0 auto !important;
-    transform: none !important;
-    left: auto !important;
-    top: auto !important;
-}
-
-/* Scrollbar sutil */
-.pg-fancybox-gallery .fancybox__thumbs::-webkit-scrollbar {
-    width: 4px;
-}
-
-.pg-fancybox-gallery .fancybox__thumbs::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.pg-fancybox-gallery .fancybox__thumbs::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 4px;
-}
-
-/* Container de cada thumbnail */
-.pg-fancybox-gallery .fancybox__thumb {
-    width: 56px !important;
-    height: 56px !important;
-    min-width: 56px !important;
-    min-height: 56px !important;
-    border-radius: 6px !important;
-    overflow: hidden !important;
-    opacity: 0.5 !important;
-    cursor: pointer !important;
-    transition: opacity 0.2s ease, border-color 0.2s ease !important;
-    border: 2px solid transparent !important;
-    display: block !important;
-    background: #f5f5f5 !important;
-}
-
-.pg-fancybox-gallery .fancybox__thumb:hover {
-    opacity: 0.85 !important;
-    border-color: rgba(0, 0, 0, 0.25) !important;
-}
-
-/* Thumbnail ativo */
-.pg-fancybox-gallery .fancybox__thumb.is-nav-selected,
-.pg-fancybox-gallery .fancybox__thumb.is-selected,
-.pg-fancybox-gallery .fancybox__thumb[aria-current="true"] {
-    opacity: 1 !important;
-    border-color: #000 !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
-}
-
-/* Imagem dentro do thumbnail */
-.pg-fancybox-gallery .fancybox__thumb img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    display: block !important;
-}
-
-/* ============================================================================
-   Toolbar - Estilo minimalista
-============================================================================ */
-
-.pg-fancybox-gallery .fancybox__toolbar {
-    background: transparent !important;
-    padding: 16px 20px !important;
-}
-
-/* Botões da toolbar */
-.pg-fancybox-gallery .fancybox__button {
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 50% !important;
-    width: 40px !important;
-    height: 40px !important;
-    color: #333 !important;
-    transition: all 0.2s ease !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-}
-
-.pg-fancybox-gallery .fancybox__button:hover {
-    background: #fff !important;
-    color: #000 !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-}
-
-/* Contador de slides */
-.pg-fancybox-gallery .fancybox__counter {
-    color: #333 !important;
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    padding: 6px 14px !important;
-    border-radius: 20px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* ============================================================================
-   Navegação - setas laterais
-============================================================================ */
-
-.pg-fancybox-gallery .fancybox__nav {
-    padding: 0 !important;
-}
-
-.pg-fancybox-gallery .fancybox__button--prev,
-.pg-fancybox-gallery .fancybox__button--next {
-    width: 50px !important;
-    height: 50px !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    border-radius: 50% !important;
-    color: #333 !important;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
-    transition: all 0.2s ease !important;
-}
-
-.pg-fancybox-gallery .fancybox__button--prev:hover,
-.pg-fancybox-gallery .fancybox__button--next:hover {
-    background: #fff !important;
-    color: #000 !important;
-    transform: scale(1.05) !important;
-}
-
-/* Posição das setas - ajustada para não sobrepor thumbnails */
-.pg-fancybox-gallery .fancybox__button--prev {
-    left: 120px !important;
-}
-
-.pg-fancybox-gallery .fancybox__button--next {
-    right: 20px !important;
-}
-
-/* ============================================================================
-   Responsivo - Mobile
-============================================================================ */
-
+/* PROBLEMA 1: MOBILE HEADER - LUPA NA ESQUERDA & ÍCONES REDUZIDOS */
 @media (max-width: 767px) {
-    /* Em mobile, thumbnails ficam na parte inferior */
-    .pg-fancybox-gallery .fancybox__carousel {
-        padding-left: 0 !important;
-        padding-bottom: 90px !important;
+    /* 1. Container Header */
+    .pg-header__row,
+    .pg-header__container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        position: relative;
     }
 
-    .pg-fancybox-gallery .fancybox__thumbs {
-        position: fixed !important;
-        left: 50% !important;
-        top: auto !important;
-        bottom: 20px !important;
-        transform: translateX(-50%) !important;
-        width: auto !important;
-        max-width: 90vw !important;
-        height: 60px !important;
-        max-height: none !important;
-        flex-direction: row !important;
-        overflow-x: auto !important;
-        overflow-y: hidden !important;
-        padding: 8px 12px !important;
+    /* 2. Ícones Menores (20px) */
+    .pg-header__icon-button svg,
+    .pg-header__actions svg {
+        width: 20px !important;
+        height: 20px !important;
     }
 
-    .pg-fancybox-gallery .fancybox__thumb {
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
+    .pg-header__icon-button,
+    .pg-header__actions > a,
+    .pg-header__actions > div {
+        padding: 0 5px !important;
     }
 
-    /* Setas em mobile */
-    .pg-fancybox-gallery .fancybox__button--prev {
-        left: 10px !important;
+    /* 3. LUPA NA ESQUERDA (Position Absolute) */
+    /* Seleciona o botão de busca dentro das ações e move para a esquerda */
+    .pg-header__actions .js-search-open-mobile,
+    .pg-header__actions a[href*="search"] {
+        position: absolute !important;
+        left: 40px !important; /* Logo após o menu hambúrguer (que tem ~30-40px) */
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        margin: 0 !important;
+        z-index: 15;
     }
 
-    .pg-fancybox-gallery .fancybox__button--next {
-        right: 10px !important;
+    /* 4. Ícones da Direita (Carrinho/Conta) - Sem a lupa */
+    .pg-header__actions {
+        margin-right: 0 !important;
+        gap: 2px !important;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
     }
 
-    .pg-fancybox-gallery .fancybox__button--prev,
-    .pg-fancybox-gallery .fancybox__button--next {
-        width: 40px !important;
-        height: 40px !important;
-    }
-}
-
-/* Tablet - ajustes */
-@media (min-width: 768px) and (max-width: 991px) {
-    .pg-fancybox-gallery .fancybox__thumbs {
-        width: 60px !important;
-        left: 15px !important;
+    /* 5. Logo Centralizada */
+    .pg-header__logo {
+        margin: 0 auto !important;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
     }
 
-    .pg-fancybox-gallery .fancybox__thumb {
-        width: 46px !important;
-        height: 46px !important;
-        min-width: 46px !important;
+    /* 6. BUSCA EXPANDINDO DA ESQUERDA ATÉ A LOGO */
+    .search-container.search-open {
+        position: absolute;
+        top: 0;
+        left: 40px; /* Começa onde está a lupa */
+        height: 100%;
+        /* Calcula largura para parar antes da logo (50% - margem) */
+        width: calc(50% - 50px) !important;
+        background: #fff;
+        z-index: 20;
+        display: flex;
+        align-items: center;
+        padding: 0 5px;
     }
 
-    .pg-fancybox-gallery .fancybox__carousel {
-        padding-left: 85px !important;
+    /* Input da Busca */
+    .search-container.search-open input {
+        width: 100% !important;
+        height: 30px !important; /* Mais compacto */
+        border: none !important;
+        border-bottom: 1px solid #000 !important;
+        background: transparent !important;
+        font-family: 'Familjen Grotesk', sans-serif !important;
+        font-size: 14px !important;
+        padding: 0 !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
 
-    .pg-fancybox-gallery .fancybox__button--prev {
-        left: 95px !important;
+    /* Garante que o botão de busca (lupa) continue visível/clicável */
+    .search-container.search-open .pg-header__search-btn {
+        display: none !important; /* Esconde ícone duplicado dentro do container se houver */
     }
-}
-
-/* REMOVIDO: .page-header não existe no DOM atual.
-   category.tpl e search.tpl usam .pg-search-page__header.
-   Listagem controlada pelo MÓDULO LISTAGEM em style-async. */
-
-/* ============================================================================
-   CORREÇÃO CRÍTICA: Espaço vazio à direita do PDP
-   Problema: .pg-container com max-width: 1200px estava limitando a página
-   Solução: Forçar #single-product a ocupar 100% sem limites
-   ============================================================================ */
-#single-product {
-    width: 100% !important;
-    max-width: none !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-}
-
-#single-product.pg-pdp-container .section-single-product {
-    width: 100% !important;
-    max-width: none !important;
 }

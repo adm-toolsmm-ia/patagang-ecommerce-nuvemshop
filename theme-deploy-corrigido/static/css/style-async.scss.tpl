@@ -1,14 +1,10 @@
 {#/*============================================================================
-style-async.scss.tpl - PATAGANG
+style.css
 
-    -Este arquivo contém estilos não críticos, carregados de forma assíncrona (media=print → onload=all)
-    -Resto dos estilos:
-      --static/css/style-critical.tpl --> CSS crítico inline no head
-      --static/css/style-colors.scss.tpl --> Cores e fontes (config/settings.txt)
-      --static/css/style-menu-patagang.css.tpl --> Menu/header (critical inline)
-      --static/css/style-filters-patagang.css.tpl --> Filtros (critical inline)
-      --static/css/style-home-v2.css --> Home (link condicional template==home)
-      --layouts/layout.tpl --> Override final listagem, ad bar, PDP
+    -This file contains all the theme non critical styles wich will be loaded asynchronously
+    -Rest of styling can be found in:
+      --static/css/style-colors.scss.tpl --> For color and font styles related to config/settings.txt
+      --static/css/style-critical.tpl --> For critical CSS rendered inline before the rest of the site
 
 ==============================================================================*/#}
 
@@ -39,8 +35,6 @@ style-async.scss.tpl - PATAGANG
     // Placeholder
   #Product grid
     // Filters
-  #Listagem (categoria e busca)
-    // MÓDULO LISTAGEM - pg-search-page, pg-product-grid, item-product, etc.
   #Product detail
   	// Image
   	// Form and info
@@ -527,9 +521,7 @@ textarea{
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(30px) saturate(180%);
-  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  background: #00000047;
   z-index: 10000;
   &.modal-zindex-top{
     z-index: 20000;
@@ -803,145 +795,6 @@ textarea{
 .search-suggest-icon {
   margin: 0 10px;
   font-size: 14px;
-}
-
-/* ============================================
-   PATAGANG - NAV SEARCH (modal)
-   ============================================ */
-
-.modal-nav-search {
-  left: 50%;
-  top: 70px;
-  width: 92vw;
-  max-width: 720px;
-  height: auto;
-  max-height: calc(100vh - 140px);
-  transform: translateX(-50%);
-  border-radius: 16px;
-  overflow: hidden;
-  background: #E2E2E2;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
-}
-
-.modal-nav-search.modal-show {
-  top: 70px;
-}
-
-.modal-nav-search .modal-body {
-  padding: 20px 24px 24px;
-  background: #E2E2E2;
-  max-height: calc(100vh - 160px);
-  overflow: auto;
-}
-
-.modal-nav-search .pg-search-nav {
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-.modal-nav-search .pg-search-nav__input {
-  position: relative;
-}
-
-.modal-nav-search .pg-search-nav__field {
-  height: 44px;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.8);
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 14px;
-  padding: 0 48px 0 14px;
-}
-
-.modal-nav-search .pg-search-nav__submit {
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-}
-
-.pg-search-nav__quick {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.pg-search-nav__label {
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #000;
-}
-
-.pg-search-nav__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.pg-search-nav__chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  background: rgba(255, 255, 255, 0.7);
-  font-family: 'Familjen Grotesk', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #000;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-
-.pg-search-nav__chip:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(0, 0, 0, 0.35);
-  transform: translateY(-1px);
-}
-
-.pg-search-nav__suggest {
-  margin-top: 12px;
-  border-radius: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(255, 255, 255, 0.8);
-  max-height: 220px;
-  overflow: auto;
-}
-
-@media (max-width: 768px) {
-  .modal-nav-search {
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    max-height: none;
-    transform: none;
-    border-radius: 0;
-  }
-
-  .modal-nav-search .modal-body {
-    padding: 16px 16px 20px;
-    max-height: none;
-  }
-
-  .modal-nav-search .pg-search-nav__field {
-    height: 42px;
-  }
-}
-
-/* ============================================
-   BARRA DE FRETE - TEXTO PRETO
-   ============================================ */
-
-.section-advertising,
-.section-advertising * {
-  color: #000 !important;
 }
 
 {#/*============================================================================
@@ -1339,6 +1192,450 @@ footer {
 }
 
 {#/*============================================================================
+#Blog
+==============================================================================*/
+
+.post-item-image-container {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.post-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-item-title,
+.post-item-summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em;
+}
+
+.post-content,
+.post-content p {
+  font-size: 16px;
+  line-height: 1.8rem;
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  margin: 2rem 0 1rem 0;
+  line-height: initial;
+}
+
+.post-content h1,
+.post-content .h1 {
+  font-size: 28px;
+}
+
+.post-content h2,
+.post-content .h2 {
+  font-size: 24px;
+}
+
+.post-content h3,
+.post-content .h3 {
+  font-size: 20px;
+}
+
+.post-content h4,
+.post-content .h4 {
+  font-size: 18px;
+}
+
+.post-content h5,
+.post-content .h5 {
+  font-size: 16px;
+}
+
+.post-content h6,
+.post-content .h6 {
+  font-size: 14px;
+}
+
+/* Blog PataGang Custom */
+.pg-blog-page {
+  padding: 48px 0;
+  background-color: #f5f5f5;
+}
+
+.pg-blog-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.pg-blog-header h1 {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.pg-blog-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .pg-blog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .pg-blog-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.pg-blog-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.pg-blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.pg-blog-card__image {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+
+.pg-blog-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.pg-blog-card:hover .pg-blog-card__image img {
+  transform: scale(1.05);
+}
+
+.pg-blog-card__content {
+  padding: 24px;
+}
+
+.pg-blog-card__title {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: #000;
+  margin-bottom: 12px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.pg-blog-card__summary {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.pg-blog-card__link {
+  display: inline-block;
+  background: #EAFE67;
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pg-blog-card__link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(234, 254, 103, 0.4);
+}
+
+/* Blog Post Page */
+.pg-blog-post {
+  padding: 48px 0;
+}
+
+.pg-blog-post__header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.pg-blog-post__title {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 768px) {
+  .pg-blog-post__title {
+    font-size: 48px;
+  }
+}
+
+.pg-blog-post__date {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 14px;
+  color: #666;
+}
+
+.pg-blog-post__image {
+  margin-bottom: 32px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.pg-blog-post__image img {
+  width: 100%;
+  height: auto;
+}
+
+.pg-blog-post__content {
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.pg-blog-post__content p {
+  margin-bottom: 24px;
+}
+
+.pg-blog-post__content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 40px 0 20px;
+}
+
+.pg-blog-post__content h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 32px 0 16px;
+}
+
+/* Social Share */
+.pg-blog-post__share {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 40px 0;
+  padding: 24px 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.pg-blog-post__share-title {
+  width: 100%;
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-family: 'Familjen Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.share-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.share-btn--whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+
+.share-btn--facebook {
+  background: #1877F2;
+  color: #fff;
+}
+
+.share-btn--twitter {
+  background: #000;
+  color: #fff;
+}
+
+.share-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+
+/*============================================================================
+  #Media queries
+==============================================================================*/
+
+{# /* // Min width 768px */ #}
+
+@media (min-width: 768px) {
+
+  {# /* //// Nav */ #}
+
+  .logo-img {
+    max-width: 320px;
+  }
+
+  {# /* //// Placeholders */ #}
+
+  .blur-up {
+    -webkit-filter: blur(4px);
+    filter: blur(4px);
+    -moz-filter: blur(4px);
+    -ms-filter: blur(4px);
+    -o-filter: blur(4px);
+    transition: filter .5s, -webkit-filter .2s;
+  }
+
+  {# /* //// Components */ #}
+
+  .container-narrow {
+    max-width: 680px;
+  }
+
+  .h1-md {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .h2-md {
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .h3-md {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .h4-md {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .h5-md {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .h6-md {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .font-md-normal {
+    font-size: 14px;
+  }
+
+
+  {# /* //// Banners */ #}
+
+  {# /* Home Banners */ #}
+
+  .textbanner-text {
+    padding: 30px 20%;
+  }
+
+  {# /* //// Home */ #}
+
+  {# /* //// Product grid */ #}
+
+  .category-controls {
+    position: relative;
+    padding: 0;
+  }
+
+  .item-colors {
+    padding: 10px 0;
+  }
+
+  .item-product-reduced .item-image,
+  .item-product-reduced .item-image img {
+    height: 180px;
+  }
+
+  .item-slider-controls-container {
+    opacity: 0;
+    transition: opacity .2s ease;
+  }
+  .item-slider-controls-container.swiper-button-disabled {
+    opacity: 0;
+    cursor: auto;
+  }
+  .item-image:hover .item-slider-controls-container:not(.swiper-button-disabled) {
+    opacity: 1;
+  }
+
+
+  {# /* //// Product detail */ #}
+
+  .product-video .video-image,
+  .product-video .embed-responsive {
+    width: 100%;
+    height: auto;
+  }
+
+  .product-video .embed-responsive {
+    padding-bottom: 56.25%;
+  }
+
+  {# /* //// Helper classes */ #}
+
+  {# /* // Float */ #}
+
+  .float-md-left{float:left!important}.float-md-right{float:right!important}.float-md-none{float:none!important}
+
+  {# /* // Position */ #}
+
+  .position-relative-md{position:relative!important;}.position-sticky-md{position:sticky!important;position:-webkit-sticky!important;}
+}
+
+/*============================================================================
   #Media queries
 ==============================================================================*/ #}
 
@@ -3539,6 +3836,609 @@ button {
 }
 
 /* ============================================
+   PÁGINAS DE PESQUISA E CATEGORIA - PATAGANG
+   Degradê idêntico ao PDP para consistência visual
+   ============================================ */
+
+/* Estilos compartilhados - DEGRADÊ PARA O FOOTER */
+.pg-search-page,
+.pg-category-page {
+    min-height: 60vh;
+    /* DEGRADÊ IGUAL AO PDP - Branco no topo, conecta com footer amarelo */
+    background: linear-gradient(180deg,
+        #FFFFFF 0%,           /* Topo - branco */
+        #FFFFFF 40%,          /* Mantém branco na área dos produtos */
+        #F5F5DC 60%,          /* Transição para tom creme/bege */
+        #E8F5A3 80%,          /* Amarelo bem claro */
+        #EAFE67 100%          /* Conecta com início do footer amarelo */
+    );
+    padding: 100px 0 60px;
+    padding-bottom: 0; /* Sem padding inferior - degradê conecta direto */
+    position: relative;
+}
+
+/* MARCA D'ÁGUA DO CACHORRO - Fundo da página */
+.pg-page-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    object-fit: contain;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@media (min-width: 992px) {
+    .pg-page-watermark {
+        width: 500px;
+        height: 500px;
+        opacity: 0.06;
+    }
+}
+
+@media (min-width: 1200px) {
+    .pg-page-watermark {
+        width: 600px;
+        height: 600px;
+        opacity: 0.05;
+    }
+}
+
+.pg-search-page__container,
+.pg-category-page__container {
+    max-width: 1400px; /* Mais largo para produtos maiores */
+    margin: 0 auto;
+    padding: 0 32px;
+    padding-bottom: 80px; /* Espaço antes do footer */
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.pg-search-page__header,
+.pg-category-page__header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+/* Título - PADRÃO PATAGANG com fonte display */
+.pg-search-page__title,
+.pg-category-page__title {
+    font-family: 'Familjen Grotesk', 'Bebas Neue', Impact, sans-serif;
+    font-size: 56px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    line-height: 1.1;
+    /* Estilo bold/impacto característico da Patagang */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.pg-search-page__term {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    font-weight: 500;
+}
+
+.pg-category-page__description {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 18px;
+    color: #333;
+    margin: 0;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Banner */
+.pg-category-page__banner {
+    margin-bottom: 48px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+
+/* Controles */
+.pg-category-page__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding: 18px 24px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+}
+
+.pg-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    text-decoration: none;
+    padding: 12px 20px;
+    background: #fff;
+    border-radius: 10px;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.pg-filter-btn:hover {
+    background: #000;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.pg-category-page__applied-filters {
+    margin-bottom: 28px;
+}
+
+/* Resultados */
+.pg-search-page__results,
+.pg-category-page__results {
+    margin-top: 24px;
+}
+
+.pg-search-page__count {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Grid de Produtos - MÁXIMO 4 COLUNAS, CENTRALIZADOS - Estilo PATAGANG */
+.pg-product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* CENTRALIZA cards quando menos de 4 */
+    align-items: stretch; /* Garante que todos os cards tenham a mesma altura */
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   CARD DE PRODUTO - GLASSMORPHISM PATAGANG
+   Cards maiores, centralizados, máximo 4 por linha
+   ============================================ */
+
+/* Container do item de produto - CARD MINIMALISTA E IMPACTANTE */
+.pg-product-grid .item-product {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    /* LARGURA FIXA - Máximo 4 por linha */
+    flex: 0 0 calc(25% - 24px); /* 4 colunas com gap */
+    max-width: calc(25% - 24px);
+    min-width: 280px; /* Mínimo para não ficar muito pequeno */
+    text-align: center; /* CENTRALIZA textos */
+    /* FLEX COLUMN - Para alinhar botões na base */
+    display: flex !important;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Quickshop container também precisa ser flex para herdar comportamento */
+.pg-product-grid .item-product .js-quickshop-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.pg-product-grid .item-product:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Imagem do produto - MINIMALISTA E CLEAN */
+.pg-product-grid .item-image {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #F9F9F9;
+}
+
+.pg-product-grid .item-image img {
+    border-radius: 12px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+}
+
+.pg-product-grid .item-product:hover .item-image img {
+    transform: scale(1.06);
+}
+
+/* Info Card - Container das informações - CENTRALIZADO */
+.pg-product-grid .item-description {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-top: 14px;
+    text-align: center; /* CENTRALIZA */
+}
+
+/* Nome do produto - CENTRALIZADO */
+.pg-product-grid .item-name {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #000;
+    line-height: 1.4;
+    margin-bottom: 10px !important;
+    text-align: center;
+}
+
+/* Container de preço - CENTRALIZADO */
+.pg-product-grid .item-price-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* CENTRALIZA */
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Preço principal - MAIOR */
+.pg-product-grid .item-price {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 0.3px;
+}
+
+/* Preço comparativo (riscado) */
+.pg-product-grid .price-compare {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    color: #888;
+    text-decoration: line-through;
+}
+
+/* Link do item - remove underline */
+.pg-product-grid .item-link {
+    text-decoration: none !important;
+    display: block;
+    text-align: center;
+}
+
+/* Parcelamento - CENTRALIZADO */
+.pg-product-grid .item-installments {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+}
+
+/* Botão de ação (adicionar ao carrinho) - CENTRALIZADO E ALINHADO NA BASE */
+.pg-product-grid .item-actions {
+    margin-top: auto !important; /* Empurra para o final do card */
+    padding-top: 16px;
+    text-align: center;
+}
+
+/* BOTÃO PADRÃO PATAGANG - Igual ao botão da HOME */
+.pg-product-grid .item-actions .btn {
+    width: 100%;
+    min-height: 48px; /* Altura padrão fixa para alinhamento */
+    background: #EAFE67; /* Amarelo neon */
+    color: #000; /* Texto preto */
+    border-radius: 4px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700; /* Bold igual home */
+    text-transform: uppercase;
+    letter-spacing: 0.05em; /* Igual home */
+    padding: 14px 20px;
+    transition: all 0.2s ease;
+    border: none; /* Sem borda - igual home */
+    box-shadow: none; /* Sem sombra - igual home */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.3;
+}
+
+.pg-product-grid .item-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #000;
+}
+
+.pg-product-grid .item-actions .btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Labels (desconto, novo, etc) */
+.pg-product-grid .labels {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pg-product-grid .label {
+    background: #000;
+    color: #fff;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.pg-product-grid .label-accent {
+    background: #EAFE67;
+    color: #000;
+}
+
+/* ============================================
+   BOTÃO PRODUTO EM DESENVOLVIMENTO - GRID
+   Texto "SEJA O PRIMEIRO A CONHECER"
+   Estilo IMPACTANTE igual ao botão padrão
+   ============================================ */
+
+/* Botão especial para produtos em desenvolvimento - Igual ao botão da HOME */
+.pg-product-grid .btn-development {
+    width: 100%;
+    min-height: 48px; /* Mesma altura padrão para alinhamento */
+    background: #EAFE67; /* Amarelo neon */
+    color: #000; /* Texto preto */
+    border-radius: 4px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 11px; /* Menor para caber o texto longo */
+    font-weight: 700; /* Bold igual home */
+    text-transform: uppercase;
+    letter-spacing: 0.05em; /* Igual home */
+    padding: 14px 12px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none; /* Sem borda - igual home */
+    box-shadow: none; /* Sem sombra - igual home */
+    line-height: 1.3;
+}
+
+.pg-product-grid .btn-development:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #000;
+}
+
+.pg-product-grid .btn-development:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Responsivo mobile */
+@media (max-width: 768px) {
+    .pg-product-grid .btn-development {
+        font-size: 9px;
+        padding: 12px 10px;
+        min-height: 44px;
+    }
+}
+
+/* Estado Vazio */
+.pg-search-page__empty,
+.pg-category-page__empty {
+    text-align: center;
+    padding: 100px 32px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 28px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+}
+
+.pg-search-page__empty-icon,
+.pg-category-page__empty-icon {
+    color: #000;
+    margin-bottom: 28px;
+    opacity: 0.4;
+}
+
+.pg-search-page__empty-title,
+.pg-category-page__empty-title {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 16px;
+}
+
+.pg-search-page__empty-text,
+.pg-category-page__empty-text {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 17px;
+    color: #666;
+    margin: 0 0 36px;
+    line-height: 1.6;
+}
+
+.pg-search-page__empty-btn,
+.pg-category-page__empty-btn {
+    display: inline-block;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: #000;
+    padding: 16px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.pg-search-page__empty-btn:hover,
+.pg-category-page__empty-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+}
+
+/* Responsivo - Desktop menor / Tablet grande */
+@media (max-width: 1200px) {
+    /* 3 colunas em telas médias */
+    .pg-product-grid .item-product {
+        flex: 0 0 calc(33.333% - 22px);
+        max-width: calc(33.333% - 22px);
+    }
+}
+
+/* Responsivo - Tablet */
+@media (max-width: 992px) {
+    .pg-search-page,
+    .pg-category-page {
+        padding-top: 90px;
+    }
+
+    .pg-product-grid {
+        gap: 24px;
+    }
+
+    /* 2 colunas em tablet */
+    .pg-product-grid .item-product {
+        flex: 0 0 calc(50% - 12px);
+        max-width: calc(50% - 12px);
+        min-width: 240px;
+    }
+
+    .pg-search-page__container,
+    .pg-category-page__container {
+        padding: 0 24px;
+        padding-bottom: 60px;
+    }
+
+    .pg-search-page__title,
+    .pg-category-page__title {
+        font-size: 42px;
+        letter-spacing: 2px;
+    }
+}
+
+/* Responsivo - Mobile */
+@media (max-width: 768px) {
+    .pg-search-page,
+    .pg-category-page {
+        padding-top: 80px;
+    }
+
+    .pg-search-page__title,
+    .pg-category-page__title {
+        font-size: 32px;
+        letter-spacing: 1.5px;
+    }
+
+    .pg-category-page__controls {
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    .pg-product-grid {
+        gap: 16px;
+    }
+
+    /* 2 colunas em mobile */
+    .pg-product-grid .item-product {
+        flex: 0 0 calc(50% - 8px);
+        max-width: calc(50% - 8px);
+        min-width: 150px;
+        padding: 12px;
+        border-radius: 18px;
+    }
+
+    .pg-product-grid .item-image {
+        border-radius: 14px;
+        margin-bottom: 12px;
+    }
+
+    .pg-product-grid .item-description {
+        padding: 12px 14px;
+        border-radius: 12px;
+    }
+
+    .pg-product-grid .item-name {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+
+    .pg-product-grid .item-price {
+        font-size: 15px;
+    }
+
+    .pg-product-grid .item-actions .btn {
+        padding: 12px 18px;
+        font-size: 11px;
+    }
+
+    .pg-search-page__empty,
+    .pg-category-page__empty {
+        padding: 60px 24px;
+        border-radius: 20px;
+    }
+
+    .pg-search-page__empty-title,
+    .pg-category-page__empty-title {
+        font-size: 24px;
+    }
+}
+
+/* Responsivo - Mobile pequeno */
+@media (max-width: 480px) {
+    .pg-search-page__title,
+    .pg-category-page__title {
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
+
+    /* 1 coluna em mobile pequeno - CENTRALIZADO */
+    .pg-product-grid {
+        gap: 20px;
+    }
+
+    .pg-product-grid .item-product {
+        flex: 0 0 100%;
+        max-width: 320px; /* Limita largura para não ficar muito grande */
+        min-width: auto;
+        padding: 14px;
+    }
+}
+
+/* ============================================
    PÁGINAS INSTITUCIONAIS - PATAGANG
    Layout padronizado igual à página /comunidade
    Formatação clean e consistente em todas as páginas
@@ -3548,8 +4448,14 @@ button {
     min-height: 100vh;
     padding: 100px 0 0;
     position: relative;
-    /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
-    background-color: #E2E2E2;
+    /* FUNDO CLARO com degradê suave para o footer amarelo - igual página de produto */
+    background: linear-gradient(180deg,
+        #FFFFFF 0%,           /* Topo - branco */
+        #FFFFFF 50%,          /* Mantém branco na área do conteúdo */
+        #F5F5DC 70%,          /* Transição para tom creme/bege */
+        #E8F5A3 85%,          /* Amarelo bem claro */
+        #EAFE67 100%          /* Conecta com início do footer amarelo */
+    );
 }
 
 /* ============================================
@@ -3615,11 +4521,11 @@ button {
     z-index: 1;
 }
 
-/* Título - Removido negrito excessivo */
+/* Título GRANDE e impactante */
 .pg-page__title {
     font-family: 'Familjen Grotesk', Impact, sans-serif;
     font-size: 72px;
-    font-weight: 400; /* Removido negrito - estava muito chamativo */
+    font-weight: 800;
     color: #000;
     text-transform: uppercase;
     letter-spacing: 8px;
@@ -3856,9 +4762,15 @@ button {
 
 @media (max-width: 768px) {
     .pg-page {
-        padding-top: 110px; /* Banner (30px) + Header (70px) + Margem (10px) */
-        /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
-        background-color: #E2E2E2;
+        padding-top: 80px;
+        /* Gradiente ajustado para mobile */
+        background: linear-gradient(180deg,
+            #FFFFFF 0%,
+            #FFFFFF 40%,
+            #F5F5DC 65%,
+            #E8F5A3 85%,
+            #EAFE67 100%
+        );
     }
 
     .pg-page__container {
@@ -3920,258 +4832,6 @@ button {
     .pg-page__content h1 { font-size: 22px !important; }
     .pg-page__content h2 { font-size: 20px !important; }
     .pg-page__content h3 { font-size: 17px !important; }
-}
-
-/* ============================================
-   O MOVIMENTO - Navegação por Abas
-   Estilo Freitag com Glassmorphism Patagang
-   ============================================ */
-
-.pg-movimento {
-    min-height: 100vh;
-    /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
-    background-color: #E2E2E2;
-}
-
-/* Navegação por Abas - Sticky */
-.pg-movimento__nav {
-    position: sticky;
-    top: 100px; /* Banner (30px) + Header (70px) */
-    background: transparent;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    z-index: 100;
-    padding: 0 24px;
-}
-
-.pg-movimento__nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    padding: 14px 0;
-    flex-wrap: wrap;
-}
-
-/* Tabs - Estilo Amarelo Patagang */
-.pg-movimento__tab {
-    padding: 8px 16px;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 600; /* Bold para destacar seleção de página */
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #000;
-    text-decoration: none;
-    border: none;
-    border-radius: 4px;
-    background: #EAFE67;
-    transition: all 0.2s ease;
-    white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-}
-
-.pg-movimento__tab:hover {
-    background: #d4e85c;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-.pg-movimento__tab.is-active {
-    background: #fff;
-    color: #000;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Corpo da Página */
-.pg-movimento__body {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 180px 48px 120px; /* Banner (30px) + Header (70px) + Nav (50px) + Margem (30px) */
-    position: relative;
-    z-index: 1;
-}
-
-.pg-movimento__body--wide {
-    max-width: 1200px;
-}
-
-/* Título - Estilo mais suave e menos chamativo */
-.pg-movimento__title {
-    font-family: 'Familjen Grotesk', sans-serif; /* Removida fonte Impact */
-    font-size: 42px;
-    font-weight: 400 !important; /* Removido negrito - estava muito chamativo */
-    color: #333; /* Cinza escuro ao invés de preto puro */
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    line-height: 1.1;
-    margin: 0 0 40px;
-    text-align: center;
-}
-
-/* Conteúdo - Herda estilos do .pg-page__content */
-.pg-movimento__content {
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    font-size: 15px;
-    line-height: 1.8;
-    color: #111;
-}
-
-.pg-movimento__content h1,
-.pg-movimento__content h2,
-.pg-movimento__content h3,
-.pg-movimento__content h4,
-.pg-movimento__content h5,
-.pg-movimento__content h6 {
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    font-weight: 800 !important;
-    color: #000 !important;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin: 48px 0 20px;
-    line-height: 1.2;
-    background: transparent !important;
-}
-
-.pg-movimento__content h1 { font-size: 32px !important; }
-.pg-movimento__content h2 { font-size: 26px !important; }
-.pg-movimento__content h3 { font-size: 22px !important; }
-.pg-movimento__content h4 { font-size: 18px !important; }
-.pg-movimento__content h5 { font-size: 16px !important; }
-.pg-movimento__content h6 { font-size: 14px !important; }
-
-.pg-movimento__content > *:first-child {
-    margin-top: 0 !important;
-}
-
-.pg-movimento__content p {
-    margin: 0 0 10px;
-    font-size: 15px;
-    line-height: 1.6;
-    text-align: left;
-}
-
-.pg-movimento__content a {
-    color: #000 !important;
-    font-weight: 600;
-    text-decoration: underline;
-    text-decoration-color: #EAFE67;
-    text-decoration-thickness: 3px;
-    text-underline-offset: 4px;
-    transition: all 0.2s ease;
-    background: transparent !important;
-}
-
-.pg-movimento__content a:hover {
-    background: #EAFE67 !important;
-}
-
-.pg-movimento__content ul,
-.pg-movimento__content ol {
-    margin: 0 0 24px;
-    padding-left: 24px;
-}
-
-.pg-movimento__content li {
-    margin-bottom: 10px;
-    line-height: 1.7;
-    font-size: 15px;
-}
-
-.pg-movimento__content strong,
-.pg-movimento__content b {
-    font-weight: 700 !important;
-    color: #000 !important;
-}
-
-/* Responsivo - Tablet */
-@media (max-width: 992px) {
-    .pg-movimento__body {
-        padding: 60px 36px 100px;
-    }
-
-    .pg-movimento__title {
-        font-size: 36px;
-        letter-spacing: 3px;
-    }
-}
-
-/* Responsivo - Mobile */
-@media (max-width: 768px) {
-    .pg-movimento__nav {
-        top: 84px; /* Menos espaço entre header e nav no mobile */
-        padding: 0 16px;
-    }
-
-    .pg-movimento__nav-container {
-        gap: 8px;
-        padding: 14px 0;
-        justify-content: center;
-    }
-
-    .pg-movimento__tab {
-        padding: 10px 14px;
-        font-size: 11px;
-        font-weight: 600; /* Bold para destacar seleção de página */
-    }
-
-    .pg-movimento__body {
-        padding: 120px 24px 80px; /* Garante que nav não sobreponha o título */
-    }
-
-    .pg-movimento__title {
-        font-size: 28px !important;
-        letter-spacing: 2px;
-        margin-bottom: 28px;
-    }
-
-    .pg-movimento__content {
-        font-size: 14px;
-    }
-
-    .pg-movimento__content p,
-    .pg-movimento__content li {
-        font-size: 14px;
-    }
-
-    .pg-movimento__content h1 { font-size: 26px !important; }
-    .pg-movimento__content h2 { font-size: 22px !important; }
-    .pg-movimento__content h3 { font-size: 18px !important; }
-}
-
-/* Responsivo - Mobile Pequeno */
-@media (max-width: 480px) {
-    .pg-movimento__nav-container {
-        gap: 6px;
-        justify-content: center;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        padding: 12px 0;
-        flex-wrap: nowrap;
-    }
-
-    .pg-movimento__tab {
-        padding: 8px 12px;
-        font-size: 10px;
-        letter-spacing: 0.3px;
-        flex-shrink: 0;
-    }
-
-    .pg-movimento__body {
-        padding: 110px 20px 60px; /* Evita sobreposição do título */
-    }
-
-    .pg-movimento__title {
-        font-size: 24px !important;
-        letter-spacing: 2px;
-    }
-
-    .pg-movimento__content h1 { font-size: 22px !important; }
-    .pg-movimento__content h2 { font-size: 20px !important; }
-    .pg-movimento__content h3 { font-size: 17px !important; }
 }
 
 /* ============================================
@@ -4654,8 +5314,12 @@ input[type="submit"].btn-primary:hover {
 
 .pg-login-page {
     min-height: calc(100vh - 100px);
-    /* BACKGROUND PADRONIZADO #E2E2E2 - Consistente em todo o site */
-    background-color: #E2E2E2;
+    background: linear-gradient(180deg,
+        #FFFFFF 0%,
+        #FFFFFF 50%,
+        #F5FFC7 70%,
+        #EAFE67 100%
+    );
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -4894,6 +5558,633 @@ input[type="submit"].btn-primary:hover {
 }
 
 /* ============================================
+   PATAGANG - NOVO CARRINHO DRAWER (CART DRAWER)
+   Design: Cards flutuantes com fundo transparente
+   Usa #pg-cart-drawer para especificidade
+   ============================================ */
+
+/* Drawer Base - CARRINHO */
+#pg-cart-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+#pg-cart-drawer.is-open {
+    pointer-events: auto;
+}
+
+/* Overlay com Blur forte - CARRINHO */
+#pg-cart-drawer .pg-drawer__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+#pg-cart-drawer.is-open .pg-drawer__overlay {
+    opacity: 1;
+}
+
+/* Panel - Transparente com blur - CARRINHO (lado direito) */
+#pg-cart-drawer .pg-drawer__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: auto;
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
+    border-right: none;
+    border-left: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+#pg-cart-drawer.is-open .pg-drawer__panel {
+    transform: translateX(0);
+}
+
+/* Header - Transparente */
+.pg-drawer__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 18px;
+    background: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
+}
+
+.pg-drawer__title {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.pg-drawer__close {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    transition: opacity 0.2s ease;
+    padding: 0;
+}
+
+.pg-drawer__close:hover {
+    opacity: 0.5;
+}
+
+.pg-drawer__close svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* Content Area - Transparente, altura automática */
+.pg-drawer__content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px;
+    background: transparent;
+    -webkit-overflow-scrolling: touch;
+    /* Limita altura para ~3 produtos + scroll */
+    max-height: calc(100vh - 280px);
+}
+
+/* Empty State */
+.pg-drawer__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.pg-drawer__empty-icon {
+    margin-bottom: 14px;
+    opacity: 0.25;
+}
+
+.pg-drawer__empty-icon svg {
+    width: 48px;
+    height: 48px;
+}
+
+.pg-drawer__empty-text {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    color: #666;
+    margin: 0 0 16px 0;
+}
+
+.pg-drawer__empty-link {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Items Container - Compacto */
+.pg-drawer__items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Loading State */
+.pg-drawer__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+}
+
+.pg-drawer__spinner,
+.pg-cart-card__spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #E0E0E0;
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: pg-spin 0.7s linear infinite;
+}
+
+@keyframes pg-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   CART ITEM CARD - Design flutuante com destaque na foto
+   ============================================ */
+
+.pg-cart-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 14px;
+    align-items: start;
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.pg-cart-card.is-loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.pg-cart-card.is-removing {
+    transform: translateX(100%);
+    opacity: 0;
+}
+
+/* Card Loading Overlay */
+.pg-cart-card__loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.pg-cart-card__spinner {
+    width: 20px;
+    height: 20px;
+}
+
+/* Card Image - Maior para destacar o produto */
+.pg-cart-card__image {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #F5F5F5;
+    flex-shrink: 0;
+}
+
+.pg-cart-card__image a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.pg-cart-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Card Info */
+.pg-cart-card__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 4px;
+    min-width: 0;
+    padding-top: 2px;
+}
+
+.pg-cart-card__name {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    margin: 0;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.pg-cart-card__name a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.pg-cart-card__variant {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 12px;
+    color: #888;
+}
+
+/* Card Price - posicionado no canto superior direito */
+.pg-cart-card__price {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000;
+    text-align: right;
+    padding-right: 20px;
+    white-space: nowrap;
+}
+
+/* Remove Button - X pequeno */
+.pg-cart-card__remove {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #bbb;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.pg-cart-card__remove:hover {
+    color: #666;
+}
+
+.pg-cart-card__remove svg {
+    width: 12px;
+    height: 12px;
+}
+
+/* ============================================
+   QUANTITY SELECTOR - Formato Pílula Clean
+   ============================================ */
+
+.pg-cart-card__qty {
+    margin-top: 8px;
+}
+
+.pg-qty-pill {
+    display: inline-flex;
+    align-items: center;
+    border: 1.5px solid #D0D0D0;
+    border-radius: 50px;
+    background: transparent;
+    overflow: hidden;
+}
+
+.pg-qty-pill__btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    transition: background 0.15s ease;
+    padding: 0;
+}
+
+.pg-qty-pill__btn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.pg-qty-pill__btn:active {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.pg-qty-pill__btn span {
+    line-height: 1;
+}
+
+.pg-qty-pill__input {
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    background: none;
+    border: none;
+    border-left: 1px solid #D0D0D0;
+    border-right: 1px solid #D0D0D0;
+    padding: 0;
+    -moz-appearance: textfield;
+}
+
+.pg-qty-pill__input::-webkit-outer-spin-button,
+.pg-qty-pill__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ============================================
+   DRAWER FOOTER - Fixo no bottom, transparente
+   ============================================ */
+
+.pg-drawer__footer {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 14px 18px 18px;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    margin-top: auto;
+}
+
+/* Summary Rows */
+.pg-drawer__summary {
+    margin-bottom: 12px;
+}
+
+.pg-drawer__summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+}
+
+.pg-drawer__summary-row--total {
+    padding-top: 8px;
+    margin-top: 4px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.pg-drawer__summary-label {
+    color: #777;
+}
+
+.pg-drawer__summary-row--total .pg-drawer__summary-label {
+    font-weight: 600;
+    color: #000;
+    font-size: 14px;
+}
+
+.pg-drawer__summary-value {
+    font-weight: 500;
+    color: #000;
+}
+
+.pg-drawer__summary-value--total {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.pg-drawer__summary-link {
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.pg-drawer__summary-link:hover {
+    opacity: 0.6;
+}
+
+/* Shipping Calculator no Drawer */
+.pg-drawer__summary-shipping {
+    margin: 8px 0 12px;
+    width: 100%;
+}
+
+.pg-drawer__summary-shipping .shipping-calculator-head {
+    margin: 0;
+}
+
+.pg-drawer__summary-shipping .js-shipping-calculator-form {
+    width: 100%;
+}
+
+.pg-drawer__summary-shipping .form-row {
+    margin: 0 !important;
+}
+
+.pg-drawer__summary-shipping .js-shipping-input {
+    font-size: 12px;
+    padding: 8px 10px;
+    border-radius: 4px;
+}
+
+.pg-drawer__summary-shipping .js-calculate-shipping {
+    font-size: 12px;
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.pg-drawer__summary-shipping .js-shipping-calculator-response {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.pg-drawer__summary-shipping .shipping-option {
+    padding: 8px;
+    margin: 4px 0;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.pg-drawer__summary-shipping .js-shipping-calculator-spinner {
+    padding: 12px 0;
+}
+
+/* Checkout Button */
+.pg-drawer__checkout-form {
+    margin: 0;
+}
+
+.pg-drawer__checkout-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: #000;
+    color: #FFF;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pg-drawer__checkout-btn:hover:not(:disabled) {
+    background: #222;
+}
+
+.pg-drawer__checkout-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Minimum Alert */
+.pg-drawer__minimum-alert {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(255, 243, 205, 0.9);
+    border-radius: 6px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 11px;
+    color: #856404;
+    text-align: center;
+}
+
+/* ============================================
+   RESPONSIVIDADE CART DRAWER
+   ============================================ */
+
+@media (max-width: 480px) {
+    #pg-cart-drawer .pg-drawer__panel {
+        max-width: 100%;
+    }
+
+    .pg-drawer__header {
+        padding: 14px 16px;
+    }
+
+    .pg-drawer__content {
+        padding: 12px;
+        max-height: calc(100vh - 260px);
+    }
+
+    .pg-drawer__items {
+        gap: 10px;
+    }
+
+    .pg-cart-card {
+        grid-template-columns: 85px 1fr auto;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 14px;
+    }
+
+    .pg-cart-card__image {
+        width: 85px;
+        height: 85px;
+        border-radius: 10px;
+    }
+
+    .pg-cart-card__name {
+        font-size: 13px;
+    }
+
+    .pg-cart-card__variant {
+        font-size: 11px;
+    }
+
+    .pg-cart-card__price {
+        font-size: 13px;
+        padding-right: 18px;
+    }
+
+    .pg-qty-pill {
+        border-width: 1px;
+    }
+
+    .pg-qty-pill__btn {
+        width: 26px;
+        height: 26px;
+        font-size: 14px;
+    }
+
+    .pg-qty-pill__input {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+    }
+
+    .pg-drawer__footer {
+        padding: 12px 14px 16px;
+    }
+
+    .pg-drawer__summary-row {
+        padding: 4px 0;
+        font-size: 12px;
+    }
+
+    .pg-drawer__checkout-btn {
+        padding: 12px 16px;
+        font-size: 11px;
+    }
+}
+
+/* ============================================
    PATAGANG - MODAL CART ITEMS & SUMMARY
    Design limpo para modal nativo #modal-cart
    ============================================ */
@@ -4910,8 +6201,8 @@ input[type="submit"].btn-primary:hover {
 
 .pg-cart-item__image {
     flex-shrink: 0;
-    width: 140px;
-    height: 140px;
+    width: 80px;
+    height: 80px;
     overflow: hidden;
     border-radius: 8px;
     background: #f5f5f5;
@@ -5159,12 +6450,12 @@ input[type="submit"].btn-primary:hover {
     }
 
     .pg-cart-item__image {
-        width: 110px;
-        height: 110px;
+        width: 60px;
+        height: 60px;
     }
 
     .pg-cart-item__name {
-        font-size: 11px;
+        font-size: 13px;
     }
 
     .pg-cart-summary__row {
@@ -5180,6 +6471,31 @@ input[type="submit"].btn-primary:hover {
     }
 }
 
+/* ============================================
+   CORREÇÃO DE LAYOUT - VISUAL FINAL (ESTRUTURA & DEGRADÊ)
+   ============================================ */
+
+/* 0. Fundo da Página com Degradê Conectado ao Rodapé */
+body.template-search,
+body.template-category {
+    /* Degradê do branco para o amarelo suave da marca */
+    background: linear-gradient(180deg, #FFFFFF 0%, #FCFFF0 50%, #F4FFC3 100%) !important;
+    min-height: 100vh;
+}
+
+/* Espaçamento para o Header Fixo */
+.template-search .page-content,
+.template-category .category-header {
+    padding-top: 140px;
+}
+
+@media (max-width: 768px) {
+    .template-search .page-content,
+    .template-category .category-header {
+        padding-top: 100px;
+    }
+}
+
 /* 1. Estrutura do Grid para Alinhamento */
 .js-product-table.row {
     display: flex;
@@ -5189,6 +6505,145 @@ input[type="submit"].btn-primary:hover {
 .js-product-table.row > [class*='col-'] {
     display: flex;
     flex-direction: column;
+}
+
+/* 2. Card dos Produtos - Textura Premium (Glass/Soft) */
+.item-product {
+    background-color: rgba(255, 255, 255, 0.85) !important; /* Branco levemente translúcido */
+    backdrop-filter: blur(12px); /* Efeito de vidro fosco */
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ocupa toda a altura da coluna flex */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid rgba(255, 255, 255, 0.6); /* Borda sutil de vidro */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04); /* Sombra difusa premium */
+    gap: 12px;
+}
+
+.item-product:hover {
+    transform: translateY(-6px);
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 12px 40px rgba(234, 254, 103, 0.15); /* Glow amarelo muito suave */
+    border-color: #fff;
+}
+
+/* Container da Imagem */
+.item-image {
+    background-color: #FFFFFF !important; /* Imagem em fundo branco puro para destaque */
+    border-radius: 20px;
+    padding: 20px;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02); /* Profundidade interna sutil */
+}
+
+.item-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.05));
+}
+
+.item-product:hover .item-image img {
+    transform: scale(1.08);
+}
+
+/* Descrição e Alinhamento */
+.item-description {
+    flex-grow: 1; /* CRUCIAL: Ocupa todo o espaço vertical disponível */
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 8px 4px;
+    height: auto; /* CORREÇÃO: Remove height 100% que quebrava o layout flex */
+}
+
+.item-name {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.item-price-container {
+    margin-top: auto; /* Empurra para baixo dentro da descrição */
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px; /* Altura mínima para reservar espaço mesmo sem preço */
+}
+
+.item-price {
+    font-weight: 800;
+    font-size: 18px;
+    color: #000;
+    margin-bottom: 4px;
+}
+
+.item-installments {
+    font-size: 12px;
+    color: #666;
+    font-weight: 400;
+}
+
+/* Botões - Alinhamento Perfeito */
+.item-actions {
+    margin-top: auto; /* Garante que fique no rodapé do card */
+    width: 100%;
+}
+
+.item-actions .btn {
+    width: 100%;
+    min-height: 48px; /* Altura fixa para garantir alinhamento entre diferentes botões */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px; /* Curvatura moderna */
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 0 16px; /* Padding lateral */
+    font-size: 12px; /* Fonte levemente menor para caber textos longos */
+    letter-spacing: 1px;
+    border: none;
+    background-color: #EAFE67 !important;
+    color: #000 !important;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    line-height: 1.2; /* Para textos que quebram linha */
+}
+
+.item-actions .btn:hover {
+    background-color: #d4e655 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(234, 254, 103, 0.3);
+}
+
+/* Botão Desenvolvimento (Preto) */
+/* Botão Desenvolvimento (Padronizado Amarelo) */
+.item-actions .btn-development {
+    background-color: #EAFE67 !important;
+    color: #000 !important;
+    border: none;
+}
+
+.item-actions .btn-development:hover {
+    background-color: #d4e655 !important;
+    color: #000 !important;
 }
 
 /* 2. Rodapé Transparente (Conectado ao Fundo) */
@@ -5224,22 +6679,110 @@ input[type="submit"].btn-primary:hover {
     padding-top: 40px;
 }
 
+/* 2. Product Card Alignment & Styling */
+.item-product {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 480px; /* Ensure a minimum height for uniformity */
+}
+
+/* Ensure the link container grows to fill space */
+.item-product .item-link {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ensure description container allows growth but doesn't force height */
+.item-product .item-description {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: auto; /* CORREÇÃO: Height auto para não esticar demais */
+}
+
+/* Push price to bottom of description area */
+.item-product .item-price-container {
+    margin-top: auto;
+    padding-bottom: 10px;
+}
+
+/* Align Actions (Buttons) to bottom */
+.item-product .item-actions {
+    margin-top: auto; /* Garante que fique no rodapé do card */
+    width: 100%;
+    text-align: center;
+    padding-top: 5px;
+}
+
+/* 3. Button Standardization (Yellow) - Matches Home CTA and Development Button */
+.item-product .item-actions .btn {
+    background-color: #EAFE67 !important; /* Neon Yellow (Patagang Primary) */
+    color: #000000 !important;
+    border: none !important;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    border-radius: 4px;
+    padding: 14px 0;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-product .item-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background-color: #d4e655 !important; /* Slightly darker on hover */
+}
+
+.item-product .item-actions .btn:hover {
+    background-color: #D4E600 !important;
+    border-color: #D4E600 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(212, 230, 0, 0.3);
+}
+
+/* Ensure Development Button matches */
+.item-product .item-actions .btn-development {
+    background-color: #EAFE67 !important; /* Standard Neon Yellow */
+    color: #000000 !important;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.item-product .item-actions .btn-development:hover {
+    background-color: #d4e655 !important;
+    color: #000000 !important;
+}
+
 /* ==========================================================================
-   OVERRIDE: Botão "Seja o primeiro a conhecer" - APENAS listagem (categoria/busca)
-   Escopo restrito para não impactar produtos similares ou outros contextos.
+   CRITICAL OVERRIDE: DEVELOPMENT BUTTON
+   Forces the "SEJA O PRIMEIRO A CONHECER" button to match the standard styling.
+   Uses high specificity to defeat global !important rules on .btn-primary.
    ========================================================================== */
-body.template-category .pg-product-grid .item-actions .btn.btn-development,
-body.template-search .pg-product-grid .item-actions .btn.btn-development {
+body .item-product .item-actions .btn.btn-development,
+body .pg-product-grid .item-product .item-actions .btn.btn-development,
+body .item-actions .btn.btn-development {
     background: #EAFE67 !important;
     background-color: #EAFE67 !important;
     color: #000000 !important;
-    font-size: 12px !important;
-    font-weight: 800 !important;
+    font-size: 12px !important; /* Match global button size */
+    font-weight: 800 !important; /* Match global button weight */
     text-transform: uppercase !important;
-    letter-spacing: 1px !important;
+    letter-spacing: 1px !important; /* Match global button spacing */
     border: none !important;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important;
+    border-radius: 12px !important; /* Match global button radius */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05) !important; /* Match global button shadow */
     opacity: 1 !important;
     visibility: visible !important;
     display: flex !important;
@@ -5251,396 +6794,57 @@ body.template-search .pg-product-grid .item-actions .btn.btn-development {
 }
 
 /* ==========================================================================
-   MÓDULO LISTAGEM - Categoria e Busca (fonte única, escopado)
-   Card completo: estrutura, tamanho e distribuição das informações.
-   Nada herdado de regras genéricas.
+   CRITICAL FIX: PRODUCT GRID ALIGNMENT & SIZING
+   Ensures perfect grid alignment with equal height cards and bottom-aligned buttons.
    ========================================================================== */
-/* Página */
-body.template-category .pg-search-page,
-body.template-search .pg-search-page {
-    min-height: 60vh;
-    background-color: #E2E2E2;
-    padding: 180px 0 0;
-    padding-bottom: 0;
-    position: relative;
-}
-body.template-category .pg-search-page__container,
-body.template-search .pg-search-page__container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 32px;
-    padding-bottom: 80px;
-    position: relative;
-    z-index: 1;
-}
-body.template-category .pg-search-page__header,
-body.template-search .pg-search-page__header {
-    text-align: center;
-    margin-bottom: 48px;
-}
-body.template-category .pg-search-page__title,
-body.template-search .pg-search-page__title {
-    font-family: 'Familjen Grotesk', 'Bebas Neue', Impact, sans-serif;
-    font-size: 56px;
-    font-weight: 700;
-    color: #000;
-    margin: 0 0 16px;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    line-height: 1.1;
-}
-/* Empty state */
-body.template-category .pg-search-page__empty,
-body.template-search .pg-search-page__empty {
-    text-align: center;
-    padding: 100px 32px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 28px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-}
-body.template-category .pg-search-page__empty-title,
-body.template-search .pg-search-page__empty-title {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 32px;
-    font-weight: 700;
-    color: #000;
-    margin: 0 0 16px;
-}
-body.template-category .pg-search-page__empty-text,
-body.template-search .pg-search-page__empty-text {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 17px;
-    color: #666;
-    margin: 0 0 36px;
-    line-height: 1.6;
-}
-/* Grid - flex-start evita cards esticarem na vertical (era stretch = todos ficavam altos) */
-body.template-category .pg-product-grid,
-body.template-search .pg-product-grid {
+
+/* 1. Grid Container Override */
+.pg-product-grid {
     display: flex !important;
     flex-wrap: wrap !important;
+    align-items: stretch !important; /* Key for equal height */
     justify-content: center !important;
-    align-items: flex-start !important;
-    gap: 24px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-/* Card container - compacto, quadrado (height auto CRÍTICO para não esticar) */
-body.template-category .pg-product-grid .item-product,
-body.template-search .pg-product-grid .item-product {
-    background: #fff;
-    border-radius: 16px;
-    padding: 8px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    flex: 0 0 calc(25% - 18px);
-    max-width: calc(25% - 18px);
-    min-width: 260px;
-    min-height: auto !important;
-    height: auto !important;
-    text-align: center;
-    display: flex !important;
-    flex-direction: column !important;
-    overflow: hidden;
-    float: none !important;
-    margin-bottom: 0 !important;
-}
-body.template-category .pg-product-grid .item-product .js-quickshop-container,
-body.template-search .pg-product-grid .item-product .js-quickshop-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-body.template-category .pg-product-grid .item-product:hover,
-body.template-search .pg-product-grid .item-product:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
-}
-/* Imagem - proporção 1:1, foto em destaque */
-body.template-category .pg-product-grid .item-image,
-body.template-search .pg-product-grid .item-image {
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 6px;
-    padding: 0;
-    background: #F9F9F9;
-    aspect-ratio: 1 / 1;
-}
-body.template-category .pg-product-grid .item-image > div,
-body.template-search .pg-product-grid .item-image > div {
-    padding-bottom: 100% !important;
-}
-body.template-category .pg-product-grid .item-image img,
-body.template-search .pg-product-grid .item-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* V3: mostra imagem completa sem cortar */
-    object-position: center;
-    transition: transform 0.3s ease;
-}
-body.template-category .pg-product-grid .item-product:hover .item-image img,
-body.template-search .pg-product-grid .item-product:hover .item-image img {
-    transform: scale(1.05);
-}
-/* Descrição - compacto, flex-grow 0 evita área de texto expandir verticalmente */
-body.template-category .pg-product-grid .item-description,
-body.template-search .pg-product-grid .item-description {
-    padding: 6px 8px;
-    margin-top: 0;
-    margin-bottom: 2px;
-    text-align: center;
-    flex-grow: 0;
-    display: flex;
-    flex-direction: column;
-}
-body.template-category .pg-product-grid .item-product .item-link,
-body.template-search .pg-product-grid .item-product .item-link {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none !important;
-}
-/* Nome do produto - 2 linhas max, compacto */
-body.template-category .pg-product-grid .item-name,
-body.template-search .pg-product-grid .item-name {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 2px;
-    color: #000;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-/* Preço - compacto */
-body.template-category .pg-product-grid .item-price-container,
-body.template-search .pg-product-grid .item-price-container {
-    margin-bottom: 0;
-}
-body.template-category .pg-product-grid .item-price,
-body.template-search .pg-product-grid .item-price {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #000;
-}
-/* Com boleto - compacto */
-body.template-category .pg-product-grid [data-component="payment-discount-price"],
-body.template-category .pg-product-grid .item-product .text-accent,
-body.template-category .pg-product-grid .js-payment-discount-price-product-container,
-body.template-search .pg-product-grid [data-component="payment-discount-price"],
-body.template-search .pg-product-grid .item-product .text-accent,
-body.template-search .pg-product-grid .js-payment-discount-price-product-container {
-    color: #2d3a00 !important;
-    font-weight: 600 !important;
-    font-size: 11px;
-    margin-bottom: 2px;
-}
-/* Parcelas - compacto */
-body.template-category .pg-product-grid .item-installments,
-body.template-search .pg-product-grid .item-installments {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 10px;
-    color: #666;
-    margin-bottom: 4px;
-}
-/* Botão - compacto, alinhado na base */
-body.template-category .pg-product-grid .item-actions,
-body.template-search .pg-product-grid .item-actions {
-    margin-top: auto !important;
-    padding-top: 2px;
-}
-body.template-category .pg-product-grid .item-actions .btn,
-body.template-search .pg-product-grid .item-actions .btn {
-    width: 100%;
-    min-height: 36px;
-    padding: 8px 12px;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: #EAFE67 !important;
-    color: #000 !important;
-    border: none;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-body.template-category .pg-product-grid .item-actions .btn:hover,
-body.template-search .pg-product-grid .item-actions .btn:hover {
-    background: #D4E600 !important;
-    transform: translateY(-2px);
-}
-/* Botão desenvolvimento - compacto */
-body.template-category .pg-product-grid .btn-development,
-body.template-search .pg-product-grid .btn-development {
-    width: 100%;
-    min-height: 36px;
-    padding: 8px 12px;
-    font-size: 10px;
-    background: #EAFE67 !important;
-    color: #000 !important;
-}
-/* Labels */
-body.template-category .pg-product-grid .labels,
-body.template-search .pg-product-grid .labels {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 5;
-}
-@media (max-width: 992px) {
-    body.template-category .pg-search-page,
-    body.template-search .pg-search-page {
-        padding-top: 110px;
-    }
-    body.template-category .pg-product-grid .item-product,
-    body.template-search .pg-product-grid .item-product {
-        flex: 0 0 calc(50% - 12px);
-        max-width: calc(50% - 12px);
-        min-width: 220px;
-        padding: 8px;
-    }
-}
-@media (max-width: 768px) {
-    body.template-category .pg-search-page,
-    body.template-search .pg-search-page {
-        padding-top: 92px;
-    }
-    body.template-category .pg-product-grid .item-product,
-    body.template-search .pg-product-grid .item-product {
-        flex: 0 0 calc(50% - 8px);
-        max-width: calc(50% - 8px);
-        min-width: 150px;
-        padding: 8px;
-    }
-    body.template-category .pg-product-grid .item-name,
-    body.template-search .pg-product-grid .item-name {
-        font-size: 11px;
-    }
-    body.template-category .pg-product-grid .item-price,
-    body.template-search .pg-product-grid .item-price {
-        font-size: 14px;
-    }
-    body.template-category .pg-product-grid .item-actions .btn,
-    body.template-search .pg-product-grid .item-actions .btn {
-        min-height: 34px;
-        padding: 6px 10px;
-        font-size: 10px;
-    }
-    body.template-category .pg-product-grid .btn-development,
-    body.template-search .pg-product-grid .btn-development {
-        min-height: 34px;
-        padding: 6px 10px;
-        font-size: 9px;
-    }
-}
-@media (max-width: 480px) {
-    body.template-category .pg-search-page,
-    body.template-search .pg-search-page {
-        padding-top: 80px;
-    }
-    body.template-category .pg-product-grid .item-product,
-    body.template-search .pg-product-grid .item-product {
-        flex: 0 0 100%;
-        max-width: 100%;
-        min-width: auto;
-        padding: 8px;
-    }
 }
 
-/* ==========================================================================
-   PÁGINA 404 - Produtos relacionados (escopo único)
-   Cards em .pg-404-products__grid usam item.tpl; estilos independentes da listagem.
-   ========================================================================== */
-body.template-404 .pg-404-products__grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
+/* 2. Grid Item (Card) Override */
+.pg-product-grid .item-product {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important; /* Let flexbox control height */
+    align-self: stretch !important; /* Force stretch to row height */
+    float: none !important; /* Disable floats */
+    margin-bottom: 0 !important; /* Let gap handle spacing */
 }
-body.template-404 .pg-404-products__grid .item-product {
-    background: #fff;
-    border-radius: 16px;
-    padding: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    flex: 0 0 calc(25% - 15px);
-    max-width: calc(25% - 15px);
-    min-width: 180px;
-    min-height: auto;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+
+/* 3. Content Expansion (Pushes footer down) */
+.pg-product-grid .item-product .item-description {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
 }
-body.template-404 .pg-404-products__grid .item-product:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+
+.pg-product-grid .item-product .item-link {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
-body.template-404 .pg-404-products__grid .item-image {
-    border-radius: 12px;
-    overflow: hidden;
-    background: #F9F9F9;
-    aspect-ratio: 1 / 1;
-    margin-bottom: 8px;
+
+/* 4. Action Button Alignment (Always at bottom) */
+.pg-product-grid .item-product .item-actions {
+    margin-top: auto !important;
+    width: 100% !important;
+    padding-top: 16px !important;
 }
-body.template-404 .pg-404-products__grid .item-image > div {
-    padding-bottom: 100% !important;
-}
-body.template-404 .pg-404-products__grid .item-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* V3: mostra imagem completa sem cortar */
-    object-position: center;
-}
-body.template-404 .pg-404-products__grid .item-description {
-    padding: 6px 4px;
-    flex-grow: 0;
-    text-align: center;
-}
-body.template-404 .pg-404-products__grid .item-name {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.3;
-    color: #000;
-    margin-bottom: 4px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-body.template-404 .pg-404-products__grid .item-price {
-    font-size: 14px;
-    font-weight: 700;
-    color: #000;
-}
-body.template-404 .pg-404-products__grid .item-actions .btn {
-    width: 100%;
-    min-height: 36px;
-    padding: 8px 12px;
-    font-size: 11px;
-    font-weight: 700;
-    background: #EAFE67 !important;
-    color: #000 !important;
-    border: none;
-    border-radius: 4px;
-}
-@media (max-width: 768px) {
-    body.template-404 .pg-404-products__grid .item-product {
-        flex: 0 0 calc(50% - 10px);
-        max-width: calc(50% - 10px);
-    }
+
+body .item-product .item-actions .btn.btn-development:hover,
+body .pg-product-grid .item-product .item-actions .btn.btn-development:hover,
+body .item-actions .btn.btn-development:hover {
+    background: #d4e655 !important;
+    background-color: #d4e655 !important;
+    color: #000000 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(234, 254, 103, 0.3) !important;
 }
 
 /* PATAGANG: Fix border on shipping calculator items */
@@ -5649,376 +6853,6 @@ body.template-404 .pg-404-products__grid .item-actions .btn {
 .js-shipping-calculator-response .radio-button-container {
     border: none !important;
 }
-
-/* ============================================
-   PATAGANG - QUANTITY SELECTOR (pg-qty-pill) - MODAL CART
-   Seletor de quantidade horizontal com botões + e -
-   IMPORTANTE: Usa !important para sobrescrever estilos do tema base
-   ============================================ */
-
-/* Container da quantidade */
-.modal-cart .pg-cart-item__quantity,
-#modal-cart .pg-cart-item__quantity {
-    margin-top: 8px !important;
-    display: flex !important;
-    align-items: center !important;
-}
-
-/* Pill container - DEVE ser horizontal */
-.modal-cart .pg-qty-pill,
-#modal-cart .pg-qty-pill,
-.pg-cart-item .pg-qty-pill {
-    display: inline-flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    border: 1px solid #D0D0D0 !important;
-    border-radius: 50px !important;
-    background: #FFFFFF !important;
-    overflow: hidden !important;
-    height: 28px !important;
-    width: auto !important;
-    max-width: none !important;
-}
-
-/* Botões + e - */
-.modal-cart .pg-qty-pill__btn,
-#modal-cart .pg-qty-pill__btn,
-.pg-cart-item .pg-qty-pill__btn {
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: transparent !important;
-    border: none !important;
-    cursor: pointer !important;
-    color: #000 !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    transition: background 0.15s ease !important;
-    flex-shrink: 0 !important;
-}
-
-.modal-cart .pg-qty-pill__btn:hover,
-#modal-cart .pg-qty-pill__btn:hover,
-.pg-cart-item .pg-qty-pill__btn:hover {
-    background: rgba(0, 0, 0, 0.05) !important;
-}
-
-.modal-cart .pg-qty-pill__btn:active,
-#modal-cart .pg-qty-pill__btn:active,
-.pg-cart-item .pg-qty-pill__btn:active {
-    background: rgba(0, 0, 0, 0.1) !important;
-}
-
-.modal-cart .pg-qty-pill__btn span,
-#modal-cart .pg-qty-pill__btn span,
-.pg-cart-item .pg-qty-pill__btn span {
-    line-height: 1 !important;
-    display: block !important;
-}
-
-/* Input de quantidade - compacto */
-.modal-cart .pg-qty-pill__input,
-#modal-cart .pg-qty-pill__input,
-.pg-cart-item .pg-qty-pill__input {
-    width: 28px !important;
-    height: 28px !important;
-    min-width: 28px !important;
-    max-width: 28px !important;
-    text-align: center !important;
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    font-size: 13px !important;
-    font-weight: 500 !important;
-    color: #000 !important;
-    background: transparent !important;
-    border: none !important;
-    border-left: 1px solid #D0D0D0 !important;
-    border-right: 1px solid #D0D0D0 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    -moz-appearance: textfield !important;
-    flex-shrink: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-}
-
-.modal-cart .pg-qty-pill__input::-webkit-outer-spin-button,
-.modal-cart .pg-qty-pill__input::-webkit-inner-spin-button,
-#modal-cart .pg-qty-pill__input::-webkit-outer-spin-button,
-#modal-cart .pg-qty-pill__input::-webkit-inner-spin-button {
-    -webkit-appearance: none !important;
-    margin: 0 !important;
-}
-/* ============================================
-   CUSTOMIZAÇÃO KREVIEWS - PATAGANG
-   Customiza o widget de reviews da Nuvemshop
-   Baseado na estrutura real: kfullreview-*
-   ============================================ */
-
-/* Container principal - SEM GRID aqui (muito alto na hierarquia) - compacto ~50% */
-#reviewsapp {
-    max-width: 1200px;
-    margin: 12px auto;
-    padding: 0 12px;
-    font-family: 'Familjen Grotesk', sans-serif !important;
-}
-
-/* GRID NO ELEMENTO CORRETO - Pai direto das seções */
-/* Este div[data-v-*] é o pai direto de #konfidency-reviews-container e #konfidency-questions-container */
-.konfidency-vue-wrapper-details > div[data-v-3f6b742f],
-.konfidency-vue-wrapper-details > div[class*="data-v-"],
-#reviewsapp .konfidency-vue-wrapper-details + div,
-#reviewsapp > div > div > div {
-    /* LAYOUT EM GRID - Desktop: lado a lado, Mobile: vertical */
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important; /* 2 colunas iguais */
-    gap: 6px !important; /* Espaço entre as seções */
-    align-items: start !important;
-}
-
-/* Container de reviews e Q&A - ajustes */
-.konfidency-reviews-details,
-.konfidency-vue-wrapper-details,
-#reviewsapp > div {
-    font-family: 'Familjen Grotesk', sans-serif !important;
-}
-
-/* Seções individuais - largura 100% dentro do grid */
-#konfidency-reviews-container,
-#konfidency-questions-container {
-    width: 100% !important;
-    margin-bottom: 0 !important; /* Grid já tem gap */
-}
-
-/* Seções principais (Avaliações e Perguntas) - só os dois cards, não o badge */
-#konfidency-reviews-container,
-#konfidency-questions-container {
-    background: rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    border-radius: 12px !important;
-    padding: 10px 12px !important;
-    margin-bottom: 6px !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.06) !important;
-    border: 1px solid rgba(0,0,0,0.04) !important;
-}
-
-/* Badge Konfidency - compacto, sem estilo de card */
-#reviewsapp .konfidency-badge {
-    padding: 6px 0 !important;
-    margin-top: 6px !important;
-}
-
-/* Títulos "Avaliações" e "Perguntas & respostas" - compacto */
-#reviewsapp h1,
-#reviewsapp h2,
-#reviewsapp h3,
-#reviewsapp .title,
-#reviewsapp [class*="title"] {
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    font-weight: 700 !important;
-    color: #000 !important;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 13px !important;
-    margin: 0 0 4px !important;
-}
-
-/* Subtítulos e textos - compacto */
-#reviewsapp p,
-#reviewsapp span,
-#reviewsapp div:not([class*="button"]) {
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    color: #666 !important;
-    font-size: 12px !important;
-    line-height: 1.35 !important;
-}
-
-/* Botões gerais - compacto */
-#reviewsapp button,
-#reviewsapp .button,
-#reviewsapp [role="button"],
-#reviewsapp a[class*="button"] {
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    font-weight: 700 !important;
-    font-size: 11px !important;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 8px 16px !important;
-    border-radius: 8px !important;
-    transition: all 0.2s ease !important;
-    cursor: pointer;
-}
-
-/* Botão "SEJA O PRIMEIRO A AVALIAR" */
-#reviewsapp button[class*="primary"],
-#reviewsapp .btn-primary,
-#reviewsapp button:first-of-type {
-    background: #EAFE67 !important;
-    color: #000 !important;
-    border: none !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
-}
-
-#reviewsapp button[class*="primary"]:hover,
-#reviewsapp .btn-primary:hover,
-#reviewsapp button:first-of-type:hover {
-    background: #D4E856 !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
-}
-
-/* Botão "SEJA O PRIMEIRO A PERGUNTAR" */
-#reviewsapp button[class*="secondary"],
-#reviewsapp .btn-secondary,
-#reviewsapp button:last-of-type {
-    background: #000 !important;
-    color: #EAFE67 !important;
-    border: 2px solid #EAFE67 !important;
-}
-
-#reviewsapp button[class*="secondary"]:hover,
-#reviewsapp .btn-secondary:hover,
-#reviewsapp button:last-of-type:hover {
-    background: #EAFE67 !important;
-    color: #000 !important;
-}
-
-/* Logo/badge Konfidency - compacto (URL contém "konfidency") */
-#reviewsapp .konfidency-badge img,
-#reviewsapp img[src*="konfidency"] {
-    opacity: 0.5 !important;
-    max-width: 40px !important;
-    margin-top: 8px !important;
-}
-
-/* Cards de reviews individuais (quando houver) */
-#reviewsapp .review-item,
-#reviewsapp [class*="review-card"],
-#reviewsapp [class*="review-item"] {
-    background: rgba(255, 255, 255, 0.6) !important;
-    backdrop-filter: blur(8px) !important;
-    border-radius: 16px !important;
-    border: 1px solid rgba(0,0,0,0.04) !important;
-    padding: 24px !important;
-    margin-bottom: 16px !important;
-}
-
-/* Estrelas de avaliação */
-#reviewsapp .star,
-#reviewsapp [class*="star"],
-#reviewsapp [class*="rating"] svg,
-#reviewsapp [class*="rating"] path {
-    color: #EAFE67 !important;
-    fill: #EAFE67 !important;
-}
-
-/* Responsive - Tablet */
-@media (max-width: 992px) {
-    #reviewsapp {
-        padding: 0 12px;
-        margin: 12px auto;
-    }
-
-    /* Grid volta para 1 coluna no elemento correto */
-    .konfidency-vue-wrapper-details > div[data-v-3f6b742f],
-    .konfidency-vue-wrapper-details > div[class*="data-v-"],
-    #reviewsapp > div > div > div {
-        grid-template-columns: 1fr !important; /* 1 coluna em tablet */
-        gap: 6px !important;
-    }
-
-    #konfidency-reviews-container,
-    #konfidency-questions-container {
-        padding: 10px 12px !important;
-    }
-}
-
-/* Responsive - Mobile */
-@media (max-width: 768px) {
-    #reviewsapp {
-        padding: 0 12px;
-        margin: 12px auto;
-        position: relative;
-        z-index: 10;
-    }
-
-    /* Grid volta para 1 coluna no elemento correto */
-    .konfidency-vue-wrapper-details > div[data-v-3f6b742f],
-    .konfidency-vue-wrapper-details > div[class*="data-v-"],
-    #reviewsapp > div > div > div {
-        grid-template-columns: 1fr !important; /* 1 coluna em mobile */
-        gap: 6px !important;
-    }
-
-    #konfidency-reviews-container,
-    #konfidency-questions-container {
-        padding: 8px 12px !important;
-        border-radius: 12px !important;
-    }
-
-    #reviewsapp button,
-    #reviewsapp .button {
-        width: 100% !important;
-        justify-content: center !important;
-        padding: 8px 14px !important;
-    }
-
-    #reviewsapp h1,
-    #reviewsapp h2,
-    #reviewsapp h3 {
-        font-size: 13px !important;
-    }
-}
-
-/* Responsive - Mobile Pequeno */
-@media (max-width: 480px) {
-    #konfidency-reviews-container,
-    #konfidency-questions-container {
-        padding: 8px 10px !important;
-        margin: 12px 8px !important;
-    }
-
-    #reviewsapp h1,
-    #reviewsapp h2,
-    #reviewsapp h3 {
-        font-size: 12px !important;
-    }
-
-    #reviewsapp p,
-    #reviewsapp span {
-        font-size: 11px !important;
-    }
-}
-
-/* Acessibilidade - Focus visível */
-#reviewsapp button:focus,
-#reviewsapp .button:focus,
-#reviewsapp a:focus {
-    outline: 3px solid #EAFE67 !important;
-    outline-offset: 3px;
-}
-
-/* Animação suave ao carregar */
-#reviewsapp > div {
-    animation: fadeInUp 0.4s ease-out;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
+#Blog
+==============================================================================*/
 
