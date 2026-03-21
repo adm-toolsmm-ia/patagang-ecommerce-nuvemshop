@@ -4,6 +4,25 @@
     {# Informative Banner - Desconto e outras informações (acima das imagens/card) #}
     {% include 'snipplets/product/product-informative-banner.tpl' %}
 
+    {# ===== TRUST STRIP (4 itens de confiança) ===== #}
+    <div class="pg-trust-strip">
+        <div class="pg-trust-strip__content">
+            <span class="pg-trust-strip__item">
+                🎁 3% DO PEDIDO DOADO PARA EDUCAÇÃO
+            </span>
+            <span class="pg-trust-strip__item">
+                🚚 FRETE GRÁTIS ACIMA DE R$250
+            </span>
+            <span class="pg-trust-strip__item">
+                🛡️ SEGURO COMPRADOR 100%
+            </span>
+            <span class="pg-trust-strip__item">
+                ↩️ 30 DIAS PARA TROCA
+            </span>
+        </div>
+    </div>
+    {# ===== FIM TRUST STRIP ===== #}
+
     <div class="row section-single-product g-0">
         <div class="col-12 col-lg-7 pg-pdp-image-col" data-store="product-image-{{ product.id }}">
         	{% include 'snipplets/product/product-image.tpl' %}
