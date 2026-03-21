@@ -1,169 +1,387 @@
-# 🚀 PATAGANG Deployment System v1.1.5+
+# 🚀 PATAGANG Deployment System v2.0
 
-## Rotina Única e Final de Deployment
+> **AIOX-Compliant** — Versionamento e Deploy Automático via FTP
 
-Após **limpeza completa de scripts legados**, existe **UMA ÚNICA ROTINA** de deployment:
+---
 
-### `deploy.js` — Rotina Definitiva
-
-```bash
-# Opção 1: Usar versão atual em ftp-deploy/VERSION
-node deploy.js
-
-# Opção 2: Especificar versão
-node deploy.js 1.1.5
-
-# Opção 3: Sem backup incremental
-node deploy.js 1.1.5 --no-backup
-```
-
-### Fluxo Automatizado
-
-```
-1️⃣  SINCRONIZAR VERSÃO
-    └─ Lê VERSION.json ou argumento
-    └─ Atualiza theme-deploy-corrigido/VERSION.json
-    └─ Atualiza theme-deploy-corrigido/static/js/version-info.js
-    └─ Atualiza ftp-deploy/VERSION
-
-2️⃣  BACKUP INCREMENTAL
-    └─ Conecta ao FTP
-    └─ Baixa versão atual de cada arquivo
-    └─ Salva em: backups/deployment-{version}/{timestamp}/
-    └─ Cria _METADATA.json com documentação
-
-3️⃣  DEPLOY PARA FTP
-    └─ Força máxima: reconecta FTP a cada arquivo
-    └─ Envia 4 arquivos críticos:
-       • templates/product.tpl
-       • snipplets/product/product-form.tpl
-       • snipplets/product/product-informative-banner.tpl
-       • static/js/version-info.js (versionamento)
-
-4️⃣  VALIDAÇÃO PÓS-DEPLOY
-    └─ Conecta ao FTP
-    └─ Baixa cada arquivo para verificar integridade
-    └─ Confirma 100% dos arquivos no servidor
-
-5️⃣  RELATÓRIO FINAL
-    └─ Exibe estatísticas
-    └─ Mostra caminho do backup
-    └─ Instruções para validação em produção
-```
-
-## Versão Atual
-
-**v1.1.5** — Versão está sincronizada em:
-- ✅ `theme-deploy-corrigido/VERSION.json`
-- ✅ `theme-deploy-corrigido/static/js/version-info.js`
-- ✅ `ftp-deploy/VERSION`
-- ✅ FTP Server (validado)
-
-**Console Output (após Ctrl+F5):**
-```
-📦 PATAGANG v1.1.5 (2026-03-21)
-ℹ️ Version Info: {version: '1.1.5', date: '2026-03-21', timestamp: '2026-03-21T...'}
-```
-
-## Scripts Mantidos
-
-| Script | Propósito | Usar quando |
-|--------|-----------|-----------|
-| **deploy.js** | Rotina principal | **SEMPRE** (única rotina) |
-| config.js | Credenciais FTP | Nunca modificar |
-| config.example.js | Template | Referência |
-| backup-full-ftp.js | Backup completo | Backup manual do site inteiro |
-| rollback-incremental.js | Restaurar versão anterior | Emergência (rollback) |
-| list-backups.js | Listar backups | Debug e auditoria |
-| check-ftp-images.js | Validar imagens | Validação de assets |
-
-## Scripts Deletados (Legado)
-
-❌ Todos esses foram **deletados permanentemente**:
-- deploy-critical-only.js
-- deploy-optimized.js
-- deploy-story-71.js
-- deploy-story-71-v1.1.4.js
-- deploy-with-version.js
-- investigate-version.js
-- sync-backup-to-local.js
-- sync-version.js
-- deploy-verify.js
-- debug-ftp.js
-- fix-critical-issues.js
-- force-cache-bust.js
-- deploy-incremental-aiox.js
-
-**Motivo:** Foram substituídos por `deploy.js` que consolida toda a funcionalidade em uma única rotina.
-
-## Validação em Produção (FASE 4)
-
-Após executar `node deploy.js`:
-
-1. **Limpar cache do navegador:**
-   ```
-   Windows: Ctrl + F5 (Hard Refresh)
-   Mac: Cmd + Shift + R
-   ou Menu → Limpar dados de navegação
-   ```
-
-2. **Acessar página de produto em produção** e verificar:
-   - ✅ Console mostra "📦 PATAGANG v1.1.5"?
-   - ✅ Banner informativo aparece no **TOPO** da página?
-   - ✅ Desconto é **VISÍVEL** no card de preço?
-   - ✅ Produto não invade a hero section (proporções 57/43 corretas)?
-
-3. **Se tudo OK:**
-   - Deploy foi sucesso ✅
-   - Story 7.1 pronta para conclusão
-
-4. **Se algum problema:**
-   - Documentar qual elemento está errado
-   - Usar `backup-full-ftp.js` ou `rollback-incremental.js` para revert
-   - Investigar novamente
-
-## Troubleshooting
-
-### Versionamento não atualiza no console
-
-**Causa:** Cache do navegador
-**Solução:** `Ctrl+F5` (hard refresh, limpa cache)
-
-### Deploy falha com "Connection timeout"
-
-**Causa:** FTP indisponível ou credenciais erradas
-**Verificar:** `config.js` - FTP_CONFIG.host, user, password
-
-### Arquivo desaparece do FTP
-
-**Causa:** Pode haver conflito FTP ou timeout
-**Solução:** Reexecutar `node deploy.js` (força máxima + validação reconecta a cada arquivo)
-
-## Commit History (v1.1.5+)
-
-```
-0761d5a devops: ROTINA DEFINITIVA — deploy.js + limpeza completa
-510eed7 devops: Deploy PDP Fix v1.1.5 — validação FTP
-243c9f5 chore: Bump version to 1.1.5
-ca3cd37 fix: Restaurar banner informativo
-dcbcabb fix: Remover d-none do desconto
-```
-
-## Próximas Deploys (Guia Rápido)
+## Quick Start
 
 ```bash
-# 1. Fazer alterações no tema local
-# 2. Atualizar versão
-echo "1.1.6" > ftp-deploy/VERSION
+# 1. Fazer alterações no tema
+# 2. Git commit
+# 3. Deploy com um único comando
 
-# 3. Fazer deploy
-node ftp-deploy/deploy.js
+npm run deploy:dry "Descrição da mudança"    # Simular (recomendado primeiro)
+npm run deploy "Descrição da mudança"         # Deploy real
 
-# 4. Validar em produção (Ctrl+F5)
+# Ou diretamente:
+node deploy.js "Descrição da mudança"
 ```
 
 ---
 
-**Último Deploy:** 2026-03-21 01:22 (v1.1.5)
-**Próximo Target:** Story 7.1 QA Final Validation
-**Status:** ✅ READY FOR PRODUCTION
+## Fluxo Completo (Developer)
+
+```
+1. Alteração no Tema
+   └─ Editar: theme-deploy-corrigido/*.*
+
+2. Git Commit
+   └─ git add .
+   └─ git commit -m "fix: descrição"
+
+3. Deploy
+   └─ npm run deploy:dry "Descrição"          (validar primeiro)
+   └─ npm run deploy "Descrição"               (fazer deploy real)
+
+4. Validação na Loja
+   └─ Abrir: https://patagang.com.br/
+   └─ F12 → Console
+   └─ Verificar: 📦 PATAGANG v1.1.X
+   └─ Limpar cache se não aparecer: Ctrl+Shift+Delete
+
+```
+
+---
+
+## 6 Fases do Deploy (Automatizadas)
+
+### Fase 0️⃣ — Validação de Contexto
+- Detecta story do branch (se existir)
+- Valida credenciais FTP em `.env`
+- Verifica que está em repositório git
+
+### Fase 1️⃣ — Detecção de Arquivos Modificados
+```bash
+git diff --name-only HEAD -- theme-deploy-corrigido/
+```
+- Auto-detecta todos arquivos alterados no tema
+- Sempre inclui `version-info.js` (será atualizado)
+- Se nenhum arquivo → abola (exit 0)
+
+### Fase 2️⃣ — Auto-Increment de Versão
+```
+Versão atual:  1.1.8
+Patch default: 1.1.9
+--minor flag:  1.2.0
+```
+- Incrementa versão automaticamente
+- Atualiza `VERSION.json`
+- Sincroniza `version-info.js` com nova versão
+- Console message: `📦 PATAGANG v1.1.9 (21/03/2026) ✅`
+
+### Fase 3️⃣ — Git Commit + Tag + Push
+```bash
+git commit "chore: bump version to 1.1.9"
+git tag v1.1.9
+git push origin main --tags
+```
+- **Importante:** Pede confirmação antes de fazer push
+- Você pode cancelar e fazer `git push` manualmente depois
+
+### Fase 4️⃣ — Backup Incremental
+```
+backups/deployment-1.1.9/2026-03-21T023422/
+├── layouts/...
+├── templates/...
+├── snipplets/...
+├── static/js/version-info.js
+└── _METADATA.json  (hashes, timestamps, etc)
+```
+- Baixa versão atual do FTP para cada arquivo
+- Salva com metadados completos
+- Permite rollback rápido se algo der errado
+
+### Fase 5️⃣ — Deploy para FTP
+- Upload de todos os arquivos detectados
+- Timeout 30 segundos por arquivo
+- Retry automático se falhar
+
+### Fase 6️⃣ — Validação Pós-Deploy
+- Re-download de cada arquivo do FTP
+- Valida integridade (tamanho, hash)
+- Confirma 100% dos arquivos foram deployados
+
+---
+
+## Exemplos de Uso
+
+### ✅ Deploy Normal (Patch Version)
+
+```bash
+npm run deploy "Fix: Ajuste de cores no botão"
+
+# Resultado:
+# 1.1.8 → 1.1.9
+# [tudo automático]
+# Versão sincronizada na loja
+```
+
+### ✨ Deploy com Minor Version
+
+```bash
+npm run deploy "Feature: Nova seção trust-strip" --minor
+
+# Resultado:
+# 1.1.8 → 1.2.0
+# [tudo automático]
+```
+
+### 🧪 Testar sem Executar (DRY-RUN)
+
+```bash
+npm run deploy:dry "Descrição"
+
+# NÃO FAZ:
+# ❌ Git commit/push
+# ❌ Backup
+# ❌ Deploy FTP real
+# ✅ Mostra o que FARIA
+
+# Útil para:
+# - Verificar quais arquivos seriam deployados
+# - Testar sem risco
+# - CI/CD simulation
+```
+
+### 🎯 Skip Confirmações (Force)
+
+```bash
+npm run deploy "Descrição" --force
+
+# NÃO pede confirmação antes de git push
+# Útil para: CI/CD automático
+```
+
+---
+
+## Setup Inicial
+
+### 1. Criar `.env` com Credenciais
+
+```bash
+# Copiar template:
+cp ftp-deploy/.env.example ftp-deploy/.env
+
+# Editar com suas credenciais:
+FTP_HOST=ftp.nuvemshop.com.br
+FTP_PORT=21
+FTP_USER=patagang
+FTP_PASSWORD=Q88gP0Ud
+FTP_SECURE=true
+```
+
+**❌ NUNCA commitar `.env`** — está em `.gitignore`
+
+### 2. Instalar Dependências
+
+```bash
+npm install     # ou yarn/pnpm
+```
+
+### 3. Testar Conexão
+
+```bash
+npm run deploy:dry "Test: Verificar setup"
+
+# Se aparecer "✅ SUCESSO", está pronto!
+```
+
+---
+
+## Scripts Disponíveis
+
+| Script | Comando | Uso |
+|--------|---------|-----|
+| **deploy** | `npm run deploy` | Deploy normal (patch version) |
+| **deploy:dry** | `npm run deploy:dry` | Simular sem executar |
+| **deploy:minor** | `npm run deploy:minor` | Incrementar versão minor |
+| **deploy:force** | `npm run deploy:force` | Skip confirmações |
+| **backup** | `npm run backup` | Backup completo do FTP |
+| **rollback** | `npm run rollback` | Restaurar versão anterior |
+| **list** | `npm run list` | Listar backups disponíveis |
+| **validate** | `npm run validate` | Validar Nuvemshop constraints |
+
+---
+
+## Versão Atual
+
+Verifique a versão em qualquer arquivo:
+
+**Em arquivo:**
+```bash
+cat theme-deploy-corrigido/VERSION.json
+
+# {
+#   "version": "1.1.9",
+#   "deployment_date": "2026-03-21T02:46:17.944Z",
+#   "git_commit": "35ec426ccce...",
+#   "console_message": "📦 PATAGANG v1.1.9 (21/03/2026) ✅"
+# }
+```
+
+**Na loja (console do navegador):**
+```javascript
+// F12 → Console → procure por:
+// 📦 PATAGANG v1.1.9 (21/03/2026) ✅
+
+// Ou acesse:
+window.__PATAGANG_VERSION__  // "1.1.9"
+```
+
+---
+
+## Validação em Produção
+
+Após executar `npm run deploy`:
+
+### 1. Limpar Cache do Navegador
+```
+Windows: Ctrl + Shift + Delete (Settings > Storage > Clear)
+Mac:     Cmd + Shift + Delete
+Firefox: Ctrl + H > Settings
+```
+
+Ou diretamente na página:
+```
+Windows: Ctrl + F5 (Hard Refresh)
+Mac:     Cmd + Shift + R
+```
+
+### 2. Verificar Versão no Console
+```javascript
+F12 → Console tab
+Procure por: 📦 PATAGANG v1.1.9 (21/03/2026) ✅
+
+Se vê a mensagem → ✅ Deploy bem-sucedido!
+```
+
+### 3. Validar Elementos (caso a caso)
+Dependendo da story deployada:
+- ✅ Elemento novo aparece?
+- ✅ Cores/estilos corretos?
+- ✅ Espaçamento OK?
+- ✅ Responsivo no mobile?
+
+---
+
+## Troubleshooting
+
+### ❌ "Credenciais FTP não configuradas"
+
+```
+Solução:
+1. Verificar que ftp-deploy/.env existe
+2. Verificar que contém FTP_USER e FTP_PASSWORD
+3. Confirmar valores corretos
+4. Rodar npm install (instala dotenv)
+```
+
+### ❌ "Nenhum arquivo modificado"
+
+```
+Possíveis causas:
+1. Commits não foram feitos (fazer: git commit)
+2. Modificações em arquivos fora de theme-deploy-corrigido/
+3. Já foi deployado (versão nova de um deploy antigo)
+
+Solução:
+1. Fazer git commit das mudanças
+2. Rodar npm run deploy:dry "Descrição" novamente
+```
+
+### ❌ "Erro ao conectar FTP"
+
+```
+Causas comuns:
+1. FTP credentials erradas (verificar .env)
+2. Servidor Nuvemshop offline (incomum)
+3. Timeout de rede (tentar novamente)
+
+Solução:
+1. Verificar credentials: cat ftp-deploy/.env
+2. Testar com deploy:dry primeiro
+3. Tentar novamente (timeout é intermitente)
+```
+
+### ❌ "Versão não atualiza no console"
+
+```
+99% dos casos: Cache do navegador
+
+Solução:
+1. Ctrl + F5 (ou Cmd+Shift+R no Mac)
+2. Limpar cache em Settings > Storage > Clear
+3. Abrir em abas anônima/incognito para testar
+```
+
+### ❌ "Deploy reportou erro mas arquivo foi ao FTP"
+
+```
+Pode acontecer se:
+- Validação falhou por timeout (mas file já estava lá)
+- FTP desconectou mas upload foi antes
+
+Verificar:
+1. npm run list           (listar backups)
+2. Abrir painel Nuvemshop (verificar arquivo manualmente)
+```
+
+---
+
+## Estrutura de Backup
+
+```
+backups/
+└── deployment-1.1.9/
+    └── 2026-03-21T023422-123/
+        ├── layouts/
+        ├── templates/
+        ├── snipplets/
+        ├── static/js/version-info.js
+        └── _METADATA.json    ← timestamp, hashes, versão anterior, etc
+```
+
+**Para restaurar:**
+```bash
+npm run rollback          # seleciona versão anterior automaticamente
+```
+
+---
+
+## Integration com AIOX Framework
+
+Este sistema segue os padrões **AIOX** do projeto:
+
+| Princípio | Implementado |
+|-----------|--------------|
+| **CLI First** | ✅ Apenas npm/node commands |
+| **Story-Driven** | ✅ Detecta story do branch |
+| **Quality First** | ✅ Validação pós-deploy |
+| **No Invention** | ✅ Apenas consolidação de funcionalidade |
+| **Português** | ✅ Mensagens e docs em PT-BR |
+
+---
+
+## Commits Relacionados
+
+```
+2375b4f feat: refatorar deploy.js com 6 fases (AIOX v2.0)
+d60a5e6 chore: atualizar package.json com scripts
+35ec426 security: implementar credenciais FTP via .env
+3574b68 chore: remover arquivos legados de deployment
+```
+
+---
+
+## Suporte & Documentação Completa
+
+- **Documentação AIOX:** `docs/guides/nuvemshop/deployment-workflow.md`
+- **Task Framework:** `.aiox-core/development/tasks/deploy-ftp-standard.md`
+- **Workflow Definition:** `.aiox-core/development/workflows/ftp-deployment.yaml`
+
+---
+
+**Versão:** 2.0.0
+**Data:** 21 de Março de 2026
+**Status:** ✅ Production Ready
