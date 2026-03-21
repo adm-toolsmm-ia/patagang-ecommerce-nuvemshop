@@ -1641,105 +1641,90 @@ p{
 {# /* // Ad Bar */ #}
 
 /* ============================================================================
-   #Ad Bar - Marquee Deslizante (Patagang)
+   #Ad Bar - Static Banner com Texto Centrado (Patagang)
    ============================================================================ */
 
 .section-advertising {
   background-color: #EAFE67;
-  padding: 8px 0;
-  overflow: hidden;
+  padding: 10px 20px;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .section-advertising__marquee {
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .section-advertising__track {
   display: flex;
   align-items: center;
-  white-space: nowrap;
-  animation: marquee 30s linear infinite;
-  padding: 0 15px;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding: 0;
 }
 
 .section-advertising__copy {
-  display: inline-block;
-  margin-right: 60px;
+  display: block;
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.3px;
   color: #000;
+  margin: 0;
+  line-height: 1.4;
 }
 
 .section-advertising__link {
   display: flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: inherit;
   outline: none;
   width: 100%;
+  transition: opacity 0.2s ease;
 }
 
-/* Keyframes animação marquee */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
+.section-advertising__link:hover {
+  opacity: 0.8;
 }
 
-/* Mobile - Fonte menor, animation mais rápida */
+/* Mobile */
 @media (max-width: 576px) {
   .section-advertising {
-    padding: 6px 0;
-  }
-
-  .section-advertising__track {
-    animation: marquee 25s linear infinite;
-    padding: 0 10px;
+    padding: 8px 15px;
   }
 
   .section-advertising__copy {
     font-size: 0.75rem;
-    margin-right: 50px;
   }
 }
 
-/* Tablet - Fonte média */
+/* Tablet */
 @media (min-width: 577px) and (max-width: 991px) {
   .section-advertising {
-    padding: 7px 0;
-  }
-
-  .section-advertising__track {
-    animation: marquee 28s linear infinite;
-    padding: 0 12px;
+    padding: 9px 18px;
   }
 
   .section-advertising__copy {
     font-size: 0.8rem;
-    margin-right: 55px;
   }
 }
 
-/* Desktop - Fonte padrão, animation normal */
+/* Desktop */
 @media (min-width: 992px) {
   .section-advertising {
-    padding: 8px 0;
-  }
-
-  .section-advertising__track {
-    animation: marquee 30s linear infinite;
-    padding: 0 15px;
+    padding: 10px 20px;
   }
 
   .section-advertising__copy {
     font-size: 0.875rem;
-    margin-right: 60px;
   }
 }
 
