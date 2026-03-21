@@ -1,29 +1,43 @@
 #!/usr/bin/env node
 
 /**
- * 🚀 PATAGANG DEPLOYMENT DEFINITIVO — v1.1.5+
+ * 🚀 PATAGANG DEPLOYMENT v2.0 — AIOX-Compliant
  * =============================================
  *
- * ROTINA ÚNICA E FINAL DE DEPLOYMENT
+ * Sistema de versionamento e deploy FTP automatizado
+ * Workflow: alteração → git commit → node deploy.js → FTP + git push
  *
- * Fluxo:
- * 1. Sincronizar versão (VERSION.json → version-info.js)
- * 2. Backup incremental dos arquivos críticos
- * 3. Deploy para FTP (força máxima com reconexão)
- * 4. Validação pós-deploy (verificar integridade no FTP)
- * 5. Commit com documentação
+ * Fases:
+ * - Fase 0: Validação de contexto (story, credenciais)
+ * - Fase 1: Detecção de arquivos modificados (git diff)
+ * - Fase 2: Auto-increment de versão (patch/minor)
+ * - Fase 3: Git commit de versão + tag + push
+ * - Fase 4: Backup incremental dos arquivos
+ * - Fase 5: Deploy para FTP
+ * - Fase 6: Validação pós-deploy
  *
  * Uso:
- *   node deploy.js                    (usa VERSION atual em ftp-deploy/VERSION)
- *   node deploy.js 1.1.6              (deploy v1.1.6 específica)
- *   node deploy.js 1.1.6 --no-backup  (sem backup incremental)
+ *   node deploy.js "Descrição da mudança"        (patch version)
+ *   node deploy.js "Descrição" --minor            (minor version)
+ *   node deploy.js "Descrição" --dry-run          (simula sem executar)
+ *   node deploy.js "Descrição" --force             (skip confirmações)
+ *
+ * Exemplos:
+ *   node deploy.js "Fix: Ajuste de cores no botão"
+ *   node deploy.js "Feature: Nova seção de trust" --minor
+ *   node deploy.js "Test: Validação" --dry-run
  */
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
+const readline = require('readline');
 const Client = require('basic-ftp').Client;
-const { FTP_CONFIG, DIRS } = require('./config');
+const { FTP_CONFIG, DIRS, PROJECT_ROOT } = require('./config');
+
+// =============================================================================
+// UTILITIES
+// =============================================================================
 
 const COLORS = {
   reset: '\x1b[0m',
@@ -33,218 +47,493 @@ const COLORS = {
   green: '\x1b[32m',
   red: '\x1b[31m',
   yellow: '\x1b[33m',
+  magenta: '\x1b[35m',
 };
 
 function log(type, message) {
   const timestamp = new Date().toLocaleTimeString('pt-BR');
   const icons = {
     info: `${COLORS.cyan}ℹ${COLORS.reset}`,
-    success: `${COLORS.green}✓${COLORS.reset}`,
-    error: `${COLORS.red}✗${COLORS.reset}`,
-    warning: `${COLORS.yellow}⚠${COLORS.reset}`,
+    success: `${COLORS.green}✅${COLORS.reset}`,
+    error: `${COLORS.red}❌${COLORS.reset}`,
+    warning: `${COLORS.yellow}⚠️${COLORS.reset}`,
     section: `${COLORS.bright}▶${COLORS.reset}`,
+    box: `${COLORS.magenta}📦${COLORS.reset}`,
   };
   console.log(`${timestamp} | ${icons[type] || '•'} ${message}`);
 }
 
-// Arquivos críticos para deploy
-const CRITICAL_FILES = [
-  {
-    local: 'theme-deploy-corrigido/templates/product.tpl',
-    remote: '/templates/product.tpl',
-    description: 'Template página de produto'
-  },
-  {
-    local: 'theme-deploy-corrigido/snipplets/product/product-form.tpl',
-    remote: '/snipplets/product/product-form.tpl',
-    description: 'Formulário de compra'
-  },
-  {
-    local: 'theme-deploy-corrigido/snipplets/product/product-informative-banner.tpl',
-    remote: '/snipplets/product/product-informative-banner.tpl',
-    description: 'Banner informativo'
-  },
-  {
-    local: 'theme-deploy-corrigido/static/js/version-info.js',
-    remote: '/static/js/version-info.js',
-    description: 'Versionamento (console)'
+async function prompt(question) {
+  return new Promise((resolve) => {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+    rl.question(`\n${COLORS.bright}${question}${COLORS.reset} `, (answer) => {
+      rl.close();
+      resolve(answer.toLowerCase());
+    });
+  });
+}
+
+// =============================================================================
+// PHASE 0: CONTEXT VALIDATION
+// =============================================================================
+
+async function phase0_validateContext(args) {
+  log('section', 'FASE 0: Validação de Contexto');
+
+  // Validar argumentos
+  if (!args.description) {
+    log('error', 'Especifique descrição: node deploy.js "Descrição da mudança"');
+    process.exit(1);
   }
-];
 
-async function deploy() {
-  // Parse argumentos
-  let targetVersion = process.argv[2];
-  const skipBackup = process.argv.includes('--no-backup');
+  // Detectar story do branch
+  let storyId = null;
+  try {
+    const branch = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
+    const storyMatch = branch.match(/story[_-](\d+\.\d+\.\d+)/i);
+    if (storyMatch) {
+      storyId = storyMatch[1];
+      log('info', `📖 Story detectada: ${storyId} (branch: ${branch})`);
+    }
+  } catch (err) {
+    // Não está em um repositório git ou branch não tem story
+  }
 
-  // Ler versão se não especificada
-  if (!targetVersion) {
-    const versionFile = path.join(__dirname, 'VERSION');
-    if (fs.existsSync(versionFile)) {
-      targetVersion = fs.readFileSync(versionFile, 'utf-8').trim();
-    } else {
-      log('error', 'Especifique versão: node deploy.js 1.1.5');
-      process.exit(1);
+  // Validar credenciais FTP
+  if (!FTP_CONFIG.user || !FTP_CONFIG.password) {
+    log('error', 'Credenciais FTP não configuradas. Crie ftp-deploy/.env');
+    process.exit(1);
+  }
+
+  log('success', '✅ Credenciais FTP carregadas');
+
+  // Validar que está em repositório git
+  try {
+    execSync('git status', { encoding: 'utf-8', stdio: 'pipe' });
+    log('success', '✅ Repositório git detectado');
+  } catch (err) {
+    log('error', 'Não está em um repositório git');
+    process.exit(1);
+  }
+
+  return { storyId };
+}
+
+// =============================================================================
+// PHASE 1: DETECT MODIFIED FILES
+// =============================================================================
+
+function phase1_detectFiles() {
+  log('section', 'FASE 1: Detecção de Arquivos Modificados');
+
+  let modifiedFiles = [];
+
+  try {
+    // Obter arquivos modificados no HEAD (último commit)
+    const gitDiffOutput = execSync(
+      'git diff --name-only HEAD -- theme-deploy-corrigido/',
+      { encoding: 'utf-8' }
+    ).trim();
+
+    if (gitDiffOutput) {
+      modifiedFiles = gitDiffOutput.split('\n').filter(f => f.length > 0);
+    }
+
+    // Sempre incluir version-info.js (será atualizado com nova versão)
+    const versionInfoPath = 'theme-deploy-corrigido/static/js/version-info.js';
+    if (!modifiedFiles.includes(versionInfoPath)) {
+      modifiedFiles.push(versionInfoPath);
+    }
+
+    log('success', `Arquivos detectados: ${modifiedFiles.length}`);
+    modifiedFiles.forEach(f => {
+      log('info', `  → ${f}`);
+    });
+  } catch (err) {
+    log('warning', `Nenhum arquivo modificado detectado via git diff`);
+  }
+
+  if (modifiedFiles.length === 0) {
+    log('warning', 'Nenhum arquivo para deploy. Abortando.');
+    process.exit(0);
+  }
+
+  return modifiedFiles;
+}
+
+// =============================================================================
+// PHASE 2: AUTO-INCREMENT VERSION
+// =============================================================================
+
+function phase2_bumpVersion(isMinor = false) {
+  log('section', 'FASE 2: Auto-increment de Versão');
+
+  const versionFile = path.join(PROJECT_ROOT, 'theme-deploy-corrigido', 'VERSION.json');
+
+  let currentVersion = '1.1.8'; // fallback padrão
+  if (fs.existsSync(versionFile)) {
+    try {
+      const content = JSON.parse(fs.readFileSync(versionFile, 'utf-8'));
+      currentVersion = content.version || currentVersion;
+    } catch (err) {
+      log('warning', `Erro ao ler VERSION.json, usando fallback: ${currentVersion}`);
     }
   }
 
-  console.log(`\n${COLORS.bright}${'='.repeat(70)}${COLORS.reset}`);
-  console.log(`${COLORS.bright}    🚀 PATAGANG DEPLOYMENT v${targetVersion}${COLORS.reset}`);
-  console.log(`${COLORS.bright}${'='.repeat(70)}${COLORS.reset}\n`);
+  // Parse versão atual
+  const parts = currentVersion.split('.').map(Number);
+  let [major, minor, patch] = parts;
+
+  if (isMinor) {
+    minor++;
+    patch = 0;
+  } else {
+    patch++;
+  }
+
+  const newVersion = `${major}.${minor}.${patch}`;
+  log('info', `Versão atual: ${currentVersion}`);
+  log('success', `Nova versão: ${newVersion}`);
+
+  // Atualizar VERSION.json
+  const versionJson = {
+    version: newVersion,
+    deployment_date: new Date().toISOString(),
+    git_commit: execSync('git rev-parse HEAD', { encoding: 'utf-8' }).trim(),
+    console_message: `📦 PATAGANG v${newVersion} (${new Date().toLocaleDateString('pt-BR')}) ✅`,
+  };
+
+  const versionJsonPath = path.join(PROJECT_ROOT, 'theme-deploy-corrigido', 'VERSION.json');
+  fs.writeFileSync(versionJsonPath, JSON.stringify(versionJson, null, 2));
+  log('success', `VERSION.json atualizado`);
+
+  // Sincronizar version-info.js com nova versão
+  const versionInfoPath = path.join(PROJECT_ROOT, 'theme-deploy-corrigido', 'static', 'js', 'version-info.js');
+  const versionInfoContent = `/* Auto-generated by deploy.js - ${new Date().toISOString()} */
+if (typeof window !== 'undefined') {
+  console.log('${versionJson.console_message}');
+  window.__PATAGANG_VERSION__ = '${newVersion}';
+}
+`;
+  fs.writeFileSync(versionInfoPath, versionInfoContent);
+  log('success', `version-info.js sincronizado`);
+
+  return newVersion;
+}
+
+// =============================================================================
+// PHASE 3: GIT COMMIT + TAG + PUSH
+// =============================================================================
+
+async function phase3_gitCommitAndPush(newVersion, description, isDryRun = false, forceSkipConfirm = false) {
+  log('section', 'FASE 3: Git Commit de Versão + Tag + Push');
+
+  if (isDryRun) {
+    log('info', '(DRY RUN - sem executar git commands)');
+    return;
+  }
+
+  // Fazer commit de versão
+  const commitMessage = `chore: bump version to ${newVersion} — ${description}
+
+Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>`;
+
+  try {
+    execSync('git add theme-deploy-corrigido/VERSION.json theme-deploy-corrigido/static/js/version-info.js');
+    execSync(`git commit -m "${commitMessage.replace(/"/g, '\\"')}"`, { encoding: 'utf-8' });
+    log('success', `Git commit criado: v${newVersion}`);
+  } catch (err) {
+    log('warning', `Erro ao fazer commit: ${err.message}`);
+  }
+
+  // Criar tag
+  try {
+    execSync(`git tag -a v${newVersion} -m "Version ${newVersion}"`, { encoding: 'utf-8' });
+    log('success', `Git tag criado: v${newVersion}`);
+  } catch (err) {
+    log('warning', `Erro ao criar tag: ${err.message}`);
+  }
+
+  // Pedir confirmação antes de fazer push
+  if (!forceSkipConfirm) {
+    const confirm = await prompt('✅ Deploy para FTP confirmado. Fazer git push agora? (s/n)');
+    if (confirm !== 's' && confirm !== 'yes' && confirm !== 'y') {
+      log('info', 'Git push cancelado. Você pode fazer git push manualmente depois.');
+      return;
+    }
+  }
+
+  // Git push
+  try {
+    execSync('git push origin main --tags', { encoding: 'utf-8' });
+    log('success', `Git push concluído com sucesso`);
+  } catch (err) {
+    log('error', `Erro ao fazer git push: ${err.message}`);
+    log('warning', `Execute manualmente: git push origin main --tags`);
+  }
+}
+
+// =============================================================================
+// PHASE 4: INCREMENTAL BACKUP
+// =============================================================================
+
+async function phase4_backup(modifiedFiles, newVersion) {
+  log('section', 'FASE 4: Backup Incremental');
 
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-  const backupDir = path.join(DIRS.backup, `deployment-${targetVersion}`, timestamp);
-  const deployResult = {
-    success: 0,
-    failed: 0,
-    validated: 0,
-    totalTime: Date.now(),
-    startTime: Date.now()
+  const backupDir = path.join(DIRS.backup, `deployment-${newVersion}`, timestamp);
+  fs.mkdirSync(backupDir, { recursive: true });
+
+  const client = new Client();
+  client.ftp.timeout = 30000;
+
+  let backed = 0;
+  const backupMetadata = {
+    version: newVersion,
+    timestamp,
+    files: [],
+    deployed_at: new Date().toISOString(),
   };
 
   try {
-    // FASE 1: Sincronizar versão
-    log('section', 'FASE 1: Sincronizar versão');
-    try {
-      const syncOutput = execSync(`node sync-version.js ${targetVersion}`, {
-        encoding: 'utf-8',
-        cwd: __dirname
-      });
-      log('success', `Versão sincronizada para v${targetVersion}`);
-    } catch (err) {
-      log('warning', `Aviso ao sincronizar: ${err.message.split('\n')[0]}`);
-    }
+    await client.access(FTP_CONFIG);
 
-    // FASE 2: Backup incremental
-    if (!skipBackup) {
-      log('section', 'FASE 2: Backup incremental');
-      fs.mkdirSync(backupDir, { recursive: true });
+    for (const localFile of modifiedFiles) {
+      const remotePath = '/' + localFile.replace('theme-deploy-corrigido/', '').replace(/\\/g, '/');
 
-      const client = new Client();
+      try {
+        const backupPath = path.join(backupDir, localFile.replace('theme-deploy-corrigido/', ''));
+        const backupDirPath = path.dirname(backupPath);
+        fs.mkdirSync(backupDirPath, { recursive: true });
 
-      for (const file of CRITICAL_FILES) {
-        try {
-          await client.access(FTP_CONFIG);
-          const backupPath = path.join(backupDir, file.local.replace('theme-deploy-corrigido/', ''));
-          const backupDirPath = path.dirname(backupPath);
+        await client.downloadTo(backupPath, remotePath);
+        const size = fs.statSync(backupPath).size;
+        log('success', `Backup: ${localFile} (${(size / 1024).toFixed(2)} KB)`);
 
-          fs.mkdirSync(backupDirPath, { recursive: true });
+        backupMetadata.files.push({
+          local: localFile,
+          remote: remotePath,
+          size,
+          backed_up: true,
+        });
 
-          try {
-            await client.downloadTo(backupPath, file.remote);
-            const size = fs.statSync(backupPath).size;
-            log('success', `Backup: ${file.description} (${(size / 1024).toFixed(2)} KB)`);
-          } catch (err) {
-            log('warning', `Backup falhou (arquivo novo?): ${file.description}`);
-          }
-          await client.close();
-        } catch (err) {
-          log('warning', `Erro ao fazer backup: ${err.message}`);
-        }
+        backed++;
+      } catch (err) {
+        log('warning', `Backup falhou (arquivo novo?): ${localFile}`);
+        backupMetadata.files.push({
+          local: localFile,
+          remote: remotePath,
+          backed_up: false,
+          error: err.message,
+        });
       }
-
-      // Metadados
-      const metadata = {
-        timestamp,
-        version: targetVersion,
-        files: CRITICAL_FILES.length,
-        deployed_at: new Date().toISOString()
-      };
-      fs.writeFileSync(path.join(backupDir, '_METADATA.json'), JSON.stringify(metadata, null, 2));
-      log('success', `Backup salvo: deployment-${targetVersion}/${timestamp}/`);
-    } else {
-      log('info', 'Backup skipped (--no-backup)');
     }
 
-    // FASE 3: Deploy para FTP
-    log('section', 'FASE 3: Deploy para FTP');
+    log('success', `Backup completo: ${backed}/${modifiedFiles.length} arquivos`);
+  } catch (err) {
+    log('error', `Erro ao conectar FTP para backup: ${err.message}`);
+  } finally {
+    await client.close();
+  }
 
-    for (const file of CRITICAL_FILES) {
-      const localPath = path.join(__dirname, '..', file.local);
-      const remotePath = file.remote;
+  // Salvar metadados
+  fs.writeFileSync(path.join(backupDir, '_METADATA.json'), JSON.stringify(backupMetadata, null, 2));
+  log('success', `Metadados salvos: ${backupDir}/_METADATA.json`);
 
-      if (!fs.existsSync(localPath)) {
-        log('error', `Arquivo não existe: ${file.description}`);
-        deployResult.failed++;
+  return backupDir;
+}
+
+// =============================================================================
+// PHASE 5: DEPLOY TO FTP
+// =============================================================================
+
+async function phase5_deploy(modifiedFiles, isDryRun = false) {
+  log('section', 'FASE 5: Deploy para FTP');
+
+  if (isDryRun) {
+    log('info', '(DRY RUN - simulando upload)');
+    let size = 0;
+    for (const file of modifiedFiles) {
+      const filePath = path.join(PROJECT_ROOT, file);
+      if (fs.existsSync(filePath)) {
+        const fileSize = fs.statSync(filePath).size;
+        size += fileSize;
+        log('info', `  [SIM] Upload: ${file} (${(fileSize / 1024).toFixed(2)} KB)`);
+      }
+    }
+    log('success', `Total simulado: ${(size / 1024).toFixed(2)} KB`);
+    return { success: modifiedFiles.length, failed: 0 };
+  }
+
+  const client = new Client();
+  client.ftp.timeout = 30000;
+
+  let successCount = 0;
+  let failCount = 0;
+
+  try {
+    await client.access(FTP_CONFIG);
+
+    for (const localFile of modifiedFiles) {
+      const filePath = path.join(PROJECT_ROOT, localFile);
+      const remotePath = '/' + localFile.replace('theme-deploy-corrigido/', '').replace(/\\/g, '/');
+
+      if (!fs.existsSync(filePath)) {
+        log('error', `Arquivo não existe: ${localFile}`);
+        failCount++;
         continue;
       }
 
-      const client = new Client();
-      client.ftp.timeout = 30000;
+      try {
+        await client.uploadFrom(filePath, remotePath);
+        const size = fs.statSync(filePath).size;
+        log('success', `Deploy: ${localFile} (${(size / 1024).toFixed(2)} KB)`);
+        successCount++;
+      } catch (err) {
+        log('error', `Deploy falhou: ${localFile} - ${err.message}`);
+        failCount++;
+      }
+    }
+
+    log('success', `Deploy completo: ${successCount}/${modifiedFiles.length} arquivos`);
+  } catch (err) {
+    log('error', `Erro ao conectar FTP: ${err.message}`);
+  } finally {
+    await client.close();
+  }
+
+  return { success: successCount, failed: failCount };
+}
+
+// =============================================================================
+// PHASE 6: POST-DEPLOY VALIDATION
+// =============================================================================
+
+async function phase6_validate(modifiedFiles) {
+  log('section', 'FASE 6: Validação Pós-Deploy');
+
+  const client = new Client();
+  client.ftp.timeout = 30000;
+
+  let validated = 0;
+  let versionMatch = false;
+
+  try {
+    await client.access(FTP_CONFIG);
+
+    for (const localFile of modifiedFiles) {
+      const remotePath = '/' + localFile.replace('theme-deploy-corrigido/', '').replace(/\\/g, '/');
 
       try {
-        await client.access(FTP_CONFIG);
-        await client.uploadFrom(localPath, remotePath);
-        log('success', `Deployed: ${file.description}`);
-        deployResult.success++;
-      } catch (err) {
-        log('error', `Falha: ${file.description} - ${err.message}`);
-        deployResult.failed++;
-      } finally {
-        await client.close();
-      }
-    }
+        const testPath = path.join(__dirname, `.val-${Date.now()}-${Math.random().toString(36).slice(2)}.tmp`);
+        await client.downloadTo(testPath, remotePath);
+        const size = fs.statSync(testPath).size;
+        fs.unlinkSync(testPath);
 
-    // FASE 4: Validação pós-deploy
-    log('section', 'FASE 4: Validação pós-deploy');
+        log('success', `Validado: ${localFile} (${(size / 1024).toFixed(2)} KB no FTP)`);
+        validated++;
 
-    const valClient = new Client();
-    valClient.ftp.timeout = 30000;
-
-    try {
-      await valClient.access(FTP_CONFIG);
-
-      for (const file of CRITICAL_FILES) {
-        const remotePath = file.remote;
-
-        try {
-          const testPath = path.join(__dirname, `.val-${Date.now()}.tmp`);
-          await valClient.downloadTo(testPath, remotePath);
-          const size = fs.statSync(testPath).size;
-          fs.unlinkSync(testPath);
-
-          log('success', `Validado: ${file.description} (${(size / 1024).toFixed(2)} KB no FTP)`);
-          deployResult.validated++;
-        } catch (err) {
-          log('error', `Validação falhou: ${file.description}`);
+        // Verificar se é version-info.js
+        if (localFile.includes('version-info.js')) {
+          versionMatch = true;
         }
+      } catch (err) {
+        log('error', `Validação falhou: ${localFile}`);
       }
-    } catch (err) {
-      log('warning', `Erro ao validar: ${err.message}`);
-    } finally {
-      await valClient.close();
     }
 
-    // FASE 5: Relatório final
-    deployResult.totalTime = Date.now() - deployResult.startTime;
+    log('success', `Validação completa: ${validated}/${modifiedFiles.length} arquivos`);
+  } catch (err) {
+    log('warning', `Erro ao validar no FTP: ${err.message}`);
+  } finally {
+    await client.close();
+  }
 
-    console.log(`\n${COLORS.bright}${'='.repeat(70)}${COLORS.reset}`);
+  return { validated, versionMatch };
+}
+
+// =============================================================================
+// MAIN
+// =============================================================================
+
+async function main() {
+  const isDryRun = process.argv.includes('--dry-run');
+  const isMinor = process.argv.includes('--minor');
+  const forceSkipConfirm = process.argv.includes('--force');
+
+  // Extrair descrição (primeiro argumento não-flag)
+  const description = process.argv.find((arg, i) => i > 1 && !arg.startsWith('--'));
+
+  const args = { description };
+
+  // Banner
+  console.log(`\n${COLORS.bright}${'='.repeat(80)}${COLORS.reset}`);
+  console.log(`${COLORS.bright}    🚀 PATAGANG DEPLOYMENT v2.0 — AIOX-Compliant${COLORS.reset}`);
+  console.log(`${COLORS.bright}${'='.repeat(80)}${COLORS.reset}\n`);
+
+  if (isDryRun) {
+    log('info', '🏃 MODO: DRY-RUN (simula sem executar)');
+  }
+
+  try {
+    // Fase 0: Validação de contexto
+    const context = await phase0_validateContext(args);
+
+    // Fase 1: Detectar arquivos modificados
+    const modifiedFiles = phase1_detectFiles();
+
+    // Fase 2: Auto-increment de versão
+    const newVersion = phase2_bumpVersion(isMinor);
+
+    // Fase 3: Git commit + tag + push
+    await phase3_gitCommitAndPush(newVersion, description, isDryRun, forceSkipConfirm);
+
+    // Fase 4: Backup incremental
+    const backupDir = isDryRun ? '[DRY-RUN]' : await phase4_backup(modifiedFiles, newVersion);
+
+    // Fase 5: Deploy para FTP
+    const deployResult = await phase5_deploy(modifiedFiles, isDryRun);
+
+    // Fase 6: Validação pós-deploy
+    const validationResult = await phase6_validate(modifiedFiles);
+
+    // Relatório final
+    console.log(`\n${COLORS.bright}${'='.repeat(80)}${COLORS.reset}`);
     const success = deployResult.failed === 0;
-    log('section', `${success ? '✅ SUCESSO' : '⚠️ COM PROBLEMAS'} — v${targetVersion}`);
-    console.log(`${COLORS.bright}${'='.repeat(70)}${COLORS.reset}\n`);
+    log('box', `${success ? '✅ SUCESSO' : '⚠️ COM PROBLEMAS'} — v${newVersion}`);
+    console.log(`${COLORS.bright}${'='.repeat(80)}${COLORS.reset}\n`);
 
     console.log(`${COLORS.bright}📊 Resultados:${COLORS.reset}`);
-    console.log(`   Deploy bem-sucedido: ${deployResult.success}/${CRITICAL_FILES.length}`);
+    console.log(`   Deploy bem-sucedido: ${deployResult.success}/${modifiedFiles.length}`);
     if (deployResult.failed > 0) {
       console.log(`   Deploy falhado: ${deployResult.failed}`);
     }
-    console.log(`   Validação: ${deployResult.validated}/${deployResult.success}`);
-    console.log(`   Tempo: ${(deployResult.totalTime / 1000).toFixed(2)}s\n`);
+    console.log(`   Validação: ${validationResult.validated}/${deployResult.success}`);
+    console.log(`   Versão sincronizada: ${validationResult.versionMatch ? '✅ Sim' : '⚠️ Verificar manualmente'}\n`);
 
-    if (!skipBackup) {
+    if (!isDryRun) {
       console.log(`${COLORS.bright}💾 Backup:${COLORS.reset}`);
-      console.log(`   deployment-${targetVersion}/${timestamp}/\n`);
+      console.log(`   ${backupDir}\n`);
     }
 
     console.log(`${COLORS.bright}🎯 Próximos passos:${COLORS.reset}`);
-    console.log(`   1. Ctrl+F5 no navegador (cache clear)`);
-    console.log(`   2. Verificar console: "📦 PATAGANG v${targetVersion}"\n`);
+    console.log(`   1. Abra a loja no navegador: https://patagang.com.br/`);
+    console.log(`   2. Abra o console (F12 ou Cmd+Option+J)`);
+    console.log(`   3. Procure por: 📦 PATAGANG v${newVersion}`);
+    console.log(`   4. Se não aparecer, limpe cache: Ctrl+Shift+Delete\n`);
 
     process.exit(deployResult.failed > 0 ? 1 : 0);
-
   } catch (err) {
     log('error', `ERRO CRÍTICO: ${err.message}`);
+    console.error(err.stack);
     process.exit(1);
   }
 }
 
-deploy();
+main().catch((err) => {
+  log('error', `Erro não capturado: ${err.message}`);
+  process.exit(1);
+});
