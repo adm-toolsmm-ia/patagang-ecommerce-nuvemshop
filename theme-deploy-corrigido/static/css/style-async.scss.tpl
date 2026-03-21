@@ -1284,6 +1284,7 @@ footer {
   font-size: 40px;
   font-weight: 700;
   color: #000;
+  margin-top: 40px;
   margin-bottom: 16px;
 }
 
@@ -1450,7 +1451,9 @@ footer {
 .pg-blog-post__share {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
   margin: 40px 0;
   padding: 24px 0;
   border-top: 1px solid #e5e5e5;
@@ -1470,6 +1473,7 @@ footer {
 .share-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 10px 16px;
   border-radius: 4px;
@@ -1477,6 +1481,7 @@ footer {
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
