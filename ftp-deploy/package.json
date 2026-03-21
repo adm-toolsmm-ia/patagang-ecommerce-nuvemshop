@@ -1,17 +1,20 @@
 {
   "name": "patagang-ftp-deploy",
-  "version": "1.0.0",
-  "description": "Sistema de backup e deploy automático via FTP para Nuvemshop",
-  "main": "deploy-optimized.js",
+  "version": "2.0.0",
+  "description": "Sistema de versionamento e deploy automático via FTP para Nuvemshop (AIOX v2.0)",
+  "main": "deploy.js",
   "scripts": {
+    "deploy": "node deploy.js",
+    "deploy:dry": "node deploy.js --dry-run",
+    "deploy:minor": "node deploy.js --minor",
+    "deploy:force": "node deploy.js --force",
     "backup": "node backup-full-ftp.js",
     "backup:full": "node backup-full-ftp.js",
-    "deploy": "node deploy-optimized.js",
-    "deploy:no-backup": "node deploy-optimized.js --no-backup",
     "rollback": "node rollback-incremental.js",
     "list": "node list-backups.js",
     "list:all": "node list-backups.js --all",
-    "list:full": "node list-backups.js --full"
+    "list:full": "node list-backups.js --full",
+    "validate": "node validate-nuvemshop-constraints.js"
   },
   "dependencies": {
     "basic-ftp": "^5.0.4",
