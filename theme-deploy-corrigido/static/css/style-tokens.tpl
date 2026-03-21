@@ -1,6 +1,25 @@
-{# /* Style tokens */ #}
+{# /* Style tokens - Unified design system v1.2.0 */ #}
 
 :root {
+
+  {#/*============================================================================
+    # UNIFIED CSS CUSTOM PROPERTIES — Foundation for design system
+  ==============================================================================*/#}
+
+  {# Extracted colors from current theme for token reference #}
+  --color-primary: #007bff;
+  --color-secondary: #EAFE67;
+  --color-accent: #D4E856;
+  --color-background: #FFFFFF;
+  --color-border-light: #E2E2E2;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #666666;
+  --color-whatsapp: #25D366;
+
+  {# Breakpoints — Standardized responsive values #}
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-desktop-lg: 1200px;
 
   {#/*============================================================================
     #Colors
