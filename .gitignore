@@ -4,8 +4,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Arquivos de configuração com credenciais
-ftp-deploy/config.js
+# Arquivos de configuração (credenciais em .env — ver ftp-deploy/.env.example)
+# config.js agora é seguro — credenciais lidas de process.env (gitignored)
 *.env
 .env.local
 .env.*.local
