@@ -3319,119 +3319,78 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 }
 
 /* ============================================
-   TRUST STRIP - IDENTIDADE PATAGANG NA PDP
-   (DENTRO DE section-single-product, col-12)
+   IDENTITY BANNER - MINIMALISTA PATAGANG
+   (Seção separada, fora do produto)
    ============================================ */
 
-.pg-trust-strip-wrapper {
+.pg-identity-banner {
 	width: 100%;
-	padding: 0 !important;
-	margin: 0 !important;
-	order: -1; /* Garante que aparece primeiro no flexbox */
-}
-
-.pg-trust-strip {
-	width: 100%;
-	background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
-	border-top: 1px solid #e8e8e8;
-	border-bottom: 1px solid #e8e8e8;
-	padding: 24px 20px;
+	background: #FFFFFF;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding: 20px 20px;
 	margin: 0;
 	box-sizing: border-box;
+}
+
+.pg-identity-banner__content {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-.pg-trust-strip__content {
-	display: grid;
-	grid-template-columns: repeat(4, 1fr);
-	gap: 20px;
+	gap: 40px;
 	max-width: 1200px;
+	margin: 0 auto;
 	width: 100%;
+	flex-wrap: wrap;
 	padding: 0;
-	margin: 0;
 }
 
-.pg-trust-strip__item {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
+.pg-identity-banner__phrase {
 	font-family: 'Familjen Grotesk', sans-serif;
 	font-size: 13px;
 	font-weight: 500;
 	color: #333;
-	line-height: 1.4;
-	padding: 12px 16px;
-	background: #fff;
-	border-radius: 6px;
-	border: 1px solid #e8e8e8;
-	transition: all 0.2s ease;
-	min-height: 56px;
+	line-height: 1.3;
+	text-align: center;
+	letter-spacing: 0.3px;
+	white-space: normal;
+	flex: 0 1 auto;
 }
 
-.pg-trust-strip__item strong {
-	display: block;
-	font-weight: 700;
-	color: #000;
-	margin-bottom: 4px;
-	font-size: 12px;
-	letter-spacing: 0.5px;
-	line-height: 1.2;
-}
-
-.pg-trust-strip__item:hover {
-	background: #fafafa;
-	border-color: #d0d0d0;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-	transform: translateY(-1px);
-}
-
-/* Tablet - Grid 2x2 */
+/* Tablet - Reduce gap */
 @media (max-width: 991px) {
-	.pg-trust-strip {
+	.pg-identity-banner {
 		padding: 16px 15px;
 	}
 
-	.pg-trust-strip__content {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 12px;
+	.pg-identity-banner__content {
+		gap: 20px;
 	}
 
-	.pg-trust-strip__item {
+	.pg-identity-banner__phrase {
 		font-size: 12px;
-		padding: 10px 12px;
-		min-height: 48px;
-	}
-
-	.pg-trust-strip__item strong {
-		font-size: 11px;
-		margin-bottom: 3px;
 	}
 }
 
-/* Mobile - Stack vertical (1 coluna) */
+/* Mobile - Stack vertical */
 @media (max-width: 576px) {
-	.pg-trust-strip {
+	.pg-identity-banner {
 		padding: 12px 10px;
 	}
 
-	.pg-trust-strip__content {
-		grid-template-columns: 1fr;
-		gap: 8px;
+	.pg-identity-banner__content {
+		gap: 0;
+		flex-direction: column;
 	}
 
-	.pg-trust-strip__item {
+	.pg-identity-banner__phrase {
 		font-size: 11px;
-		padding: 8px 10px;
-		min-height: auto;
+		padding: 8px 0;
+		border-bottom: 1px solid #f0f0f0;
 	}
 
-	.pg-trust-strip__item strong {
-		font-size: 10px;
-		margin-bottom: 2px;
+	.pg-identity-banner__phrase:last-child {
+		border-bottom: none;
 	}
 }
 
