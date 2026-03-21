@@ -4835,8 +4835,6 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
     justify-content: space-between; /* Extremos da tela */
     align-items: center;
     width: 100%;
-    max-width: 1400px; /* Trava largura máxima para não esticar demais em telas gigantes */
-    margin: 0 auto;
     flex-wrap: nowrap; /* Não quebrar linha */
 }
 
