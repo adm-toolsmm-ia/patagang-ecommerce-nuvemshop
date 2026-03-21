@@ -4186,7 +4186,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		align-items: flex-start !important; /* FLEX-START para sticky funcionar */
 		justify-content: flex-start !important;
 		gap: 0px; /* Removido gap excessivo que causava espaço vazio à direita */
-		padding: 30px 40px;
+		padding: 30px 0; /* REMOVIDO padding horizontal - aplicado nas colunas */
 		width: 100%;
 		max-width: none;
 		box-sizing: border-box;
@@ -4197,7 +4197,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		flex: 0 0 57% !important;
 		max-width: 57% !important;
 		width: 57% !important;
-		padding: 0 !important;
+		padding: 0 40px 0 40px !important; /* Padding horizontal aqui, sem deixar espaço vazio */
 		align-self: flex-start !important; /* Imagem alinha no topo */
 	}
 
@@ -4206,7 +4206,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		flex: 0 0 43% !important;
 		max-width: 43% !important;
 		width: 43% !important;
-		padding: 0 !important;
+		padding: 0 40px 0 0 !important; /* Padding direito apenas, esquerda fica colada na imagem */
 		padding-top: 16px !important; /* Alinha com grid de imagens */
 		align-self: flex-start !important; /* Alinha ao topo */
 		/* STICKY: Card fica fixo enquanto imagens rolam */
