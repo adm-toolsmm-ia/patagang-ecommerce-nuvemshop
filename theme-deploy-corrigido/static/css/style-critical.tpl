@@ -390,8 +390,18 @@ body{
 
 .pg-header--sticky {
   position: fixed;
-  top: 0;
+  top: var(--ad-bar-height, 0);
   padding-top: 50px;
+  z-index: 999;
+  width: 100%;
+  left: 0;
+  right: 0;
+  transition: top 0.3s ease;
+}
+
+/* When ad-bar is present, adjust header top position */
+body.has-ad-bar .pg-header--sticky {
+  --ad-bar-height: 40px;
 }
 
 .pg-header__container {
@@ -1706,6 +1716,11 @@ p{
   .section-advertising__copy {
     font-size: 0.75rem;
   }
+
+  /* Adjust header when ad-bar is visible on mobile */
+  body.has-ad-bar .pg-header--sticky {
+    --ad-bar-height: 36px;
+  }
 }
 
 /* Tablet */
@@ -1717,6 +1732,11 @@ p{
   .section-advertising__copy {
     font-size: 0.8rem;
   }
+
+  /* Adjust header when ad-bar is visible on tablet */
+  body.has-ad-bar .pg-header--sticky {
+    --ad-bar-height: 38px;
+  }
 }
 
 /* Desktop */
@@ -1727,6 +1747,11 @@ p{
 
   .section-advertising__copy {
     font-size: 0.875rem;
+  }
+
+  /* Adjust header when ad-bar is visible on desktop */
+  body.has-ad-bar .pg-header--sticky {
+    --ad-bar-height: 40px;
   }
 }
 
