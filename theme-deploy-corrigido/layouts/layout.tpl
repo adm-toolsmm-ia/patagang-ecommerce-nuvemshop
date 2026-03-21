@@ -100,6 +100,7 @@
         </style>
 
         {# Ad Bar: override final (PATAGANG v1.5.17+ - Static layout, no fixed positioning) #}
+        {# CRITICAL: Ensure advertising section remains VISUALLY SEPARATE from header #}
         {% if settings.ad_bar and settings.ad_text %}
         <style>
             body .section-advertising {
@@ -109,6 +110,8 @@
                 width: 100% !important;
                 padding: 10px 20px !important;
                 box-sizing: border-box !important;
+                margin-bottom: 0 !important;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
             }
             body .section-advertising__marquee {
                 display: flex !important;
@@ -167,6 +170,22 @@
             }
         </style>
         {% endif %}
+
+        {# Header styling - ensure visual independence from advertising bar #}
+        <style>
+            {# Header container: transparent by default, can have bg from design #}
+            body .pg-header {
+                background: transparent !important;
+                border: none !important;
+                clear: both !important;
+            }
+
+            {# Ensure header has proper spacing from ad bar #}
+            body.has-ad-bar .pg-header {
+                margin-top: 0 !important;
+                padding-top: 50px !important;
+            }
+        </style>
 
         {# Konfidence widget removido - será reimplementado posteriormente #}
 

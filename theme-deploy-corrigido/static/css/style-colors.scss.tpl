@@ -1045,10 +1045,14 @@ input[type=number] {
 
 {# /* // Ad Bar */ #}
 
+{# REMOVED: .section-advertising styling - was incorrectly using $main-foreground as background #}
+{# Now handled in layout.tpl override with proper background-color: transparent #}
+{#
 .section-advertising {
   background-color: $main-foreground;
   color: $main-background;
 }
+#}
 
 {# /* // Header */ #}
 
