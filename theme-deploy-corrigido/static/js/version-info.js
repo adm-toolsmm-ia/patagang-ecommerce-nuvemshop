@@ -7,8 +7,8 @@
 
 (function() {
   // Single source of truth - matches VERSION.json
-  const VERSION = "1.1.3";
-  const DEPLOY_DATE = "2026-03-20";
+  const VERSION = "1.1.4";
+  const DEPLOY_DATE = "2026-03-21";
 
   // Console output - styled for visibility
   console.log("%c📦 PATAGANG v" + VERSION + " (" + DEPLOY_DATE + ")",
