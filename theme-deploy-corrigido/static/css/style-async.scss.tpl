@@ -1278,6 +1278,11 @@ footer {
 .pg-blog-header {
   text-align: center;
   margin-bottom: 48px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .pg-blog-header h1 {
@@ -1285,8 +1290,8 @@ footer {
   font-size: 40px;
   font-weight: 700;
   color: #000;
-  margin-top: 40px;
-  margin-bottom: 16px;
+  margin: 0;
+  padding: 0;
 }
 
 .pg-blog-grid {
