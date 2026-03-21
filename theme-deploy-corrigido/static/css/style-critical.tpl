@@ -7072,3 +7072,20 @@ select {
 /* REMOVIDO: .page-header não existe no DOM atual.
    category.tpl e search.tpl usam .pg-search-page__header.
    Listagem controlada pelo MÓDULO LISTAGEM em style-async. */
+
+/* ============================================================================
+   CORREÇÃO CRÍTICA: Espaço vazio à direita do PDP
+   Problema: .pg-container com max-width: 1200px estava limitando a página
+   Solução: Forçar #single-product a ocupar 100% sem limites
+   ============================================================================ */
+#single-product {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+#single-product.pg-pdp-container .section-single-product {
+    width: 100% !important;
+    max-width: none !important;
+}
