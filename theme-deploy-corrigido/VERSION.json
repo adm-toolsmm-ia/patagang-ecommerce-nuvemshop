@@ -1,12 +1,23 @@
 {
   "app_name": "PATAGANG Nuvemshop",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "environment": "production",
-  "deployment_date": "2026-03-21T02:20:00.000Z",
-  "deployment_timestamp": "2026-03-21 02:20:00 UTC",
+  "deployment_date": "2026-03-21T02:30:00.000Z",
+  "deployment_timestamp": "2026-03-21 02:30:00 UTC",
   "git_commit": "PENDING_NEW_COMMIT",
   "git_branch": "main",
   "recent_changes": [
+    {
+      "id": 7,
+      "type": "fix",
+      "title": "Corrigir espaço vazio à direita do card (max-width issue)",
+      "description": "Story 1-4: Remover max-width: 1400px que estava limitando a largura e causando espaço vazio à direita. Usar box-sizing: border-box para que padding não aumente width total. Agora preenche 100% da tela corretamente.",
+      "files_changed": [
+        "theme-deploy-corrigido/static/css/style-critical.tpl"
+      ],
+      "status": "deployed",
+      "timestamp": "2026-03-21T02:30:00Z"
+    },
     {
       "id": 6,
       "type": "fix",
@@ -73,6 +84,6 @@
     }
   ],
   "deployment_status": "DEPLOYED",
-  "console_message": "📦 PATAGANG v1.1.7 — PDP Final Adjustments ✅",
+  "console_message": "📦 PATAGANG v1.1.8 — PDP Layout Complete Fix ✅",
   "cache_bust_timestamp": "1711018800"
 }

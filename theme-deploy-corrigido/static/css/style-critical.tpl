@@ -4173,7 +4173,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	margin: 0 !important;
 	padding: 30px 20px;
 	width: 100%;
-	max-width: 1400px; /* Mais largo */
+	max-width: none; /* Removido max-width para preencher 100% da tela */
+	box-sizing: border-box; /* Padding não aumenta width total */
 }
 
 /* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
@@ -4186,6 +4187,9 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		justify-content: flex-start !important;
 		gap: 0px; /* Removido gap excessivo que causava espaço vazio à direita */
 		padding: 30px 40px;
+		width: 100%;
+		max-width: none;
+		box-sizing: border-box;
 	}
 
 	/* COLUNA ESQUERDA - Imagem - MAIOR */

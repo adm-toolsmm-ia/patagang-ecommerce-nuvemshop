@@ -9,13 +9,13 @@
 
 (function() {
   // Single source of truth - matches VERSION.json
-  const VERSION = "1.1.7";
+  const VERSION = "1.1.8";
   const DEPLOY_DATE = "2026-03-21";
   const GIT_COMMIT = "PENDING_NEW_COMMIT";
-  const GIT_TAG = "v1.1.7-pdp-final-adjustments";
+  const GIT_TAG = "v1.1.8-pdp-layout-complete-fix";
 
   // Console output - styled for visibility
-  console.log("%c📦 PATAGANG v" + VERSION + " (" + DEPLOY_DATE + ") — PDP Final Adjustments ✅",
+  console.log("%c📦 PATAGANG v" + VERSION + " (" + DEPLOY_DATE + ") — PDP Layout Complete Fix ✅",
     "color: #EAFE67; font-weight: bold; font-size: 14px; background: #000; padding: 8px; border-radius: 4px; margin: 8px 0;");
 
   // Make version globally accessible for debugging
