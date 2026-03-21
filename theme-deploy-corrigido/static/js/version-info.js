@@ -11,7 +11,7 @@
   // Single source of truth - matches VERSION.json
   const VERSION = "1.1.8";
   const DEPLOY_DATE = "2026-03-21";
-  const GIT_COMMIT = "PENDING_NEW_COMMIT";
+  const GIT_COMMIT = "0cd0e08";
   const GIT_TAG = "v1.1.8-pdp-layout-complete-fix";
 
   // Console output - styled for visibility
