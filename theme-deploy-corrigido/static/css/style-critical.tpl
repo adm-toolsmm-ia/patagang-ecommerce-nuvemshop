@@ -382,14 +382,16 @@ body{
   left: 0;
   right: 0;
   z-index: 9999;
+  /* Espaço para banner de aviso (ad bar) - ~48px para banner + padding */
+  padding-top: 50px;
   /* CORRIGIDO 26/11: Altura mínima para garantir área clicável completa */
   min-height: 70px;
-  padding-top: 12px; /* Espaçamento superior para afastar do topo */
 }
 
 .pg-header--sticky {
   position: fixed;
   top: 0;
+  padding-top: 50px;
 }
 
 .pg-header__container {
