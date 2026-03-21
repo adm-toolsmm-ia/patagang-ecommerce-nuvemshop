@@ -1,6 +1,9 @@
 {# PATAGANG - Product Detail Page (PDP) #}
 <div id="single-product" class="js-has-new-shipping js-product-detail js-product-container js-shipping-calculator-container pg-pdp-container" data-variants="{{product.variants_object | json_encode }}" data-store="product-detail">
 
+    {# Informative Banner - Desconto e outras informações (acima das imagens/card) #}
+    {% include 'snipplets/product/product-informative-banner.tpl' %}
+
     <div class="row section-single-product g-0">
         <div class="col-12 col-lg-7 pg-pdp-image-col" data-store="product-image-{{ product.id }}">
         	{% include 'snipplets/product/product-image.tpl' %}
