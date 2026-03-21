@@ -4,26 +4,27 @@
     {# Informative Banner - Desconto e outras informações (acima das imagens/card) #}
     {% include 'snipplets/product/product-informative-banner.tpl' %}
 
-    {# ===== TRUST STRIP (4 itens de propósito) ===== #}
-    <div class="pg-trust-strip">
-        <div class="pg-trust-strip__content">
-            <span class="pg-trust-strip__item">
-                <strong>3% DO PEDIDO</strong> DESTINADO À CAUSA ANIMAL
-            </span>
-            <span class="pg-trust-strip__item">
-                <strong>IMPACTO REAL</strong>, NÃO DISCURSO
-            </span>
-            <span class="pg-trust-strip__item">
-                <strong>VISTA O PROPÓSITO</strong>
-            </span>
-            <span class="pg-trust-strip__item">
-                <strong>ENTRE PARA A GANG</strong>
-            </span>
-        </div>
-    </div>
-    {# ===== FIM TRUST STRIP ===== #}
-
     <div class="row section-single-product g-0">
+        {# ===== TRUST STRIP (4 itens de propósito) - PRIMEIRA LINHA DO LAYOUT ===== #}
+        <div class="col-12 pg-trust-strip-wrapper">
+            <div class="pg-trust-strip">
+                <div class="pg-trust-strip__content">
+                    <span class="pg-trust-strip__item">
+                        <strong>3% DO PEDIDO</strong> DESTINADO À CAUSA ANIMAL
+                    </span>
+                    <span class="pg-trust-strip__item">
+                        <strong>IMPACTO REAL</strong>, NÃO DISCURSO
+                    </span>
+                    <span class="pg-trust-strip__item">
+                        <strong>VISTA O PROPÓSITO</strong>
+                    </span>
+                    <span class="pg-trust-strip__item">
+                        <strong>ENTRE PARA A GANG</strong>
+                    </span>
+                </div>
+            </div>
+        </div>
+        {# ===== FIM TRUST STRIP ===== #}
         <div class="col-12 col-lg-7 pg-pdp-image-col" data-store="product-image-{{ product.id }}">
         	{% include 'snipplets/product/product-image.tpl' %}
         </div>

@@ -3320,16 +3320,27 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 /* ============================================
    TRUST STRIP - IDENTIDADE PATAGANG NA PDP
+   (DENTRO DE section-single-product, col-12)
    ============================================ */
+
+.pg-trust-strip-wrapper {
+	width: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
+	order: -1; /* Garante que aparece primeiro no flexbox */
+}
 
 .pg-trust-strip {
 	width: 100%;
 	background: linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
-	border-top: 1px solid #f0f0f0;
-	border-bottom: 1px solid #f0f0f0;
+	border-top: 1px solid #e8e8e8;
+	border-bottom: 1px solid #e8e8e8;
 	padding: 24px 20px;
-	margin: 20px 0;
+	margin: 0;
 	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .pg-trust-strip__content {
@@ -3337,12 +3348,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	grid-template-columns: repeat(4, 1fr);
 	gap: 20px;
 	max-width: 1200px;
-	margin: 0 auto;
 	width: 100%;
+	padding: 0;
+	margin: 0;
 }
 
 .pg-trust-strip__item {
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
@@ -3353,10 +3366,10 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	line-height: 1.4;
 	padding: 12px 16px;
 	background: #fff;
-	border-radius: 8px;
-	border: 1px solid #f0f0f0;
+	border-radius: 6px;
+	border: 1px solid #e8e8e8;
 	transition: all 0.2s ease;
-	min-height: 60px;
+	min-height: 56px;
 }
 
 .pg-trust-strip__item strong {
@@ -3366,19 +3379,20 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	margin-bottom: 4px;
 	font-size: 12px;
 	letter-spacing: 0.5px;
+	line-height: 1.2;
 }
 
 .pg-trust-strip__item:hover {
 	background: #fafafa;
-	border-color: #ddd;
+	border-color: #d0d0d0;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	transform: translateY(-1px);
 }
 
 /* Tablet - Grid 2x2 */
 @media (max-width: 991px) {
 	.pg-trust-strip {
 		padding: 16px 15px;
-		margin: 16px 0;
 	}
 
 	.pg-trust-strip__content {
@@ -3389,7 +3403,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	.pg-trust-strip__item {
 		font-size: 12px;
 		padding: 10px 12px;
-		min-height: 50px;
+		min-height: 48px;
 	}
 
 	.pg-trust-strip__item strong {
@@ -3402,7 +3416,6 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 576px) {
 	.pg-trust-strip {
 		padding: 12px 10px;
-		margin: 12px 0;
 	}
 
 	.pg-trust-strip__content {
@@ -3418,6 +3431,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 	.pg-trust-strip__item strong {
 		font-size: 10px;
+		margin-bottom: 2px;
 	}
 }
 
