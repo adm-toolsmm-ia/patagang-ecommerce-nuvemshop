@@ -89,9 +89,9 @@
         {# PRODUCT CARD V3 - Cards compactos e limpos (categoria, busca, similares, 404) #}
         <link rel="stylesheet" href="{{ 'css/product-card-v3.css' | static_url }}?v=2026-02-14">
 
-        {# Blog styles - PATAGANG - Load immediately, not async #}
+        {# Blog styles - PATAGANG - Loaded asynchronously (not above-the-fold) #}
 
-        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}">
+        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
 
         {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
 
