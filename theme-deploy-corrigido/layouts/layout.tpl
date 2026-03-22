@@ -76,6 +76,31 @@
 
         {{ 'css/style-colors.scss.tpl' | static_url | static_inline }}
 
+        {# PATAGANG v1.5.31: CRITICAL FIX - Reset body background after style-colors loads #}
+        {# Reason: style-colors.scss defines body { background-color: $main-background } #}
+        {# If $main-background is gray/non-white, it cascades to ad-bar and header sections #}
+        {# Fix: Explicit white background + section-level transparent overrides #}
+        <style>
+            /* CRITICAL: Force body background to WHITE to prevent gray cascade */
+            body {
+                background-color: #ffffff !important;
+                background-image: none !important;
+            }
+
+            /* CRITICAL: Ensure sections OVERRIDE body background completely */
+            section.patagang-section-top,
+            section.patagang-section-header {
+                background-color: transparent !important;
+                background-image: none !important;
+            }
+
+            /* CRITICAL: Main content section is explicit white (no inheritance issues) */
+            main.patagang-section-content {
+                background-color: #ffffff !important;
+                background-image: none !important;
+            }
+        </style>
+
         {# Load async styling not mandatory for first meaningfull paint #}
 
         <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
