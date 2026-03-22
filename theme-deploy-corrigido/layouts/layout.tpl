@@ -103,25 +103,27 @@
 
         {# PATAGANG v1.5.32: Product Layout Refinements - Scroll, Fallback, Alignment #}
         {# Fase 1: CSS-only improvements for gallery + card alignment #}
+        {# PATAGANG v1.5.34: Gallery 2-Column Grid - 4 Imagens Visíveis Alinhadas ao Card #}
         <style>
             /* =====================================================================
-               PRODUCT GALLERY REFINEMENTS — Scroll Alinhado ao Card
+               PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Scroll Alinhado ao Card
                ===================================================================== */
 
-            /* 1. DESKTOP: Gallery with explicit scroll (max-height prevents overflow) */
+            /* 1. DESKTOP: Gallery with 2-column grid, scroll alinhado ao card */
             .pg-gallery-container {
-                max-height: 70vh;           /* 70% da viewport height — responsivo */
+                max-height: 380px;          /* Altura para mostrar exatamente 2 linhas (4 imagens 2x2) */
                 overflow-y: auto;           /* Scroll vertical explícito */
-                padding-right: 12px;        /* Espaço para barra scroll */
+                padding-right: 8px;         /* Espaço para barra scroll */
                 box-sizing: border-box;
                 scroll-behavior: smooth;    /* Scroll suave */
             }
 
-            /* Grid da galeria — sem mudanças, apenas pai com scroll */
+            /* Grid da galeria — 2 COLUNAS com 4 imagens visíveis (2x2) */
             .pg-gallery-grid {
                 display: grid;
-                gap: 12px;
-                /* Grid continua como estava, mas agora dentro de container com scroll */
+                grid-template-columns: repeat(2, 1fr);  /* 2 COLUNAS */
+                gap: 12px;                              /* Espaçamento entre imagens */
+                padding: 12px 0;                        /* Padding vertical */
             }
 
             /* =====================================================================
@@ -177,11 +179,15 @@
             }
 
             @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria com scroll mais limitado */
+                /* Tablet: galeria 2-column com scroll alinhado */
                 .pg-gallery-container {
-                    max-height: 60vh;       /* Menos altura em tablet */
+                    max-height: 340px;      /* Altura reduzida para tablet (ainda 2x2 grid) */
                     overflow-y: auto;
-                    padding-right: 10px;
+                    padding-right: 8px;
+                }
+
+                .pg-gallery-grid {
+                    grid-template-columns: repeat(2, 1fr);  /* Mantém 2 colunas em tablet */
                 }
             }
         </style>
