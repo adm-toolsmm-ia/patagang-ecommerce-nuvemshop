@@ -101,6 +101,91 @@
             }
         </style>
 
+        {# PATAGANG v1.5.32: Product Layout Refinements - Scroll, Fallback, Alignment #}
+        {# Fase 1: CSS-only improvements for gallery + card alignment #}
+        <style>
+            /* =====================================================================
+               PRODUCT GALLERY REFINEMENTS — Scroll Alinhado ao Card
+               ===================================================================== */
+
+            /* 1. DESKTOP: Gallery with explicit scroll (max-height prevents overflow) */
+            .pg-gallery-container {
+                max-height: 70vh;           /* 70% da viewport height — responsivo */
+                overflow-y: auto;           /* Scroll vertical explícito */
+                padding-right: 12px;        /* Espaço para barra scroll */
+                box-sizing: border-box;
+                scroll-behavior: smooth;    /* Scroll suave */
+            }
+
+            /* Grid da galeria — sem mudanças, apenas pai com scroll */
+            .pg-gallery-grid {
+                display: grid;
+                gap: 12px;
+                /* Grid continua como estava, mas agora dentro de container com scroll */
+            }
+
+            /* =====================================================================
+               COLUMN ALIGNMENT — Imagem e Info Alinhados no Topo
+               ===================================================================== */
+
+            /* Alinhar ambas colunas no topo (flex-start) para evitar vazio visual */
+            .pg-pdp-image-col {
+                align-self: flex-start !important;  /* NO TOPO */
+            }
+
+            .pg-pdp-info-col {
+                align-self: flex-start !important;  /* NO TOPO (antes era center) */
+                padding-top: 0;                     /* Sem padding-top, alinhado direto */
+            }
+
+            /* =====================================================================
+               CARD STYLING — Fallback para Backdrop Filter + Refinements
+               ===================================================================== */
+
+            /* Base: Fallback para navegadores sem suporte a backdrop-filter */
+            .pg-pdp-info-card {
+                background: rgba(255, 255, 255, 0.85);  /* Fallback: background opaco */
+                backdrop-filter: blur(0);               /* Fallback: sem blur */
+            }
+
+            /* Modern browsers: use backdrop-filter com blur */
+            @supports (backdrop-filter: blur(1px)) {
+                .pg-pdp-info-card {
+                    background: rgba(255, 255, 255, 0.55);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                }
+            }
+
+            /* =====================================================================
+               MOBILE ADJUSTMENTS — Manter responsividade
+               ===================================================================== */
+
+            @media (max-width: 768px) {
+                /* Mobile: galeria sem scroll (carousel é responsivo) */
+                .pg-gallery-container {
+                    max-height: none;       /* Sem limite mobile */
+                    overflow-y: visible;    /* Sem scroll mobile */
+                    padding-right: 0;       /* Sem espaço scroll mobile */
+                }
+
+                /* Mobile: colunas empilhadas, alinhar topo */
+                .pg-pdp-image-col,
+                .pg-pdp-info-col {
+                    align-self: stretch;    /* Preenche width mobile */
+                }
+            }
+
+            @media (min-width: 769px) and (max-width: 991px) {
+                /* Tablet: galeria com scroll mais limitado */
+                .pg-gallery-container {
+                    max-height: 60vh;       /* Menos altura em tablet */
+                    overflow-y: auto;
+                    padding-right: 10px;
+                }
+            }
+        </style>
+
         {# Load async styling not mandatory for first meaningfull paint #}
 
         <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
