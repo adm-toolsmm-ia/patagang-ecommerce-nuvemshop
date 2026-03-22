@@ -114,15 +114,14 @@
             .pg-gallery-container {
                 height: 100%;               /* DYNAMIC: Cresce com altura do card */
                 min-height: 400px;          /* Mínimo para mostrar 4 imagens (2x2) */
-                max-height: 100vh;          /* Máximo: não ultrapassa viewport */
-                overflow-y: auto;           /* Scroll vertical explícito */
+                max-height: none;           /* Sem limite de altura — segue altura natural do card */
+                overflow-y: visible;        /* Sem scroll interno — galeria faz parte do fluxo da página */
                 overflow-x: hidden;         /* Sem scroll horizontal */
-                padding-right: 8px;         /* Espaço para barra scroll */
+                padding-right: 0;           /* Sem padding para scroll */
                 box-sizing: border-box;
                 scroll-behavior: smooth;    /* Scroll suave */
                 display: flex;              /* Flex container para filho ficar alinhado */
                 flex-direction: column;     /* Grid fica em coluna */
-                overscroll-behavior-y: contain;  /* 🔑 SCROLL CONTAINMENT: Captura scroll até o final */
             }
 
             /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
@@ -190,15 +189,14 @@
             }
 
             @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column com altura dinâmica + scroll containment (v1.5.36) */
+                /* Tablet: galeria 2-column com altura dinâmica, scroll com página */
                 .pg-gallery-container {
                     height: 100%;           /* DYNAMIC: Cresce com card */
                     min-height: 380px;      /* Mínimo em tablet */
-                    max-height: 100vh;
-                    overflow-y: auto;
+                    max-height: none;       /* Sem limite — segue altura natural */
+                    overflow-y: visible;    /* Sem scroll interno */
                     overflow-x: hidden;
-                    padding-right: 8px;
-                    overscroll-behavior-y: contain;  /* SCROLL CONTAINMENT em tablet */
+                    padding-right: 0;
                 }
 
                 .pg-gallery-grid {
