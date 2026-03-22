@@ -127,8 +127,8 @@
             .pg-gallery-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);  /* 2 COLUNAS */
-                gap: 12px;                              /* Espaçamento entre imagens */
-                padding: 12px 0;                        /* Padding vertical */
+                gap: 14px;                              /* Espaçamento moderno refinado */
+                padding: 14px 0;                        /* Padding vertical */
                 width: 100%;
             }
 

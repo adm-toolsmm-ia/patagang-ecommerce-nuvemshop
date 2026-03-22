@@ -5047,3 +5047,121 @@ select {
     height: 14px;
   }
 }
+
+/* =====================================================================
+   PATAGANG v1.5.36: MODERN & MINIMALIST UX/UI — Gallery Images
+   Efeitos suaves, minimalistas, foco na experiência do usuário
+   ===================================================================== */
+
+/* Gallery item wrapper - Modern styling */
+.pg-gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;  /* Moderno: não quadrado rígido */
+  background: #f9f9f9;
+  aspect-ratio: 1;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);  /* Sombra discreta */
+  cursor: pointer;
+}
+
+/* Gallery item image - Smooth transitions */
+.pg-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gallery item hover - Modern zoom effect */
+.pg-gallery-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);  /* Sombra elevada ao hover */
+}
+
+.pg-gallery-item:hover img {
+  transform: scale(1.04);  /* Zoom suave ao hover */
+}
+
+/* Overlay on hover - Minimal zoom indicator */
+.pg-gallery-item::before {
+  content: '🔍';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  font-size: 28px;
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease;
+  pointer-events: none;
+}
+
+.pg-gallery-item:hover::before {
+  opacity: 1;
+  background: rgba(0,0,0,0.15);  /* Overlay sutil ao hover */
+}
+
+/* Active/Selected image indicator - Modern glow */
+.pg-gallery-item.is-active,
+.pg-gallery-item[data-active="true"] {
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.06);
+  transform: scale(1.01);
+}
+
+/* Scroll container - Custom scrollbar styling (webkit browsers) */
+.pg-gallery-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pg-gallery-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pg-gallery-container::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.12);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.pg-gallery-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.25);
+}
+
+/* Firefox scrollbar styling */
+.pg-gallery-container {
+  scrollbar-color: rgba(0,0,0,0.12) transparent;
+  scrollbar-width: thin;
+}
+
+/* Tablet adjustments - Modern responsive */
+@media (min-width: 769px) and (max-width: 991px) {
+  .pg-gallery-item {
+    border-radius: 12px;
+  }
+}
+
+/* Mobile adjustments - Modern touch-friendly */
+@media (max-width: 768px) {
+  .pg-gallery-item {
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  /* Remove hover effects on touch devices */
+  .pg-gallery-item:hover {
+    transform: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  .pg-gallery-item:hover img {
+    transform: scale(1);  /* Sem zoom em mobile */
+  }
+
+  .pg-gallery-item:hover::before {
+    opacity: 0;  /* Sem overlay em mobile */
+    background: transparent;
+  }
+}
