@@ -343,6 +343,51 @@
 
 
     
+        {# PATAGANG v1.5.29: Section Isolation - Guarantee visual independence #}
+        <style>
+            /* SECTION 1: Ad Bar - Completely isolated */
+            body .section-advertising {
+                background-color: transparent !important;
+                background-image: none !important;
+                color: inherit !important;
+                margin: 0 !important;
+                padding: 10px 20px !important;
+                border: none !important;
+                box-shadow: none !important;
+                width: 100% !important;
+            }
+            /* Remove any inherited styles from parent containers */
+            .section-advertising * {
+                background-color: transparent !important;
+                background-image: none !important;
+            }
+
+            /* SECTION 2: Header - Completely independent */
+            body .pg-header {
+                background-color: transparent !important;
+                background-image: none !important;
+                color: inherit !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                clear: both !important;
+            }
+
+            /* Breakpoint: Mobile — explicit separation */
+            @media (max-width: 768px) {
+                body .section-advertising {
+                    margin-bottom: 0 !important;
+                    padding-bottom: 10px !important;
+                    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+                }
+                body .pg-header {
+                    margin-top: 0 !important;
+                    padding-top: 8px !important;
+                    border-top: none !important;
+                }
+            }
+        </style>
     </head>
     <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}{% if settings.ad_bar and settings.ad_text %} has-ad-bar{% endif %}">
         {# Facebook comments on product page #}
