@@ -343,10 +343,18 @@
 
 
     
-        {# PATAGANG v1.5.29: Section Isolation - Guarantee visual independence #}
+        {# PATAGANG v1.5.30: Structural Refactor - Section-level isolation with semantic HTML #}
         <style>
-            /* SECTION 1: Ad Bar - Completely isolated */
-            body .section-advertising {
+            /* L1: TOP SECTION — Ad Bar (completely isolated) */
+            section.patagang-section-top {
+                background-color: transparent !important;
+                background-image: none !important;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            section.patagang-section-top .section-advertising {
                 background-color: transparent !important;
                 background-image: none !important;
                 color: inherit !important;
@@ -356,14 +364,25 @@
                 box-shadow: none !important;
                 width: 100% !important;
             }
-            /* Remove any inherited styles from parent containers */
-            .section-advertising * {
+            section.patagang-section-top .section-advertising * {
                 background-color: transparent !important;
                 background-image: none !important;
             }
 
-            /* SECTION 2: Header - Completely independent */
-            body .pg-header {
+            /* L2: HEADER SECTION — Navigation (completely independent) */
+            section.patagang-section-header {
+                background-color: transparent !important;
+                background-image: none !important;
+                color: inherit !important;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                clear: both;
+                border: none;
+                box-shadow: none;
+            }
+            section.patagang-section-header .pg-header {
                 background-color: transparent !important;
                 background-image: none !important;
                 color: inherit !important;
@@ -371,20 +390,39 @@
                 padding: 0 !important;
                 border: none !important;
                 box-shadow: none !important;
-                clear: both !important;
+                width: 100% !important;
             }
 
-            /* Breakpoint: Mobile — explicit separation */
+            /* L3: MAIN CONTENT (explicit background) */
+            main.patagang-section-content {
+                background-color: #ffffff;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Mobile breakpoint — explicit spacing between sections */
             @media (max-width: 768px) {
-                body .section-advertising {
-                    margin-bottom: 0 !important;
-                    padding-bottom: 10px !important;
-                    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+                section.patagang-section-top {
+                    border-bottom: 1px solid rgba(0,0,0,0.05);
                 }
-                body .pg-header {
-                    margin-top: 0 !important;
+                section.patagang-section-top .section-advertising {
+                    padding-bottom: 10px !important;
+                }
+
+                section.patagang-section-header {
+                    border-top: none;
+                    border-bottom: 1px solid rgba(0,0,0,0.08);
+                }
+                section.patagang-section-header .pg-header {
+                    min-height: 56px !important;
                     padding-top: 8px !important;
-                    border-top: none !important;
+                    padding-bottom: 8px !important;
+                }
+
+                main.patagang-section-content {
+                    margin-top: 0;
                 }
             }
         </style>
@@ -408,18 +446,26 @@
 
         {{back_to_admin}}
 
-        {# Barra de anúncio - FIXO no topo (z-index 10000) #}
-        {% if settings.ad_bar and settings.ad_text %}
-          {% snipplet "header/header-advertising.tpl" %}
-        {% endif %}
+        {# ========================================================================
+           PATAGANG v1.5.30: Structural Layout — Three Independent Sections
+           ======================================================================== #}
 
-        {# Header = Logo + Search + Ajax Cart (top: 30px para não sobrepor banner) #}
+        {# SECTION 1: Top Banner (Ad Bar) — Completely isolated #}
+        <section class="patagang-section-top" role="banner">
+          {% if settings.ad_bar and settings.ad_text %}
+            {% snipplet "header/header-advertising.tpl" %}
+          {% endif %}
+        </section>
 
-        {% snipplet "header/header-patagang.tpl" %}
+        {# SECTION 2: Header Navigation — Completely independent #}
+        <section class="patagang-section-header" role="navigation">
+          {% snipplet "header/header-patagang.tpl" %}
+        </section>
 
-        {# Page content #}
-
-        {% template_content %}
+        {# SECTION 3: Main Content — Explicit background context #}
+        <main class="patagang-section-content" role="main">
+          {% template_content %}
+        </main>
 
         {# Modals overlay #}
 
