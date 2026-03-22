@@ -104,39 +104,48 @@
         {# PATAGANG v1.5.32: Product Layout Refinements - Scroll, Fallback, Alignment #}
         {# Fase 1: CSS-only improvements for gallery + card alignment #}
         {# PATAGANG v1.5.34: Gallery 2-Column Grid - 4 Imagens Visíveis Alinhadas ao Card #}
+        {# PATAGANG v1.5.35: Gallery Height Alignment — Galeria cresce com card (DYNAMIC HEIGHT) #}
         <style>
             /* =====================================================================
-               PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Scroll Alinhado ao Card
+               PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
                ===================================================================== */
 
-            /* 1. DESKTOP: Gallery with 2-column grid, scroll alinhado ao card */
+            /* 1. DESKTOP: Gallery container grows with card height (100% of parent) */
             .pg-gallery-container {
-                max-height: 380px;          /* Altura para mostrar exatamente 2 linhas (4 imagens 2x2) */
+                height: 100%;               /* DYNAMIC: Cresce com altura do card */
+                min-height: 400px;          /* Mínimo para mostrar 4 imagens (2x2) */
+                max-height: 100vh;          /* Máximo: não ultrapassa viewport */
                 overflow-y: auto;           /* Scroll vertical explícito */
                 padding-right: 8px;         /* Espaço para barra scroll */
                 box-sizing: border-box;
                 scroll-behavior: smooth;    /* Scroll suave */
+                display: flex;              /* Flex container para filho ficar alinhado */
+                flex-direction: column;     /* Grid fica em coluna */
             }
 
-            /* Grid da galeria — 2 COLUNAS com 4 imagens visíveis (2x2) */
+            /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
             .pg-gallery-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);  /* 2 COLUNAS */
                 gap: 12px;                              /* Espaçamento entre imagens */
                 padding: 12px 0;                        /* Padding vertical */
+                width: 100%;
             }
 
             /* =====================================================================
-               COLUMN ALIGNMENT — Imagem e Info Alinhados no Topo
+               COLUMN ALIGNMENT — Colunas Crescem Juntas para Alinhar Rodapé
                ===================================================================== */
 
-            /* Alinhar ambas colunas no topo (flex-start) para evitar vazio visual */
+            /* Coluna imagem: STRETCH para crescer com card */
             .pg-pdp-image-col {
-                align-self: flex-start !important;  /* NO TOPO */
+                align-self: stretch !important;     /* CRESCE com card */
+                display: flex;                      /* Flex para filho acompanhar */
+                flex-direction: column;
             }
 
+            /* Coluna info: FLEX-START mantém sem forçar height */
             .pg-pdp-info-col {
-                align-self: flex-start !important;  /* NO TOPO (antes era center) */
+                align-self: flex-start !important;  /* Começa no topo */
                 padding-top: 0;                     /* Sem padding-top, alinhado direto */
             }
 
@@ -179,9 +188,11 @@
             }
 
             @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column com scroll alinhado */
+                /* Tablet: galeria 2-column com altura dinâmica (v1.5.35) */
                 .pg-gallery-container {
-                    max-height: 340px;      /* Altura reduzida para tablet (ainda 2x2 grid) */
+                    height: 100%;           /* DYNAMIC: Cresce com card */
+                    min-height: 380px;      /* Mínimo em tablet */
+                    max-height: 100vh;
                     overflow-y: auto;
                     padding-right: 8px;
                 }

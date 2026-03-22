@@ -2793,26 +2793,29 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* COLUNA ESQUERDA - Imagem SEM BORDAS, SEM CARD */
+/* COLUNA ESQUERDA - Imagem SEM BORDAS, SEM CARD (v1.5.35: DYNAMIC HEIGHT) */
 .pg-pdp-image-col {
 	background: transparent; /* SEM fundo */
 	border-radius: 0; /* SEM bordas arredondadas */
 	padding: 0 !important; /* SEM padding */
 	overflow: visible;
 	display: flex;
+	flex-direction: column;  /* Permite filho crescer verticalmente */
 	align-items: flex-start; /* Alinha no topo */
-	justify-content: center;
+	justify-content: flex-start;
+	box-sizing: border-box;
 	box-shadow: none; /* SEM sombra */
-	min-height: auto; /* Altura automática baseada na imagem */
+	/* v1.5.35: Removido min-height: auto para permitir crescimento dinâmico */
 }
 
-/* Container da imagem - preenche tudo */
+/* Container da imagem - preenche parent (v1.5.35: DYNAMIC HEIGHT) */
 .pg-pdp-image-col .product-image-container {
 	width: 100%;
-	height: auto;
+	flex: 1;  /* Cresce com parent */
 	display: flex;
+	flex-direction: column;
 	align-items: flex-start;
-	justify-content: center;
+	justify-content: flex-start;
 	padding: 0 !important;
 }
 
