@@ -116,11 +116,13 @@
                 min-height: 400px;          /* Mínimo para mostrar 4 imagens (2x2) */
                 max-height: 100vh;          /* Máximo: não ultrapassa viewport */
                 overflow-y: auto;           /* Scroll vertical explícito */
+                overflow-x: hidden;         /* Sem scroll horizontal */
                 padding-right: 8px;         /* Espaço para barra scroll */
                 box-sizing: border-box;
                 scroll-behavior: smooth;    /* Scroll suave */
                 display: flex;              /* Flex container para filho ficar alinhado */
                 flex-direction: column;     /* Grid fica em coluna */
+                overscroll-behavior-y: contain;  /* 🔑 SCROLL CONTAINMENT: Captura scroll até o final */
             }
 
             /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
@@ -188,13 +190,15 @@
             }
 
             @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column com altura dinâmica (v1.5.35) */
+                /* Tablet: galeria 2-column com altura dinâmica + scroll containment (v1.5.36) */
                 .pg-gallery-container {
                     height: 100%;           /* DYNAMIC: Cresce com card */
                     min-height: 380px;      /* Mínimo em tablet */
                     max-height: 100vh;
                     overflow-y: auto;
+                    overflow-x: hidden;
                     padding-right: 8px;
+                    overscroll-behavior-y: contain;  /* SCROLL CONTAINMENT em tablet */
                 }
 
                 .pg-gallery-grid {
