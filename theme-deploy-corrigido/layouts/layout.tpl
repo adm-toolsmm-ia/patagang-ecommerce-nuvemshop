@@ -184,6 +184,19 @@
             body.has-ad-bar .pg-header {
                 margin-top: 0 !important;
                 padding-top: 50px !important;
+                background: transparent !important;
+                color: inherit !important;
+            }
+            {# Mobile: Ensure header stays independent when ad bar present #}
+            @media (max-width: 768px) {
+                body.has-ad-bar .pg-header {
+                    min-height: 56px !important;
+                    padding-top: 8px !important;
+                    padding-bottom: 8px !important;
+                }
+                body.has-ad-bar .pg-header__logo-img {
+                    max-height: 26px !important;
+                }
             }
         </style>
 
