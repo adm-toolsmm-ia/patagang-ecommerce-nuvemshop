@@ -2764,7 +2764,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		flex-wrap: nowrap;
 		align-items: stretch;  /* AMBAS colunas mesma altura */
 		gap: 40px;
-		padding: 15px 40px;  /* Reduzido: espaçamento superior diminuído */
+		padding: 10px 40px;  /* Reduzido mais: espaçamento superior (15px → 10px) */
 		margin-top: 0;  /* Remove margin superior */
 	}
 
