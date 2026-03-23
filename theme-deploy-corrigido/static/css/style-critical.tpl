@@ -2762,40 +2762,44 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
-		align-items: center; /* CENTRALIZADO em relação à imagem */
+		align-items: stretch;  /* AMBAS colunas mesma altura */
 		justify-content: center;
 		gap: 40px;
 		padding: 30px 40px;
+		min-height: 600px;  /* Altura mínima garantida */
 	}
 
-	/* COLUNA ESQUERDA - Imagem - MAIOR */
+	/* COLUNA ESQUERDA - Imagem - PREENCHE ALTURA */
 	.pg-pdp-container .pg-pdp-image-col.col-lg-7 {
 		flex: 0 0 58%;
 		max-width: 58%;
 		width: 58%;
 		padding: 0;
-		align-self: flex-start; /* Imagem alinha no topo */
+		height: 100%;  /* Preenche altura total do container */
+		display: flex;
+		flex-direction: column;
 	}
 
-	/* COLUNA DIREITA - Info - ALINHADA NO TOPO (v1.5.33 FIX) */
+	/* COLUNA DIREITA - Info - PREENCHE ALTURA */
 	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
 		flex: 0 0 40%;
 		max-width: 40%;
 		width: 40%;
 		padding: 0;
-		align-self: flex-start; /* Card alinhado no topo com a imagem (v1.5.33) */
+		height: 100%;  /* Preenche altura total do container */
+		display: flex;
+		flex-direction: column;
 	}
 
 	/* COLUNA ESQUERDA - Sticky positioning para acompanhar scroll (v1.5.46) */
 	.pg-pdp-container .pg-pdp-image-col {
 		position: sticky;
-		top: 120px;  /* Offset para header fixo (≈altura típica) */
-		height: fit-content;  /* Altura baseada em conteúdo real */
-		align-self: flex-start;  /* Alinha no topo do sticky */
+		top: 120px;  /* Offset para header fixo */
+		align-self: stretch;  /* Estica na altura total */
 	}
 }
 
-/* COLUNA ESQUERDA - Imagem SEM BORDAS, SEM CARD (v1.5.35: DYNAMIC HEIGHT) */
+/* COLUNA ESQUERDA - Imagem SEM BORDAS, SEM CARD (v1.5.46: FULL HEIGHT) */
 .pg-pdp-image-col {
 	background: transparent; /* SEM fundo */
 	border-radius: 0; /* SEM bordas arredondadas */
@@ -2807,18 +2811,19 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	justify-content: flex-start;
 	box-sizing: border-box;
 	box-shadow: none; /* SEM sombra */
-	/* v1.5.35: Removido min-height: auto para permitir crescimento dinâmico */
+	height: 100%;  /* Preenche altura total */
 }
 
-/* Container da imagem - preenche parent (v1.5.35: DYNAMIC HEIGHT) */
+/* Container da imagem - preenche parent (v1.5.46: FULL HEIGHT) */
 .pg-pdp-image-col .product-image-container {
 	width: 100%;
-	flex: 1;  /* Cresce com parent */
+	flex: 1;  /* Cresce para preencher altura */
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
 	padding: 0;
+	height: 100%;
 }
 
 /* Swiper container - altura automática */
@@ -5155,11 +5160,17 @@ select {
   overflow-x: hidden;
 }
 
-/* Desktop: Gallery container acompanha altura do card */
+/* Desktop: Gallery container preenche altura da coluna */
 @media (min-width: 992px) {
   .pg-gallery-container {
-    max-height: 100%;  /* Não excede altura do parent (card) */
-    flex: 1;  /* Cresce para preencher espaço disponível */
+    height: 100%;  /* Preenche altura total da coluna */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pg-gallery-grid {
+    flex: 1;  /* Expande para preencher espaço */
+    height: 100%;  /* Altura dinâmica */
   }
 }
 
