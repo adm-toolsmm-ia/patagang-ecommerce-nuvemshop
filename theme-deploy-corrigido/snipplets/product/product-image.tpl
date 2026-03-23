@@ -17,17 +17,11 @@
 				   data-image-index="{{ loop.index0 }}"
 				   data-image-original="{{ image | product_image_url('original') }}"
 				   data-image-large="{{ image | product_image_url('huge') }}">
-					<img 
-						{% if loop.first %}
-							src="{{ image | product_image_url('huge') }}"
-							fetchpriority="high"
-						{% else %}
-							src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-							data-src="{{ image | product_image_url('huge') }}"
-							class="lazyload"
-						{% endif %}
+					<img
+						src="{{ image | product_image_url('huge') }}"
+						{% if loop.first %}fetchpriority="high"{% endif %}
 						alt="{{ image.alt | default(product.name) }}"
-						class="pg-gallery-img {% if not loop.first %}lazyload{% endif %}"
+						class="pg-gallery-img"
 						loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
 					/>
 					<div class="pg-gallery-zoom-icon">
@@ -66,11 +60,11 @@
 						{% endif %}
 
 						<img
+							src="{{ image | product_image_url('large') }}"
+							srcset='{{  image | product_image_url('large') }} 480w, {{  image | product_image_url('huge') }} 640w, {{  image | product_image_url('original') }} 1024w'
+							class="js-product-slide-img product-slider-image img-absolute img-absolute-centered"
 							{% if not apply_lazy_load %}fetchpriority="high"{% endif %}
-							{% if apply_lazy_load %}data-{% endif %}src="{{ product_image_src }}"
-							{% if apply_lazy_load %}data-{% endif %}srcset='{{  image | product_image_url('large') }} 480w, {{  image | product_image_url('huge') }} 640w, {{  image | product_image_url('original') }} 1024w'
-							class="js-product-slide-img product-slider-image img-absolute img-absolute-centered {% if apply_lazy_load %}lazyautosizes lazyload{% endif %}"
-							{% if apply_lazy_load %}data-sizes="auto"{% endif %}
+							{% if apply_lazy_load %}loading="lazy"{% endif %}
 							{% if image.dimensions.width and image.dimensions.height %}width="{{ image.dimensions.width }}" height="{{ image.dimensions.height }}"{% endif %}
 							{% if image.alt %}alt="{{image.alt}}"{% endif %} />
 	        	</a>

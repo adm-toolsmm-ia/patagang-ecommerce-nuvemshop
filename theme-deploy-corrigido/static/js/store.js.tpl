@@ -63,23 +63,14 @@ window.urls = {
 }
 
 {#/*============================================================================
-  #Lazy load
+  #Lazy load — CONSOLIDATED to native loading="lazy"
+  Removed custom lazysizes implementation (replaced with browser native)
+  lazysizes library events are no longer used as of v1.6.0
 ==============================================================================*/ #}
 
-document.addEventListener('lazybeforeunveil', function(e){
-    if ((e.target.parentElement) && (e.target.nextElementSibling)) {
-        var parent = e.target.parentElement;
-        var sibling = e.target.nextElementSibling;
-        if (sibling.classList.contains('js-lazy-loading-preloader')) {
-            sibling.style.display = 'none';
-            parent.style.display = 'block';
-        }
-    }
-});
-
-
-window.lazySizesConfig = window.lazySizesConfig || {};
-lazySizesConfig.hFac = 0.4;
+// Lazyload now handled by native HTML5 loading="lazy" attribute
+// This section kept for backward compatibility reference
+// If needed to support older browsers, lazysizes can be restored
 
 
 DOMContentLoaded.addEventOrExecute(() => {
