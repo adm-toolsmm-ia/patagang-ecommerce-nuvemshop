@@ -2763,21 +2763,23 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		flex-direction: row;
 		flex-wrap: nowrap;
 		align-items: stretch;  /* AMBAS colunas mesma altura */
-		justify-content: center;
 		gap: 40px;
-		padding: 30px 40px;
-		min-height: 600px;  /* Altura mínima garantida */
+		padding: 15px 40px;  /* Reduzido: espaçamento superior diminuído */
+		margin-top: 0;  /* Remove margin superior */
 	}
 
-	/* COLUNA ESQUERDA - Imagem - PREENCHE ALTURA */
+	/* COLUNA ESQUERDA - Imagem - PREENCHE ALTURA + STICKY */
 	.pg-pdp-container .pg-pdp-image-col.col-lg-7 {
 		flex: 0 0 58%;
 		max-width: 58%;
 		width: 58%;
 		padding: 0;
-		height: 100%;  /* Preenche altura total do container */
+		height: 100%;  /* Preenche altura total */
 		display: flex;
 		flex-direction: column;
+		position: sticky;  /* ✅ STICKY para acompanhar scroll */
+		top: 120px;  /* Offset para header fixo */
+		align-self: stretch;
 	}
 
 	/* COLUNA DIREITA - Info - PREENCHE ALTURA */
@@ -2786,16 +2788,10 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		max-width: 40%;
 		width: 40%;
 		padding: 0;
-		height: 100%;  /* Preenche altura total do container */
+		height: 100%;  /* Preenche altura total */
 		display: flex;
 		flex-direction: column;
-	}
-
-	/* COLUNA ESQUERDA - Sticky positioning para acompanhar scroll (v1.5.46) */
-	.pg-pdp-container .pg-pdp-image-col {
-		position: sticky;
-		top: 120px;  /* Offset para header fixo */
-		align-self: stretch;  /* Estica na altura total */
+		align-self: stretch;
 	}
 }
 
