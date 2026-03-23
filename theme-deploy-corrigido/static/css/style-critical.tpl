@@ -2785,6 +2785,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		padding: 0;
 		align-self: flex-start; /* Card alinhado no topo com a imagem (v1.5.33) */
 	}
+
+	/* COLUNA ESQUERDA - Sticky positioning para acompanhar scroll (v1.5.46) */
+	.pg-pdp-container .pg-pdp-image-col {
+		position: sticky;
+		top: 120px;  /* Offset para header fixo (≈altura típica) */
+		height: fit-content;  /* Altura baseada em conteúdo real */
+		align-self: flex-start;  /* Alinha no topo do sticky */
+	}
 }
 
 /* COLUNA ESQUERDA - Imagem SEM BORDAS, SEM CARD (v1.5.35: DYNAMIC HEIGHT) */
