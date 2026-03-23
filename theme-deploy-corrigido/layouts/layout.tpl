@@ -332,47 +332,13 @@
 
         {# Konfidence widget removido - será reimplementado posteriormente #}
 
-        {# Override V3: listagem (categoria/busca) e produto (overlap do banner) #}
-        {% if template == 'category' or template == 'search' or template == 'product' %}
+        {# Override V3: listagem (categoria/busca) - Margens do Header #}
+        {% if template == 'category' or template == 'search' %}
         <style>
-        body.template-category .pg-search-page,
-        body.template-search .pg-search-page {
-            padding-top: 120px !important;
-        }
-        body.template-product .pg-identity-banner {
-            margin-top: 120px !important;
-        }
         /* Reduce header margin on Desktop */
         body.template-category .pg-search-page__header,
         body.template-search .pg-search-page__header {
             margin-bottom: 24px !important;
-        }
-        @media (max-width: 992px) {
-            body.template-category .pg-search-page,
-            body.template-search .pg-search-page {
-                padding-top: 110px !important;
-            }
-            body.template-product .pg-identity-banner {
-                margin-top: 110px !important;
-            }
-        }
-        @media (max-width: 768px) {
-            body.template-category .pg-search-page,
-            body.template-search .pg-search-page {
-                padding-top: 110px !important;
-            }
-            body.template-product .pg-identity-banner {
-                margin-top: 110px !important;
-            }
-        }
-        @media (max-width: 480px) {
-            body.template-category .pg-search-page,
-            body.template-search .pg-search-page {
-                padding-top: 80px !important;
-            }
-            body.template-product .pg-identity-banner {
-                margin-top: 80px !important;
-            }
         }
         </style>
         {% endif %}
@@ -542,6 +508,21 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+            }
+
+            /* GLOBAL HEADER OFFSET: Pushes main content below the absolute/fixed header. 
+               Home page is excluded to allow the transparent header over the hero video/banner. */
+            body:not(.template-home) main.patagang-section-content {
+                padding-top: 120px !important;
+            }
+            @media (max-width: 992px) {
+                body:not(.template-home) main.patagang-section-content { padding-top: 110px !important; }
+            }
+            @media (max-width: 768px) {
+                body:not(.template-home) main.patagang-section-content { padding-top: 110px !important; }
+            }
+            @media (max-width: 480px) {
+                body:not(.template-home) main.patagang-section-content { padding-top: 80px !important; }
             }
 
             /* Mobile breakpoint — explicit spacing between sections */
