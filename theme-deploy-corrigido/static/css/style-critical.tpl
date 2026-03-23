@@ -5263,3 +5263,71 @@ select {
     max-height: 70vh;
   }
 }
+
+/* ============================================================================
+   PATAGANG V3 - PRICE BLOCK CRO (Conversion Rate Optimization)
+============================================================================ */
+.pg-price-block {
+    background: #fdfdfd;
+    border: 1px solid #eaeaea;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+/* Preço Principal com Desconto (PIX/Boleto) */
+.pg-price-block .pg-price-pix-highlight {
+    font-size: 32px !important;
+    font-weight: 900 !important;
+    color: #111111 !important;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* Textos auxiliares dentro do highlight (ex: 'no Pix') */
+.pg-price-block .pg-price-pix-highlight span:not(.js-price-display) {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #00a650 !important; /* Verde Mercado Livre */
+    text-transform: uppercase;
+    letter-spacing: 0;
+}
+
+/* Preço Original (Tachado) */
+.pg-price-block .pg-price-original,
+.pg-price-block .pg-price-compare-at {
+    font-size: 15px !important;
+    color: #999999 !important;
+    text-decoration: line-through;
+    font-weight: 500;
+    margin-top: -4px;
+}
+
+/* Parcelamento */
+.pg-price-block .pg-price-installments {
+    font-size: 16px !important;
+    font-weight: 500;
+    color: #333333;
+    background: #f2fde8; /* Fundo verde clarinho */
+    padding: 8px 12px;
+    border-radius: 6px;
+    border-left: 4px solid #00a650;
+    margin-top: 6px;
+}
+
+/* Destaque para valores do parcelamento e 'sem juros' */
+.pg-price-block .pg-price-installments .js-installment-amount,
+.pg-price-block .pg-price-installments strong {
+    font-size: 18px !important;
+    font-weight: 800 !important;
+    color: #00a650 !important;
+}
+
