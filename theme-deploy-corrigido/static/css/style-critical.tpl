@@ -3374,7 +3374,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	background: #FFFFFF;
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
-	padding: 20px 20px;
+	padding: 12px 20px;
 	margin: 0;
 	margin-top: 150px;
 	box-sizing: border-box;
