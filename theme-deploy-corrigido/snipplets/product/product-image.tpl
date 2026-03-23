@@ -49,7 +49,7 @@
 		         	<a href="#"
 		         	   class="js-open-modal-gallery js-product-slide-link d-block position-relative pg-aspect-ratio-container"
 		         	   data-image-index="{{ loop.index0 }}"
-		         	   data-aspect-ratio="{{ image.dimensions['height'] / image.dimensions['width'] }}">
+		         	   style="aspect-ratio: {{ image.dimensions['width'] }} / {{ image.dimensions['height'] }}; width: 100%; display: block;">
 
 						{% set apply_lazy_load = not loop.first %}
 
