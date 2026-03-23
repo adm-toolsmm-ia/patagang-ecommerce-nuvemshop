@@ -3454,18 +3454,18 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
    MAIN CONTENT PADDING - Accommodate sticky header
    ============================================ */
 main.patagang-section-content {
-	padding-top: 100px;  /* Space for fixed header + ad bar */
+	padding-top: 160px;  /* Space for fixed header (~120px) + ad bar (~40px) = ~160px */
 }
 
 @media (max-width: 991px) {
 	main.patagang-section-content {
-		padding-top: 90px;  /* Slightly less on tablet */
+		padding-top: 140px;  /* Tablet: slightly less */
 	}
 }
 
 @media (max-width: 576px) {
 	main.patagang-section-content {
-		padding-top: 80px;  /* Less on mobile */
+		padding-top: 130px;  /* Mobile: header is smaller but still fixed */
 	}
 }
 
