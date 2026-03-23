@@ -5153,3 +5153,49 @@ select {
     background: transparent;
   }
 }
+
+/* ============================================================================
+   PATAGANG v1.6.0 — FASE 2 MODERNIZATION CSS
+   Aspect-ratio container + SVG size-lock (minimal additions)
+============================================================================ */
+
+/* Aspect-ratio container for mobile carousel (replaces padding-bottom hack) */
+.pg-aspect-ratio-container {
+  position: relative;
+  width: 100%;
+  display: block;
+  /* JavaScript sets height based on data-aspect-ratio if needed */
+}
+
+.pg-aspect-ratio-container img,
+.pg-aspect-ratio-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SVG size-lock for modal images */
+.pg-modal-main-img {
+  width: 100%;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive aspect-ratio fallback */
+@supports (aspect-ratio: 1) {
+  .pg-aspect-ratio-container {
+    height: auto;
+  }
+}
+
+/* Ensure images respect container constraints */
+@media (max-width: 768px) {
+  .pg-modal-main-img {
+    max-width: 100%;
+    max-height: 70vh;
+  }
+}
