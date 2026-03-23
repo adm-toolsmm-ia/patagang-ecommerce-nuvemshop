@@ -110,18 +110,14 @@
                PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
                ===================================================================== */
 
-            /* 1. DESKTOP: Gallery container grows with card height (100% of parent) */
+            /* 1. DESKTOP: Gallery shows exactly 4 images (2x2), no internal scroll */
             .pg-gallery-container {
-                height: 100%;               /* DYNAMIC: Cresce com altura do card */
-                min-height: 400px;          /* Mínimo para mostrar 4 imagens (2x2) */
-                max-height: none;           /* Sem limite de altura — segue altura natural do card */
-                overflow-y: visible;        /* Sem scroll interno — galeria faz parte do fluxo da página */
-                overflow-x: hidden;         /* Sem scroll horizontal */
-                padding-right: 0;           /* Sem padding para scroll */
+                height: 380px;              /* FIXO: altura para exatamente 2 linhas (4 imagens 2x2) */
+                overflow: hidden;           /* Sem barra de scroll */
                 box-sizing: border-box;
-                scroll-behavior: smooth;    /* Scroll suave */
                 display: flex;              /* Flex container para filho ficar alinhado */
                 flex-direction: column;     /* Grid fica em coluna */
+                /* Imagens extras descem com scroll da página */
             }
 
             /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
@@ -174,11 +170,10 @@
                ===================================================================== */
 
             @media (max-width: 768px) {
-                /* Mobile: galeria sem scroll (carousel é responsivo) */
+                /* Mobile: carousel responsivo (sem galeria grid) */
                 .pg-gallery-container {
-                    max-height: none;       /* Sem limite mobile */
-                    overflow-y: visible;    /* Sem scroll mobile */
-                    padding-right: 0;       /* Sem espaço scroll mobile */
+                    height: auto;           /* Auto em mobile */
+                    overflow: visible;      /* Sem scroll, fluxo natural */
                 }
 
                 /* Mobile: colunas empilhadas, alinhar topo */
@@ -189,18 +184,14 @@
             }
 
             @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column com altura dinâmica, scroll com página */
+                /* Tablet: galeria 2-column, 4 imagens (2x2) fixas, sem scroll */
                 .pg-gallery-container {
-                    height: 100%;           /* DYNAMIC: Cresce com card */
-                    min-height: 380px;      /* Mínimo em tablet */
-                    max-height: none;       /* Sem limite — segue altura natural */
-                    overflow-y: visible;    /* Sem scroll interno */
-                    overflow-x: hidden;
-                    padding-right: 0;
+                    height: 360px;          /* FIXO: altura para 2 linhas em tablet */
+                    overflow: hidden;       /* Sem barra de scroll */
                 }
 
                 .pg-gallery-grid {
-                    grid-template-columns: repeat(2, 1fr);  /* Mantém 2 colunas em tablet */
+                    grid-template-columns: repeat(2, 1fr);  /* 2 colunas em tablet */
                 }
             }
         </style>
