@@ -52,10 +52,10 @@
 		    <div class="swiper-wrapper">
 		    	{% for image in product.images %}
 		         <div class="swiper-slide js-product-slide slider-slide" data-image="{{image.id}}" data-image-position="{{loop.index0}}">
-		         	<a href="#" 
-		         	   class="js-open-modal-gallery js-product-slide-link d-block position-relative" 
+		         	<a href="#"
+		         	   class="js-open-modal-gallery js-product-slide-link d-block position-relative pg-aspect-ratio-container"
 		         	   data-image-index="{{ loop.index0 }}"
-		         	   style="padding-bottom: {{ image.dimensions['height'] / image.dimensions['width'] * 100}}%;">
+		         	   data-aspect-ratio="{{ image.dimensions['height'] / image.dimensions['width'] }}">
 
 						{% set apply_lazy_load = not loop.first %}
 
@@ -93,8 +93,9 @@
 
 	{# ============================================================================
 	   MODAL CUSTOMIZADO - Galeria Fullscreen com Thumbnails
+	   aria-hidden: Dynamic toggle via JS (see store.js.tpl)
 	============================================================================ #}
-	<div id="pg-modal-gallery" class="pg-modal-gallery" aria-hidden="true">
+	<div id="pg-modal-gallery" class="pg-modal-gallery" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visualizador de imagens do produto">
 		<div class="pg-modal-backdrop js-close-modal-gallery"></div>
 		<div class="pg-modal-container">
 			{# Sidebar com Thumbnails #}

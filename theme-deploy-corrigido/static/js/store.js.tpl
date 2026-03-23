@@ -1783,12 +1783,14 @@ DOMContentLoaded.addEventOrExecute(() => {
                     currentIndex = index;
                     updateMainImage();
                     modal.classList.add('is-open');
+                    modal.setAttribute('aria-hidden', 'false');  // Dynamic toggle
                     document.body.style.overflow = 'hidden';
                 }
-                
+
                 // Função para fechar o modal
                 function closeModal() {
                     modal.classList.remove('is-open');
+                    modal.setAttribute('aria-hidden', 'true');  // Dynamic toggle
                     document.body.style.overflow = '';
                 }
                 
