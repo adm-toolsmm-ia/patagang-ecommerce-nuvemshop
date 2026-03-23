@@ -515,6 +515,10 @@
             body:not(.template-home) main.patagang-section-content {
                 padding-top: 120px !important;
             }
+            @media (max-width: 991px) {
+                /* FORCE HIDE DESKTOP GRID ON MOBILE/TABLET */
+                .pg-gallery-container { display: none !important; }
+            }
             @media (max-width: 992px) {
                 body:not(.template-home) main.patagang-section-content { padding-top: 110px !important; }
             }
