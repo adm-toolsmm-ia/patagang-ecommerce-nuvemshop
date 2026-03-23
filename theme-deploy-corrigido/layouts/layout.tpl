@@ -110,14 +110,14 @@
                PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
                ===================================================================== */
 
-            /* 1. DESKTOP: Gallery shows exactly 4 images (2x2), no internal scroll */
+            /* 1. DESKTOP: Gallery shows exactly 4 images (2x2) with scroll for extras */
             .pg-gallery-container {
-                height: 380px;              /* FIXO: altura para exatamente 2 linhas (4 imagens 2x2) */
-                overflow: hidden;           /* Sem barra de scroll */
+                max-height: 520px;          /* MÁXIMO: altura suficiente para 4 imagens (2x2) */
+                overflow-y: auto;           /* Scroll automático se > 4 imagens */
                 box-sizing: border-box;
                 display: flex;              /* Flex container para filho ficar alinhado */
                 flex-direction: column;     /* Grid fica em coluna */
-                /* Imagens extras descem com scroll da página */
+                padding-right: 8px;         /* Espaço para scrollbar sem cortar conteúdo */
             }
 
             /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
@@ -125,8 +125,9 @@
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);  /* 2 COLUNAS */
                 gap: 14px;                              /* Espaçamento moderno refinado */
-                padding: 14px 0;                        /* Padding vertical */
+                padding: 0;                             /* Sem padding (gap já espaça) */
                 width: 100%;
+                height: fit-content;                    /* Cresce com conteúdo */
             }
 
             /* =====================================================================
@@ -184,10 +185,11 @@
             }
 
             @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column, 4 imagens (2x2) fixas, sem scroll */
+                /* Tablet: galeria 2-column, 4 imagens (2x2) com scroll para extras */
                 .pg-gallery-container {
-                    height: 360px;          /* FIXO: altura para 2 linhas em tablet */
-                    overflow: hidden;       /* Sem barra de scroll */
+                    max-height: 480px;      /* MÁXIMO: altura para 2 linhas em tablet */
+                    overflow-y: auto;       /* Scroll automático se > 4 imagens */
+                    padding-right: 8px;     /* Espaço para scrollbar */
                 }
 
                 .pg-gallery-grid {
