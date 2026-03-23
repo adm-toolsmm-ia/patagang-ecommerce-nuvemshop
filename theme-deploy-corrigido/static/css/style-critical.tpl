@@ -2820,6 +2820,16 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	min-height: auto;
 }
 
+/* Desktop: Esconder Swiper (mostra grid 2x2 em vez disso) */
+@media (min-width: 992px) {
+	.pg-pdp-image-col .product-image-container {
+		display: none !important;
+	}
+	.pg-pdp-image-col .js-swiper-product {
+		display: none !important;
+	}
+}
+
 /* Wrapper do swiper */
 .pg-pdp-image-col .swiper-wrapper {
 	align-items: flex-start;
@@ -5041,13 +5051,22 @@ select {
    Efeitos suaves, minimalistas, foco na experiência do usuário
    ===================================================================== */
 
+/* Gallery grid container - 2x2 layout, responsive */
+.pg-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* 2 colunas */
+  gap: 16px;  /* Espaçamento entre itens */
+  width: 100%;
+  height: auto;  /* Cresce dinamicamente com conteúdo */
+}
+
 /* Gallery item wrapper - Modern styling */
 .pg-gallery-item {
   position: relative;
   overflow: hidden;
   border-radius: 14px;  /* Moderno: não quadrado rígido */
   background: #f9f9f9;
-  aspect-ratio: 1;
+  aspect-ratio: 1;  /* Quadrado: altura = largura */
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);  /* Sombra discreta */
   cursor: pointer;
@@ -5122,6 +5141,18 @@ select {
 .pg-gallery-container {
   scrollbar-color: rgba(0,0,0,0.12) transparent;
   scrollbar-width: thin;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;  /* Permite scroll vertical se necessário */
+  overflow-x: hidden;
+}
+
+/* Desktop: Gallery container acompanha altura do card */
+@media (min-width: 992px) {
+  .pg-gallery-container {
+    max-height: 100%;  /* Não excede altura do parent (card) */
+    flex: 1;  /* Cresce para preencher espaço disponível */
+  }
 }
 
 /* Tablet adjustments - Modern responsive */
