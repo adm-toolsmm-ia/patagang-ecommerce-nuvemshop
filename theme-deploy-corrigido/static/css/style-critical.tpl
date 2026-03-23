@@ -3450,6 +3450,24 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
+/* ============================================
+   MAIN CONTENT PADDING - Accommodate sticky header
+   ============================================ */
+main.patagang-section-content {
+	padding-top: 100px;  /* Space for fixed header + ad bar */
+}
+
+@media (max-width: 991px) {
+	main.patagang-section-content {
+		padding-top: 90px;  /* Slightly less on tablet */
+	}
+}
+
+@media (max-width: 576px) {
+	main.patagang-section-content {
+		padding-top: 80px;  /* Less on mobile */
+	}
+}
 
 /* ============================================
    SACOLA LATERAL (CART MODAL) - PATAGANG DESIGN
