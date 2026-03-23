@@ -332,12 +332,15 @@
 
         {# Konfidence widget removido - será reimplementado posteriormente #}
 
-        {# Override V3: listagem (categoria/busca) - padding-top da página #}
-        {% if template == 'category' or template == 'search' %}
+        {# Override V3: listagem (categoria/busca) e produto (overlap do banner) #}
+        {% if template == 'category' or template == 'search' or template == 'product' %}
         <style>
         body.template-category .pg-search-page,
         body.template-search .pg-search-page {
             padding-top: 120px !important;
+        }
+        body.template-product .pg-identity-banner {
+            margin-top: 120px !important;
         }
         /* Reduce header margin on Desktop */
         body.template-category .pg-search-page__header,
@@ -349,17 +352,26 @@
             body.template-search .pg-search-page {
                 padding-top: 110px !important;
             }
+            body.template-product .pg-identity-banner {
+                margin-top: 110px !important;
+            }
         }
         @media (max-width: 768px) {
             body.template-category .pg-search-page,
             body.template-search .pg-search-page {
                 padding-top: 110px !important;
             }
+            body.template-product .pg-identity-banner {
+                margin-top: 110px !important;
+            }
         }
         @media (max-width: 480px) {
             body.template-category .pg-search-page,
             body.template-search .pg-search-page {
                 padding-top: 80px !important;
+            }
+            body.template-product .pg-identity-banner {
+                margin-top: 80px !important;
             }
         }
         </style>
