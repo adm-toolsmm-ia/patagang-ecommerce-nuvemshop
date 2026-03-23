@@ -4,19 +4,13 @@
 
 ### @devops (Gage) — EXCLUSIVE Authority
 
-| Operation | Exclusive? | Other Agents | Reference |
-|-----------|-----------|--------------|-----------|
-| `git push` / `git push --force` | YES | BLOCKED | `.claude/guides/github-workflow.md` |
-| `gh pr create` / `gh pr merge` | YES | BLOCKED | `.claude/guides/github-workflow.md` |
-| MCP add/remove/configure | YES | BLOCKED | `.claude/rules/mcp-usage.md` |
-| CI/CD pipeline management | YES | BLOCKED | `.aiox-core/development/workflows/` |
-| Release management | YES | BLOCKED | `github-devops-version-management.md` |
-
-**GitHub Integration Workflow:**
-- **@dev responsibility:** Local validation (branch, commits, lint, tests, CodeRabbit)
-- **Checklist:** `.aiox-core/development/tasks/github-local-integration-checklist.md`
-- **Guide:** `.claude/guides/github-workflow.md` — Complete SDC + GitHub integration
-- **@devops responsibility:** Push, PR creation, merging (via tasks or commands)
+| Operation | Exclusive? | Other Agents |
+|-----------|-----------|--------------|
+| `git push` / `git push --force` | YES | BLOCKED |
+| `gh pr create` / `gh pr merge` | YES | BLOCKED |
+| MCP add/remove/configure | YES | BLOCKED |
+| CI/CD pipeline management | YES | BLOCKED |
+| Release management | YES | BLOCKED |
 
 ### @pm (Morgan) — Epic Orchestration
 
