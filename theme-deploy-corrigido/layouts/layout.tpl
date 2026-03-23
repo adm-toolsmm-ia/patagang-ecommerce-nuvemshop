@@ -139,12 +139,20 @@
                 align-self: stretch !important;     /* CRESCE com card */
                 display: flex;                      /* Flex para filho acompanhar */
                 flex-direction: column;
+                min-height: 0;                      /* Permite que flex-grow funcione */
             }
 
-            /* Coluna info: FLEX-START mantém sem forçar height */
+            /* Coluna info: STRETCH para alinhar altura com galeria */
             .pg-pdp-info-col {
-                align-self: flex-start !important;  /* Começa no topo */
-                padding-top: 0;                     /* Sem padding-top, alinhado direto */
+                align-self: stretch !important;    /* CRESCE junto com galeria */
+                display: flex;                     /* Flex para card acompanhar */
+                flex-direction: column;
+                padding-top: 0;                    /* Sem padding-top, alinhado direto */
+            }
+
+            /* Card de info cresce para preencher altura */
+            .pg-pdp-info-card {
+                flex: 1;                           /* Cresce para preencher espaço */
             }
 
             /* =====================================================================

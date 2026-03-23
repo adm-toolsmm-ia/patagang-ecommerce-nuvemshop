@@ -2738,17 +2738,11 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* Container principal - FUNDO CLARO COM DEGRADÊ PARA O FOOTER AMARELO */
 .pg-pdp-container {
 	padding-top: 90px;
-	padding-bottom: 0; /* Sem padding - degradê conecta direto com footer */
+	padding-bottom: 60px;           /* Padding inferior para separação */
 	margin: 0 !important;
-	/* FUNDO CLARO com degradê suave para o footer amarelo */
-	background: linear-gradient(180deg,
-		#FFFFFF 0%,           /* Topo - branco */
-		#FFFFFF 50%,          /* Mantém branco na área dos cards */
-		#F5F5DC 70%,          /* Transição para tom creme/bege */
-		#E8F5A3 85%,          /* Amarelo bem claro */
-		#EAFE67 100%          /* Conecta com início do footer amarelo */
-	);
-	min-height: calc(100vh - 60px);
+	background-color: #ffffff;      /* ✅ LIMPO: Branco puro (padrão home) */
+	background-image: none;
+	min-height: auto;               /* Sem height mínimo - cresce com conteúdo */
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
@@ -3274,16 +3268,10 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 991px) {
 	.pg-pdp-container {
 		padding-top: 80px;
-		padding-bottom: 0;
+		padding-bottom: 40px;         /* Padding inferior para separação */
 		align-items: flex-start;
-		/* FUNDO CLARO com degradê para o footer amarelo */
-		background: linear-gradient(180deg,
-			#FFFFFF 0%,
-			#FFFFFF 40%,
-			#F5F5DC 65%,
-			#E8F5A3 85%,
-			#EAFE67 100%
-		);
+		background-color: #ffffff;    /* ✅ LIMPO: Branco puro (padrão home) */
+		background-image: none;
 	}
 
 	.pg-pdp-container .section-single-product {
