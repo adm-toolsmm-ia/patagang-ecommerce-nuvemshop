@@ -1,4 +1,4 @@
-{#/*============================================================================
+/* /*============================================================================
   Patagang Store — Cart Functions Module (Story 8.5 Priority 2 Phase 2)
   Extracted from store.js.tpl (linhas 1811-2316)
 
@@ -12,31 +12,31 @@
 
   Padrão: IIFE com typeof checks + namespace PatagangStore
   Auto-init: DOMContentLoaded
-==============================================================================*/#}
+==============================================================================*/ */
 
 (function() {
   'use strict';
 
-  {# Verificar dependências #}
+  /*  Verificar dependências  */
   if (typeof jQueryNuvem === 'undefined' || typeof LS === 'undefined') {
     console.warn('[PatagangStore.cartFunctions] Dependências não disponíveis');
     return;
   }
 
 	  #Cart
-	==============================================================================*/ #}
+	==============================================================================*/  */
 
-    {# /* // Free shipping bar */ #}
+    /*  /* // Free shipping bar */  */
 
     {% if cart.free_shipping.min_price_free_shipping.min_price %}
 
-        {# Updates free progress on page load #}
+        /*  Updates free progress on page load  */
 
         LS.freeShippingProgress(true);
 
     {% endif %}
 
-    {# /* // Position of cart page summary */ #}
+    /*  /* // Position of cart page summary */  */
 
     var head_height = jQueryNuvem(".js-head-main").outerHeight();
 
@@ -48,19 +48,19 @@
         {% endif %}
     }
 
-    {# /* // Add to cart */ #}
+    /* Add to cart */
 
-    {# PATAGANG v1.5.81 FIX: Handler UNIVERSAL que funciona INDEPENDENTEMENTE de settings.ajax_cart #}
-    {# Intercepta Add to Cart ANTES do bloco {% if settings.ajax_cart %} e abre drawer em QUALQUER caso #}
+    /* PATAGANG v1.5.82 FIX: Handler UNIVERSAL que funciona INDEPENDENTEMENTE de settings.ajax_cart */
+    /* Intercepta Add to Cart ANTES do bloco settings.ajax_cart e abre drawer em QUALQUER caso */
     jQueryNuvem(document).on("click", ".js-addtocart:not(.js-addtocart-placeholder)", function (e) {
         var $btn = jQueryNuvem(this);
         var $form = $btn.closest('form.js-product-form');
 
-        if (!$form.length) return; {# Não é um formulário válido #}
+        if (!$form.length) return; /* Não é um formulário válido */
 
-        {# Se drawer está disponível, SEMPRE abre (independentemente de settings.ajax_cart) #}
+        /* Se drawer está disponível, SEMPRE abre (independentemente de settings.ajax_cart) */
         if (typeof window.PGCartDrawer !== 'undefined' && window.PGCartDrawer.open) {
-            {# Aguarda um pouco para o produto ser adicionado à sessão antes de abrir drawer #}
+            /* Aguarda um pouco para o produto ser adicionado à sessão antes de abrir drawer */
             setTimeout(function() {
                 window.PGCartDrawer.open();
             }, 100);
@@ -69,7 +69,7 @@
 
 	jQueryNuvem(document).on("click", ".js-addtocart:not(.js-addtocart-placeholder)", function (e) {
 
-        {# PATAGANG: Validação - Bloqueia produtos em desenvolvimento #}
+        /*  PATAGANG: Validação - Bloqueia produtos em desenvolvimento  */
         var $form = jQueryNuvem(this).closest('form.js-product-form');
         if ($form.length) {
             var productId = $form.find('input[name="add_to_cart"]').val();
@@ -89,7 +89,7 @@
             }
         }
 
-        {# Button variables for transitions on add to cart #}
+        /*  Button variables for transitions on add to cart  */
 
         var $productContainer = jQueryNuvem(this).closest('.js-product-container');
         var $productVariants = $productContainer.find(".js-variation-option");
@@ -99,12 +99,12 @@
         var $productButtonAdding = $productButtonPlaceholder.find(".js-addtocart-adding");
         var $productButtonSuccess = $productButtonPlaceholder.find(".js-addtocart-success");
 
-        {# Define if event comes from quickshop, product page or cross selling #}
+        /*  Define if event comes from quickshop, product page or cross selling  */
 
         var isQuickShop = $productContainer.hasClass('js-quickshop-container');
         var isCrossSelling = $productContainer.hasClass('js-cross-selling-container');
 
-        {# Add item information for notification #}
+        /*  Add item information for notification  */
 
         if (isCrossSelling) {
             var imageSrc = $productContainer.find('.js-cross-selling-product-image').attr('src');
@@ -136,7 +136,7 @@
 
         if (!jQueryNuvem(this).hasClass('contact')) {
 
-            {# Hide real button and show button placeholder during event #}
+            /*  Hide real button and show button placeholder during event  */
 
             $productButton.hide();
             $productButtonPlaceholder.show().addClass("active");
@@ -145,7 +145,7 @@
                 $productButtonAdding.addClass("active");
             },300);
 
-            {# Restore button state in case of error #}
+            /*  Restore button state in case of error  */
 
             function restore_button_initial_state(){
                 $productButtonPlaceholder.removeClass("active");
@@ -155,7 +155,7 @@
                 $productButton.css('display' , 'inline-block');
             }
 
-            {# Restore button state for subscriptions stock error #}
+            /*  Restore button state for subscriptions stock error  */
 
             var subscription_callback_error = function() {
                 setTimeout(function() {
@@ -163,7 +163,7 @@
                 }, 500);
             }
 
-            {# Handle subscribable product submit #}
+            /*  Handle subscribable product submit  */
 
             const subscriptionValidResult = LS.subscriptionSubmit($productContainer, subscription_callback_error, e);
             if (subscriptionValidResult && subscriptionValidResult.changeCartSubmit) {
@@ -176,9 +176,9 @@
 
                 var callback_add_to_cart = function(html_notification_related_products, html_notification_cross_selling) {
 
-                    {# Animate cart amount #}
-                    {# LS.addToCartEnhanced já atualiza o contador automaticamente via AJAX #}
-                    {# Apenas animamos o contador existente #}
+                    /*  Animate cart amount  */
+                    /*  LS.addToCartEnhanced já atualiza o contador automaticamente via AJAX  */
+                    /*  Apenas animamos o contador existente  */
 
                     jQueryNuvem(".js-cart-widget-amount, .js-pg-cart-count").addClass("beat");
 
@@ -186,7 +186,7 @@
                         jQueryNuvem(".js-cart-widget-amount, .js-pg-cart-count").removeClass("beat");
                     },4000);
 
-                    {# PATAGANG: Atualiza parcelamento após adicionar produto #}
+                    /*  PATAGANG: Atualiza parcelamento após adicionar produto  */
                     console.log('[ADD TO CART] Produto adicionado, atualizando parcelamento...');
                     setTimeout(function() {
                         if (typeof LS !== 'undefined' && LS.data && LS.data.cart) {
@@ -194,7 +194,7 @@
                             var total = cart.total;
                             console.log('[ADD TO CART] Total do carrinho:', total);
 
-                            {# Atualiza parcelamento via métodos nativos da Nuvemshop apenas #}
+                            /*  Atualiza parcelamento via métodos nativos da Nuvemshop apenas  */
                             if (typeof LS.updateInstallments === 'function') {
                                 LS.updateInstallments(total);
                                 console.log('[ADD TO CART] ✓ Parcelamento atualizado via LS.updateInstallments');
@@ -205,7 +205,7 @@
                         }
                     }, 300);
 
-                    {# Fill notification info #}
+                    /*  Fill notification info  */
 
                     jQueryNuvem('.js-cart-notification-item-img').attr('srcset', imageSrc);
                     jQueryNuvem('.js-cart-notification-item-name').text(name);
@@ -225,7 +225,7 @@
                         jQueryNuvem(".js-cart-notification-item-variant-container").hide();
                     }
 
-                    {# Set products amount wording visibility #}
+                    /*  Set products amount wording visibility  */
 
                     var cartItemsAmount = jQueryNuvem(".js-cart-widget-amount").text();
 
@@ -237,7 +237,7 @@
                         jQueryNuvem(".js-cart-counts-plural").hide();
                     }
 
-                    {# Show button placeholder with transitions #}
+                    /*  Show button placeholder with transitions  */
 
                     $productButtonAdding.removeClass("active");
 
@@ -273,7 +273,7 @@
 
                     {% if settings.add_to_cart_recommendations %}
 
-                        {# Show added to cart product related products #}
+                        /*  Show added to cart product related products  */
 
                         function recommendProductsOnAddToCart(){
 
@@ -283,7 +283,7 @@
 
                             jQueryNuvem('.js-related-products-notification-container').html(html_notification_related_products).show();
 
-                            {# Recommendations swiper #}
+                            /*  Recommendations swiper  */
 
                             // Set loop for recommended products
 
@@ -345,8 +345,8 @@
 
                     let shouldShowCrossSellingModal = html_notification_cross_selling != null;
 
-                    {# PATAGANG: Lógica corrigida - sempre verifica cart_open_type #}
-                    {# A sacola deve abrir se cart_open_type = show_cart, mesmo com related products #}
+                    /*  PATAGANG: Lógica corrigida - sempre verifica cart_open_type  */
+                    /*  A sacola deve abrir se cart_open_type = show_cart, mesmo com related products  */
 
                     // Lê configuração do modal (data-cart-open-type)
                     // Tenta múltiplas formas de ler para garantir que funciona
@@ -374,7 +374,7 @@
                     // Se configurado para abrir carrinho E não há cross-selling bloqueando
                     if((cartOpenType === 'show_cart') && !shouldShowCrossSellingModal){
 
-                        {# Open cart on add to cart - NEW CART DRAWER (v1.5.79 Story 8.5) #}
+                        /*  Open cart on add to cart - NEW CART DRAWER (v1.5.79 Story 8.5)  */
 
                         if (isQuickShop) {
                             setTimeout(function(){
@@ -391,7 +391,7 @@
                         }
 
                     } else {
-                        {# Show notification only (cart_open_type = show_notification ou cross-selling bloqueando) #}
+                        /*  Show notification only (cart_open_type = show_notification ou cross-selling bloqueando)  */
 
                         if(!notificationWithRelatedProducts){
                             setTimeout(function(){
@@ -412,7 +412,7 @@
                         }
                     }
 
-                    {# Display cross-selling promotion modal #}
+                    /*  Display cross-selling promotion modal  */
 
                     if (shouldShowCrossSellingModal) {
                         jQueryNuvem('.js-cross-selling-modal-body').html("");
@@ -420,7 +420,7 @@
                         jQueryNuvem('.js-cross-selling-modal-body').html(html_notification_cross_selling).show();
                     }
 
-                    {# Change prices on cross-selling promotion modal #}
+                    /*  Change prices on cross-selling promotion modal  */
 
                     const crossSellingContainer = document.querySelector('.js-cross-selling-container');
 
@@ -428,9 +428,9 @@
                         LS.fillCrossSelling(crossSellingContainer);
                     }
 
-                    {# Update shipping input zipcode on add to cart #}
+                    /*  Update shipping input zipcode on add to cart  */
 
-                    {# Use zipcode from input if user is in product page, or use zipcode cookie if is not #}
+                    /*  Use zipcode from input if user is in product page, or use zipcode cookie if is not  */
 
                     if (jQueryNuvem("#product-shipping-container .js-shipping-input").val()) {
                         zipcode_on_addtocart = jQueryNuvem("#product-shipping-container .js-shipping-input").val();
@@ -442,14 +442,14 @@
                         jQueryNuvem(".js-shipping-calculator-current-zip").text(zipcode_from_cookie);
                     }
 
-                    {# Automatically close the cross-selling modal by triggering its close button #}
+                    /*  Automatically close the cross-selling modal by triggering its close button  */
 
                     if (isCrossSelling) {
                         jQueryNuvem('#js-cross-selling-modal .js-modal-close').trigger('click');
                     }
                 }
                 var callback_error = function(){
-                    {# Restore real button visibility in case of error #}
+                    /*  Restore real button visibility in case of error  */
                     restore_button_initial_state();
                 }
                 $prod_form = jQueryNuvem(this).closest("form");
@@ -467,7 +467,7 @@
     });
 
 
-    {# /* // Função auxiliar para atualizar totais do carrinho */ #}
+    /*  /* // Função auxiliar para atualizar totais do carrinho */  */
     function updateCartTotal() {
         if (typeof LS !== 'undefined' && LS.cart) {
             LS.cart.then(function(cart) {
@@ -502,7 +502,7 @@
     }
 
 
-    {# /* // Cart quantity changes - DESATIVADO
+    /*  /* // Cart quantity changes - DESATIVADO
        ===============================================
        PATAGANG: Handlers customizados REMOVIDOS.
        Agora usamos os métodos nativos da Nuvemshop:
@@ -512,9 +512,9 @@
        Esses métodos são chamados diretamente via onclick
        nos templates cart-item-new.tpl e cart-item-ajax.tpl,
        garantindo sincronização correta com o backend.
-       =============================================== */ #}
+       =============================================== */  */
 
-    {# Botão remover (lixeira) #}
+    /*  Botão remover (lixeira)  */
     jQueryNuvem(document).on("click", ".js-cart-item-remove", function (e) {
         e.preventDefault();
         var $button = jQueryNuvem(this);
@@ -525,7 +525,7 @@
         }
     });
 
-    {# /* // Empty cart alert */ #}
+    /*  /* // Empty cart alert */  */
 
     jQueryNuvem(".js-trigger-empty-cart-alert").on("click", function (e) {
         e.preventDefault();
@@ -533,39 +533,39 @@
         setTimeout(() => emptyCartAlert.fadeOut(500), 1500);
     });
 
-    {# /* // Go to checkout */ #}
+    /*  /* // Go to checkout */  */
 
-    {# Clear cart notification cookie after consumers continues to checkout #}
+    /*  Clear cart notification cookie after consumers continues to checkout  */
 
     jQueryNuvem('form[action="{{ store.cart_url | escape('js') }}"]').on("submit", function() {
         cookieService.remove('first_product_added_successfully');
     });
 
-    {# /* // ONG Selector - PATAGANG */ #}
+    /*  /* // ONG Selector - PATAGANG */  */
 
-    {# Handler para seleção de ONG (dropdown) #}
+    /*  Handler para seleção de ONG (dropdown)  */
     jQueryNuvem(document).on("change", ".js-ong-input", function() {
         var selectedOng = jQueryNuvem(this).val();
-        {# Atualiza hidden input #}
+        /*  Atualiza hidden input  */
         jQueryNuvem('#selected-ong-value').val(selectedOng);
     });
 
 
-  {# Função principal: Inicializar cart functions #}
+  /*  Função principal: Inicializar cart functions  */
   const initCartFunctions = function() {
     console.log('[PatagangStore.cartFunctions] ✓ Inicialisado');
   };
 
-  {# Expor interface pública #}
+  /*  Expor interface pública  */
   window.PatagangStore = window.PatagangStore || {};
   window.PatagangStore.cartFunctions = {
     init: initCartFunctions,
-    {# Public API exports for backward compatibility #}
+    /*  Public API exports for backward compatibility  */
     renderCartTotal: typeof renderCartTotal !== 'undefined' ? renderCartTotal : null,
     toggleCart: typeof toggleCart !== 'undefined' ? toggleCart : null
   };
 
-  {# Auto-inicializar quando DOM estiver pronto #}
+  /*  Auto-inicializar quando DOM estiver pronto  */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCartFunctions);
   } else {
