@@ -5608,7 +5608,7 @@ input[type="submit"].btn-primary:hover {
     opacity: 1;
 }
 
-/* Panel - Transparente com blur - CARRINHO (lado direito) */
+/* Panel - Sólido - CARRINHO (lado direito) */
 #pg-cart-drawer .pg-drawer__panel {
     position: absolute;
     top: 0;
@@ -5617,30 +5617,28 @@ input[type="submit"].btn-primary:hover {
     width: 100%;
     max-width: 380px;
     height: 100%;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: #FFFFFF;
     display: flex;
     flex-direction: column;
     transform: translateX(100%);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.2);
+    box-shadow: -15px 0 40px rgba(0, 0, 0, 0.4);
     border-right: none;
-    border-left: 1px solid rgba(0, 0, 0, 0.05);
+    border-left: 2px solid #000000;
 }
 
 #pg-cart-drawer.is-open .pg-drawer__panel {
     transform: translateX(0);
 }
 
-/* Header - Transparente */
+/* Header - Sólido */
 .pg-drawer__header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px 18px;
-    background: transparent;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: #FFFFFF;
+    border-bottom: 2px solid #000000;
     flex-shrink: 0;
 }
 
@@ -5755,7 +5753,7 @@ input[type="submit"].btn-primary:hover {
 }
 
 /* ============================================
-   CART ITEM CARD - Design flutuante com destaque na foto
+   CART ITEM CARD - Design Brutalista Minimalista
    ============================================ */
 
 .pg-cart-card {
@@ -5764,10 +5762,10 @@ input[type="submit"].btn-primary:hover {
     grid-template-columns: 100px 1fr auto;
     gap: 14px;
     align-items: start;
-    background: #FFFFFF;
-    border-radius: 16px;
-    padding: 14px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    background: transparent;
+    border-radius: 0;
+    padding: 14px 0;
+    border-bottom: 1px solid #EAEAEA;
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -5805,7 +5803,7 @@ input[type="submit"].btn-primary:hover {
 .pg-cart-card__image {
     width: 100px;
     height: 100px;
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
     background: #F5F5F5;
     flex-shrink: 0;
@@ -5896,7 +5894,7 @@ input[type="submit"].btn-primary:hover {
 }
 
 /* ============================================
-   QUANTITY SELECTOR - Formato Pílula Clean
+   QUANTITY SELECTOR - Geométrico Patagang
    ============================================ */
 
 .pg-cart-card__qty {
@@ -5906,8 +5904,8 @@ input[type="submit"].btn-primary:hover {
 .pg-qty-pill {
     display: inline-flex;
     align-items: center;
-    border: 1.5px solid #D0D0D0;
-    border-radius: 50px;
+    border: 1px solid #000000;
+    border-radius: 0;
     background: transparent;
     overflow: hidden;
 }
@@ -5950,8 +5948,8 @@ input[type="submit"].btn-primary:hover {
     color: #000;
     background: none;
     border: none;
-    border-left: 1px solid #D0D0D0;
-    border-right: 1px solid #D0D0D0;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
     padding: 0;
     -moz-appearance: textfield;
 }
@@ -5963,16 +5961,14 @@ input[type="submit"].btn-primary:hover {
 }
 
 /* ============================================
-   DRAWER FOOTER - Fixo no bottom, transparente
+   DRAWER FOOTER - Fixo no bottom, sólido
    ============================================ */
 
 .pg-drawer__footer {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    background: #FFFFFF;
     padding: 14px 18px 18px;
     flex-shrink: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    border-top: 2px solid #000000;
     margin-top: auto;
 }
 
@@ -6085,12 +6081,12 @@ input[type="submit"].btn-primary:hover {
     background: #000;
     color: #FFF;
     font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 800;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     border: none;
-    border-radius: 50px;
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.2s ease;
 }
