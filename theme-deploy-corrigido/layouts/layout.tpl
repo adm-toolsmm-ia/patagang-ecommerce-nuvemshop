@@ -581,10 +581,15 @@
 
         <div class="js-modal-overlay modal-overlay" style="display: none;"></div>
 
-        {# Cart Modal - ALWAYS LOADED (Modal Nativo Nuvemshop) #}
+        {# Cart Drawer - NEW IMPLEMENTATION (v1.5.79 Story 8.5) #}
+        {# INCLUDES: cupom, frete, ONG, itens, total #}
         {% if not store.is_catalog and settings.ajax_cart and template != 'cart' %}
-          {% include "snipplets/cart-modal.tpl" %}
+          {% include "snipplets/cart-drawer-new.tpl" %}
         {% endif %}
+
+        {# Cart Drawer JavaScript (v1.5.79 Story 8.5 Priority 3) #}
+        {# Handlers: open/close, qty changes, remove items, apply coupon #}
+        {% include "static/js/cart-drawer.js" %}
 
         {# Quickshop modal #}
 

@@ -82,7 +82,7 @@
           <a href="{{ cart_href }}"
              class="pg-header__icon-button js-modal-open js-fullscreen-modal-open"
              {% if settings.ajax_cart and template != 'cart' %}
-               data-toggle="#modal-cart"
+               data-toggle="#pg-cart-drawer"
                data-modal-url="modal-fullscreen-cart"
                data-component="header.cart-button"
              {% endif %}
