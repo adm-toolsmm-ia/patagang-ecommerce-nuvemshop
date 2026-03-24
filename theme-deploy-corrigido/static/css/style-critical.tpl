@@ -2009,6 +2009,78 @@ p{
   }
 }
 
+/* ============================================================================
+   PATAGANG v1.5.63: Product Informative Banner — Light Background + Better Layout
+   Purpose: Freight warning banner with clear background and improved text distribution
+   Changes: background #F5F5F5 (light gray), better flex layout for mobile
+============================================================================ */
+
+.product-informative-banner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 1rem 0;
+  background: #F5F5F5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Banner items wrapper — Horizontal on desktop, vertical on mobile */
+.product-informative-banner > .d-md-flex {
+  display: flex !important;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.product-informative-banner .col-md {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  min-height: 100px;
+  flex: 1;
+}
+
+/* Mobile: Stack vertically with better spacing */
+@media (max-width: 767px) {
+  .product-informative-banner .col-md {
+    width: 100%;
+    padding: 1.25rem;
+    min-height: auto;
+    border-bottom: 1px solid #EFEFEF;
+  }
+
+  .product-informative-banner .col-md:last-child {
+    border-bottom: none;
+  }
+
+  /* Mobile text centering */
+  .product-informative-banner .d-flex.flex-column {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* Desktop: Items side-by-side */
+@media (min-width: 768px) {
+  .product-informative-banner {
+    flex-direction: row;
+  }
+
+  .product-informative-banner .col-md {
+    border-right: 1px solid #EFEFEF;
+  }
+
+  .product-informative-banner .col-md:last-child {
+    border-right: none;
+  }
+
+  .product-informative-banner .d-md-flex {
+    width: auto;
+    flex: 1;
+  }
+}
+
 .service-pagination {
   position: relative;
   margin-top: 5px;
@@ -5193,6 +5265,29 @@ select {
 @media (min-width: 769px) and (max-width: 991px) {
   .pg-gallery-item {
     border-radius: 12px;
+  }
+}
+
+/* ============================================================================
+   PATAGANG v1.5.63: MOBILE GALLERY FIX — Hide Grid 2x2, Show Swiper Only
+   Purpose: Remove duplicate gallery visualization on mobile devices
+   Mobile (<992px): Show Swiper carousel ONLY
+   Desktop (≥992px): Show grid 2x2 thumbnail layout
+============================================================================ */
+
+@media (max-width: 991px) {
+  /* Hide grid 2x2 on mobile completely */
+  .pg-gallery-container {
+    display: none !important;
+  }
+
+  /* Ensure Swiper is visible on mobile */
+  .product-image-container {
+    display: flex !important;
+  }
+
+  .js-swiper-product {
+    display: block !important;
   }
 }
 
