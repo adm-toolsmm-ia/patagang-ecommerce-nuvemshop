@@ -265,6 +265,16 @@ DOMContentLoaded.addEventOrExecute(() => {
     }
 
     modalOpen = function(modal_id, openType){
+        {# PATAGANG: Se for o drawer do carrinho, usar API específica #}
+        if (modal_id === '#pg-cart-drawer') {
+            if (typeof window.PGCartDrawer !== 'undefined') {
+                window.PGCartDrawer.open();
+            } else {
+                console.warn('[ModalOpen] PGCartDrawer não disponível');
+            }
+            return;
+        }
+
         var $overlay_id = jQueryNuvem('.js-modal-overlay[data-modal-id="' + modal_id + '"]');
         if (jQueryNuvem(modal_id).hasClass("modal-show")) {
             let modal = jQueryNuvem(modal_id).removeClass("modal-show");
@@ -2119,15 +2129,23 @@ DOMContentLoaded.addEventOrExecute(() => {
                     // Se configurado para abrir carrinho E não há cross-selling bloqueando
                     if((cartOpenType === 'show_cart') && !shouldShowCrossSellingModal){
 
-                        {# Open cart on add to cart - MODAL NATIVO NUVEMSHOP #}
+                        {# Open cart on add to cart - PATAGANG CART DRAWER #}
 
                         if (isQuickShop) {
                             setTimeout(function(){
-                                modalOpen('#modal-cart', 'openFullScreenWithoutClick');
+                                if (typeof window.PGCartDrawer !== 'undefined') {
+                                    window.PGCartDrawer.open();
+                                } else {
+                                    console.warn('[PatagangStore] PGCartDrawer não disponível');
+                                }
                             }, 500);
                         } else {
                             setTimeout(function(){
-                                modalOpen('#modal-cart', 'openFullScreenWithoutClick');
+                                if (typeof window.PGCartDrawer !== 'undefined') {
+                                    window.PGCartDrawer.open();
+                                } else {
+                                    console.warn('[PatagangStore] PGCartDrawer não disponível');
+                                }
                             }, 300);
                         }
 
