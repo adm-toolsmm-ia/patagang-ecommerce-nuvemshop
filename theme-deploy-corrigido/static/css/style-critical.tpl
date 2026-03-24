@@ -5228,7 +5228,8 @@ select {
   position: relative;
   width: 100%;
   display: block;
-  /* JavaScript sets height based on data-aspect-ratio if needed */
+  aspect-ratio: attr(data-aspect-ratio, auto);
+  /* data-aspect-ratio comes from product image dimensions */
 }
 
 .pg-aspect-ratio-container img,
@@ -5238,7 +5239,7 @@ select {
   display: block;
 }
 
-/* SVG size-lock for modal images */
+/* SVG size-lock for modal images (prevents CLS) */
 .pg-modal-main-img {
   width: 100%;
   height: auto;
@@ -5247,6 +5248,15 @@ select {
   object-fit: contain;
   display: block;
   margin: 0 auto;
+}
+
+/* SVG size-lock rules - prevent CLS (Cumulative Layout Shift) */
+.pg-nav-btn__logo,
+.pg-gallery-zoom-icon svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex-shrink: 0;
 }
 
 /* Responsive aspect-ratio fallback */
