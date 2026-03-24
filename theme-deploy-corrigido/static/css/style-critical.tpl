@@ -4190,6 +4190,55 @@ main.patagang-section-content {
     transform: translateX(-100%);
 }
 
+/* Cart Drawer Coupon Input - PATAGANG v1.5.68 */
+.pg-drawer__coupon-section {
+    margin: 12px 0 8px;
+    padding: 0;
+}
+
+.pg-drawer__coupon-form {
+    width: 100%;
+    margin: 0;
+}
+
+.pg-drawer__coupon-group {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+}
+
+.pg-drawer__coupon-input {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    color: #333;
+}
+
+.pg-drawer__coupon-input::placeholder {
+    color: #999;
+    font-size: 12px;
+}
+
+.pg-drawer__coupon-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.pg-drawer__coupon-btn:hover {
+    background-color: #333;
+}
+
 /* ============================================
    PATAGANG HOME - Anti-FOUC (Critical CSS)
    ============================================ */

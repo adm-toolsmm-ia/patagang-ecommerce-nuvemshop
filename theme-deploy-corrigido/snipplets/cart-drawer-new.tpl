@@ -71,10 +71,27 @@
                     </div>
                 {% endif %}
 
-                {# Cupom #}
-                <div class="pg-drawer__summary-row">
-                    <span class="pg-drawer__summary-label">Cupom</span>
-                    <a href="{{ store.cart_url }}" class="pg-drawer__summary-link js-pg-drawer-close">Adicionar</a>
+                {# Cupom - Input Field + Botão (inline na sacola) #}
+                <div class="pg-drawer__coupon-section">
+                    <form action="{{ store.cart_url }}" method="post" class="pg-drawer__coupon-form">
+                        <div class="pg-drawer__coupon-group">
+                            <input
+                                type="text"
+                                name="discount_code"
+                                class="pg-drawer__coupon-input"
+                                placeholder="Código promocional"
+                                aria-label="Código promocional"
+                            />
+                            <button
+                                type="submit"
+                                name="apply_discount"
+                                class="pg-drawer__coupon-btn"
+                                data-component="cart.apply-coupon"
+                            >
+                                Aplicar
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
                 {# Total (oculto temporariamente para reimplementação) #}
