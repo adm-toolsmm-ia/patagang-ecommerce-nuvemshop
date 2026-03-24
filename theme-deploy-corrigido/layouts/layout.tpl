@@ -637,17 +637,17 @@
                 {# Story 8.5 Priority 2: Modularized JS (Phase 1) #}
                 {# Each module is IIFE with typeof checks + auto-init on DOMContentLoaded #}
 
-                {% include "static/js/modules/notifications.js" %}
-                {% include "static/js/modules/forms.js" %}
-                {% include "static/js/modules/footer.js" %}
-                {% include "static/js/modules/utilities.js" %}
+                {% include "static/js/modules/notifications.js.tpl" %}
+                {% include "static/js/modules/forms.js.tpl" %}
+                {% include "static/js/modules/footer.js.tpl" %}
+                {% include "static/js/modules/utilities.js.tpl" %}
 
                 {# Story 8.5 Priority 2 Phase 2: Modularized JS (Medium complexity) #}
                 {# Extracted: product variants, cart operations, shipping calculator #}
 
-                {% include "static/js/modules/product-functions.js" %}
-                {% include "static/js/modules/cart-functions.js" %}
-                {% include "static/js/modules/shipping-functions.js" %}
+                {% include "static/js/modules/product-functions.js.tpl" %}
+                {% include "static/js/modules/cart-functions.js.tpl" %}
+                {% include "static/js/modules/shipping-functions.js.tpl" %}
 
                 {# Specific store JS functions: core orchestration only #}
                 {% include "static/js/store.js.tpl" %}
