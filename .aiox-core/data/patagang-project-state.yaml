@@ -7,8 +7,74 @@
 ---
 
 version: "1.0"
-lastUpdated: "2026-03-20T00:00:00.000Z"
+lastUpdated: "2026-03-24T16:38:42.000Z"
 project: "Patagang Ecommerce (Nuvemshop FTP Theme)"
+
+## ============================================================================
+## CURRENT STORY (Story Development Cycle)
+## ============================================================================
+currentStory:
+  storyId: "8.5"
+  storyTitle: "JavaScript Optimization & Consolidation"
+  epicId: "8"
+  epicTitle: "Refatoração Técnica CSS & JavaScript"
+  branch: "feature/8.3-remove-important"
+
+  ## Implementation Phase
+  phase: "IMPLEMENTATION"
+  phaseStatus: "Priority 1 deployed to v1.5.74, awaiting Gabriel validation"
+  phaseDeadline: "2026-03-27"
+
+  ## Current Version
+  currentVersion: "1.5.74"
+  previousVersion: "1.5.73"
+  deploymentTime: "2026-03-24T16:38:42Z"
+  deploymentStatus: "SUCCESS"
+  backupLocation: "backups/deployment-1.5.74/2026-03-24T19-38-22/"
+
+  ## Priority Execution (4 total)
+  priorities:
+    priority_1:
+      name: "Lazy-load Olark"
+      status: "DEPLOYED"
+      version: "v1.5.74"
+      gitCommit: "017f9b7"
+      filesModified: ["theme-deploy-corrigido/static/js/external.js.tpl", "theme-deploy-corrigido/static/js/store.js.tpl"]
+      validationStatus: "PENDING_GABRIEL"
+      validationLink: "https://patagang.com.br/"
+
+    priority_2:
+      name: "Modularize store.js.tpl"
+      status: "PENDING"
+      estimatedVersion: "v1.5.75"
+      estimatedHours: 4
+      estimatedSavings: "-20K"
+      blockedBy: ["priority_1 validation"]
+
+    priority_3:
+      name: "Consolidate cart JS"
+      status: "PENDING"
+      estimatedVersion: "v1.5.76"
+      estimatedHours: 1
+      estimatedSavings: "-5K"
+
+    priority_4:
+      name: "Review Swiper usage"
+      status: "PENDING"
+      estimatedVersion: "v1.5.77"
+      estimatedHours: 1
+      estimatedSavings: "-3K"
+
+  ## Documentation
+  documentation:
+    - "docs/guides/8.5-IMPLEMENTATION-LOG.md"
+    - "docs/guides/8.5-JAVASCRIPT-ANALYSIS-FINDINGS.md"
+    - "docs/guides/8.5-JAVASCRIPT-OPTIMIZATION-EXECUTIVE-PLAN.md"
+    - ".aiox-core/development/agents/dev/MEMORY.md"
+
+  ## Next Action
+  nextAction: "Await Gabriel validation of v1.5.74 in production"
+  estimatedCompletion: "2026-03-27 (all 4 priorities + v2.0.0 release)"
 
 ## ============================================================================
 ## ACTIVE EPICS (Managed by @pm via *execute-epic)
