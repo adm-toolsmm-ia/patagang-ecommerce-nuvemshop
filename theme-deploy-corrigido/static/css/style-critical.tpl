@@ -2010,35 +2010,40 @@ p{
 }
 
 /* ============================================================================
-   PATAGANG v1.5.63: Product Informative Banner — Light Background + Better Layout
-   Purpose: Freight warning banner with clear background and improved text distribution
-   Changes: background #F5F5F5 (light gray), better flex layout for mobile
+   PATAGANG v1.5.64: Product Informative Banner — Light Background (#F5F5F5) + Better Layout
+   Purpose: Freight warning banner with clear light gray background and improved text distribution
+   Changes: background #F5F5F5 (light gray with !important), better flex layout for mobile
 ============================================================================ */
 
 .product-informative-banner {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 1rem 0;
-  background: #F5F5F5;
-  border-radius: 8px;
-  overflow: hidden;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  margin: 1rem 0 !important;
+  background: #F5F5F5 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  padding: 0 !important;
 }
 
-/* Banner items wrapper — Horizontal on desktop, vertical on mobile */
+/* Ensure all child elements have light background */
+.product-informative-banner .js-informative-product,
+.product-informative-banner .swiper-wrapper,
 .product-informative-banner > .d-md-flex {
+  background: #F5F5F5 !important;
   display: flex !important;
-  flex-wrap: wrap;
-  width: 100%;
+  flex-wrap: wrap !important;
+  width: 100% !important;
 }
 
 .product-informative-banner .col-md {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  min-height: 100px;
-  flex: 1;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  min-height: 100px !important;
+  flex: 1 !important;
+  background: #F5F5F5 !important;
 }
 
 /* Mobile: Stack vertically with better spacing */
