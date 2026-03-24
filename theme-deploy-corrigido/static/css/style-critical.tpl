@@ -2832,10 +2832,10 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* Desktop: Esconder Swiper (mostra grid 2x2 em vez disso) */
 @media (min-width: 992px) {
 	.pg-pdp-image-col .product-image-container {
-		display: none !important;
+		display: none;
 	}
 	.pg-pdp-image-col .js-swiper-product {
-		display: none !important;
+		display: none;
 	}
 }
 
