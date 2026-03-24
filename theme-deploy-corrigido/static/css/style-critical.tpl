@@ -2744,8 +2744,9 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	background-image: none;
 	min-height: auto;               /* Sem height mínimo - cresce com conteúdo */
 	display: flex;
-	align-items: flex-start;
-	justify-content: center;
+	flex-direction: column;          /* ✅ Banners em vertical (linhas), não colunas */
+	align-items: stretch;            /* Filhos ocupam 100% width */
+	justify-content: flex-start;
 }
 
 /* Row principal - Bootstrap row */
