@@ -47,8 +47,9 @@
     text-transform: uppercase;
     margin-top: 6px;
     color: #1A1A1A;
-    transform: scaleX(-1) rotateZ(180deg);
     display: inline-block;
+    /* Removido: transform: scaleX(-1) rotateZ(180deg); */
+    /* Texto agora lido naturalmente de cima para baixo no lado esquerdo */
 }
 
 /* Mobile Tweaks - button centered vertically (same as pg-help-btn) */
