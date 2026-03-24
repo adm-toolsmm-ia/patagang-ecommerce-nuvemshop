@@ -10,7 +10,7 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #EAFE67; /* Store Yellow - same as pg-help-btn */
+    background: #F0F0F0; /* Light gray - matches header icon style */
     color: #1A1A1A; /* Black Text */
     z-index: 9990;
     cursor: pointer;
@@ -27,7 +27,7 @@
 }
 
 .btn-whatsapp-left:hover {
-    background: #d4e65d; /* Slightly darker yellow on hover - same as pg-help-btn */
+    background: #E8E8E8; /* Slightly darker gray on hover */
     padding-left: 12px;
 }
 

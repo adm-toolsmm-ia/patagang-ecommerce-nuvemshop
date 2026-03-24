@@ -2009,7 +2009,31 @@ p{
   }
 }
 
-/* Product Informative Banner — Using Nuvemshop default styling (no override) */
+/* Product Informative Banner — Transparent background + compact text */
+.product-informative-banner {
+  background: transparent;
+  padding: 0.5rem 0;
+}
+
+.product-informative-banner .col-md {
+  padding: 0.75rem 0.5rem;
+  min-height: auto;
+}
+
+.product-informative-title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  margin-bottom: 4px !important;
+}
+
+.product-informative-banner .product-informative-title {
+  font-size: 13px;
+}
+
+.product-informative-banner div {
+  font-size: 12px;
+  line-height: 1.4;
+}
 
 .service-pagination {
   position: relative;
