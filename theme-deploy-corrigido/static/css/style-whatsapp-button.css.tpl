@@ -38,14 +38,14 @@
 }
 
 .btn-whatsapp-left span {
-    writing-mode: vertical-rl;
+    writing-mode: vertical-lr;
     text-orientation: mixed;
     font-family: 'Familjen Grotesk', sans-serif;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-top: 4px;
     color: #1A1A1A;
 }
 
