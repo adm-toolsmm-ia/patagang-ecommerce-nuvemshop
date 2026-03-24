@@ -76,6 +76,136 @@
 
         {{ 'css/style-colors.scss.tpl' | static_url | static_inline }}
 
+        {# PATAGANG v1.5.31: CRITICAL FIX - Reset body background after style-colors loads #}
+        {# Reason: style-colors.scss defines body { background-color: $main-background } #}
+        {# If $main-background is gray/non-white, it cascades to ad-bar and header sections #}
+        {# Fix: Explicit white background + section-level transparent overrides #}
+        <style>
+            /* CRITICAL: Force body background to WHITE to prevent gray cascade */
+            body {
+                background-color: #ffffff !important;
+                background-image: none !important;
+            }
+
+            /* CRITICAL: Ensure sections OVERRIDE body background completely */
+            section.patagang-section-top,
+            section.patagang-section-header {
+                background-color: transparent !important;
+                background-image: none !important;
+            }
+
+            /* CRITICAL: Main content section is explicit white (no inheritance issues) */
+            main.patagang-section-content {
+                background-color: #ffffff !important;
+                background-image: none !important;
+            }
+        </style>
+
+        {# PATAGANG v1.5.32: Product Layout Refinements - Scroll, Fallback, Alignment #}
+        {# Fase 1: CSS-only improvements for gallery + card alignment #}
+        {# PATAGANG v1.5.34: Gallery 2-Column Grid - 4 Imagens Visíveis Alinhadas ao Card #}
+        {# PATAGANG v1.5.35: Gallery Height Alignment — Galeria cresce com card (DYNAMIC HEIGHT) #}
+        <style>
+            /* =====================================================================
+               PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
+               ===================================================================== */
+
+            /* 1. DESKTOP: Gallery shows exactly 4 images (2x2) with scroll for extras */
+            .pg-gallery-container {
+                max-height: 520px;          /* MÁXIMO: altura suficiente para 4 imagens (2x2) */
+                overflow-y: auto;           /* Scroll automático se > 4 imagens */
+                box-sizing: border-box;
+                display: flex;              /* Flex container para filho ficar alinhado */
+                flex-direction: column;     /* Grid fica em coluna */
+                padding-right: 8px;         /* Espaço para scrollbar sem cortar conteúdo */
+            }
+
+            /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
+            .pg-gallery-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);  /* 2 COLUNAS */
+                gap: 14px;                              /* Espaçamento moderno refinado */
+                padding: 0;                             /* Sem padding (gap já espaça) */
+                width: 100%;
+                height: fit-content;                    /* Cresce com conteúdo */
+            }
+
+            /* =====================================================================
+               COLUMN ALIGNMENT — Colunas Crescem Juntas para Alinhar Rodapé
+               ===================================================================== */
+
+            /* Coluna imagem: STRETCH para crescer com card */
+            .pg-pdp-image-col {
+                align-self: stretch !important;     /* CRESCE com card */
+                display: flex;                      /* Flex para filho acompanhar */
+                flex-direction: column;
+                min-height: 0;                      /* Permite que flex-grow funcione */
+            }
+
+            /* Coluna info: STRETCH para alinhar altura com galeria */
+            .pg-pdp-info-col {
+                align-self: stretch !important;    /* CRESCE junto com galeria */
+                display: flex;                     /* Flex para card acompanhar */
+                flex-direction: column;
+                padding-top: 0;                    /* Sem padding-top, alinhado direto */
+            }
+
+            /* Card de info cresce para preencher altura */
+            .pg-pdp-info-card {
+                flex: 1;                           /* Cresce para preencher espaço */
+            }
+
+            /* =====================================================================
+               CARD STYLING — Fallback para Backdrop Filter + Refinements
+               ===================================================================== */
+
+            /* Base: Fallback para navegadores sem suporte a backdrop-filter */
+            .pg-pdp-info-card {
+                background: rgba(255, 255, 255, 0.85);  /* Fallback: background opaco */
+                backdrop-filter: blur(0);               /* Fallback: sem blur */
+            }
+
+            /* Modern browsers: use backdrop-filter com blur */
+            @supports (backdrop-filter: blur(1px)) {
+                .pg-pdp-info-card {
+                    background: rgba(255, 255, 255, 0.55);
+                    backdrop-filter: blur(12px);
+                    -webkit-backdrop-filter: blur(12px);
+                }
+            }
+
+            /* =====================================================================
+               MOBILE ADJUSTMENTS — Manter responsividade
+               ===================================================================== */
+
+            @media (max-width: 768px) {
+                /* Mobile: carousel responsivo (sem galeria grid) */
+                .pg-gallery-container {
+                    height: auto;           /* Auto em mobile */
+                    overflow: visible;      /* Sem scroll, fluxo natural */
+                }
+
+                /* Mobile: colunas empilhadas, alinhar topo */
+                .pg-pdp-image-col,
+                .pg-pdp-info-col {
+                    align-self: stretch;    /* Preenche width mobile */
+                }
+            }
+
+            @media (min-width: 769px) and (max-width: 991px) {
+                /* Tablet: galeria 2-column, 4 imagens (2x2) com scroll para extras */
+                .pg-gallery-container {
+                    max-height: 480px;      /* MÁXIMO: altura para 2 linhas em tablet */
+                    overflow-y: auto;       /* Scroll automático se > 4 imagens */
+                    padding-right: 8px;     /* Espaço para scrollbar */
+                }
+
+                .pg-gallery-grid {
+                    grid-template-columns: repeat(2, 1fr);  /* 2 colunas em tablet */
+                }
+            }
+        </style>
+
         {# Load async styling not mandatory for first meaningfull paint #}
 
         <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
@@ -89,9 +219,9 @@
         {# PRODUCT CARD V3 - Cards compactos e limpos (categoria, busca, similares, 404) #}
         <link rel="stylesheet" href="{{ 'css/product-card-v3.css' | static_url }}?v=2026-02-14">
 
-        {# Blog styles - PATAGANG - Load immediately, not async #}
+        {# Blog styles - PATAGANG - Loaded asynchronously (not above-the-fold) #}
 
-        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}">
+        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
 
         {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
 
@@ -99,57 +229,106 @@
             {{ settings.css_code | raw }}
         </style>
 
-        {# Ad Bar: override final (vence platform/colors/async em TODAS as páginas, incl. home) #}
+        {# Ad Bar: override final (PATAGANG v1.5.17+ - Static layout, no fixed positioning) #}
+        {# CRITICAL: Ensure advertising section remains VISUALLY SEPARATE from header #}
         {% if settings.ad_bar and settings.ad_text %}
         <style>
             body .section-advertising {
-                background: transparent !important;
                 background-color: transparent !important;
-                position: fixed !important;
-                z-index: 10000 !important;
-                /* Mobile: 10px / Desktop: 12px */
-                font-size: 12px !important;
+                position: static !important;
+                z-index: auto !important;
+                width: 100% !important;
+                padding: 10px 20px !important;
+                box-sizing: border-box !important;
+                margin-bottom: 0 !important;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
             }
-            body .section-advertising .section-advertising__marquee {
-                padding: 0 12px !important;
+            body .section-advertising__marquee {
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                width: 100% !important;
+                max-width: 1200px !important;
+                margin: 0 auto !important;
             }
-            @media (max-width: 768px) {
+            body .section-advertising__track {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-align: center !important;
+                width: 100% !important;
+                padding: 0 !important;
+                animation: none !important;
+            }
+            body .section-advertising__copy {
+                display: block !important;
+                font-size: 0.875rem !important;
+                font-weight: 600 !important;
+                letter-spacing: 0.3px !important;
+                color: #000 !important;
+                margin: 0 !important;
+                line-height: 1.4 !important;
+            }
+            body .section-advertising__link {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                text-decoration: none !important;
+                color: inherit !important;
+                outline: none !important;
+                width: 100% !important;
+                transition: opacity 0.2s ease !important;
+            }
+            body .section-advertising__link:hover {
+                opacity: 0.8 !important;
+            }
+            @media (max-width: 576px) {
                 body .section-advertising {
-                    font-size: 10px !important;
-                    min-height: 24px !important;
-                    height: auto !important;
-                    line-height: 1.3 !important;
-                    overflow-wrap: break-word !important;
-                    word-break: break-word !important;
-                    white-space: normal !important;
-                    padding: 8px 4px !important;
+                    padding: 8px 15px !important;
                 }
-                body .section-advertising * {
-                    font-size: 10px !important;
-                    line-height: 1.3 !important;
-                    padding: 0 !important;
-                    margin: 0 !important;
-                    word-break: break-word !important;
-                    overflow-wrap: break-word !important;
+                body .section-advertising__copy {
+                    font-size: 0.75rem !important;
                 }
-                body .section-advertising .section-advertising__sep {
-                    margin-left: 2em !important;
-                    margin-right: 2em !important;
+            }
+            @media (min-width: 577px) and (max-width: 991px) {
+                body .section-advertising {
+                    padding: 9px 18px !important;
                 }
-                body .section-advertising .section-advertising__marquee {
-                    padding: 0 4px !important;
-                    display: block !important;
-                    width: 100% !important;
-                    height: auto !important;
-                }
-                /* Ajuste do header para acompanhar a nova altura da barra */
-                body .pg-header,
-                body .pg-header--sticky {
-                    top: 24px !important;
+                body .section-advertising__copy {
+                    font-size: 0.8rem !important;
                 }
             }
         </style>
         {% endif %}
+
+        {# Header styling - ensure visual independence from advertising bar #}
+        <style>
+            {# Header container: transparent by default, can have bg from design #}
+            body .pg-header {
+                background: transparent !important;
+                border: none !important;
+                clear: both !important;
+            }
+
+            {# Ensure header has proper spacing from ad bar #}
+            body.has-ad-bar .pg-header {
+                margin-top: 0 !important;
+                padding-top: 50px !important;
+                background: transparent !important;
+                color: inherit !important;
+            }
+            {# Mobile: Ensure header stays independent when ad bar present #}
+            @media (max-width: 768px) {
+                body.has-ad-bar .pg-header {
+                    min-height: 56px !important;
+                    padding-top: 8px !important;
+                    padding-bottom: 8px !important;
+                }
+                body.has-ad-bar .pg-header__logo-img {
+                    max-height: 26px !important;
+                }
+            }
+        </style>
 
         {# Konfidence widget removido - será reimplementado posteriormente #}
 
@@ -294,6 +473,89 @@
 
 
     
+        {# PATAGANG v1.5.30: Structural Refactor - Section-level isolation with semantic HTML #}
+        <style>
+            /* L1: TOP SECTION — Ad Bar (completely isolated) */
+            section.patagang-section-top {
+                background-color: transparent !important;
+                background-image: none !important;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            section.patagang-section-top .section-advertising {
+                background-color: transparent !important;
+                background-image: none !important;
+                color: inherit !important;
+                margin: 0 !important;
+                padding: 10px 20px !important;
+                border: none !important;
+                box-shadow: none !important;
+                width: 100% !important;
+            }
+            section.patagang-section-top .section-advertising * {
+                background-color: transparent !important;
+                background-image: none !important;
+            }
+
+            /* L2: HEADER SECTION — Navigation (completely independent) */
+            section.patagang-section-header {
+                background-color: transparent !important;
+                background-image: none !important;
+                color: inherit !important;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                clear: both;
+                border: none;
+                box-shadow: none;
+            }
+            section.patagang-section-header .pg-header {
+                background-color: transparent !important;
+                background-image: none !important;
+                color: inherit !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                width: 100% !important;
+            }
+
+            /* L3: MAIN CONTENT (explicit background) */
+            main.patagang-section-content {
+                background-color: #ffffff;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Mobile breakpoint — explicit spacing between sections */
+            @media (max-width: 768px) {
+                section.patagang-section-top {
+                    border-bottom: 1px solid rgba(0,0,0,0.05);
+                }
+                section.patagang-section-top .section-advertising {
+                    padding-bottom: 10px !important;
+                }
+
+                section.patagang-section-header {
+                    border-top: none;
+                    border-bottom: 1px solid rgba(0,0,0,0.08);
+                }
+                section.patagang-section-header .pg-header {
+                    min-height: 56px !important;
+                    padding-top: 8px !important;
+                    padding-bottom: 8px !important;
+                }
+
+                main.patagang-section-content {
+                    margin-top: 0;
+                }
+            }
+        </style>
     </head>
     <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}{% if settings.ad_bar and settings.ad_text %} has-ad-bar{% endif %}">
         {# Facebook comments on product page #}
@@ -314,18 +576,26 @@
 
         {{back_to_admin}}
 
-        {# Barra de anúncio - FIXO no topo (z-index 10000) #}
-        {% if settings.ad_bar and settings.ad_text %}
-          {% snipplet "header/header-advertising.tpl" %}
-        {% endif %}
+        {# ========================================================================
+           PATAGANG v1.5.30: Structural Layout — Three Independent Sections
+           ======================================================================== #}
 
-        {# Header = Logo + Search + Ajax Cart (top: 30px para não sobrepor banner) #}
+        {# SECTION 1: Top Banner (Ad Bar) — Completely isolated #}
+        <section class="patagang-section-top" role="banner">
+          {% if settings.ad_bar and settings.ad_text %}
+            {% snipplet "header/header-advertising.tpl" %}
+          {% endif %}
+        </section>
 
-        {% snipplet "header/header-patagang.tpl" %}
+        {# SECTION 2: Header Navigation — Completely independent #}
+        <section class="patagang-section-header" role="navigation">
+          {% snipplet "header/header-patagang.tpl" %}
+        </section>
 
-        {# Page content #}
-
-        {% template_content %}
+        {# SECTION 3: Main Content — Explicit background context #}
+        <main class="patagang-section-content" role="main">
+          {% template_content %}
+        </main>
 
         {# Modals overlay #}
 

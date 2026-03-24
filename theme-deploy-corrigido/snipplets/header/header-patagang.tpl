@@ -295,21 +295,9 @@
 }
 
 /* ============================================
-   BARRA DE FRETE - Filhos com fundo transparente (o .section-advertising usa #EAFE67 do critical)
-   ============================================ */
-.section-advertising * {
-    background-color: transparent !important;
-    background: transparent !important;
-    color: #000 !important;
-}
-
-.section-advertising .link-contrast {
-    color: #000 !important; /* Garante visibilidade do texto */
-}
-
-/* ============================================
    HEADER LAYOUT FIX
    Protege alinhamento da Logo e Menu
+   (Nota: CSS da BARRA DE FRETE movido para style-critical.tpl)
    ============================================ */
 .pg-header__row {
   position: relative;

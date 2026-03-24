@@ -1,0 +1,356 @@
+# Refactoring Epic 8 Configuration (L3 — Project Data)
+
+# Meta
+name: "Epic 8 — Refatoração Técnica CSS & JavaScript"
+version: "1.0.0"
+created: "2026-03-21"
+authority: "@architect"
+framework_level: "L3 — Project Configuration"
+
+# Epic Definition
+epic:
+  id: "8"
+  title: "Refatoração Técnica CSS & JavaScript"
+  description: "Refatorar CSS e JavaScript para melhorar performance, manutenção e qualidade"
+  priority: "high"
+  status: "pending-approval"
+  duration_weeks: 3
+  duration_weeks_1dev: 6
+
+# Team Allocation
+team:
+  recommended_developers: 2
+  qa_part_time: true
+  devops_as_needed: true
+  total_effort_hours: 94
+
+# Phases (5 total)
+phases:
+  - id: "1"
+    title: "Design Tokens"
+    story_id: "8.1"
+    effort_hours: 13
+    duration_days: "3-5"
+    risk_level: "low"
+    blocker_for: ["8.2", "8.3", "8.4"]
+    version_target: "v1.2.0"
+    metrics:
+      - "100+ color tokens mapped"
+      - "3 breakpoints unified"
+      - "Lighthouse ≥ 85"
+      - "Visual identical to v1.1.18"
+
+  - id: "2"
+    title: "CSS Reduction (Critical)"
+    story_id: "8.2"
+    effort_hours: 21
+    duration_days: "5-7"
+    risk_level: "medium"
+    blocked_by: ["8.1"]
+    version_target: "v1.3.0"
+    metrics:
+      - "style-critical.tpl < 50KB (from 205KB)"
+      - "No FOUC"
+      - "LCP < 2 seconds"
+      - "Lighthouse ≥ 85"
+      - "Test 3G connection"
+
+  - id: "3"
+    title: "!important Resolution"
+    story_id: "8.3"
+    effort_hours: 34
+    duration_days: "7-10"
+    risk_level: "medium"
+    blocked_by: ["8.2"]
+    version_target: "v1.4.0"
+    metrics:
+      - "!important count < 50 (from 1.316)"
+      - "CSS specificity hierarchy correct"
+      - "Visual regression: zero"
+      - "Lighthouse ≥ 85"
+
+  - id: "4"
+    title: "Template Cleanup"
+    story_id: "8.4"
+    effort_hours: 13
+    duration_days: "3-5"
+    risk_level: "medium-high"
+    blocked_by: ["8.1"]
+    parallelizable_with: ["8.2", "8.5"]
+    version_target: "v1.5.0"
+    metrics:
+      - "Duplications removed"
+      - "All pages render correctly"
+      - "Snipplets documented"
+
+  - id: "5"
+    title: "JavaScript Optimization"
+    story_id: "8.5"
+    effort_hours: 13
+    duration_days: "3-5"
+    risk_level: "medium"
+    parallelizable_with: ["8.1", "8.2", "8.3", "8.4"]
+    version_target: "v1.6.0"
+    metrics:
+      - "instatheme consolidated (single version)"
+      - "payment-discount-text-override.js optimized"
+      - "Zero console errors"
+      - "All functionality works"
+
+# Files to Modify (by phase)
+files_to_modify:
+  phase_1:
+    - "theme-deploy-corrigido/static/css/style-tokens.tpl"
+    - "theme-deploy-corrigido/static/css/style-colors.scss.tpl"
+    - "theme-deploy-corrigido/static/css/style-critical.tpl"
+
+  phase_2:
+    - "theme-deploy-corrigido/static/css/style-critical.tpl"
+    - "theme-deploy-corrigido/static/css/style-async.scss.tpl"
+    - "theme-deploy-corrigido/layouts/layout.tpl"
+
+  phase_3:
+    - "theme-deploy-corrigido/static/css/style-blog.scss.tpl"
+    - "theme-deploy-corrigido/static/css/style-filters-patagang.css.tpl"
+    - "theme-deploy-corrigido/static/css/style-menu-patagang.css.tpl"
+    - "theme-deploy-corrigido/static/css/style-async.scss.tpl"
+    - "theme-deploy-corrigido/static/css/style-critical.tpl"
+
+  phase_4:
+    - "theme-deploy-corrigido/layouts/layout.tpl"
+    - "theme-deploy-corrigido/snipplets/" # Various cleanup
+
+  phase_5:
+    - "theme-deploy-corrigido/static/js/instatheme.js"
+    - "theme-deploy-corrigido/static/js/payment-discount-text-override.js"
+    - "theme-deploy-corrigido/layouts/layout.tpl"
+
+# Critical Metrics (success criteria)
+metrics:
+  performance:
+    lighthouse_mobile_target: 85
+    lighthouse_desktop_target: 90
+    lcp_target_seconds: 2
+    fcp_target_seconds: 1.5
+    cls_target: 0.1
+
+  code_quality:
+    important_count_target: 50
+    color_tokens_target: 150
+    breakpoints_target: 3
+    console_errors_target: 0
+    visual_regressions_target: 0
+
+  deployment:
+    versions: ["v1.2.0", "v1.3.0", "v1.4.0", "v1.5.0", "v1.6.0"]
+    rollback_coverage: "100%"
+
+# Nuvemshop Constraints (validation)
+nuvemshop_constraints:
+  - id: "1"
+    name: "Checkout Structure"
+    applies: false
+    action: "Don't touch checkout.scss.tpl"
+
+  - id: "2"
+    name: "Footer Attribution"
+    applies: false
+    action: "Keep visible"
+
+  - id: "3"
+    name: "Contact Form"
+    applies: false
+    action: "Don't modify"
+
+  - id: "4"
+    name: "Registration Form"
+    applies: false
+    action: "Don't modify"
+
+  - id: "5"
+    name: "Newsletter Form"
+    applies: false
+    action: "Don't modify"
+
+  - id: "6"
+    name: "Auto-Generated Content"
+    applies: false
+    action: "Don't modify sitemap/RSS"
+
+  - id: "7"
+    name: "Performance Budget"
+    applies: true
+    action: "CSS < 50KB (Phase 2)"
+
+  - id: "8"
+    name: "JavaScript Safety"
+    applies: true
+    action: "No global conflicts (Phase 5)"
+
+# Validation Checklists
+checklists:
+  phase_1:
+    path: ".aiox-core/development/checklists/refactoring-phase-validation.md"
+    section: "PHASE 1: Design Tokens"
+
+  phase_2:
+    path: ".aiox-core/development/checklists/refactoring-phase-validation.md"
+    section: "PHASE 2: CSS Reduction"
+
+  phase_3:
+    path: ".aiox-core/development/checklists/refactoring-phase-validation.md"
+    section: "PHASE 3: !important Resolution"
+
+  phase_4:
+    path: ".aiox-core/development/checklists/refactoring-phase-validation.md"
+    section: "PHASE 4: Template Cleanup"
+
+  phase_5:
+    path: ".aiox-core/development/checklists/refactoring-phase-validation.md"
+    section: "PHASE 5: JavaScript Optimization"
+
+# Rollback Configuration
+rollback:
+  strategy: "incremental"
+  tool: "ftp-deploy/rollback-incremental.js"
+  backup_location: "backups/deployment-*/"
+  versions_to_keep: 5
+  fallback_version: "v1.1.18"
+
+# Documentation References
+documentation:
+  epic: "Docs/stories/8-epic-technical-refactoring.md"
+  stories:
+    - "Docs/stories/8.1-design-tokens-unification.story.md"
+    - "Docs/stories/8.2-critical-css-reduction.story.md"
+    - "Docs/stories/8.3-important-resolution.story.md"
+    - "Docs/stories/8.4-template-cleanup.story.md"
+    - "Docs/stories/8.5-javascript-optimization.story.md"
+  guides:
+    - "Docs/guides/refactoring-execution-guide.md"
+  checklists:
+    - ".aiox-core/development/checklists/refactoring-phase-validation.md"
+  constraints:
+    - ".claude/rules/nuvemshop-ftp-constraints.md"
+
+# Current Status
+current_status:
+  epic_status: "draft"
+  story_statuses:
+    "8.1": "draft"
+    "8.2": "draft"
+    "8.3": "draft"
+    "8.4": "draft"
+    "8.5": "draft"
+  approvals_needed:
+    - "Gabriel (project owner)"
+    - "@po (story validation)"
+    - "@qa (gate approval)"
+    - "@devops (deployment)"
+
+# Approval Workflow
+approvals:
+  gabriel:
+    role: "Project Owner"
+    needed_for: "Epic start"
+    status: "pending"
+    checklist:
+      - "Review Epic 8 document"
+      - "Confirm resource allocation"
+      - "Approve Phase 1 story"
+
+  po_pax:
+    role: "Product Owner"
+    needed_for: "Each story validation"
+    status: "pending"
+    checklist:
+      - "10-point story checklist"
+      - "Acceptance criteria clarity"
+      - "Dependency mapping"
+
+  qa_quinn:
+    role: "QA Lead"
+    needed_for: "Each phase gate"
+    status: "pending"
+    checklist:
+      - "Phase validation checklist"
+      - "Visual regression tests"
+      - "Lighthouse audit"
+      - "Constraint validation"
+
+  devops_gage:
+    role: "DevOps"
+    needed_for: "Each deployment"
+    status: "pending"
+    checklist:
+      - "Pre-deploy validation"
+      - "Version tagging"
+      - "FTP deployment"
+      - "Rollback readiness"
+
+# Timeline Estimation (2 developers)
+timeline:
+  week_1:
+    phase_1: "implement"
+    phase_4: "parallel"
+    phase_5: "parallel"
+
+  week_2:
+    phase_2: "implement"
+    phase_3: "planning"
+
+  week_3:
+    phase_3: "implement"
+    all_phases: "finalization"
+
+  total_weeks: "3-4"
+
+# Risks & Mitigation
+risks:
+  - name: "CSS Reduction FOUC"
+    severity: "high"
+    phase: "2"
+    mitigation: "Test async CSS loading thoroughly before deploy"
+
+  - name: "Visual Regression"
+    severity: "medium"
+    phase: "3"
+    mitigation: "Extensive visual testing on all pages/breakpoints"
+
+  - name: "Template Breaking"
+    severity: "medium"
+    phase: "4"
+    mitigation: "Verify includes before/after removal"
+
+  - name: "JS Conflicts"
+    severity: "medium"
+    phase: "5"
+    mitigation: "Test console clean, no global overwrites"
+
+# Success Metrics (Final Acceptance)
+success_criteria:
+  - "All 5 stories marked DONE"
+  - "Performance: Lighthouse 85+, LCP < 2s"
+  - "Code quality: !important < 50, tokens 100%"
+  - "Zero visual regressions"
+  - "Zero bugs introduced"
+  - "Deployed v1.2.0 → v1.6.0"
+  - "Gabriel final approval"
+  - "Team fully trained"
+
+# Related Epics & Stories
+related_work:
+  completed:
+    - "Epic 7 — Product Page Fixes (v1.1.18)"
+
+  future:
+    - "Epic 9 — Accessibility Improvements (Phase 2+)"
+    - "Epic 10 — Performance Optimization (Phase 3+)"
+
+# Version Control
+versions_created:
+  - "v1.2.0 — Design Tokens"
+  - "v1.3.0 — CSS Reduction"
+  - "v1.4.0 — !important Resolution"
+  - "v1.5.0 — Template Cleanup"
+  - "v1.6.0 — JavaScript Optimization"

@@ -145,9 +145,9 @@
 
 .pg-page article .post-item__read-more:hover,
 .pg-page article .btn-link:hover {
-    background-color: #EAFE67 !important;
-    color: #000 !important;
-    text-decoration: none !important;
+    background-color: #EAFE67;
+    color: #000;
+    text-decoration: none;
     padding: 2px 4px;
     margin: -2px -4px; /* Compensa o padding para não mover */
     border-radius: 4px;

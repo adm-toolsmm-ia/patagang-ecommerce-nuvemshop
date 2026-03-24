@@ -74,7 +74,7 @@ style.scss.tpl
 
 $primary-color: {{ settings.primary_color }};
 $main-foreground: {{ settings.text_color }};
-$main-background: #E2E2E2; /* PATAGANG: Cor fixa do protótipo, ignora settings.background_color */
+$main-background: {{ settings.background_color }};
 $accent-color: {{ settings.accent_color }};
 
 {# /* // Font families */ #}
@@ -210,7 +210,7 @@ $body-font: {{ settings.font_rest | raw }};
 body{
   color: $main-foreground;
   font-family: $body-font;
-  background-color:$main-background !important;
+  background-color:$main-background;
   @extend %body-font;
 }
 
@@ -1043,12 +1043,16 @@ input[type=number] {
   #Header and nav
 ==============================================================================*/#}
 
-{# /* // Ad Bar - Patagang: fundo amarelo fixo (override do base theme que usa $main-foreground) */ #}
+{# /* // Ad Bar */ #}
+
+{# REMOVED: .section-advertising styling - was incorrectly using $main-foreground as background #}
+{# Now handled in layout.tpl override with proper background-color: transparent #}
+{#
 .section-advertising {
-  background: #EAFE67 !important;
-  background-color: #EAFE67 !important;
-  color: #000000 !important;
+  background-color: $main-foreground;
+  color: $main-background;
 }
+#}
 
 {# /* // Header */ #}
 

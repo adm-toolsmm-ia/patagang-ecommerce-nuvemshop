@@ -17,17 +17,11 @@
 				   data-image-index="{{ loop.index0 }}"
 				   data-image-original="{{ image | product_image_url('original') }}"
 				   data-image-large="{{ image | product_image_url('huge') }}">
-					<img 
-						{% if loop.first %}
-							src="{{ image | product_image_url('huge') }}"
-							fetchpriority="high"
-						{% else %}
-							src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-							data-src="{{ image | product_image_url('huge') }}"
-							class="lazyload"
-						{% endif %}
+					<img
+						src="{{ image | product_image_url('huge') }}"
+						{% if loop.first %}fetchpriority="high"{% endif %}
 						alt="{{ image.alt | default(product.name) }}"
-						class="pg-gallery-img {% if not loop.first %}lazyload{% endif %}"
+						class="pg-gallery-img"
 						loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
 					/>
 					<div class="pg-gallery-zoom-icon">
@@ -52,10 +46,10 @@
 		    <div class="swiper-wrapper">
 		    	{% for image in product.images %}
 		         <div class="swiper-slide js-product-slide slider-slide" data-image="{{image.id}}" data-image-position="{{loop.index0}}">
-		         	<a href="#" 
-		         	   class="js-open-modal-gallery js-product-slide-link d-block position-relative" 
+		         	<a href="#"
+		         	   class="js-open-modal-gallery js-product-slide-link d-block position-relative pg-aspect-ratio-container"
 		         	   data-image-index="{{ loop.index0 }}"
-		         	   style="padding-bottom: {{ image.dimensions['height'] / image.dimensions['width'] * 100}}%;">
+		         	   style="aspect-ratio: {{ image.dimensions['width'] }} / {{ image.dimensions['height'] }}; width: 100%; display: block;">
 
 						{% set apply_lazy_load = not loop.first %}
 
@@ -66,11 +60,11 @@
 						{% endif %}
 
 						<img
+							src="{{ image | product_image_url('large') }}"
+							srcset='{{  image | product_image_url('large') }} 480w, {{  image | product_image_url('huge') }} 640w, {{  image | product_image_url('original') }} 1024w'
+							class="js-product-slide-img product-slider-image img-absolute img-absolute-centered"
 							{% if not apply_lazy_load %}fetchpriority="high"{% endif %}
-							{% if apply_lazy_load %}data-{% endif %}src="{{ product_image_src }}"
-							{% if apply_lazy_load %}data-{% endif %}srcset='{{  image | product_image_url('large') }} 480w, {{  image | product_image_url('huge') }} 640w, {{  image | product_image_url('original') }} 1024w'
-							class="js-product-slide-img product-slider-image img-absolute img-absolute-centered {% if apply_lazy_load %}lazyautosizes lazyload{% endif %}"
-							{% if apply_lazy_load %}data-sizes="auto"{% endif %}
+							{% if apply_lazy_load %}loading="lazy"{% endif %}
 							{% if image.dimensions.width and image.dimensions.height %}width="{{ image.dimensions.width }}" height="{{ image.dimensions.height }}"{% endif %}
 							{% if image.alt %}alt="{{image.alt}}"{% endif %} />
 	        	</a>
@@ -93,8 +87,9 @@
 
 	{# ============================================================================
 	   MODAL CUSTOMIZADO - Galeria Fullscreen com Thumbnails
+	   aria-hidden: Dynamic toggle via JS (see store.js.tpl)
 	============================================================================ #}
-	<div id="pg-modal-gallery" class="pg-modal-gallery" aria-hidden="true">
+	<div id="pg-modal-gallery" class="pg-modal-gallery" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Visualizador de imagens do produto">
 		<div class="pg-modal-backdrop js-close-modal-gallery"></div>
 		<div class="pg-modal-container">
 			{# Sidebar com Thumbnails #}

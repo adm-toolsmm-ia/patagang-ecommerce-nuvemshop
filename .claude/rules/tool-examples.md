@@ -38,40 +38,10 @@ Use for migrations and database management.
 - **Check status:** `supabase migration list`
 
 ### github-cli — GitHub Operations
-Use for PRs, issues, and repository management. **`@devops` EXCLUSIVE for `git push` and `gh pr create/merge`.**
-
-**For @dev (local validation):**
-- **Check PR ready:** `gh pr view {number} --json statusCheckRollup` — verify CI passed before merge
-- **List draft PRs:** `gh pr list --state open --draft` — find work in progress
-- **Check auth:** `gh auth status` — verify GitHub CLI credentials
-
-**For @devops (exclusive operations):**
-- **Create PR:** `gh pr create --title 'feat: add carousel [Story 1.1.1]' --body '## Summary\n- AC 1: [x]\n- AC 2: [x]'`
-- **Merge PR:** `gh pr merge {number} --squash` — atomic merge to main
-- **Force push (if needed):** `git push --force-with-lease origin {branch}` — safer than force
-- **List branches:** `git branch -r` — see all remote branches
-
-**PR Creation Template (for @devops):**
-```bash
-gh pr create \
-  --title "feat: implement carousel [Story 1.1.1]" \
-  --body "## Summary
-Implements image carousel with mobile swipe support.
-
-## Acceptance Criteria
-- [x] AC 1: Displays images
-- [x] AC 2: Mobile swipe
-- [x] AC 3: Keyboard nav
-
-## Changes
-- src/components/Carousel.tsx
-- tests/Carousel.test.tsx
-
-## Test Plan
-- [x] All unit tests passing
-- [x] Lint passing (npm run lint)
-- [x] TypeScript check passing (npm run typecheck)"
-```
+Use for PRs, issues, and repository management. `@devops` exclusive for push/PR.
+- **Create PR:** `gh pr create --title 'feat: ...' --body '## Summary...'`
+- **List issues:** `gh issue list --state open --label bug`
+- **PR status:** `gh pr view 123 --json reviews,statusCheckRollup`
 
 ### nogic — Code Intelligence (Essential)
 Use for code analysis, dependency tracking, and usage patterns.
@@ -88,26 +58,7 @@ Use for managing Docker-based MCP servers. `@devops` manages infrastructure.
 - **Health check:** `curl http://localhost:8080/health`
 - **List servers:** `docker mcp server ls`
 
-## GitHub Workflow Context
-
-**See complete GitHub workflow:** `.claude/guides/github-workflow.md`
-
-This guide includes:
-- Story Development Cycle (SDC) + GitHub integration
-- Branch naming strategy
-- Commit conventions (conventional commits)
-- Pre-push checklist before delegation
-- @dev vs @devops responsibilities
-- PR templates and best practices
-
-**Pre-push validation checklist:** `.aiox-core/development/tasks/github-local-integration-checklist.md`
-
-Execute this task BEFORE telling @devops to push.
-
----
-
 ## Reference
 
 Full examples registry: `.aiox-core/data/mcp-tool-examples.yaml`
 Tool registry: `.aiox-core/data/tool-registry.yaml`
-GitHub integration: `.claude/rules/agent-authority.md` (Delegation Matrix section)
