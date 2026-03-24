@@ -38,15 +38,16 @@
 }
 
 .btn-whatsapp-left span {
-    writing-mode: vertical-lr;
-    text-orientation: mixed;
     font-family: 'Familjen Grotesk', sans-serif;
     font-weight: 500;
     font-size: 11px;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    margin-top: 4px;
+    margin-left: 6px;
     color: #1A1A1A;
+    display: block;
+    transform: rotate(90deg);
+    white-space: nowrap;
 }
 
 /* Mobile Tweaks - button centered vertically (same as pg-help-btn) */

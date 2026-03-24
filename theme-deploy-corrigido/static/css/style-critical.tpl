@@ -2777,12 +2777,12 @@ div.product-informative-banner.position-relative {
 REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 ==============================================================================*/
 
-/* Container principal - FUNDO CLARO COM DEGRADÊ PARA O FOOTER AMARELO */
+/* Container principal - TRANSPARENT para banner ficar limpo */
 .pg-pdp-container {
-	padding-top: 90px;
-	padding-bottom: 60px;           /* Padding inferior para separação */
+	padding-top: 0;
+	padding-bottom: 0;
 	margin: 0;
-	background-color: #ffffff;      /* ✅ LIMPO: Branco puro (padrão home) */
+	background-color: transparent;
 	background-image: none;
 	min-height: auto;               /* Sem height mínimo - cresce com conteúdo */
 	display: flex;
@@ -2791,12 +2791,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	justify-content: flex-start;
 }
 
-/* Row principal - Bootstrap row */
+/* Row principal - Bootstrap row - AQUI está o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
 	padding: 30px 20px;
 	width: 100%;
 	max-width: 1400px; /* Mais largo */
+	background-color: #ffffff;      /* ✅ Branco puro (apenas para produto form) */
+	background-image: none;
 }
 
 /* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
