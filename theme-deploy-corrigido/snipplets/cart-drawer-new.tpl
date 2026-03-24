@@ -94,11 +94,6 @@
                     </form>
                 </div>
 
-                {# ONG Seletor para Doação - PATAGANG (v1.5.72) #}
-                <div class="pg-drawer__ong-section js-visible-on-cart-filled" {% if cart.items_count == 0 %}style="display:none;"{% endif %}>
-                    {% include "snipplets/ong-selector.tpl" %}
-                </div>
-
                 {# Total (oculto temporariamente para reimplementação) #}
                 <div class="pg-drawer__summary-row pg-drawer__summary-row--total" style="display:none;">
                     <span class="pg-drawer__summary-label">Total</span>
