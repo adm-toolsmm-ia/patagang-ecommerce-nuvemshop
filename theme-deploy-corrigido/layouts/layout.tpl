@@ -581,9 +581,9 @@
 
         <div class="js-modal-overlay modal-overlay" style="display: none;"></div>
 
-        {# Cart Modal - ALWAYS LOADED (Modal Nativo Nuvemshop) #}
+        {# Cart Drawer - NEW IMPLEMENTATION (v1.5.79 Story 8.5 Priority 3) #}
         {% if not store.is_catalog and settings.ajax_cart and template != 'cart' %}
-          {% include "snipplets/cart-modal.tpl" %}
+          {% include "snipplets/cart-drawer-new.tpl" %}
         {% endif %}
 
         {# Quickshop modal #}
@@ -648,6 +648,10 @@
                 {% include "static/js/modules/product-functions.js" %}
                 {% include "static/js/modules/cart-functions.js" %}
                 {% include "static/js/modules/shipping-functions.js" %}
+
+                {# Story 8.5 Priority 3: New Cart Drawer with cupom, frete, ONG #}
+                {# IIFE pattern with typeof checks for LS API #}
+                {% include "static/js/cart-drawer.js" %}
 
                 {# Specific store JS functions: core orchestration only #}
                 {% include "static/js/store.js.tpl" %}
