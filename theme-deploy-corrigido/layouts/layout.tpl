@@ -645,6 +645,10 @@
                 {# Specific store JS functions: all cart, product, shipping operations #}
                 {# Reverted from modularized approach (Story 8.5 Phase 2) due to syntax errors #}
                 {% include "static/js/store.js.tpl" %}
+
+                {# PATAGANG Cart Drawer Controller - Must load AFTER store.js #}
+                {# Provides window.PGCartDrawer API for lateral drawer operations #}
+                {% include "static/js/cart-drawer.js.tpl" %}
             });
         </script>
 
