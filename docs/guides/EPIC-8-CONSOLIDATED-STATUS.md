@@ -1,9 +1,9 @@
 # Epic 8 — Refatoração Técnica CSS & JavaScript — STATUS CONSOLIDADO
 
-**Epic Status:** 🔄 In Progress (Story 8.4 PHASE 1 Complete)
+**Epic Status:** 🔄 In Progress (Story 8.4 PHASE 1 Complete + UX-Fix v1.5.63)
 **Last Updated:** 2026-03-24 23:40 UTC
-**Completion Progress:** 40% (2/5 stories complete)
-**Current Deployment:** v1.5.62 (Story 8.4 PHASE 1)
+**Completion Progress:** 45% (2.5/5 stories including 8.4.UX-Fix)
+**Current Deployment:** v1.5.63 (Story 8.4.UX-Fix — Product Page Quick Fixes)
 
 ---
 
@@ -137,7 +137,9 @@ Docs/guides/
 ├── 8.3-DOCUMENTATION-INDEX.md
 ├── 8.3-FINAL-COMPLETION-REPORT.md
 ├── 8.3-GABRIEL-VALIDATION-APPROVAL.md ✅
-└── 8.4-TEMPLATE-CLEANUP-PHASE1.md (CURRENT)
+├── 8.4-TEMPLATE-CLEANUP-PHASE1.md ✅
+├── 8.4-UX-FIX-PRODUCT-PAGE-v1.5.63.md ✅ (CURRENT)
+└── (8.4-TEMPLATE-CLEANUP-PHASE2.md — pending)
 ```
 
 ### Consolidated Docs
@@ -174,7 +176,8 @@ v1.5.58  — Story 8.3 PHASE B: Menu CSS (77 !important) ✅
 v1.5.59  — Story 8.3 PHASE B: Filters CSS (28 !important) ✅
 v1.5.60  — Story 8.3 PHASE C: Async CSS (302 !important) ✅
 v1.5.61  — Story 8.3 Final: Cleanup CSS (69 !important) ✅
-v1.5.62  — Story 8.4 PHASE 1: Template Cleanup ✅ CURRENT
+v1.5.62  — Story 8.4 PHASE 1: Template Cleanup ✅
+v1.5.63  — Story 8.4.UX-Fix: PDP banner/gallery/whatsapp ✅ CURRENT
 ```
 
 ---
