@@ -2779,8 +2779,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 /* Container principal - TRANSPARENT para banner ficar limpo */
 .pg-pdp-container {
-	padding-top: 0;
-	padding-bottom: 0;
+	padding-top: 90px;              /* Espaço para header fixo */
+	padding-bottom: 60px;           /* Separação inferior */
 	margin: 0;
 	background-color: transparent;
 	background-image: none;
