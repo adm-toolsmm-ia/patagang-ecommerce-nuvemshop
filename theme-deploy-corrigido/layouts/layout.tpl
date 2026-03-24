@@ -70,6 +70,7 @@
             {% include "static/css/style-menu-patagang.css.tpl" %}
             {% include "static/css/style-filters-patagang.css.tpl" %}
             {% include "static/css/style-help-sidebar.css.tpl" %}
+            {% include "static/css/style-whatsapp-button.css.tpl" %}
         </style>
 
         {# Colors and fonts used from settings.txt and defined on theme customization #}
@@ -419,53 +420,7 @@
             }
             body .pg-help-btn__text { font-size: 11px !important; }
         }
-        /* PATAGANG v1.5.64: WhatsApp Button — Standardized to match "Posso ajudar?" design */
-        body .btn-whatsapp-left {
-            position: fixed !important;
-            bottom: 10px !important;
-            left: 10px !important;
-            z-index: 100 !important;
-            background-color: #F0F0F0 !important;
-            border: 1px solid #E0E0E0 !important;
-            padding: 12px 8px !important;
-            border-radius: 6px !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 6px !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            text-decoration: none !important;
-        }
-        body .btn-whatsapp-left:hover {
-            background-color: #E8E8E8 !important;
-            border: 1px solid #D0D0D0 !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
-        }
-        body .btn-whatsapp-left svg {
-            width: 20px !important;
-            height: 20px !important;
-            color: #25D366 !important;
-            flex-shrink: 0 !important;
-        }
-        body .btn-whatsapp-left span {
-            font-weight: 700 !important;
-            font-size: 12px !important;
-            color: #666666 !important;
-            white-space: nowrap !important;
-        }
-        @media (max-width: 768px) {
-            body .btn-whatsapp-left {
-                bottom: 50% !important;
-                transform: translateY(50%) !important;
-                left: 0 !important;
-                z-index: 9990 !important;
-                padding: 10px 6px !important;
-            }
-        }
-        @media (max-width: 480px) {
-            body .btn-whatsapp-left span { font-size: 11px !important; }
-        }
+        {# WhatsApp Button CSS moved to: static/css/style-whatsapp-button.css.tpl #}
         </style>
 
         {#/*============================================================================
