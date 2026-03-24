@@ -50,6 +50,23 @@
 
     {# /* // Add to cart */ #}
 
+    {# PATAGANG v1.5.81 FIX: Handler UNIVERSAL que funciona INDEPENDENTEMENTE de settings.ajax_cart #}
+    {# Intercepta Add to Cart ANTES do bloco {% if settings.ajax_cart %} e abre drawer em QUALQUER caso #}
+    jQueryNuvem(document).on("click", ".js-addtocart:not(.js-addtocart-placeholder)", function (e) {
+        var $btn = jQueryNuvem(this);
+        var $form = $btn.closest('form.js-product-form');
+
+        if (!$form.length) return; {# Não é um formulário válido #}
+
+        {# Se drawer está disponível, SEMPRE abre (independentemente de settings.ajax_cart) #}
+        if (typeof window.PGCartDrawer !== 'undefined' && window.PGCartDrawer.open) {
+            {# Aguarda um pouco para o produto ser adicionado à sessão antes de abrir drawer #}
+            setTimeout(function() {
+                window.PGCartDrawer.open();
+            }, 100);
+        }
+    });
+
 	jQueryNuvem(document).on("click", ".js-addtocart:not(.js-addtocart-placeholder)", function (e) {
 
         {# PATAGANG: Validação - Bloqueia produtos em desenvolvimento #}
