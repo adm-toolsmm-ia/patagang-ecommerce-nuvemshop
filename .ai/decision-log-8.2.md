@@ -134,6 +134,33 @@ Total: ~11-15 hours
 
 ---
 
+## 📋 **FASE 2 STATUS: 🔄 IN PROGRESS (2026-03-24)**
+
+### ✅ TAREFA 1+4: HTML Aspect-Ratio + aria-hidden (v1.5.63) — COMPLETE & VALIDATED
+**Commit:** 38b3bc1 | **Deploy:** v1.5.63
+**Mudanças:**
+  - HTML: `data-aspect-ratio` attribute em product-image.tpl
+  - JS: `modal.setAttribute('aria-hidden', 'false/true')` em store.js.tpl
+**Gabriel Validation:** ✅ APROVADO (v1.5.63, carousel + modal accessibility OK)
+**Nota:** TAREFA 4 consolidada com TAREFA 1
+
+### ✅ TAREFA 2-3: Consolidar Lazyload + Swiper lazy disable (v1.5.64) — COMPLETE & VALIDATED
+**Commit:** dab3155 | **Deploy:** v1.5.64 (00:29 UTC)
+**Mudança T2:** Verificado: zero `.lazyload` class (já otimizado)
+**Mudança T3:** `lazy: true` → `lazy: false` em Swiper product config (linha 1714)
+**Gabriel Validation:** ✅ APROVADO (v1.5.64, lazyload native OK, carousel smooth)
+
+### 🔄 PRÓXIMA: TAREFA 5 — CSS Aspect-Ratio Container + SVG Size-Lock (v1.6.0)
+**Arquivo:** `theme-deploy-corrigido/static/css/style-critical.tpl`
+**Mudanças:**
+  1. `.pg-aspect-ratio-container { aspect-ratio: attr(data-aspect-ratio, auto); }`
+  2. SVG size-lock rules para evitar CLS
+**Objetivo:** CSS modernização + Core Web Vitals < 0.1 CLS
+**Status:** 🟢 PRONTA — Próxima etapa após v1.5.64 validação
+**Nota:** TAREFA 4 (aria-hidden) já completada em v1.5.63
+
+---
+
 ## 🔄 Execution Status
 
 ### ✅ ETAPA 1: BACKUP & PREPARAÇÃO (COMPLETE)
