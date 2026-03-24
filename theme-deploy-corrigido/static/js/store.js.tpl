@@ -327,6 +327,16 @@ DOMContentLoaded.addEventOrExecute(() => {
         }
     };
 
+    {# PATAGANG: Handler específico para abrir drawer do header #}
+    jQueryNuvem(document).on("click", ".pg-cart-drawer-open", function(e) {
+        e.preventDefault();
+        if (typeof window.PGCartDrawer !== 'undefined') {
+            window.PGCartDrawer.open();
+        } else {
+            console.warn('[PatagangStore] PGCartDrawer não disponível');
+        }
+    });
+
     jQueryNuvem(document).on("click", ".js-modal-open", function(e) {
         e.preventDefault();
         var modal_id = jQueryNuvem(this).data('toggle');
