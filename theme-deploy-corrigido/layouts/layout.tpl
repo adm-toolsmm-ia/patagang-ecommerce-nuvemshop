@@ -586,6 +586,11 @@
           {% include "snipplets/cart-modal.tpl" %}
         {% endif %}
 
+        {# PATAGANG Cart Drawer - Lateral right drawer with cupom, frete, ONG #}
+        {% if not store.is_catalog %}
+          {% include "snipplets/cart-drawer-new.tpl" %}
+        {% endif %}
+
         {# Quickshop modal #}
 
         {% snipplet "grid/quick-shop.tpl" %}
