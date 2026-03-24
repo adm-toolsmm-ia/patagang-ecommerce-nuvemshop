@@ -1711,7 +1711,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 '.js-swiper-product',
                 {
                     direction: 'horizontal',
-                    lazy: true,
+                    lazy: false,
                     loop: false,
                     pagination: {
                         el: '.js-swiper-product-pagination',
