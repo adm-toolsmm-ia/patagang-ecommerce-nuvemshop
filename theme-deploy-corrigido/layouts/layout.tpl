@@ -634,6 +634,14 @@
 
                 {% include "static/js/external.js.tpl" %}
 
+                {# Story 8.5 Priority 2: Modularized JS (Phase 1) #}
+                {# Each module is IIFE with typeof checks + auto-init on DOMContentLoaded #}
+
+                {% include "static/js/modules/notifications.js" %}
+                {% include "static/js/modules/forms.js" %}
+                {% include "static/js/modules/footer.js" %}
+                {% include "static/js/modules/utilities.js" %}
+
                 {# Specific store JS functions: product variants, cart, shipping, etc #}
                 {% include "static/js/store.js.tpl" %}
             });

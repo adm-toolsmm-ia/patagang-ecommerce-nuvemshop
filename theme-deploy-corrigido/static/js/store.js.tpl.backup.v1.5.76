@@ -84,9 +84,86 @@ DOMContentLoaded.addEventOrExecute(() => {
 	olark.identify('{{store.live_chat | escape('js')}}');
 	{% endif %}
 
-	{# Story 8.5 Priority 2: #Notifications moved to modules/notifications.js #}
-
 	{#/*============================================================================
+	  #Notifications
+	==============================================================================*/ #}
+
+    {# Notifications variables #}
+
+    var $notification_status_page = jQueryNuvem(".js-notification-status-page");
+    var $fixed_bottom_button = jQueryNuvem(".js-btn-fixed-bottom");
+
+    {# /* // Close notification */ #}
+
+    jQueryNuvem(".js-notification-close").on( "click", function(e) {
+        e.preventDefault();
+        jQueryNuvem(e.currentTarget).closest(".js-notification").hide();
+    });
+
+    {# /* // Follow order status notification */ #}
+
+    if ($notification_status_page.length > 0){
+        if (LS.shouldShowOrderStatusNotification($notification_status_page.data('url'))){
+            $notification_status_page.show();
+        };
+        jQueryNuvem(".js-notification-status-page-close").on( "click", function(e) {
+            e.preventDefault();
+            LS.dontShowOrderStatusNotificationAgain($notification_status_page.data('url'));
+        });
+    }
+
+    {# /* // Cart notification: Dismiss notification */ #}
+
+    jQueryNuvem(".js-cart-notification-close").on("click", function(){
+        jQueryNuvem(".js-alert-added-to-cart").removeClass("notification-visible").addClass("notification-hidden");
+        setTimeout(function(){
+            jQueryNuvem('.js-cart-notification-item-img').attr('src', '');
+            jQueryNuvem(".js-alert-added-to-cart").hide();
+        },2000);
+    });
+
+    {% if not params.preview %}
+
+        const footer = jQueryNuvem(".js-footer");
+
+        {# /* // Cookie banner notification */ #}
+
+        restoreNotifications = function(){
+
+            // Whatsapp button position
+            if (window.innerWidth < 768) {
+                $fixed_bottom_button.css("marginBottom", "10px");
+            }
+
+            {# Restore notifications when Cookie Banner is closed #}
+
+            footer.removeAttr("style");
+        };
+
+        if (!window.cookieNotificationService.isAcknowledged()) {
+            jQueryNuvem(".js-notification-cookie-banner").show();
+
+            {# Offset to show legal footer #}
+
+            const cookieBannerHeight = jQueryNuvem(".js-notification-cookie-banner").outerHeight();
+            footer.css("paddingBottom", cookieBannerHeight + 10 + "px");
+
+            {# Whatsapp button position #}
+            if (window.innerWidth < 768) {
+                $fixed_bottom_button.css("marginBottom", "120px");
+            }else{
+                $fixed_bottom_button.css("marginBottom", "70px");
+            }
+        }
+
+        jQueryNuvem(".js-acknowledge-cookies").on( "click", function(e) {
+            window.cookieNotificationService.acknowledge();
+            restoreNotifications();
+        });
+
+    {% endif %}
+
+    {#/*============================================================================
       #Modals
     ==============================================================================*/ #}
 
@@ -118,8 +195,28 @@ DOMContentLoaded.addEventOrExecute(() => {
 
     {# Full screen mobile modals back events #}
 
-    if (window.innerWidth < 768) {	{# Story 8.5: URL hash utilities moved to modules/utilities.js #}
-	
+    if (window.innerWidth < 768) {
+
+        {# Clean url hash function #}
+
+        cleanURLHash = function(){
+            const uri = window.location.toString();
+            const clean_uri = uri.substring(0, uri.indexOf("#"));
+            window.history.replaceState({}, document.title, clean_uri);
+        };
+
+        {# Go back 1 step on browser history #}
+
+        goBackBrowser = function(){
+            cleanURLHash();
+            history.back();
+        };
+
+        {# Clean url hash on page load: All modals should be closed on load #}
+
+        if(window.location.href.indexOf("modal-fullscreen") > -1) {
+            cleanURLHash();
+        }
 
         {# Open full screen modal and url hash #}
 
@@ -2720,9 +2817,58 @@ DOMContentLoaded.addEventOrExecute(() => {
         changeLang(lang_select_option);
 
         jQueryNuvem(this).text('{{ "Aplicando..." | translate }}').addClass("disabled");
-    });	{# Story 8.5 Priority 2: #Forms moved to modules/forms.js #}	{# Story 8.5 Priority 2: #Footer moved to modules/footer.js #}
+    });
 
-	{#/*============================================================================
+    {#/*============================================================================
+      #Forms
+    ==============================================================================*/ #}
+
+    jQueryNuvem(".js-winnie-pooh-form").on("submit", function (e) {
+        jQueryNuvem(e.currentTarget).attr('action', '');
+    });
+
+    {# Show the success or error message when resending the validation link #}
+
+    {% if template == 'account.register' or template == 'account.login' %}
+        jQueryNuvem(".js-resend-validation-link").on("click", function(e){
+            window.accountVerificationService.resendVerificationEmail('{{ customer_email }}');
+        });
+    {% endif %}
+
+    {% if template == 'account.login' %}
+        {% if result.invalid %}
+            jQueryNuvem(".js-account-input").addClass("alert-danger");
+            jQueryNuvem(".js-account-input.alert-danger").on("focus", function() {
+                jQueryNuvem(".js-account-input").removeClass("alert-danger");
+            });
+        {% endif %}
+    {% endif %}
+
+    jQueryNuvem('.js-password-view').on("click", function (e) {
+        jQueryNuvem(e.currentTarget).toggleClass('password-view');
+
+        if(jQueryNuvem(e.currentTarget).hasClass('password-view')){
+            jQueryNuvem(e.currentTarget).parent().find(".js-password-input").attr('type', '');
+            jQueryNuvem(e.currentTarget).find(".js-eye-open, .js-eye-closed").toggle();
+        } else {
+            jQueryNuvem(e.currentTarget).parent().find(".js-password-input").attr('type', 'password');
+            jQueryNuvem(e.currentTarget).find(".js-eye-open, .js-eye-closed").toggle();
+        }
+    });
+
+    {#/*============================================================================
+      #Footer
+    ==============================================================================*/ #}
+
+    {% if store.afip %}
+
+        {# Add alt attribute to external AFIP logo to improve SEO #}
+
+        jQueryNuvem('img[src*="www.afip.gob.ar"]').attr('alt', '{{ "Logo de AFIP" | translate }}');
+
+    {% endif %}
+
+    {#/*============================================================================
       #Empty placeholders
     ==============================================================================*/ #}
 

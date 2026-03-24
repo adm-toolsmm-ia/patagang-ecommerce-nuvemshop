@@ -100,19 +100,28 @@ Product components (17 files): CRITICAL - Product page features
 
 ---
 
-### 📋 Story 8.5 — JavaScript Optimization
-**Status:** 🚀 **READY TO START** (Story 8.4 complete)
-**Priority:** NEXT - High impact, clearer scope than snipplet cleanup
+### 🚀 Story 8.5 — JavaScript Optimization
+**Status:** 🔄 **IN PROGRESS — PHASE 2 IMPLEMENTATION**
+**Priority:** ACTIVE - High impact, executing Priority 1 of 4
 **What:** Consolidate Swiper, optimize lazyload, clean JS
-**Estimated:** 2-3 hours
+**Timeline:** 2026-03-24 (evening) → 2026-03-27 (target v2.0.0)
 **Risk Level:** Medium
-**Target Timeline:** 2026-03-25 to 2026-03-27
 
-**Rationale for Priority:**
-- Story 8.4 PHASE 2 deferred (snipplet cleanup is too interconnected)
-- JavaScript optimization has clearer boundaries and fewer dependencies
-- Higher impact on performance than snipplet removal
-- Completes Epic 8 with confidence
+**Progress:**
+- ✅ Phase 1: Investigation COMPLETE (2026-03-24 evening)
+- 🔄 Phase 2: Priority 1 — Lazy-load Olark DEPLOYED v1.5.74
+  - Status: Awaiting Gabriel validation in production
+  - Commit: `017f9b7` — feat: lazy-load Olark live chat
+  - Change: Olark script moved from external.js.tpl to DOMContentLoaded in store.js.tpl
+  - Benefit: Page renders faster, chat loads in background
+  - Next: Priority 2 (Modularize store.js) after Gabriel approval
+
+**Next Priorities:**
+- Priority 2: Modularize store.js.tpl (-20K) ~4 hours
+- Priority 3: Consolidate cart JS (-5K) ~1 hour
+- Priority 4: Review Swiper usage (-3K) ~1 hour
+
+**Expected Completion:** v2.0.0 release (2026-03-27)
 
 ---
 
