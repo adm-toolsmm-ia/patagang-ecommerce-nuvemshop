@@ -642,14 +642,8 @@
                 {% include "static/js/modules/footer.js.tpl" %}
                 {% include "static/js/modules/utilities.js.tpl" %}
 
-                {# Story 8.5 Priority 2 Phase 2: Modularized JS (Medium complexity) #}
-                {# Extracted: product variants, cart operations, shipping calculator #}
-
-                {% include "static/js/modules/product-functions.js.tpl" %}
-                {% include "static/js/modules/cart-functions.js.tpl" %}
-                {% include "static/js/modules/shipping-functions.js.tpl" %}
-
-                {# Specific store JS functions: core orchestration only #}
+                {# Specific store JS functions: all cart, product, shipping operations #}
+                {# Reverted from modularized approach (Story 8.5 Phase 2) due to syntax errors #}
                 {% include "static/js/store.js.tpl" %}
             });
         </script>
