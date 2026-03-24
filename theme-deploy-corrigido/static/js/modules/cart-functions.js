@@ -357,15 +357,19 @@
                     // Se configurado para abrir carrinho E não há cross-selling bloqueando
                     if((cartOpenType === 'show_cart') && !shouldShowCrossSellingModal){
 
-                        {# Open cart on add to cart - MODAL NATIVO NUVEMSHOP #}
+                        {# Open cart on add to cart - NEW CART DRAWER (v1.5.79 Story 8.5) #}
 
                         if (isQuickShop) {
                             setTimeout(function(){
-                                modalOpen('#modal-cart', 'openFullScreenWithoutClick');
+                                if (typeof window.PGCartDrawer !== 'undefined' && window.PGCartDrawer.open) {
+                                    window.PGCartDrawer.open();
+                                }
                             }, 500);
                         } else {
                             setTimeout(function(){
-                                modalOpen('#modal-cart', 'openFullScreenWithoutClick');
+                                if (typeof window.PGCartDrawer !== 'undefined' && window.PGCartDrawer.open) {
+                                    window.PGCartDrawer.open();
+                                }
                             }, 300);
                         }
 

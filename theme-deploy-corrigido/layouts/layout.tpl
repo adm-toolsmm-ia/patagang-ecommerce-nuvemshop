@@ -582,7 +582,8 @@
         <div class="js-modal-overlay modal-overlay" style="display: none;"></div>
 
         {# Cart Drawer - NEW IMPLEMENTATION (v1.5.79 Story 8.5 Priority 3) #}
-        {% if not store.is_catalog and settings.ajax_cart and template != 'cart' %}
+        {# SEMPRE renderizado - funciona independentemente de settings.ajax_cart #}
+        {% if not store.is_catalog and template != 'cart' %}
           {% include "snipplets/cart-drawer-new.tpl" %}
         {% endif %}
 

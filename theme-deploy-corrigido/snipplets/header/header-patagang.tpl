@@ -78,14 +78,11 @@
         </a>
 
         {% if not store.is_catalog %}
-          {% set cart_href = settings.ajax_cart and template != 'cart' ? '#' : store.cart_url %}
-          <a href="{{ cart_href }}"
+          <a href="#"
              class="pg-header__icon-button js-modal-open js-fullscreen-modal-open"
-             {% if settings.ajax_cart and template != 'cart' %}
-               data-toggle="#pg-cart-drawer"
-               data-modal-url="modal-fullscreen-cart"
-               data-component="header.cart-button"
-             {% endif %}
+             data-toggle="#pg-cart-drawer"
+             data-modal-url="modal-fullscreen-cart"
+             data-component="header.cart-button"
              aria-label="{{ 'Abrir sacola' | translate }}">
             {# ÍCONE SACOLA - PATAGANG Official - Traços Refinados #}
             <svg width="14" height="15" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
