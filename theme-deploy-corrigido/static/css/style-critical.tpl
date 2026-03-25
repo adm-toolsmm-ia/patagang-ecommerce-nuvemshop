@@ -2011,44 +2011,44 @@ p{
 
 /* Product Informative Banner — Transparent background + compact text */
 div.product-informative-banner {
-  background: transparent !important;
-  background-color: transparent !important;
-  padding: 0.5rem 0 !important;
-  margin: 0 !important;
+  background: transparent;
+  background-color: transparent;
+  padding: 0.5rem 0;
+  margin: 0;
 }
 
 div.product-informative-banner.position-relative {
-  background: transparent !important;
-  background-color: transparent !important;
+  background: transparent;
+  background-color: transparent;
 }
 
 .product-informative-banner .col-md {
-  background: transparent !important;
-  padding: 0.5rem 0.25rem !important;
-  min-height: auto !important;
-  border: none !important;
+  background: transparent;
+  padding: 0.5rem 0.25rem;
+  min-height: auto;
+  border: none;
 }
 
 .product-informative-banner .d-md-flex {
-  background: transparent !important;
+  background: transparent;
 }
 
 .product-informative-banner .js-informative-product {
-  background: transparent !important;
+  background: transparent;
 }
 
 .product-informative-title,
 .product-informative-banner .product-informative-title {
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  margin-bottom: 3px !important;
-  line-height: 1.3 !important;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  line-height: 1.3;
 }
 
 .product-informative-banner div {
-  font-size: 11px !important;
-  line-height: 1.3 !important;
-  background: transparent !important;
+  font-size: 11px;
+  line-height: 1.3;
+  background: transparent;
 }
 
 .service-pagination {
