@@ -195,6 +195,14 @@
             }
         </style>
 
+        {# CRITICAL: Hide gallery modal by default until async CSS loads #}
+        {# Gallery modal is in style-async.scss.tpl but needs display:none ASAP to prevent showing 2 galleries #}
+        <style>
+            #pg-modal-gallery {
+                display: none !important;
+            }
+        </style>
+
         {# Load async styling not mandatory for first meaningfull paint #}
 
         <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
