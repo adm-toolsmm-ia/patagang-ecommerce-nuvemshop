@@ -2874,13 +2874,27 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	min-height: auto;
 }
 
-/* Desktop: Esconder Swiper (mostra grid 2x2 em vez disso) */
+/* Desktop (≥992px): Show grid 2x2, hide Swiper */
 @media (min-width: 992px) {
 	.pg-pdp-image-col .product-image-container {
 		display: none;
 	}
 	.pg-pdp-image-col .js-swiper-product {
 		display: none;
+	}
+
+	/* Gallery grid 2x2: Show on desktop (≥992px) */
+	.pg-gallery-container {
+		display: flex !important;
+	}
+}
+
+/* Mobile (<992px): Hide grid 2x2, show Swiper */
+@media (max-width: 991px) {
+	/* Gallery grid must be completely hidden on mobile */
+	.pg-gallery-container {
+		display: none !important;
+		visibility: hidden !important;
 	}
 }
 

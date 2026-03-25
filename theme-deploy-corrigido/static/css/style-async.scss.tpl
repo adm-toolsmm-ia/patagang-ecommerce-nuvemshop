@@ -7519,49 +7519,10 @@ body .item-actions .btn.btn-development:hover {
 }
 
 /* MOBILE GALLERY FIX — Hide Grid 2x2, Show Swiper Only */
-/* [HOTFIX] Ensure only ONE gallery visible per breakpoint */
-
-/* ============ DESKTOP (≥992px): Show ONLY Grid 2x2 ============ */
-@media (min-width: 992px) {
-  /* Show grid 2x2 on desktop */
-  .pg-gallery-container {
-    display: flex !important;
-    visibility: visible !important;
-  }
-
-  /* Hide Swiper carousel on desktop (use grid instead) */
-  .product-image-container {
-    display: none !important;
-    visibility: hidden !important;
-  }
-
-  .js-swiper-product {
-    display: none !important;
-    visibility: hidden !important;
-  }
-}
-
-/* ============ MOBILE (<992px): Show ONLY Swiper ============ */
-@media (max-width: 991px) {
-  /* Hide grid 2x2 on mobile completely */
-  .pg-gallery-container {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    overflow: hidden !important;
-  }
-
-  /* Ensure Swiper is visible on mobile */
-  .product-image-container {
-    display: flex !important;
-    visibility: visible !important;
-  }
-
-  .js-swiper-product {
-    display: block !important;
-    visibility: visible !important;
-  }
-}
+/* NOTE: Gallery visibility is controlled by Bootstrap classes in template:
+   - .pg-gallery-container has: d-none d-lg-block (hidden by default, shown on lg≥992px)
+   - .product-image-container has: d-lg-none (hidden on lg≥992px, shown on smaller)
+   CSS async does NOT need to override - Bootstrap classes are sufficient */
 
 /* Mobile adjustments - Modern touch-friendly */
 @media (max-width: 768px) {
