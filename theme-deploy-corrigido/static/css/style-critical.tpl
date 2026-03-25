@@ -2015,9 +2015,14 @@ div.product-informative-banner {
   background-color: transparent;
   padding: 0.5rem 0;
   margin: 0;
-  margin-top: 120px;              /* ✅ Evita invasão do header fixo */
+  margin-top: 130px;              /* ✅ Espaço abaixo do header fixo (160px total espaço do header) */
   position: relative;
   z-index: 1;                     /* Garante que fica abaixo do header (z-index: 9999) */
+}
+
+/* Adjust for pages with main padding-top (non-product pages) */
+body:not(.template-product) div.product-informative-banner {
+  margin-top: 0;  /* Outras páginas com padding-top não usam banner */
 }
 
 div.product-informative-banner.position-relative {
@@ -3558,15 +3563,30 @@ main.patagang-section-content {
 	padding-top: 160px;  /* Space for fixed header (~120px) + ad bar (~40px) = ~160px */
 }
 
+/* PRODUCT PAGE: Reduce padding because banners handle their own spacing */
+body.template-product main.patagang-section-content {
+	padding-top: 0;  /* ✅ Banners estão dentro, eles controlam seu espaçamento */
+}
+
 @media (max-width: 991px) {
 	main.patagang-section-content {
 		padding-top: 140px;  /* Tablet: slightly less */
+	}
+
+	/* PRODUCT PAGE: Mobile adjustments */
+	body.template-product main.patagang-section-content {
+		padding-top: 0;  /* ✅ Banners controlam espaçamento */
 	}
 }
 
 @media (max-width: 576px) {
 	main.patagang-section-content {
 		padding-top: 130px;  /* Mobile: header is smaller but still fixed */
+	}
+
+	/* PRODUCT PAGE: Mobile adjustments */
+	body.template-product main.patagang-section-content {
+		padding-top: 0;  /* ✅ Banners controlam espaçamento */
 	}
 }
 
