@@ -179,30 +179,18 @@
                MOBILE ADJUSTMENTS — Manter responsividade
                ===================================================================== */
 
-            @media (max-width: 768px) {
-                /* Mobile: carousel responsivo (sem galeria grid) */
+            @media (max-width: 991px) {
+                /* Tablet + Mobile: carousel responsivo (sem galeria grid) */
                 .pg-gallery-container {
-                    height: auto;           /* Auto em mobile */
-                    overflow: visible;      /* Sem scroll, fluxo natural */
+                    display: none !important;       /* HIDE grid 2x2 on tablet/mobile */
+                    height: auto;                   /* Auto em tablet/mobile */
+                    overflow: visible;              /* Sem scroll, fluxo natural */
                 }
 
-                /* Mobile: colunas empilhadas, alinhar topo */
+                /* Tablet + Mobile: colunas empilhadas, alinhar topo */
                 .pg-pdp-image-col,
                 .pg-pdp-info-col {
-                    align-self: stretch;    /* Preenche width mobile */
-                }
-            }
-
-            @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column, 4 imagens (2x2) com scroll para extras */
-                .pg-gallery-container {
-                    max-height: 480px;      /* MÁXIMO: altura para 2 linhas em tablet */
-                    overflow-y: auto;       /* Scroll automático se > 4 imagens */
-                    padding-right: 8px;     /* Espaço para scrollbar */
-                }
-
-                .pg-gallery-grid {
-                    grid-template-columns: repeat(2, 1fr);  /* 2 colunas em tablet */
+                    align-self: stretch;    /* Preenche width tablet/mobile */
                 }
             }
         </style>
