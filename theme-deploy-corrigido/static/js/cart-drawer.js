@@ -33,7 +33,12 @@ try {
             qtyMinus: '.js-pg-qty-minus',
             qtyPlus: '.js-pg-qty-plus',
             removeBtn: '.js-pg-item-remove',
-            itemSubtotal: '.js-pg-item-subtotal'
+            itemSubtotal: '.js-pg-item-subtotal',
+            // Cupom (v1.5.72 - Funcionalidade de cupom GANGDAPATA)
+            couponForm: '.pg-drawer__coupon-form',
+            couponInput: '.pg-drawer__coupon-input',
+            couponBtn: '.pg-drawer__coupon-btn',
+            couponSection: '.pg-drawer__coupon-section'
         }
     };
 
@@ -148,6 +153,102 @@ try {
             LS.removeItem(itemId, true, function(cart) {
                 if (cart) updateUI(cart);
             });
+        }
+    }
+
+    /**
+     * Aplica cupom de desconto (Nuvemshop integration - v1.5.72)
+     */
+    function applyCoupon(couponCode) {
+        if (!couponCode || couponCode.trim() === '') {
+            return;
+        }
+
+        const couponBtn = $(CONFIG.selectors.couponBtn);
+        const couponInput = $(CONFIG.selectors.couponInput);
+        if (!couponBtn) return;
+
+        // Feedback visual: desabilita botão e mostra loading
+        couponBtn.disabled = true;
+        couponBtn.classList.add('is-loading');
+        const originalText = couponBtn.textContent;
+        couponBtn.textContent = 'Processando...';
+
+        // Usa API Nuvemshop LS.addCoupon ou POST tradicional
+        if (typeof LS !== 'undefined' && LS.addCoupon) {
+            // Melhor: usa LS API se disponível (sem reload)
+            LS.addCoupon(couponCode, function(cart) {
+                couponBtn.disabled = false;
+                couponBtn.classList.remove('is-loading');
+                couponBtn.textContent = originalText;
+
+                if (cart) {
+                    // Sucesso: cupom aplicado
+                    if (couponInput) couponInput.value = '';
+                    updateUI(cart);
+                    showNotification(`Cupom "${couponCode}" aplicado com sucesso!`, 'success');
+                } else {
+                    // Erro: cupom inválido
+                    showNotification('Cupom inválido ou expirado', 'error');
+                }
+            });
+        } else {
+            // Fallback: POST direto (será reload, mas funciona)
+            // Nuvemshop espera: POST para cart_url com discount_code + apply_discount
+            const couponForm = $(CONFIG.selectors.couponForm);
+            if (couponForm) {
+                // Simula POST sem reload (tenta LS primeiro)
+                fetch(couponForm.action, {
+                    method: 'POST',
+                    body: new FormData(couponForm),
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.text())
+                .then(() => {
+                    couponBtn.disabled = false;
+                    couponBtn.classList.remove('is-loading');
+                    couponBtn.textContent = originalText;
+                    if (couponInput) couponInput.value = '';
+                    showNotification(`Cupom "${couponCode}" aplicado!`, 'success');
+                    // Recarrega carrinho da Nuvemshop
+                    if (typeof LS !== 'undefined' && LS.getCart) {
+                        LS.getCart(updateUI);
+                    }
+                })
+                .catch(() => {
+                    couponBtn.disabled = false;
+                    couponBtn.classList.remove('is-loading');
+                    couponBtn.textContent = originalText;
+                    showNotification('Erro ao aplicar cupom', 'error');
+                });
+            }
+        }
+    }
+
+    /**
+     * Mostra notificação inline (v1.5.72)
+     */
+    function showNotification(message, type = 'info') {
+        // Cria elemento de notificação simples (pode ser expandido)
+        const notification = document.createElement('div');
+        notification.className = `pg-drawer__notification pg-drawer__notification--${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+            padding: 10px 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-size: 12px;
+            background: ${type === 'success' ? '#d4edda' : '#f8d7da'};
+            color: ${type === 'success' ? '#155724' : '#721c24'};
+            border: 1px solid ${type === 'success' ? '#c3e6cb' : '#f5c6cb'};
+        `;
+
+        const couponSection = $(CONFIG.selectors.couponSection);
+        if (couponSection) {
+            couponSection.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
         }
     }
 
@@ -269,7 +370,30 @@ try {
                 removeItem(remove.dataset.itemId);
                 return;
             }
+
+            // Aplicar Cupom (v1.5.72 - Nuvemshop integration)
+            const couponBtn = e.target.closest(CONFIG.selectors.couponBtn);
+            if (couponBtn) {
+                e.preventDefault();
+                const couponInput = $(CONFIG.selectors.couponInput);
+                if (couponInput) {
+                    applyCoupon(couponInput.value);
+                }
+                return;
+            }
         });
+
+        // Form submit do cupom (Enter key + form submit tradicional)
+        const couponForm = $(CONFIG.selectors.couponForm);
+        if (couponForm) {
+            couponForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const couponInput = $(CONFIG.selectors.couponInput);
+                if (couponInput) {
+                    applyCoupon(couponInput.value);
+                }
+            });
+        }
 
         // ESC fecha
         document.addEventListener('keydown', (e) => {
@@ -282,7 +406,15 @@ try {
         if (currencyEl) state.currency = currencyEl.dataset.currency || 'R$';
 
         bindEvents();
-        console.log('[PG Cart Drawer] Inicializado');
+        console.log('[PG Cart Drawer] Inicializado v1.5.72 com suporte a cupom GANGDAPATA');
+        console.log('[PG Cart Drawer] Cupom: input.pg-drawer__coupon-input → btn.pg-drawer__coupon-btn');
+
+        // Verifica disponibilidade da API Nuvemshop
+        if (typeof LS !== 'undefined') {
+            console.log('[PG Cart Drawer] LS API disponível - cupom usará LS.addCoupon()');
+        } else {
+            console.log('[PG Cart Drawer] LS API não disponível - cupom usará fallback (POST)');
+        }
     }
 
     // IMPORTANTE: Expõe API global IMEDIATAMENTE para garantir disponibilidade

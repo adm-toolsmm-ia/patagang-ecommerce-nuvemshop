@@ -2009,6 +2009,48 @@ p{
   }
 }
 
+/* Product Informative Banner — Transparent background + compact text */
+div.product-informative-banner {
+  background: transparent !important;
+  background-color: transparent !important;
+  padding: 0.5rem 0 !important;
+  margin: 0 !important;
+}
+
+div.product-informative-banner.position-relative {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.product-informative-banner .col-md {
+  background: transparent !important;
+  padding: 0.5rem 0.25rem !important;
+  min-height: auto !important;
+  border: none !important;
+}
+
+.product-informative-banner .d-md-flex {
+  background: transparent !important;
+}
+
+.product-informative-banner .js-informative-product {
+  background: transparent !important;
+}
+
+.product-informative-title,
+.product-informative-banner .product-informative-title {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  margin-bottom: 3px !important;
+  line-height: 1.3 !important;
+}
+
+.product-informative-banner div {
+  font-size: 11px !important;
+  line-height: 1.3 !important;
+  background: transparent !important;
+}
+
 .service-pagination {
   position: relative;
   margin-top: 5px;
@@ -2735,25 +2777,28 @@ p{
 REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 ==============================================================================*/
 
-/* Container principal - FUNDO CLARO COM DEGRADÊ PARA O FOOTER AMARELO */
+/* Container principal - TRANSPARENT para banner ficar limpo */
 .pg-pdp-container {
-	padding-top: 90px;
-	padding-bottom: 60px;           /* Padding inferior para separação */
+	padding-top: 90px;              /* Espaço para header fixo */
+	padding-bottom: 60px;           /* Separação inferior */
 	margin: 0;
-	background-color: #ffffff;      /* ✅ LIMPO: Branco puro (padrão home) */
+	background-color: transparent;
 	background-image: none;
 	min-height: auto;               /* Sem height mínimo - cresce com conteúdo */
 	display: flex;
-	align-items: flex-start;
-	justify-content: center;
+	flex-direction: column;          /* ✅ Banners em vertical (linhas), não colunas */
+	align-items: stretch;            /* Filhos ocupam 100% width */
+	justify-content: flex-start;
 }
 
-/* Row principal - Bootstrap row */
+/* Row principal - Bootstrap row - AQUI está o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
 	padding: 30px 20px;
 	width: 100%;
 	max-width: 1400px; /* Mais largo */
+	background-color: #ffffff;      /* ✅ Branco puro (apenas para produto form) */
+	background-image: none;
 }
 
 /* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
@@ -2832,10 +2877,10 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* Desktop: Esconder Swiper (mostra grid 2x2 em vez disso) */
 @media (min-width: 992px) {
 	.pg-pdp-image-col .product-image-container {
-		display: none !important;
+		display: none;
 	}
 	.pg-pdp-image-col .js-swiper-product {
-		display: none !important;
+		display: none;
 	}
 }
 
@@ -4145,6 +4190,55 @@ main.patagang-section-content {
     transform: translateX(-100%);
 }
 
+/* Cart Drawer Coupon Input - PATAGANG v1.5.68 */
+.pg-drawer__coupon-section {
+    margin: 12px 0 8px;
+    padding: 0;
+}
+
+.pg-drawer__coupon-form {
+    width: 100%;
+    margin: 0;
+}
+
+.pg-drawer__coupon-group {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+}
+
+.pg-drawer__coupon-input {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    color: #333;
+}
+
+.pg-drawer__coupon-input::placeholder {
+    color: #999;
+    font-size: 12px;
+}
+
+.pg-drawer__coupon-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.pg-drawer__coupon-btn:hover {
+    background-color: #333;
+}
+
 /* ============================================
    PATAGANG HOME - Anti-FOUC (Critical CSS)
    ============================================ */
@@ -5192,6 +5286,29 @@ select {
 @media (min-width: 769px) and (max-width: 991px) {
   .pg-gallery-item {
     border-radius: 12px;
+  }
+}
+
+/* ============================================================================
+   PATAGANG v1.5.63: MOBILE GALLERY FIX — Hide Grid 2x2, Show Swiper Only
+   Purpose: Remove duplicate gallery visualization on mobile devices
+   Mobile (<992px): Show Swiper carousel ONLY
+   Desktop (≥992px): Show grid 2x2 thumbnail layout
+============================================================================ */
+
+@media (max-width: 991px) {
+  /* Hide grid 2x2 on mobile completely */
+  .pg-gallery-container {
+    display: none !important;
+  }
+
+  /* Ensure Swiper is visible on mobile */
+  .product-image-container {
+    display: flex !important;
+  }
+
+  .js-swiper-product {
+    display: block !important;
   }
 }
 

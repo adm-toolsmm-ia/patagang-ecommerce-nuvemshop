@@ -70,6 +70,7 @@
             {% include "static/css/style-menu-patagang.css.tpl" %}
             {% include "static/css/style-filters-patagang.css.tpl" %}
             {% include "static/css/style-help-sidebar.css.tpl" %}
+            {% include "static/css/style-whatsapp-button.css.tpl" %}
         </style>
 
         {# Colors and fonts used from settings.txt and defined on theme customization #}
@@ -419,28 +420,7 @@
             }
             body .pg-help-btn__text { font-size: 11px !important; }
         }
-        body .btn-whatsapp-left {
-            background-color: #F0F0F0 !important;
-            border: 1px solid #E0E0E0 !important;
-            padding: 12px 8px !important;
-        }
-        body .btn-whatsapp-left:hover {
-            background-color: #E8E8E8 !important;
-            border: 1px solid #D0D0D0 !important;
-            padding-right: 12px !important;
-        }
-        body .btn-whatsapp-left svg {
-            color: #25D366 !important;
-        }
-        body .btn-whatsapp-left span {
-            font-weight: 700 !important;
-            font-size: 12px !important;
-            color: #666666 !important;
-        }
-        @media (max-width: 480px) {
-            body .pg-help-btn__text { font-size: 11px !important; }
-            body .btn-whatsapp-left span { font-size: 11px !important; }
-        }
+        {# WhatsApp Button CSS moved to: static/css/style-whatsapp-button.css.tpl #}
         </style>
 
         {#/*============================================================================

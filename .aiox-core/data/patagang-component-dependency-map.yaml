@@ -1,0 +1,804 @@
+---
+# Patagang Component Dependency Map — Impact Analysis & Relationship Graph
+# Type: Configuration (L3 — Project Configuration)
+# Purpose: Show how components relate, depend on each other, and their impact levels
+# Consumed by: Agents for impact analysis, dependency tracking, refactoring planning
+# Format: YAML 1.2 — Graph structure (nodes + edges)
+
+version: "1.0.0"
+lastUpdated: "2026-03-24T21:20:00Z"
+project: "Patagang Ecommerce"
+
+# ============================================================================
+# COMPONENT DEPENDENCY GRAPH
+# Each component shows: what it provides, what it depends on, where it's used
+# ============================================================================
+
+components:
+  # ======================================
+  # CORE MODULES (High Impact)
+  # ======================================
+
+  store_js:
+    type: "module_core"
+    file: "static/js/store.js.tpl"
+    size_kb: 125
+    impact_level: "CRITICAL"
+    description: "Core store functionality: product variants, cart, shipping, forms"
+
+    provides:
+      - "product_variant_logic"
+      - "cart_operations"
+      - "shipping_calculations"
+      - "form_validation"
+      - "modal_handling"
+      - "tab_interactions"
+      - "notification_system"
+
+    depends_on:
+      - "jQuery (Nuvemshop core)"
+      - "DOMContentLoaded polyfill"
+      - "Nuvemshop cart API"
+      - "Nuvemshop shipping API"
+
+    used_by:
+      - "snipplet: product/product-form.tpl"
+      - "snipplet: product/product-related.tpl"
+      - "snipplet: product/item-quantity.tpl"
+      - "snipplet: cart-item-new.tpl"
+      - "snipplet: cart-totals.tpl"
+      - "snipplet: cart-related-products.tpl"
+      - "snipplet: notification.tpl"
+      - "snipplet: modal.tpl"
+      - "snipplet: newsletter.tpl"
+      - "page: home"
+      - "page: product"
+      - "page: cart"
+      - "page: category"
+      - "page: search"
+
+    related_files:
+      - "static/js/cart-drawer.js.tpl"
+      - "static/js/cart-utils.js.tpl"
+      - "static/css/style-critical.tpl"
+
+    constraints:
+      - "CONSTRAINT #1: Checkout form structure protected"
+      - "CONSTRAINT #3: Contact form protected"
+      - "CONSTRAINT #6: Newsletter form protected"
+
+    optimization_status: "Priority 2: Modularize (v1.5.75 planned)"
+
+  external_js:
+    type: "module_integrations"
+    file: "static/js/external.js.tpl"
+    size_kb: 106
+    impact_level: "HIGH"
+    description: "Third-party integrations: Olark, GA, Facebook, Swiper"
+
+    provides:
+      - "olark_chat"
+      - "google_analytics_tracking"
+      - "facebook_sdk"
+      - "swiper_slider"
+      - "third_party_widgets"
+
+    depends_on:
+      - "Olark API (lazy-loaded as of v1.5.74)"
+      - "Google Analytics script"
+      - "Facebook SDK"
+      - "Swiper.js library"
+
+    used_by:
+      - "page: home (slider)"
+      - "page: product (image slider, gallery)"
+      - "page: product (sharing buttons)"
+      - "snipplet: product/product-image.tpl"
+      - "snipplet: social-share.tpl"
+      - "snipplet: whatsapp-chat.tpl"
+
+    related_files:
+      - "static/js/instatheme.js"
+      - "static/js/external-no-dependencies.js.tpl"
+
+    optimization_status: "✅ Priority 1 COMPLETE: Olark lazy-loaded (v1.5.74)"
+
+  style_critical:
+    type: "css_critical"
+    file: "static/css/style-critical.tpl"
+    size_kb: 163
+    impact_level: "CRITICAL"
+    status: "⚠️ EXCEEDS 50KB LIMIT"
+    description: "Critical CSS inlined in <head> — must load before render"
+
+    provides:
+      - "layout_grid"
+      - "basic_typography"
+      - "header_styling"
+      - "footer_styling"
+      - "product_cards"
+      - "cart_styling"
+      - "form_styling"
+      - "modal_styling"
+      - "notification_styling"
+
+    depends_on:
+      - "style-tokens.tpl (design tokens)"
+      - "style-colors.scss.tpl (color definitions)"
+      - "style-menu-patagang.css.tpl (navigation)"
+      - "style-filters-patagang.css.tpl (category filters)"
+      - "style-help-sidebar.css.tpl (help sidebar)"
+      - "style-whatsapp-button.css.tpl (WhatsApp)"
+
+    used_by:
+      - "ALL pages (inlined in layout.tpl)"
+      - "ALL snipplets (styling)"
+
+    constraints:
+      - "CONSTRAINT #4: Must be < 50KB (currently 163KB = 3.26x over)"
+
+    optimization_plan:
+      - "Story 8.2 GOAL: Reduce to 50KB"
+      - "Action: Consolidate, remove unused, split critical/async"
+      - "Blocked by: Story 8.1-8.3 priorities"
+
+  style_async:
+    type: "css_async"
+    file: "static/css/style-async.scss.tpl"
+    size_kb: 164
+    impact_level: "HIGH"
+    status: "✅ OK (async loaded, non-blocking)"
+    description: "Non-critical CSS loaded asynchronously"
+
+    provides:
+      - "advanced_layouts"
+      - "animations"
+      - "hover_states"
+      - "page_specific_styles"
+      - "responsive_breakpoints"
+
+    used_by:
+      - "page: home (hero v2, product grids)"
+      - "page: product (detail styling)"
+      - "page: cart (modal styling)"
+      - "page: category (grid layout)"
+      - "snipplet: product_grid.tpl"
+      - "snipplet: cart-modal.tpl"
+
+  # ======================================
+  # NAVIGATION COMPONENTS
+  # ======================================
+
+  navigation:
+    type: "component_navigation"
+    file: "snipplets/navigation/navigation.tpl"
+    impact_level: "HIGH"
+    description: "Main navigation wrapper, orchestrates all nav variants"
+
+    provides:
+      - "navigation_structure"
+      - "menu_organization"
+      - "responsive_nav"
+
+    depends_on:
+      - "navigation-mega-menu.tpl"
+      - "navigation-top.tpl"
+      - "style-menu-patagang.css.tpl"
+      - "store.js.tpl"
+
+    used_by:
+      - "layout.tpl (all pages)"
+
+    related_components:
+      - "navigation-mega-menu"
+      - "navigation-category"
+      - "navigation-top"
+      - "navigation-panel"
+
+  navigation_mega_menu:
+    type: "component_navigation"
+    file: "snipplets/navigation/navigation-mega-menu.tpl"
+    impact_level: "HIGH"
+    css: ["style-menu-patagang.css.tpl"]
+    js: ["store.js.tpl"]
+
+    provides:
+      - "desktop_mega_menu"
+      - "category_dropdown"
+      - "department_listing"
+
+    used_by:
+      - "navigation.tpl"
+      - "all pages"
+
+    related_components:
+      - "navigation-category-list"
+      - "navigation-nav-list"
+
+  # ======================================
+  # CART COMPONENTS
+  # ======================================
+
+  cart_panel:
+    type: "component_cart"
+    file: "snipplets/cart-panel.tpl"
+    impact_level: "HIGH"
+    description: "Mini-cart sidebar that slides in from right"
+
+    provides:
+      - "cart_sidebar"
+      - "item_count"
+      - "quick_actions"
+
+    depends_on:
+      - "cart-drawer.js.tpl"
+      - "cart-item-new.tpl"
+      - "style-critical.tpl"
+
+    used_by:
+      - "layout.tpl (all pages)"
+      - "snipplet: icon-cart.tpl"
+
+    related_components:
+      - "icon-cart"
+      - "cart-item-new"
+      - "cart-drawer (js module)"
+
+  cart_item_new:
+    type: "component_cart"
+    file: "snipplets/cart-item-new.tpl"
+    impact_level: "HIGH"
+    description: "Individual cart item in cart view/sidebar"
+
+    provides:
+      - "item_display"
+      - "quantity_control"
+      - "price_display"
+      - "remove_action"
+
+    depends_on:
+      - "item-quantity.tpl"
+      - "store.js.tpl"
+      - "cart-utils.js.tpl"
+      - "style-critical.tpl"
+
+    used_by:
+      - "snipplet: cart-panel.tpl"
+      - "page: cart"
+
+    constraints:
+      - "CONSTRAINT #1: Must work with Nuvemshop cart API"
+
+  cart_drawer_js:
+    type: "module_js"
+    file: "static/js/cart-drawer.js.tpl"
+    size_kb: 25
+    impact_level: "HIGH"
+    description: "Cart sidebar panel interactions and animations"
+
+    provides:
+      - "drawer_toggle"
+      - "slide_animation"
+      - "ajax_updates"
+
+    depends_on:
+      - "store.js.tpl"
+      - "external.js.tpl"
+
+    used_by:
+      - "snipplet: cart-panel.tpl"
+      - "snipplet: icon-cart.tpl"
+      - "page: all (cart drawer on every page)"
+
+    optimization_status: "Priority 3: Consolidate cart JS (v1.5.76 planned)"
+
+  cart_utils_js:
+    type: "module_js"
+    file: "static/js/cart-utils.js.tpl"
+    size_kb: 15
+    impact_level: "MEDIUM"
+    description: "Cart utility functions for add/remove/update"
+
+    provides:
+      - "add_to_cart"
+      - "remove_from_cart"
+      - "update_quantity"
+      - "calculate_totals"
+
+    depends_on:
+      - "store.js.tpl"
+      - "Nuvemshop cart API"
+
+    used_by:
+      - "snipplet: cart-item-new.tpl"
+      - "snipplet: product/product-form.tpl"
+
+  # ======================================
+  # PRODUCT COMPONENTS
+  # ======================================
+
+  product_form:
+    type: "component_product"
+    file: "snipplets/product/product-form.tpl"
+    impact_level: "CRITICAL"
+    description: "Product purchase form with variants, quantity, add-to-cart"
+
+    provides:
+      - "variant_selector"
+      - "quantity_selector"
+      - "add_to_cart_button"
+      - "price_display"
+      - "stock_indicator"
+
+    depends_on:
+      - "item-quantity.tpl"
+      - "product-payment-details.tpl"
+      - "product-custom-fields.tpl"
+      - "store.js.tpl"
+      - "external.js.tpl"
+      - "style-critical.tpl"
+
+    used_by:
+      - "page: product"
+      - "snipplet: product-related.tpl"
+
+    constraints:
+      - "CONSTRAINT #1: Form must work with Nuvemshop checkout"
+      - "CONSTRAINT #7: JS must not override Nuvemshop functions"
+
+    optimization_status: "Priority 4: Review Swiper usage in product (v1.5.77 planned)"
+
+  product_image:
+    type: "component_product"
+    file: "snipplets/product/product-image.tpl"
+    impact_level: "HIGH"
+    description: "Product image gallery with zoom and variant thumbnails"
+
+    provides:
+      - "image_gallery"
+      - "zoom_functionality"
+      - "variant_thumbnails"
+      - "responsive_images"
+
+    depends_on:
+      - "external.js.tpl (Swiper.js)"
+      - "style-async.scss.tpl"
+
+    used_by:
+      - "page: product"
+
+    performance:
+      lcp_element: "product-image (largest contentful paint target)"
+
+  product_related:
+    type: "component_product"
+    file: "snipplets/product/product-related.tpl"
+    impact_level: "MEDIUM"
+    description: "Related/recommended products section below main product"
+
+    provides:
+      - "related_products_list"
+      - "cross_selling"
+      - "recommendation_grid"
+
+    depends_on:
+      - "product_grid.tpl"
+      - "store.js.tpl"
+      - "style-async.scss.tpl"
+
+    used_by:
+      - "page: product"
+
+  product_grid:
+    type: "component_product"
+    file: "snipplets/product_grid.tpl"
+    impact_level: "HIGH"
+    description: "Reusable product grid for home, category, search, related"
+
+    provides:
+      - "product_listing"
+      - "filtering"
+      - "sorting"
+      - "infinite_scroll"
+      - "lazy_loading"
+
+    depends_on:
+      - "card.tpl (product card)"
+      - "labels.tpl (sale/new badges)"
+      - "store.js.tpl"
+      - "style-async.scss.tpl"
+
+    used_by:
+      - "page: home (multiple grids)"
+      - "page: category"
+      - "page: search"
+      - "snipplet: product-related.tpl"
+      - "snipplet: cart-related-products.tpl"
+
+  # ======================================
+  # FOOTER & LEGAL
+  # ======================================
+
+  footer:
+    type: "component_footer"
+    file: "snipplets/footer.tpl"
+    impact_level: "CRITICAL"
+    description: "Main footer with Nuvemshop attribution (CONSTRAINT #2)"
+
+    provides:
+      - "footer_content"
+      - "attribution"
+      - "compliance"
+      - "secondary_navigation"
+
+    depends_on:
+      - "navigation-foot.tpl"
+      - "navigation-foot-secondary.tpl"
+      - "style-critical.tpl"
+
+    used_by:
+      - "layout.tpl (all pages)"
+
+    constraints:
+      - "CONSTRAINT #2: Must contain VISIBLE Nuvemshop attribution"
+
+    violations: "NONE (attribution visible)"
+
+  # ======================================
+  # HELP SIDEBAR (Story 1.1.1)
+  # ======================================
+
+  help_sidebar:
+    type: "component_ui"
+    file: "snipplets/help-sidebar.tpl"
+    impact_level: "MEDIUM"
+    story: "1.1.1"
+    description: "Contextual help sidebar with FAQ items"
+
+    provides:
+      - "help_widget"
+      - "faq_access"
+      - "contextual_help"
+
+    depends_on:
+      - "style-help-sidebar.css.tpl"
+      - "store.js.tpl"
+      - "style-critical.tpl (inlined)"
+
+    used_by:
+      - "layout.tpl (all pages)"
+
+    css:
+      - "style-help-sidebar.css.tpl (inlined in critical)"
+
+    implementation_status: "✅ COMPLETE (Story 1.1.1)"
+
+  # ======================================
+  # NEWSLETTER & FORMS
+  # ======================================
+
+  newsletter_form:
+    type: "component_form"
+    file: "snipplets/newsletter.tpl"
+    impact_level: "MEDIUM"
+    description: "Newsletter signup form in footer"
+
+    provides:
+      - "email_input"
+      - "consent_checkbox"
+      - "submit_button"
+
+    depends_on:
+      - "store.js.tpl"
+      - "style-critical.tpl"
+
+    used_by:
+      - "layout.tpl (footer area)"
+
+    constraints:
+      - "CONSTRAINT #6: Newsletter form submission protected"
+
+    violations: "NONE (form structure intact)"
+
+  modal_newsletter:
+    type: "component_form"
+    file: "snipplets/modal-newsletter.tpl"
+    impact_level: "MEDIUM"
+    description: "Newsletter signup modal (popup)"
+
+    provides:
+      - "modal_popup"
+      - "email_capture"
+      - "lead_generation"
+
+    depends_on:
+      - "modal.tpl"
+      - "store.js.tpl"
+      - "style-async.scss.tpl"
+
+    used_by:
+      - "page: home (on load or delay)"
+
+    constraints:
+      - "CONSTRAINT #6: Form structure protected"
+
+  contact_form:
+    type: "component_form"
+    file: "snipplets/contact-links.tpl"
+    impact_level: "HIGH"
+    description: "Contact form and support information"
+
+    provides:
+      - "contact_input"
+      - "email_message"
+      - "form_submission"
+
+    depends_on:
+      - "store.js.tpl"
+      - "style-critical.tpl"
+
+    used_by:
+      - "page: contact"
+      - "page: generic (conditionally)"
+
+    constraints:
+      - "CONSTRAINT #3: Contact form structure protected"
+
+    violations: "NONE (form structure intact)"
+
+  # ======================================
+# SHARED UI COMPONENTS
+  # ======================================
+
+  modal:
+    type: "component_ui"
+    file: "snipplets/modal.tpl"
+    impact_level: "MEDIUM"
+    description: "Generic reusable modal dialog component"
+
+    provides:
+      - "modal_structure"
+      - "close_button"
+      - "content_area"
+
+    depends_on:
+      - "store.js.tpl"
+      - "style-async.scss.tpl"
+
+    used_by:
+      - "snipplet: modal-newsletter.tpl"
+      - "snipplet: cart-modal.tpl"
+      - "page: multiple (conditionally)"
+
+  notification:
+    type: "component_ui"
+    file: "snipplets/notification.tpl"
+    impact_level: "MEDIUM"
+    description: "Toast notification banners"
+
+    provides:
+      - "notification_display"
+      - "alert_message"
+      - "auto_dismiss"
+
+    depends_on:
+      - "store.js.tpl"
+      - "style-critical.tpl"
+
+    used_by:
+      - "page: all (cart notifications, alerts)"
+
+  notification_cart:
+    type: "component_ui"
+    file: "snipplets/notification-cart.tpl"
+    impact_level: "MEDIUM"
+    description: "Cart-specific notification (add to cart confirmation)"
+
+    provides:
+      - "cart_notification"
+      - "item_confirmation"
+      - "mini_cart_link"
+
+    depends_on:
+      - "store.js.tpl"
+      - "notification.tpl"
+
+    used_by:
+      - "page: all (after add to cart action)"
+
+  breadcrumbs:
+    type: "component_ui"
+    file: "snipplets/breadcrumbs.tpl"
+    impact_level: "LOW"
+    description: "Breadcrumb navigation trail"
+
+    provides:
+      - "navigation_breadcrumb"
+      - "seo_structured_data"
+
+    depends_on:
+      - "style-critical.tpl"
+
+    used_by:
+      - "page: product"
+      - "page: category"
+      - "page: blog-post"
+
+  labels:
+    type: "component_ui"
+    file: "snipplets/labels.tpl"
+    impact_level: "LOW"
+    description: "Product labels (sale, new, best-seller)"
+
+    provides:
+      - "product_badge"
+      - "visual_indicator"
+
+    depends_on:
+      - "style-critical.tpl"
+
+    used_by:
+      - "snipplet: product_grid.tpl"
+      - "snipplet: product/product-form.tpl"
+      - "snipplet: card.tpl"
+
+  card:
+    type: "component_ui"
+    file: "snipplets/card.tpl"
+    impact_level: "MEDIUM"
+    description: "Generic card component for product display"
+
+    provides:
+      - "card_structure"
+      - "hover_effects"
+      - "action_buttons"
+
+    depends_on:
+      - "style-critical.tpl"
+      - "labels.tpl"
+
+    used_by:
+      - "snipplet: product_grid.tpl"
+
+  # ======================================
+  # SPECIAL FEATURES
+  # ======================================
+
+  whatsapp_chat:
+    type: "component_special"
+    file: "snipplets/whatsapp-chat.tpl"
+    impact_level: "LOW"
+    description: "WhatsApp chat widget button"
+
+    provides:
+      - "whatsapp_widget"
+      - "direct_messaging"
+
+    depends_on:
+      - "external.js.tpl"
+      - "style-whatsapp-button.css.tpl (inlined)"
+
+    used_by:
+      - "layout.tpl (all pages)"
+
+  social_share:
+    type: "component_special"
+    file: "snipplets/social-share.tpl"
+    impact_level: "LOW"
+    description: "Social media sharing buttons"
+
+    provides:
+      - "share_buttons"
+      - "social_integration"
+
+    depends_on:
+      - "external.js.tpl (Facebook SDK, etc)"
+
+    used_by:
+      - "page: blog-post"
+      - "page: product"
+
+# ============================================================================
+# IMPACT ANALYSIS — What breaks when each component changes?
+# ============================================================================
+
+impact_matrix:
+  store_js:
+    direct_impact: 15  # 15 components/pages depend on it
+    risk_level: "CRITICAL"
+    breaking_changes:
+      - "Remove cart operations → cart page broken"
+      - "Remove form validation → contact form broken"
+      - "Change modal API → modals don't work"
+    testing_required: "Full regression test (cart, product, forms, all pages)"
+
+  style_critical:
+    direct_impact: "ALL pages + snipplets"
+    risk_level: "CRITICAL"
+    breaking_changes:
+      - "Remove grid layout → page layout broken"
+      - "Remove form styles → forms unstyled"
+      - "Remove header styles → header broken"
+    testing_required: "Visual regression test on all pages"
+
+  external_js:
+    direct_impact: 8
+    risk_level: "HIGH"
+    breaking_changes:
+      - "Remove Swiper → product image slider broken"
+      - "Remove Olark → chat unavailable"
+    testing_required: "Test Swiper, GA tracking, Facebook integration"
+
+  navigation_mega_menu:
+    direct_impact: "ALL pages"
+    risk_level: "HIGH"
+    breaking_changes:
+      - "Remove mega menu → category navigation broken"
+    testing_required: "Desktop & mobile navigation test"
+
+  cart_panel:
+    direct_impact: "ALL pages"
+    risk_level: "HIGH"
+    breaking_changes:
+      - "Remove cart drawer → mini-cart unavailable on all pages"
+    testing_required: "Add to cart flow, cart updates via AJAX"
+
+  product_form:
+    direct_impact: "product page + related"
+    risk_level: "CRITICAL"
+    breaking_changes:
+      - "Remove variant selector → variants not selectable"
+      - "Remove quantity input → can't change quantity"
+      - "Break Nuvemshop integration → checkout fails"
+    testing_required: "Product variant selection, add to cart, checkout"
+
+# ============================================================================
+# OPTIMIZATION OPPORTUNITIES
+# ============================================================================
+
+optimization_candidates:
+  store_js:
+    current_size: "125KB"
+    priority: "Priority 2"
+    goal: "Modularize into smaller, independent modules"
+    estimated_savings: "-20KB"
+    plan: "Split into store-core, store-variants, store-cart, store-shipping"
+    status: "PLANNED (v1.5.75)"
+
+  external_js:
+    current_size: "106KB"
+    priority: "Priority 1 ✅ COMPLETE"
+    goal: "Lazy-load Olark"
+    savings: "-5KB (Olark deferred)"
+    status: "✅ DEPLOYED (v1.5.74)"
+
+  style_critical:
+    current_size: "163KB"
+    priority: "Story 8.2 (CRITICAL)"
+    goal: "Reduce from 163KB to 50KB"
+    estimated_savings: "-113KB"
+    plan: "Consolidate, split critical/async, remove unused CSS"
+    status: "⚠️ BLOCKED (exceeds 3.26x limit)"
+
+  cart_drawer_js:
+    current_size: "25KB"
+    priority: "Priority 3"
+    goal: "Consolidate with cart-utils"
+    estimated_savings: "-3KB"
+    status: "PLANNED (v1.5.76)"
+
+# ============================================================================
+# METADATA
+# ============================================================================
+
+metadata:
+  total_components: 41
+  high_impact_components: 12
+  critical_components: 5  # store.js, style-critical, product-form, navigation, footer
+  dependencies_tracked: 150+
+  last_updated: "2026-03-24"
+  maintainer: "@architect"
+  related_docs:
+    - "docs/architecture/patagang-store/03-COMPONENT-INVENTORY.md"
+    - "docs/architecture/patagang-store/05-JAVASCRIPT-MODULES.md"
+    - "docs/architecture/patagang-store/04-CSS-ARCHITECTURE.md"

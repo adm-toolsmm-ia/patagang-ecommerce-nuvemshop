@@ -1,9 +1,9 @@
 {# PATAGANG - Product Detail Page (PDP) #}
 
-{# Identity Banner - Minimalist Patagang brand statement (separate from product section) #}
-{% include 'snipplets/product/product-identity-banner.tpl' %}
-
 <div id="single-product" class="js-has-new-shipping js-product-detail js-product-container js-shipping-calculator-container pg-pdp-container" data-variants="{{product.variants_object | json_encode }}" data-store="product-detail">
+
+    {# Identity Banner - Minimalist Patagang brand statement (horizontal, full width at top) #}
+    {% include 'snipplets/product/product-identity-banner.tpl' %}
 
     {# Informative Banner - Desconto e outras informações (acima das imagens/card) #}
     {% include 'snipplets/product/product-informative-banner.tpl' %}
@@ -24,6 +24,7 @@
             </div>
         </div>
     </div>
+
     {# Container para FB Comments e Reviews - SOMENTE SE HABILITADO #}
     {% if settings.show_product_fb_comment_box %}
         <div class="container pg-pdp-extras-container">

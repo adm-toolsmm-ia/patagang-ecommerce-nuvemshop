@@ -1,10 +1,23 @@
 # DevOps — Epic 8 Standard Workflow (MANDATORY)
 
+**Status:** ✅ ACTIVE (Epic 8 Stories 8.1-8.5) | ℹ️ See consolidated standard below
 **Type:** Contextual Rule (L3 — Project Configuration)
 **Authority:** Gabriel Cristofolini (CTO) + @devops (Gage)
 **Effective Date:** 2026-03-21
 **Applies To:** All stories in Epic 8 + All FTP-deployed projects using this workflow
 **Severity:** CRITICAL — Mandatory pattern, no exceptions
+
+## 📌 Note: Consolidated FTP Production Standard
+
+**This rule is specific to Epic 8 execution (Stories 8.1-8.5).**
+
+For general FTP deployments going forward, see: `.claude/rules/patagang-ftp-production-standard.md`
+This new rule consolidates the workflow patterns documented here into a general standard.
+
+**Relationship:**
+- **This rule:** Epic 8-specific documentation (historical, active reference)
+- **New rule:** General FTP standard (recommended for Stories 8.6+)
+- **Use:** This rule while Epic 8 is active; migrate to general standard for future stories
 
 ---
 

@@ -1,10 +1,23 @@
 # Epic 8 — Execução em Produção Real (Sem Homologação Local)
 
+**Status:** ✅ ACTIVE (Epic 8 Production Workflow) | ℹ️ See consolidated standard below
 **Type:** Contextual Rule (L3 — Project Configuration)
 **Auto-Load:** On Story 8.x activation
 **Created:** 2026-03-21
 **Authority:** Gabriel Cristofolini (CTO)
 **Critical:** YES — Alters all Story Development Cycle phases
+
+## 📌 Note: Consolidated FTP Production Standard
+
+**This rule documents the Epic 8 production execution model (no local staging).**
+
+For general FTP deployments going forward, see: `.claude/rules/patagang-ftp-production-standard.md`
+This new rule consolidates the execution patterns documented here into a general standard.
+
+**Relationship:**
+- **This rule:** Epic 8-specific workflow (historical, active reference)
+- **New rule:** General FTP standard (recommended for Stories 8.6+)
+- **Use:** This rule while Epic 8 is active; migrate to general standard for future stories
 
 ---
 
