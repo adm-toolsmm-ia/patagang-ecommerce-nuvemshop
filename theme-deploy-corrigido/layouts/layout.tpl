@@ -602,7 +602,7 @@
 
         {# Footer #}
 
-        {% snipplet "footer.tpl" %}
+        {% snipplet "footer/footer.tpl" %}
 
         {% if cart.free_shipping.cart_has_free_shipping or cart.free_shipping.min_price_free_shipping.min_price %}
 
