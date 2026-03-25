@@ -2814,7 +2814,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	/* COLUNA ESQUERDA - Imagem - PREENCHE ALTURA + STICKY */
-	.pg-pdp-container .pg-pdp-image-col.col-lg-7 {
+	.pg-pdp-container .pg-pdp-image-col {
 		flex: 0 0 60%;
 		max-width: 60%;
 		width: 60%;
@@ -2828,7 +2828,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	/* COLUNA DIREITA - Info - PREENCHE ALTURA */
-	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
+	.pg-pdp-container .pg-pdp-info-col {
 		flex: 0 0 40%;
 		max-width: 40%;
 		width: 40%;

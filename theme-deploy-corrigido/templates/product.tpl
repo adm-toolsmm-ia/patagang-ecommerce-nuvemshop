@@ -9,10 +9,10 @@
     {% include 'snipplets/product/product-informative-banner.tpl' %}
 
     <div class="row section-single-product g-0">
-        <div class="col-12 col-lg-7 pg-pdp-image-col" data-store="product-image-{{ product.id }}">
+        <div class="pg-pdp-image-col" data-store="product-image-{{ product.id }}">
         	{% include 'snipplets/product/product-image.tpl' %}
         </div>
-        <div class="col-12 col-lg-5 pg-pdp-info-col" data-store="product-info-{{ product.id }}">
+        <div class="pg-pdp-info-col" data-store="product-info-{{ product.id }}">
             {# Marca d'água do logo cachorro - elemento real para garantir visibilidade #}
             <img src="{{ 'images/logos/logo-mark.svg' | static_url }}" 
                  alt="" 
