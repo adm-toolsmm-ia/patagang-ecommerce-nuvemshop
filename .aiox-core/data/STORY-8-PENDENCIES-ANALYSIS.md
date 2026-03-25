@@ -169,21 +169,35 @@ Story 8.5 foi "recuperada" de falhas anteriores (v1.5.87-1.5.92). O que foi feit
 - [ ] Se continuar: Mapear refatoração para "Story 8.5 Phase 2"
 ```
 
-### Recomendação
-**⚠️ NÃO FECHE AINDA** — Precisa decisão:
+### Recomendação (UPDATED 2026-03-25)
 
-**Opção A: Fechar como-está (Recomendado)**
-- Story 8.5 = "JavaScript Stability Recovery" (já completo)
-- Mapa refatoração JavaScript para Story Futura: "Story 8.5 Phase 2 — Payment-Discount Refactoring"
-- Resultado: Merge v1.5.93 para main
+**✅ DECISION CLARIFIED BY INVESTIGATION:**
 
-**Opção B: Continuar agora**
-- Refatorar payment-discount-text-override.js (callback instead of setTimeout)
-- Implementar instatheme consolidation
-- Deploy v1.6.0
-- Depois merge
+Investigation confirmed:
+- ✅ payment-discount-text-override.js: **DEAD CODE** (never loaded)
+- ✅ instatheme.js files: **LEGACY** (never referenced)
+- ✅ ALL THREE FILES: **SAFE TO DELETE** (zero impact)
 
-**Gabriel deve escolher A ou B antes de fecharmos.**
+**UPDATED OPTION A (90% recommended):**
+- Delete payment-discount-text-override.js
+- Delete instatheme.js + instatheme-hash.js
+- Deploy v1.5.94 (cleanup only)
+- Gabriel validates (should be OK — removal only)
+- Merge v1.5.94 to main
+- Result: AC 1 implemented ✅, Story ready to close
+
+Time: 30 minutes
+Risk: VERY LOW (dead code removal)
+
+**UPDATED OPTION B (10%):**
+- If you want payment-discount text replacement feature
+- This would be NEW FEATURE, not Story 8.5 completion
+- Requires 1-2 hours + testing
+- Create separate story for this feature
+
+See: `.aiox-core/data/PAYMENT-DISCOUNT-INVESTIGATION-FINAL.md` for full analysis
+
+**Gabriel to choose A or B before execution.**
 
 ---
 
