@@ -2777,10 +2777,47 @@ div.product-informative-banner.position-relative {
 REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 ==============================================================================*/
 
+/* =====================================================================
+   SEÇÕES DA PÁGINA DO PRODUTO — ESTRUTURA INDEPENDENTE
+   Cada seção ocupa 100% width, está abaixo da anterior, sem sobreposição
+   ===================================================================== */
+
+/* Base para todas as seções da página do produto */
+.pg-pdp-section {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+/* SEÇÃO 1: Banner de Aviso (identidade da marca) */
+.pg-pdp-banner-warning {
+	background-color: #ffffff;
+	padding: 0;  /* Padding controlado pelo elemento interno */
+}
+
+/* SEÇÃO 2: Banner Informativo do Produto */
+.pg-pdp-banner-informative {
+	background-color: transparent;
+	padding: 0;  /* Padding controlado pelo elemento interno */
+}
+
+/* SEÇÃO 3: Container principal do produto (galeria + card) */
+.pg-pdp-container {
+	background-color: transparent;
+	background-image: none;
+	min-height: auto;
+	padding: 0;  /* Sem padding no container pai */
+	margin: 0;
+}
+
 /* Container principal - TRANSPARENT para banner ficar limpo */
 .pg-pdp-container {
-	padding-top: 90px;              /* Espaço para header fixo */
-	padding-bottom: 60px;           /* Separação inferior */
+	padding-top: 0;                 /* ✅ REMOVIDO: padding-top: 90px causava desalinhamento */
+	padding-bottom: 0;              /* ✅ REMOVIDO: padding-bottom: 60px */
 	margin: 0;
 	background-color: transparent;
 	background-image: none;
@@ -2794,10 +2831,13 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* Row principal - Bootstrap row - AQUI está o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
-	padding: 30px 20px;
+	padding: 40px 20px;             /* Padding para respiro interno */
 	width: 100%;
-	background-color: #ffffff;      /* ✅ Branco puro (apenas para produto form) */
+	background-color: #ffffff;      /* ✅ Branco puro (seção de galeria + card) */
 	background-image: none;
+	display: flex;                  /* ✅ Explicit flex para garantir */
+	flex-direction: row;            /* ✅ Horizontal por padrão */
+	gap: 0;                         /* Reset gap, será definido em media query */
 }
 
 /* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
@@ -3446,11 +3486,11 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	align-items: center;
 	justify-content: center;
 	gap: 40px;
-	max-width: 1200px;
-	margin: 0 auto;
+	margin: 0;                      /* ✅ Sem margin auto - ocupa 100% width */
 	width: 100%;
 	flex-wrap: wrap;
 	padding: 0;
+	box-sizing: border-box;
 }
 
 .pg-identity-banner__phrase {
