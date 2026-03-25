@@ -17,7 +17,7 @@ All 5 stories completed and deployed to production (v1.5.93).
 | **8.2** | Critical CSS Reduction | v1.5.x | ✅ DONE | [Story](stories/8.2-critical-css-reduction.story.md) \| [Guides](guides/8.2/) |
 | **8.3** | !important Resolution | v1.5.x | ✅ DONE | [Story](stories/8.3-important-resolution.story.md) \| [Guides](guides/8.3/) |
 | **8.4** | Template Cleanup | v1.5.93 | ✅ DONE | [Story](stories/8.4-template-cleanup.story.md) \| [Guides](guides/8.4/) |
-| **8.5** | JavaScript Optimization | v1.5.93 | ✅ IN VALIDATION | [Story](stories/8.5-javascript-optimization.story.md) \| [Guides](guides/8.5/) |
+| **8.5** | JavaScript Optimization | v1.5.93 | ✅ APPROVED | [Story](stories/8.5-javascript-optimization.story.md) \| [Guides](guides/8.5/) |
 
 ---
 
