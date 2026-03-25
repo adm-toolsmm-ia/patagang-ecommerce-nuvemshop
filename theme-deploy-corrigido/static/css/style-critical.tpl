@@ -2815,9 +2815,9 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 	/* COLUNA ESQUERDA - Imagem - PREENCHE ALTURA + STICKY */
 	.pg-pdp-container .pg-pdp-image-col.col-lg-7 {
-		flex: 0 0 58%;
-		max-width: 58%;
-		width: 58%;
+		flex: 0 0 60%;
+		max-width: 60%;
+		width: 60%;
 		padding: 0;
 		height: 100%;  /* Preenche altura total */
 		display: flex;

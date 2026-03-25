@@ -198,9 +198,12 @@
         {# CRITICAL: Hide gallery modal by default until async CSS loads #}
         {# Gallery modal is in style-async.scss.tpl but needs display:none ASAP to prevent showing 2 galleries #}
         {# When user clicks image, JS adds .is-open class to show modal #}
+        {# Modal must be centered on screen when opened (fullscreen) #}
         <style>
             #pg-modal-gallery {
                 display: none !important;
+                align-items: center !important;
+                justify-content: center !important;
             }
 
             #pg-modal-gallery.is-open {
