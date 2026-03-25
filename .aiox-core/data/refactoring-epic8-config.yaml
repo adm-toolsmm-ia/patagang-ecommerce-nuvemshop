@@ -235,13 +235,13 @@ documentation:
 
 # Current Status
 current_status:
-  epic_status: "draft"
+  epic_status: "completed"
   story_statuses:
-    "8.1": "draft"
-    "8.2": "draft"
-    "8.3": "draft"
-    "8.4": "draft"
-    "8.5": "draft"
+    "8.1": "completed"
+    "8.2": "completed"
+    "8.3": "completed"
+    "8.4": "completed"
+    "8.5": "completed"
   approvals_needed:
     - "Gabriel (project owner)"
     - "@po (story validation)"
@@ -253,7 +253,7 @@ approvals:
   gabriel:
     role: "Project Owner"
     needed_for: "Epic start"
-    status: "pending"
+    status: "approved"
     checklist:
       - "Review Epic 8 document"
       - "Confirm resource allocation"
