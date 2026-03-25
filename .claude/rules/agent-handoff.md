@@ -1,8 +1,14 @@
 # Agent Handoff Protocol — Context Compaction
 
+**Status:** ⏳ PROPOSED — Pattern defined, ready for Phase 2 implementation
+**Target:** Post-Epic 8 agent infrastructure refactoring (Q2 2026)
+**Current:** Memory files and L3 configuration are primary context mechanism (sufficient for now)
+
 ## Purpose
 
-Prevent context window accumulation when switching between AIOX agents (`@agent` commands). Each agent switch compacts the previous agent's full persona into a structured handoff artifact (~379 tokens) instead of retaining the full definition (~3-5K tokens).
+Prevent context window accumulation when switching between AIOX agents (`@agent` commands). When activated, each agent switch compacts the previous agent's full persona into a structured handoff artifact (~379 tokens) instead of retaining the full definition (~3-5K tokens).
+
+**Note:** Currently, agent context is preserved through CLAUDE.md system rules and project state files. This protocol defines future optimization path when agent switching becomes bottleneck.
 
 ## When This Applies
 

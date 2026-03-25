@@ -1,8 +1,12 @@
-# Project Memory Strategy — Patagang Ecommerce
-**Type:** Contextual Rule (L3 — Project Configuration)
-**Auto-Load:** On agent activation
-**Last Updated:** 2026-03-20
+# Memory Architecture Reference — Patagang Ecommerce
+
+**Type:** L2 Development Documentation (Reference Only — NOT auto-loaded)
+**Location:** `.aiox-core/development/docs/` (framework reference, not executable rule)
+**Last Updated:** 2026-03-24
 **Maintained by:** @architect
+**Read By:** Agents implementing memory system, architecture reviews, future refactorings
+
+**Note:** This is detailed reference documentation. For quick summary, see `CLAUDE.md` § "Memory Architecture".
 
 ---
 
