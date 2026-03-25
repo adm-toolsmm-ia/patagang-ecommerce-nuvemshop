@@ -1,181 +1,262 @@
 # 📚 Documentação Patagang — Índice Completo
 
-**Last Updated:** 2026-03-24
-**Status:** ✅ Story 8.4 COMPLETO
+**Last Updated:** 2026-03-24 (Reorganização L4 completa)
+**Status:** ✅ Epic 8 CONCLUÍDO (v1.5.93) | 📁 Documentação Reorganizada AIOX
+**Branches:** `main` | `feature/8.3-remove-important` (active)
 
 ---
 
 ## 🎯 Quick Navigation
 
-### Current Sprint — Epic 8 (CSS Reduction & UX)
+### Epic 8 — Complete Technical Refactoring (✅ COMPLETED)
+All 5 stories completed and deployed to production (v1.5.93).
 
-#### Story 8.4 — Sacola Cupom GANGDAPATA ✅
-- **[Story Formal](stories/8.4-SACOLA-CUPOM-GANGDAPATA.md)** — Completo com AC, testing, validation
-- **[Completion Report](reports/STORY-8.4-COMPLETION-REPORT.md)** — Technical details, deployment, metrics
-- **[Workflow Guide](guides/EPIC-8-WORKFLOW-COMPLETE-GUIDE.md)** — How-to, patterns, processes
-
----
-
-## 📖 Por Tipo de Documento
-
-### Stories (docs/stories/)
-Documentação formal de user stories com AC, dev notes, testing.
-
-| Story | Status | Version | Link |
-|-------|--------|---------|------|
-| **8.4 - Sacola + Cupom** | ✅ COMPLETO | v1.5.73 | [Ver](stories/8.4-SACOLA-CUPOM-GANGDAPATA.md) |
-
-### Guias (docs/guides/)
-How-to guides, tutorials, workflow documentation.
-
-| Guia | Tipo | Status | Link |
-|------|------|--------|------|
-| **EPIC 8 Workflow** | Workflow | ✅ ATIVO | [Ver](guides/EPIC-8-WORKFLOW-COMPLETE-GUIDE.md) |
-
-### Relatórios (docs/reports/)
-Technical reports, assessments, completion reports.
-
-| Relatório | Escopo | Data | Link |
-|-----------|--------|------|------|
-| **Story 8.4 Completion** | Technical Details | 2026-03-24 | [Ver](reports/STORY-8.4-COMPLETION-REPORT.md) |
-
-### Arquitetura (docs/architecture/)
-System design, technical decisions, architecture docs.
-
-| Documento | Escopo | Status |
-|-----------|--------|--------|
-| (Planejado para próximas stories) | — | ⏳ |
+| Story | Title | Version | Status | Documentation |
+|-------|-------|---------|--------|---------------|
+| **8.1** | Design Tokens Unification | v1.5.x | ✅ DONE | [Story](stories/8.1-design-tokens-unification.story.md) |
+| **8.2** | Critical CSS Reduction | v1.5.x | ✅ DONE | [Story](stories/8.2-critical-css-reduction.story.md) \| [Guides](guides/8.2/) |
+| **8.3** | !important Resolution | v1.5.x | ✅ DONE | [Story](stories/8.3-important-resolution.story.md) \| [Guides](guides/8.3/) |
+| **8.4** | Template Cleanup | v1.5.93 | ✅ DONE | [Story](stories/8.4-template-cleanup.story.md) \| [Guides](guides/8.4/) |
+| **8.5** | JavaScript Optimization | v1.5.93 | ✅ IN VALIDATION | [Story](stories/8.5-javascript-optimization.story.md) \| [Guides](guides/8.5/) |
 
 ---
 
-## 🔗 Documentação por Assunto
+## 📂 Documentation Structure (AIOX L4)
 
-### Nuvemshop Integration
+### 🎬 Stories — Development Workflows
+**Location:** `docs/stories/`
 
-| Assunto | Localização | Tipo |
-|---------|------------|------|
-| **FTP Constraints** | `.claude/rules/nuvemshop-ftp-constraints.md` | Rule |
-| **Cupom Implementation** | `docs/stories/8.4-*.md` | Story |
-| **LS API Pattern** | `docs/reports/STORY-8.4-*.md` | Report |
-| **Validation Checklist** | `.claude/rules/devops-epic8-standard-workflow.md` | Rule |
+Formal user stories with acceptance criteria, development notes, and testing procedures.
 
-### Development Workflow
+- `8-epic-technical-refactoring.md` — Epic overview and dependencies
+- `8.1-design-tokens-unification.story.md` — Design system unification
+- `8.2-critical-css-reduction.story.md` — CSS optimization (< 50KB)
+- `8.3-important-resolution.story.md` — Specificity-based !important removal
+- `8.4-template-cleanup.story.md` — Snippet consolidation
+- `8.5-javascript-optimization.story.md` — JS lazy-loading & consolidation
 
-| Assunto | Localização | Tipo |
-|---------|------------|------|
-| **Epic 8 Complete Workflow** | `docs/guides/EPIC-8-*.md` | Guide |
-| **DevOps Standard** | `.claude/rules/devops-epic8-standard-workflow.md` | Rule |
-| **AIOX Framework** | `.claude/CLAUDE.md` | Rules |
+### 📖 Guides — How-To & Process Documentation
+**Location:** `docs/guides/`
 
-### Code Documentation
+Implementation guides, checklists, and workflow documentation organized by story.
 
-| Arquivo | Documentação | Status |
-|---------|-------------|--------|
-| **cart-drawer.js** | Inline comments + story | ✅ Inline |
-| **style-whatsapp-button.css.tpl** | Header comment + fix notes | ✅ Inline |
-| **cart-drawer-new.tpl** | Twig comments | ✅ Existing |
+#### 8.2 — Critical CSS Reduction
+- `guides/8.2/` — Guides, checklists, execution trackers for Story 8.2
+- Reference: `.claude/rules/devops-epic8-standard-workflow.md` (validation checklist path)
 
----
+#### 8.3 — !important Resolution
+- `guides/8.3/` — Strategy, validation checklist, implementation guide
+- Reference: Pattern documented in `.aiox-core/data/patagang-learned-patterns.yaml`
 
-## 📊 Project Status
+#### 8.4 — Template Cleanup
+- `guides/8.4/` — Orphan analysis, cleanup phases, execution notes
 
-### Epic 8 — CSS Reduction & UX Optimization
+#### 8.5 — JavaScript Optimization
+- `guides/8.5/` — Implementation log, JavaScript analysis, optimization plan
+- Reference: FTP recovery strategy in `.aiox-core/data/patagang-learned-patterns.yaml`
 
-```
-Story 8.1 (Design Tokens)              ⏳ Planned
-Story 8.2 (Critical CSS)               ✅ v1.5.71 DONE
-Story 8.3 (!important Resolution)      ⏳ Planned
-Story 8.4 (Sacola + Cupom)             ✅ v1.5.73 AWAITING VALIDATION
-Story 8.5 (JS Optimization)            ⏳ Next
-```
+#### General Guides
+- `guides/CACHE_BUSTING_EXPLICADO.md` — Cache busting explanation
+- `guides/nuvemshop/` — Nuvemshop-specific integration guides
 
-**Current:** Story 8.4 in Gabriel validation phase
-**Next:** Story 8.5 JavaScript Optimization
-**After:** Brownfield Discovery Phase
+### 📊 Reports — Technical Analysis & Completion
+**Location:** `docs/reports/`
 
----
+Technical reports, deployment summaries, and execution logs organized by domain.
 
-## 🚀 Deployment Status
+#### Epic 8 Execution
+- `reports/epic8/` — Consolidated Epic 8 documentation
+  - `EPIC8-EXECUTION-MASTER-LOG.md` — Complete execution history
+  - `BROWNFIELD-DISCOVERY-COMPLETION-SUMMARY.md` — Discovery summary
+  - `REFACTORING-EPIC8-SUMMARY.md` — Epic completion report
+  - `REFACTORING-STATUS.md` — Status tracking across phases
+  - `STORY-8.3-*.md` — Story-specific reports (deployment, validation, audit)
+  - `8.2-css-analysis.md` — CSS analysis from Story 8.2
+  - `GITHUB-INTEGRATION-VALIDATION.md` — GitHub integration validation
 
-| Version | Story | Status | Date | Backup |
-|---------|-------|--------|------|--------|
-| v1.5.71 | 8.2 | ✅ Deployed | 2026-03-XX | ✅ |
-| v1.5.72 | 8.4 (cupom) | ✅ Deployed | 2026-03-24 | ✅ |
-| v1.5.73 | 8.4 (whatsapp fix) | ✅ Deployed | 2026-03-24 | ✅ |
+#### Deployment Reports
+- `reports/DEVOPS-DEPLOYMENT-REPORT.md` — FTP deployment workflow & logs
+- `reports/*.md` — Previous story completion reports
 
-**Backup Location:** `backups/deployment-{VERSION}/`
-**Rollback Available:** ✅ All versions recoverable
+### 🏗️ Architecture — Design Decisions & Technical Analysis
+**Location:** `docs/architecture/`
 
----
+System design, technical decisions, and architectural documentation.
 
-## 🧪 Validation Status
-
-### Story 8.4 Validation Checklist
-
-```
-✅ Code Review               — PASSED
-✅ Security Scan            — PASSED (0 vulnerabilities)
-✅ FTP Deploy              — PASSED (2/2 files)
-✅ Nuvemshop Constraints   — PASSED (8/8 checks)
-⏳ Production Validation    — AWAITING Gabriel
-⏳ GitHub Push             — PENDING (after approval)
-```
+#### Patagang Architecture
+- `architecture/patagang/` — Project-specific architecture
+  - `architecture-analysis-patagang-v3.md` — Complete system analysis (v3)
+  - `OPTIMIZATION_PLAN.md` — Technical optimization roadmap
+  - `README.md` — Architecture navigation index
 
 ---
 
-## 💡 Next Steps
+## 🔗 Quick Links by Purpose
 
-### Immediate (Story 8.4)
-1. Gabriel validates v1.5.73 in production
-2. ✅ or ⚠️ or ❌ feedback
-3. GitHub push (if approved)
+### For **Gabriel** (Project Owner/CTO)
+**Validation & Approval:**
+- [Epic 8 Master Log](reports/epic8/EPIC8-EXECUTION-MASTER-LOG.md) — Complete history
+- [Story 8.5 JavaScript Optimization](stories/8.5-javascript-optimization.story.md) — Current story in validation
+- [Deployment Status](reports/epic8/REFACTORING-EPIC8-SUMMARY.md) — v1.5.93 deployment details
+- **Validate at:** https://patagang.com.br/ (v1.5.93 production)
 
-### Short Term (Story 8.5)
-1. JavaScript consolidation
-2. Remove duplicates
-3. Performance audit
+**Framework & Architecture:**
+- [CODEBASE.md](../CODEBASE.md) — Project structure & development constraints
+- [Patagang Architecture](architecture/patagang/architecture-analysis-patagang-v3.md) — System design
 
-### Medium Term (Brownfield Discovery)
-1. Complete discovery workflow
-2. Identify tech debt
-3. Plan improvements
+### For **@dev** (Development Team)
+**Implementation Guides:**
+- [Story 8.2 Guides](guides/8.2/) — CSS reduction techniques & checklist
+- [Story 8.3 Guides](guides/8.3/) — CSS specificity strategy
+- [Story 8.4 Guides](guides/8.4/) — Template cleanup process
+- [Story 8.5 Guides](guides/8.5/) — JavaScript optimization patterns
 
----
-
-## 📞 How to Use This Index
-
-### For **Gabriel** (Product Owner)
-- **Validation:** See [Story 8.4](stories/8.4-SACOLA-CUPOM-GANGDAPATA.md) testing section
-- **Status:** See deployment checklist above
-- **Next Steps:** See roadmap section
-
-### For **@dev** (Developers)
-- **Implementation:** See [Workflow Guide](guides/EPIC-8-WORKFLOW-COMPLETE-GUIDE.md)
-- **Code Reference:** See [Completion Report](reports/STORY-8.4-COMPLETION-REPORT.md) technical details
-- **Patterns:** See code section for LS API, writing-mode patterns
+**Technical Reference:**
+- [Learned Patterns](../.aiox-core/data/patagang-learned-patterns.yaml) — CSS, cart recovery, FTP strategies
+- [Nuvemshop Constraints](../.claude/rules/nuvemshop-ftp-constraints.md) — Platform constraints (8/8 checklist)
 
 ### For **@qa** (Quality Assurance)
-- **Testing:** See [Story 8.4 AC](stories/8.4-SACOLA-CUPOM-GANGDAPATA.md#acceptance-criteria)
-- **Validation:** See [Completion Report](reports/STORY-8.4-COMPLETION-REPORT.md#testing--validation)
-- **Checklist:** See constraint compliance section
+**Validation Checklists:**
+- [Epic 8 Workflow](guides/EPIC-8-WORKFLOW-COMPLETE-GUIDE.md) — Validation process
+- [Story Acceptance Criteria](stories/8.1-design-tokens-unification.story.md#acceptance-criteria) — Testing requirements
+- [FTP Pre-Gate Checklist](../.claude/rules/devops-epic8-standard-workflow.md) — Deployment validation
 
-### For **@devops** (Deployment)
-- **Workflow:** See [Workflow Guide](guides/EPIC-8-WORKFLOW-COMPLETE-GUIDE.md#devops)
-- **Checklist:** See pre/post deployment section
-- **Rollback:** See deployment status with backup paths
+**QA Reports:**
+- [Epic 8 Reports](reports/epic8/) — All quality gates & verdicts
+
+### For **@devops** (Deployment/Infrastructure)
+**Deployment Procedures:**
+- [DevOps Standard Workflow](../.claude/rules/devops-epic8-standard-workflow.md) — Mandatory workflow (Commit → Deploy → Validate → Push)
+- [Deployment Status](reports/epic8/) — Version tracking & backup locations
+
+**Rollback & Recovery:**
+- [Learned Patterns — FTP Recovery](../.aiox-core/data/patagang-learned-patterns.yaml#ftpRecoverySafe) — Rollback procedure
+- FTP Deploy Logs: `ftp-deploy/logs/` — Deployment history
+
+### For **@architect** (Architecture & Design)
+**Architecture Documents:**
+- [System Architecture v3](architecture/patagang/architecture-analysis-patagang-v3.md) — Complete analysis
+- [Optimization Plan](architecture/patagang/OPTIMIZATION_PLAN.md) — Technical strategy
+
+**Design Decisions:**
+- [Learned Patterns](../.aiox-core/data/patagang-learned-patterns.yaml) — CSS strategy, specificity, recovery patterns
+- [FTP Constraints](../.claude/rules/nuvemshop-ftp-constraints.md) — Platform architecture rules
 
 ---
 
-## 🔐 Confidentiality & Access
+## 📊 Project Status — Epic 8
 
-All documentation is **internal** and **project-specific**:
-- Not for public distribution
-- Contains implementation details
-- Customer-sensitive (Nuvemshop configuration)
+### Completion Status
+```
+✅ Epic 8 — Complete
+  ✅ Story 8.1 — Design Tokens                    (v1.5.x)
+  ✅ Story 8.2 — Critical CSS Reduction          (v1.5.x)
+  ✅ Story 8.3 — !important Resolution           (v1.5.x)
+  ✅ Story 8.4 — Template Cleanup                (v1.5.93)
+  ⏳ Story 8.5 — JavaScript Optimization         (v1.5.93 — PENDING GABRIEL)
+```
+
+### Version Timeline
+| Version | Story | Date | Status |
+|---------|-------|------|--------|
+| v1.5.72 | 8.1-8.2 | 2026-03-XX | ✅ Deployed |
+| v1.5.93 | 8.3-8.5 (recovery) | 2026-03-24 | 🔴 Production (v1.5.74 + cart recovery) |
+
+**Current Production:** v1.5.93 (awaiting Gabriel validation)
+**Backup Available:** All versions recoverable via `ftp-deploy/rollback-incremental.js`
+
+### Learned Patterns Captured
+1. ✅ CSS Specificity Strategy (Story 8.3) — Replace !important via increased specificity
+2. ✅ Cart Recovery Pattern (Story 8.4/8.5) — Preserve cupom GANGDAPATA + ONG association
+3. ✅ FTP Recovery Safe (Epic 8.5) — Rollback procedure via rollback-incremental.js
 
 ---
 
-**Maintained by:** @architect + @dev + @devops
-**Last Review:** 2026-03-24
-**Next Review:** 2026-03-31 (after Story 8.5)
+## 📋 Documentation Reorganization (2026-03-24)
 
+### What Changed
+All documentation moved from scattered locations to proper AIOX L4 structure:
+- **Before:** Stories mixed with guides, reports, logs all in `Docs/guides/`
+- **After:** Organized by type (stories/, guides/8.x/, reports/epic8/, architecture/patagang/)
+
+### Files Reorganized
+| File(s) | From | To | Reason |
+|---------|------|----|---------|
+| Story files | Docs/ | Docs/stories/ | Formal story documents |
+| Story guides/checklists | Docs/guides/ | Docs/guides/8.x/ | Organized by story |
+| Reports/logs | Scattered | Docs/reports/epic8/ | Consolidated in reports domain |
+| Architecture analysis | .aiox/ | Docs/architecture/patagang/ | Permanent documentation |
+| FTP deploy logs | Root + Docs | ftp-deploy/logs/ | Runtime artifacts |
+| Scripts | Root | scripts/ | Utility scripts |
+
+### Git History Preserved
+All moves used `git mv` to preserve commit history. Example:
+```bash
+git log --follow Docs/reports/epic8/EPIC8-EXECUTION-MASTER-LOG.md
+# Shows original location and all commits
+```
+
+---
+
+## 🚀 Next Steps
+
+### Immediate (Story 8.5)
+1. **Gabriel validates** v1.5.93 in production (https://patagang.com.br/)
+2. **Decision:** ✅ APPROVED / ⚠️ CONCERNS / ❌ FAILED
+3. **DevOps pushes** to GitHub (if approved)
+
+### Short Term (Stories 8.6+)
+1. Continue with next stories using updated structure
+2. New stories should follow guide at `.claude/rules/file-structure-standards.md`
+3. Document patterns in `.aiox-core/data/patagang-learned-patterns.yaml`
+
+### Future (Brownfield Discovery)
+1. Complete brownfield assessment workflow
+2. Identify technical debt
+3. Plan improvements based on AIOX IDS (Incremental Development System)
+
+---
+
+## 🧭 How to Use This Index
+
+### Finding Documentation
+1. **Know the story?** → Go to [Stories](#-stories--development-workflows)
+2. **Need how-to guide?** → Go to [Guides](#-guides--how-to--process-documentation)
+3. **Looking for analysis?** → Go to [Reports](#-reports--technical-analysis--completion)
+4. **Investigating architecture?** → Go to [Architecture](#️-architecture--design-decisions--technical-analysis)
+
+### By Role
+- **🎬 Gabriel:** Validation & project status [links above](#for-gabriel-project-ownerctoquick-links-by-purpose)
+- **💻 @dev:** Implementation guides & patterns [links above](#for-dev-development-teamquick-links-by-purpose)
+- **🔍 @qa:** Checklists & validation criteria [links above](#for-qa-quality-assurancequick-links-by-purpose)
+- **🚀 @devops:** Deployment procedures & rollback [links above](#for-devops-deploymentinfrastructurequick-links-by-purpose)
+- **🏗️ @architect:** Architecture & design decisions [links above](#for-architect-architecture--designquick-links-by-purpose)
+
+---
+
+## 📞 Contact & Support
+
+**Maintained by:**
+- @architect — Architecture & structure decisions
+- @dev — Implementation patterns & guides
+- @devops — Deployment & version management
+- @qa — Validation & testing documentation
+
+**Last Review:** 2026-03-24 (documentation reorganization complete)
+**Next Review:** After Story 8.6 completion or 2026-04-07 (quarterly)
+
+---
+
+## 🔐 Access & Confidentiality
+
+All documentation is **internal and project-specific**:
+- ✅ For Patagang development team only
+- ❌ Not for public distribution
+- 🔒 Contains customer-sensitive information (Nuvemshop configuration)
+- 📋 Implementation details and technical decisions
+
+---
+
+**🏆 Status:** Documentation reorganized to AIOX L4 standards (2026-03-24)
+**✅ All 5 stories in Epic 8 completed and deployed**
+**⏳ Awaiting production validation (Gabriel)**
