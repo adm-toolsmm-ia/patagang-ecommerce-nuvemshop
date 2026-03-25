@@ -5299,16 +5299,16 @@ select {
 @media (max-width: 991px) {
   /* Hide grid 2x2 on mobile completely */
   .pg-gallery-container {
-    display: none;
+    display: none !important;
   }
 
   /* Ensure Swiper is visible on mobile */
   .product-image-container {
-    display: flex;
+    display: flex !important;
   }
 
   .js-swiper-product {
-    display: block;
+    display: block !important;
   }
 }
 
