@@ -7135,4 +7135,471 @@ body .item-actions .btn.btn-development:hover {
   list-style: none;
 }
 
+/* ============================================================================
+   [Story 8.2 ETAPA 1] PATAGANG GALLERY MODAL & NAV BUTTONS
+   MOVED from style-critical.tpl (lines 4905-5382) to async CSS
+   Complete CSS for gallery lightbox and carousel navigation
+   ============================================================================ */
+
+/* MODAL GALLERY - Fullscreen overlay */
+#pg-modal-gallery {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.92);
+}
+
+#pg-modal-gallery.is-open {
+  display: flex;
+}
+
+/* Modal backdrop - Close on click */
+.pg-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  cursor: zoom-out;
+  z-index: 1;
+}
+
+/* Modal container - Main layout */
+.pg-modal-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* Modal sidebar - Thumbnail gallery */
+.pg-modal-sidebar {
+  width: 80px;
+  min-width: 80px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(0,0,0,0.3);
+}
+
+/* Modal thumbnail item */
+.pg-modal-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  transition: border-color 0.2s ease;
+}
+
+.pg-modal-thumb:hover {
+  border-color: rgba(255,255,255,0.5);
+}
+
+.pg-modal-thumb.is-active {
+  border-color: #ffffff;
+}
+
+.pg-modal-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Modal main image area */
+.pg-modal-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  position: relative;
+}
+
+/* Modal main image */
+#pg-modal-main-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* Modal close button */
+.pg-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  z-index: 10;
+}
+
+.pg-modal-close:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+/* Modal navigation buttons */
+.pg-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.15);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  z-index: 10;
+}
+
+.pg-modal-nav:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.pg-modal-nav[data-direction="prev"] {
+  left: 12px;
+}
+
+.pg-modal-nav[data-direction="next"] {
+  right: 12px;
+}
+
+/* Modal counter - Image position indicator */
+.pg-modal-counter {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.7);
+  font-size: 12px;
+  font-family: 'Familjen Grotesk', sans-serif;
+  z-index: 10;
+}
+
+/* Modal responsive - Hide sidebar on mobile */
+@media (max-width: 768px) {
+  .pg-modal-sidebar {
+    display: none;
+  }
+
+  .pg-modal-main {
+    padding: 8px;
+  }
+
+  .pg-modal-nav {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .pg-modal-nav[data-direction="prev"] {
+    left: 8px;
+  }
+
+  .pg-modal-nav[data-direction="next"] {
+    right: 8px;
+  }
+}
+
+/* CAROUSEL NAVIGATION BUTTONS - Prev/Next arrows */
+
+/* Navigation button base */
+.pg-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: opacity 0.2s ease, background 0.2s ease;
+  padding: 0;
+}
+
+.pg-nav-btn:hover {
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.pg-nav-btn:active {
+  opacity: 0.7;
+}
+
+/* Previous button */
+.pg-nav-btn--prev {
+  left: 8px;
+}
+
+/* Next button */
+.pg-nav-btn--next {
+  right: 8px;
+}
+
+/* Button logo/icon */
+.pg-nav-btn__logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* Flip previous button icon */
+.pg-nav-btn--prev .pg-nav-btn__logo {
+  transform: scaleX(-1);
+}
+
+/* Mobile responsive navigation */
+@media (max-width: 768px) {
+  .pg-nav-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .pg-nav-btn--prev {
+    left: 4px;
+  }
+
+  .pg-nav-btn--next {
+    right: 4px;
+  }
+
+  .pg-nav-btn__logo {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* MODERN & MINIMALIST UX/UI — Gallery Images */
+
+/* Gallery grid container - 2x2 layout, responsive */
+.pg-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);  /* 2 colunas */
+  gap: 16px;  /* Espaçamento entre itens */
+  width: 100%;
+  height: auto;  /* Cresce dinamicamente com conteúdo */
+}
+
+/* Gallery item wrapper - Modern styling */
+.pg-gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;  /* Moderno: não quadrado rígido */
+  background: #f9f9f9;
+  aspect-ratio: 1;  /* Quadrado: altura = largura */
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);  /* Sombra discreta */
+  cursor: pointer;
+}
+
+/* Gallery item image - Smooth transitions */
+.pg-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Gallery item hover - Modern zoom effect */
+.pg-gallery-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);  /* Sombra elevada ao hover */
+}
+
+.pg-gallery-item:hover img {
+  transform: scale(1.04);  /* Zoom suave ao hover */
+}
+
+/* Overlay on hover - Minimal zoom indicator */
+.pg-gallery-item::before {
+  content: '🔍';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  font-size: 28px;
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease;
+  pointer-events: none;
+}
+
+.pg-gallery-item:hover::before {
+  opacity: 1;
+  background: rgba(0,0,0,0.15);  /* Overlay sutil ao hover */
+}
+
+/* Active/Selected image indicator - Modern glow */
+.pg-gallery-item.is-active,
+.pg-gallery-item[data-active="true"] {
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.06);
+  transform: scale(1.01);
+}
+
+/* Scroll container - Custom scrollbar styling (webkit browsers) */
+.pg-gallery-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pg-gallery-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.pg-gallery-container::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.12);
+  border-radius: 3px;
+  transition: background 0.2s ease;
+}
+
+.pg-gallery-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.25);
+}
+
+/* Firefox scrollbar styling */
+.pg-gallery-container {
+  scrollbar-color: rgba(0,0,0,0.12) transparent;
+  scrollbar-width: thin;
+  width: 100%;
+  height: auto;
+  overflow-y: auto;  /* Permite scroll vertical se necessário */
+  overflow-x: hidden;
+}
+
+/* Desktop: Gallery container preenche altura da coluna */
+@media (min-width: 992px) {
+  .pg-gallery-container {
+    height: 100%;  /* Preenche altura total da coluna */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pg-gallery-grid {
+    flex: 1;  /* Expande para preencher espaço */
+    height: 100%;  /* Altura dinâmica */
+  }
+}
+
+/* Tablet adjustments - Modern responsive */
+@media (min-width: 769px) and (max-width: 991px) {
+  .pg-gallery-item {
+    border-radius: 12px;
+  }
+}
+
+/* MOBILE GALLERY FIX — Hide Grid 2x2, Show Swiper Only */
+
+@media (max-width: 991px) {
+  /* Hide grid 2x2 on mobile completely */
+  .pg-gallery-container {
+    display: none !important;
+  }
+
+  /* Ensure Swiper is visible on mobile */
+  .product-image-container {
+    display: flex !important;
+  }
+
+  .js-swiper-product {
+    display: block !important;
+  }
+}
+
+/* Mobile adjustments - Modern touch-friendly */
+@media (max-width: 768px) {
+  .pg-gallery-item {
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  /* Remove hover effects on touch devices */
+  .pg-gallery-item:hover {
+    transform: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+
+  .pg-gallery-item:hover img {
+    transform: scale(1);  /* Sem zoom em mobile */
+  }
+
+  .pg-gallery-item:hover::before {
+    opacity: 0;  /* Sem overlay em mobile */
+    background: transparent;
+  }
+}
+
+/* PATAGANG v1.6.0 — FASE 2 MODERNIZATION CSS */
+
+/* Aspect-ratio container for mobile carousel (replaces padding-bottom hack) */
+.pg-aspect-ratio-container {
+  position: relative;
+  width: 100%;
+  display: block;
+  /* JavaScript sets height based on data-aspect-ratio if needed */
+}
+
+.pg-aspect-ratio-container img,
+.pg-aspect-ratio-container svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SVG size-lock for modal images */
+.pg-modal-main-img {
+  width: 100%;
+  height: auto;
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Responsive aspect-ratio fallback */
+@supports (aspect-ratio: 1) {
+  .pg-aspect-ratio-container {
+    height: auto;
+  }
+}
+
+/* Ensure images respect container constraints */
+@media (max-width: 768px) {
+  .pg-modal-main-img {
+    max-width: 100%;
+    max-height: 70vh;
+  }
+}
+
 /*============================================================================
