@@ -2796,7 +2796,6 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	margin: 0;
 	padding: 30px 20px;
 	width: 100%;
-	max-width: 1400px; /* Mais largo */
 	background-color: #ffffff;      /* ✅ Branco puro (apenas para produto form) */
 	background-image: none;
 }
