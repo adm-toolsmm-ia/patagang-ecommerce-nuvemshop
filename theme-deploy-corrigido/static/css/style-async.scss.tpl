@@ -7590,4 +7590,430 @@ body .item-actions .btn.btn-development:hover {
   }
 }
 
+/* ============================================
+   PATAGANG - FILTER & SORT CSS (Moved from critical path - Story 8.2 ETAPA 2)
+   Filters, sort dropdowns, and control styling - Not above-the-fold
+   ============================================ */
+
+/* =========================================
+   IMPROVED FILTERS DESIGN (UX/UI 10/10)
+   ========================================= */
+
+/* Filter Container */
+.filters-container {
+    border: none;
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.filters-container h6 {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #EAFE67; /* Patagang Yellow underline */
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+/* Filter Items */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.checkbox-container:hover .checkbox-text {
+    opacity: 0.7;
+}
+
+/* Custom Checkbox */
+.checkbox-icon {
+    width: 18px;
+    height: 18px;
+    border: 1px solid #000;
+    background: #fff;
+    margin-right: 10px;
+    position: relative;
+    transition: all 0.2s ease;
+    border-radius: 4px; /* Soft rounded corners */
+}
+
+/* Checked State */
+.checkbox input:checked + .checkbox-icon {
+    background: #EAFE67; /* Patagang Yellow */
+    border-color: #000;
+}
+
+.checkbox-icon:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid #000;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.checkbox input:checked + .checkbox-icon:after {
+    opacity: 1;
+}
+
+/* Filter Text */
+.checkbox-text {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+}
+
+/* Color Filters */
+.checkbox-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-left: auto;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Price Filter */
+.price-filter input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    font-family: 'Familjen Grotesk', sans-serif;
+}
+
+.price-filter button {
+    background: #000;
+    color: #fff;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 8px 16px;
+    transition: background 0.3s ease;
+}
+
+.price-filter button:hover {
+    background: #333;
+}
+
+/* Chips (Applied Filters) */
+.chip {
+    background: #EAFE67;
+    color: #000;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 12px;
+    border: 1px solid #000;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.chip:hover {
+    background: #D4E856;
+    transform: translateY(-1px);
+}
+
+.chip-remove-icon {
+    fill: #000;
+    margin-left: 6px;
+    width: 10px;
+    height: 10px;
+}
+
+/* Remove all filters link */
+.js-remove-all-filters {
+    font-size: 12px;
+    text-decoration: underline;
+    color: #666;
+}
+
+/* =========================================
+   FILTER BUTTON & SORT DROPDOWN IMPROVEMENTS
+   ========================================= */
+
+/* Filter button - clean minimal design */
+.filter-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 6px;
+    color: #000;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.filter-link:hover {
+    background: #000;
+    color: #EAFE67;
+    text-decoration: none;
+}
+
+.filter-link .icon-inline {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+}
+
+/* Sort dropdown - cleaner icon and layout */
+.sort-by select,
+.form-select {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding-right: 30px;
+}
+
+/* Hide default select arrow and use custom */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+}
+
+/* Uppercase for size filter values (Pp -> PP, Gg -> GG, etc) */
+.checkbox-text {
+    text-transform: uppercase;
+}
+
+/* Price filter - Add R$ prefix */
+.price-filter label {
+    position: relative;
+}
+
+.price-filter input[type="number"]::before,
+.price-filter input[type="text"]::before {
+    content: 'R$ ';
+    position: absolute;
+    left: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Alternative: Add R$ via pseudo-element on label */
+.price-filter label::after {
+    content: 'R$';
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #666;
+    pointer-events: none;
+    font-family: 'Familjen Grotesk', sans-serif;
+}
+
+.price-filter input {
+    padding-left: 38px; /* Space for R$ */
+}
+
+/* PROBLEMA 3: Filter Modal - Match Main Menu Design + Compact */
+.modal.filters {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+}
+
+.modal.filters .modal-header {
+    background: transparent;
+    border-bottom: 2px solid #EAFE67;
+    padding: 15px 20px; /* More compact */
+}
+
+.modal.filters .modal-header h2,
+.modal.filters .modal-header .h2 {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 18px; /* Smaller */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #000;
+    margin: 0;
+}
+
+.modal.filters .modal-body {
+    padding: 15px 20px; /* More compact */
+}
+
+.modal.filters .modal-close {
+    color: #000;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.modal.filters .modal-close:hover {
+    color: #666;
+}
+
+/* Ensure filter text is visible on glassmorphism background */
+.filters-container {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 12px; /* More compact */
+    margin-bottom: 15px; /* Reduced spacing */
+}
+
+.filters-container h6 {
+    color: #000;
+    font-size: 13px; /* Smaller */
+    margin-bottom: 10px; /* Compact */
+}
+
+.checkbox-container {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    padding: 6px 10px; /* More compact */
+    margin-bottom: 6px; /* Reduced spacing */
+}
+
+.checkbox-text {
+    color: #000;
+    font-weight: 500;
+    font-size: 12px; /* Smaller */
+}
+
+/* PROBLEMA 3: Centralize filter and sort controls side by side */
+.category-controls,
+.js-category-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+.category-controls > div,
+.js-category-controls > div {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+/* Filter button - smaller and cleaner */
+.filter-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px; /* Smaller */
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 6px;
+    color: #000;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 11px; /* Smaller */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.filter-link:hover {
+    background: #000;
+    color: #EAFE67;
+    text-decoration: none;
+}
+
+.filter-link .icon-inline {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+}
+
+/* PROBLEMA 3: ORDENAÇÃO PADRONIZADA (Igual ao botão Filtrar) */
+.sort-by {
+    margin: 0;
+    display: inline-block;
+}
+
+.sort-by select,
+.form-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+    /* Layout Box igual ao botão Filtrar */
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 6px;
+    padding: 8px 35px 8px 16px; /* Espaço extra na direita para a seta */
+    height: auto;
+
+    /* Tipografia igual ao botão Filtrar */
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #000;
+
+    /* Ícone de Seta (Chevron Down) customizado */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+
+    cursor: pointer;
+    min-width: 160px;
+    max-width: 220px;
+    box-shadow: none;
+    outline: none;
+}
+
+.sort-by select:hover {
+    background-color: #000;
+    color: #EAFE67;
+    border-color: #000;
+    /* Inverte a cor da seta no hover */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23EAFE67' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Centralizar controles */
+.category-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+/* PROBLEMA 2: REMOVER ÍCONE ANTIGO DA ORDENAÇÃO (Seletor mais específico e agressivo) */
+.sort-by .form-select-icon,
+.js-sort-by .form-select-icon,
+.search-controls .form-select-icon,
+.category-controls .form-select-icon,
+.form-group .form-select-icon {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+}
+
 /*============================================================================
