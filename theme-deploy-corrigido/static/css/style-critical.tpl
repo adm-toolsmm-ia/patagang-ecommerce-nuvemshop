@@ -2015,6 +2015,9 @@ div.product-informative-banner {
   background-color: transparent;
   padding: 0.5rem 0;
   margin: 0;
+  margin-top: 120px;              /* ✅ Evita invasão do header fixo */
+  position: relative;
+  z-index: 1;                     /* Garante que fica abaixo do header (z-index: 9999) */
 }
 
 div.product-informative-banner.position-relative {
