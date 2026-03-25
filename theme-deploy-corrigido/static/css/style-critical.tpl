@@ -3591,6 +3591,56 @@ body.template-product main.patagang-section-content {
 }
 
 /* ============================================
+   PRODUCT PAGE WRAPPER - Isolate banner from product section
+   ============================================ */
+
+/* Wrapper: Flexbox container para banner + galeria/card separados */
+body.template-product div.patagang-product-page-wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0;  /* Espaçamento controlado pelos elementos filhos */
+}
+
+/* Banner informativo do produto - isolado, não herda estilos do main */
+body.template-product div.product-informative-banner {
+	width: 100%;
+	order: -1;  /* Garante que fica primeiro */
+	flex-shrink: 0;  /* Não comprime */
+	margin-top: 0;
+	margin-bottom: 30px;  /* Espaço abaixo do banner */
+	padding: 20px;
+	background: #ffffff;
+	z-index: 10;
+	position: relative;
+}
+
+/* Seção do produto (galeria + card) - conteúdo principal */
+body.template-product div.pg-pdp-container {
+	width: 100%;
+	order: 0;
+	flex-shrink: 0;
+}
+
+/* DESKTOP: Galeria 60% + Card 40% lado a lado */
+@media (min-width: 992px) {
+	body.template-product div.product-informative-banner {
+		margin-bottom: 40px;  /* Mais espaço em desktop */
+	}
+}
+
+/* TABLET: Stack vertical */
+@media (max-width: 991px) {
+	body.template-product div.patagang-product-page-wrapper {
+		flex-direction: column;
+	}
+
+	body.template-product div.product-informative-banner {
+		margin-bottom: 20px;  /* Reduzido para tablet */
+	}
+}
+
+/* ============================================
    SACOLA LATERAL (CART MODAL) - PATAGANG DESIGN
    ============================================ */
 
