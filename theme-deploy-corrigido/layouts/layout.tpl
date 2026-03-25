@@ -586,11 +586,6 @@
           {% include "snipplets/cart-modal.tpl" %}
         {% endif %}
 
-        {# PATAGANG Cart Drawer - Lateral right drawer with cupom, frete, ONG #}
-        {% if not store.is_catalog %}
-          {% include "snipplets/cart-drawer-new.tpl" %}
-        {% endif %}
-
         {# Quickshop modal #}
 
         {% snipplet "grid/quick-shop.tpl" %}
@@ -639,21 +634,8 @@
 
                 {% include "static/js/external.js.tpl" %}
 
-                {# Story 8.5 Priority 2: Modularized JS (Phase 1) #}
-                {# Each module is IIFE with typeof checks + auto-init on DOMContentLoaded #}
-
-                {% include "static/js/modules/notifications.js.tpl" %}
-                {% include "static/js/modules/forms.js.tpl" %}
-                {% include "static/js/modules/footer.js.tpl" %}
-                {% include "static/js/modules/utilities.js.tpl" %}
-
-                {# Specific store JS functions: all cart, product, shipping operations #}
-                {# Reverted from modularized approach (Story 8.5 Phase 2) due to syntax errors #}
+                {# Specific store JS functions: product variants, cart, shipping, etc #}
                 {% include "static/js/store.js.tpl" %}
-
-                {# PATAGANG Cart Drawer Controller - Must load AFTER store.js #}
-                {# Provides window.PGCartDrawer API for lateral drawer operations #}
-                {% include "static/js/cart-drawer.js.tpl" %}
             });
         </script>
 
