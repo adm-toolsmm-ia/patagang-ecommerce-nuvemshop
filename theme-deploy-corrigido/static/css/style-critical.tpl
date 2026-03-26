@@ -1697,11 +1697,7 @@ p{
 }
 
 .section-advertising__copy {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 0 0.5em;
+  display: block;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2px;
@@ -1710,15 +1706,8 @@ p{
   line-height: 1.4;
   white-space: normal;
   overflow: visible;
-  word-spacing: normal !important;
-}
-
-.section-advertising__phrase {
-  display: inline-block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+  word-spacing: normal;
+  text-overflow: clip;
 }
 
 .section-advertising__link {
