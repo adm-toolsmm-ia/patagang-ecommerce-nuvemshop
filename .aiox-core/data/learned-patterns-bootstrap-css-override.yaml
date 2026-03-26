@@ -1,0 +1,254 @@
+---
+name: Bootstrap CSS Override Patterns
+description: Patterns for safely overriding Bootstrap classes in Nuvemshop themes without specificity conflicts
+type: learned-patterns
+created_at: "2026-03-26"
+source_story: "STORY-9.1-UX-UI-RESTRUCTURE"
+source_incident: "PDP mobile card compactation bug (v1.5.148)"
+severity: HIGH
+applies_to:
+  - nuvemshop-themes
+  - bootstrap-css-integration
+  - responsive-layout-fixes
+---
+
+## Pattern 1: CSS Cascade Conflict with Bootstrap Classes
+
+### Problem
+When overriding Bootstrap grid classes (`.col-*`, `.col-lg-*`) with custom classes, CSS specificity can cause unintended behavior:
+
+```html
+<!-- Structure -->
+<div class="col-12 col-lg-5 pg-pdp-info-col">
+```
+
+```css
+/* Bootstrap declares (matches media query >= 992px) */
+@media (min-width: 992px) {
+  .col-lg-5 {
+    max-width: 41.666667%;     /* This is inherited even in mobile! */
+    flex: 0 0 41.666667%;
+  }
+}
+
+/* Our CSS tries to override (mobile < 992px) */
+.pg-pdp-info-col {
+  width: 100%;                 /* ❌ FAILS: max-width still 41.67% */
+  max-width: 100%;             /* ❌ FAILS: No !important */
+}
+```
+
+**Result:** In mobile, `max-width: 41.666667%` from Bootstrap wins because:
+- It's a more specific property (max-width vs width)
+- Our override lacks `!important` flag
+- Browser applies most restrictive value: 41.67%
+
+### Solution: Multi-Layer Override Strategy
+
+```css
+/* Layer 1: Explicit max-width override with !important */
+.pg-pdp-info-col {
+  max-width: 100% !important;   /* Forces max-width to 100% */
+  width: 100% !important;        /* Ensures width is 100% */
+}
+
+/* Layer 2: Remove inherited padding from Bootstrap */
+.pg-pdp-image-col,
+.pg-pdp-info-col {
+  padding-right: 0 !important;  /* Bootstrap default is 15px */
+  padding-left: 0 !important;   /* Must be explicit in mobile context */
+}
+
+/* Layer 3: Reinforce flexbox layout */
+.pg-pdp-container .section-single-product {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;  /* Ensures children span 100% width */
+}
+
+/* Layer 4: Flex basis override (if needed) */
+.pg-pdp-info-col {
+  flex: 0 0 100% !important;    /* Forces flex to 100% */
+}
+```
+
+**Why This Works:**
+1. **Layer 1** directly overrides the conflicting property
+2. **Layer 2** removes padding that reduces effective width
+3. **Layer 3** ensures parent container properly distributes flex space
+4. **Layer 4** uses flex shorthand for absolute certainty
+
+---
+
+## Pattern 2: Mobile-First Media Query Fallback
+
+### Problem
+Bootstrap media queries activate AT breakpoint (e.g., `@media (min-width: 992px)`).
+But properties from larger breakpoints are NOT automatically deactivated in smaller viewports—they cascade.
+
+```css
+/* This rule applies in BOTH desktop AND mobile */
+.col-lg-5 {
+  flex: 0 0 41.666667%;      /* ❌ Active in mobile too! */
+}
+
+/* This rule ONLY applies >= 992px */
+@media (min-width: 992px) {
+  .col-lg-5 {
+    display: flex;           /* ✅ Only in desktop */
+  }
+}
+```
+
+### Solution: Explicit Mobile Reset
+
+```css
+/* Mobile-first: Set to 100% for ALL sizes */
+.pg-pdp-info-col {
+  max-width: 100% !important;
+  width: 100%;
+}
+
+/* Desktop-specific: Only adjust if needed */
+@media (min-width: 992px) {
+  .pg-pdp-info-col {
+    /* Override mobile rules only in desktop context */
+    max-width: 41.666667% !important;
+    width: 41.666667%;
+  }
+}
+```
+
+**Key Insight:** Don't assume media queries prevent property inheritance. Always explicitly set properties in mobile context first.
+
+---
+
+## Pattern 3: Debugging Specificity Conflicts
+
+### How to Identify
+1. Open DevTools (F12)
+2. Inspect element (Ctrl+Shift+C)
+3. Look at "Computed" tab
+4. Check which rules are **strikethrough** (overridden)
+
+**Example Output:**
+```
+max-width: 41.666667%  ← From .col-lg-5 (active)
+  ✗ max-width: 100%    ← From .pg-pdp-info-col (overridden!)
+  ✗ width: 100%        ← Also overridden
+
+→ Problem: .col-lg-5 has higher specificity in this context
+```
+
+### Solution Checklist
+- [ ] Check if property uses `!important` in both rules
+- [ ] Verify media query is actually active (F12 > responsive view)
+- [ ] Look for min/max-width conflicts (max-width is more restrictive)
+- [ ] Count selector specificity: ID (100) > class (10) > element (1)
+- [ ] Try adding `!important` to custom rule
+- [ ] If still failing, use inline `style` attribute (last resort)
+
+---
+
+## Pattern 4: Bootstrap Spacing Classes in Custom Layouts
+
+### Problem
+Bootstrap padding/margin classes conflict with custom spacing:
+
+```html
+<div class="col-12 col-lg-5 pg-custom-spacing">
+  <!-- Has .col-12 padding of 15px left/right by default -->
+</div>
+```
+
+```css
+.col-12 {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.pg-custom-spacing {
+  padding: 0;  /* ❌ Fails, Bootstrap wins */
+}
+```
+
+### Solution
+```css
+/* Remove Bootstrap padding explicitly */
+.pg-custom-spacing {
+  padding: 0 !important;
+}
+
+/* OR remove specific directions */
+.pg-custom-spacing {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* BEST: Target the column classes directly */
+.pg-pdp-container .col-12,
+.pg-pdp-container .col-lg-5 {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+```
+
+---
+
+## Implementation Checklist (For @dev & @qa)
+
+When fixing Bootstrap CSS conflicts:
+
+```
+□ Identify all Bootstrap classes applied to element
+□ Check if property is defined in media query (may not deactivate in mobile)
+□ Add !important to custom override
+□ Remove conflicting properties from Bootstrap (padding, margin, max-width)
+□ Test in mobile view (F12 > responsive)
+□ Verify DevTools shows custom rule is active (not strikethrough)
+□ Test in incognito tab (avoid cache issues)
+□ Verify in 3 breakpoints: mobile (< 576px), tablet (768-991px), desktop (> 992px)
+```
+
+---
+
+## Testing Evidence (STORY-9.1 v1.5.149)
+
+**Before (v1.5.148):**
+- Card width: 41.67% (compacted to left)
+- Caused by: Bootstrap `.col-lg-5` max-width override
+
+**After (v1.5.149):**
+- Card width: 100% (full-width, matches gallery)
+- Fix applied: `max-width: 100% !important;` + padding reset + flex override
+
+**Affected Files:**
+- `theme-deploy-corrigido/static/css/style-critical.tpl` (lines 3402-3430)
+
+---
+
+## References
+
+- **Story:** STORY-9.1-UX-UI-RESTRUCTURE (PDP mobile layout fixes)
+- **Commit:** f1abafb (fix: resolve Bootstrap col-lg-5 max-width conflict)
+- **Version:** v1.5.149
+- **Framework:** Bootstrap 4.x (included in Nuvemshop theme)
+- **Related Patterns:** CSS Cascade, Specificity, Responsive Design
+
+---
+
+## For Future Use
+
+When encountering similar issues:
+
+1. Check `.aiox-core/data/learned-patterns-bootstrap-css-override.yaml`
+2. Apply "Multi-Layer Override Strategy" pattern
+3. Use "Debugging Specificity Conflicts" checklist
+4. Test across all 3 breakpoints before deploying
+5. Document new patterns found in this file
+
+---
+
+**Last Updated:** 2026-03-26 (Post STORY-9.1 v1.5.149 deployment)
+**Maintainer:** @dev (Dex)
+**Tags:** #bootstrap #css #specificity #nuvemshop #mobile-first
