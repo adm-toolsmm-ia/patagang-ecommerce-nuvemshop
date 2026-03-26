@@ -1,0 +1,65 @@
+# EPIC 9 Phase A — CSS !important Inventory
+# Generated: 2026-03-27
+# Total Rules: 195 !important declarations
+
+## SUMMARY BY FILE
+- layout.tpl:            188 rules (96.4% of total) — PRIMARY REFACTOR TARGET
+- style-critical.tpl:      5 rules (2.6%)
+- style-async.scss.tpl:    2 rules (1.0%)
+
+## CATEGORIZATION STRATEGY
+
+### CRITICAL Rules (Must keep)
+- Nuvemshop platform integration (checkout, forms, etc.)
+- Payment processing dependencies
+- Core layout functionality
+- Estimated: ~30-40 rules (15-20%)
+
+### NECESSARY Rules (Cascade dependencies)
+- Fix parent→child selector issues
+- Specificity conflicts requiring !important
+- Component interactions
+- Estimated: ~50-80 rules (25-40%)
+
+### REDUNDANT Rules (Can remove)
+- Duplicate definitions (same rule 2+ times)
+- Conflicting overrides (same selector, same value)
+- Dead code blocks
+- Estimated: ~40-60 rules (20-30%)
+
+### ORPHANED Rules (Can definitely remove)
+- Rules for elements that don't exist in HTML
+- Commented-out templates (old styles)
+- Deprecated components
+- Estimated: ~20-40 rules (10-20%)
+
+## REMOVAL PLAN ESTIMATE
+
+### Phase A Safe Removals
+- Orphaned rules: ~30-40 rules (0% risk)
+- Obvious redundants: ~20-30 rules (low risk)
+- Total Phase A: ~60-70 rules
+
+### Phase B Future (Epic 9.2)
+- Complex redundant consolidation: ~40-60 rules
+- Full cascade refactor: Remove remaining !important gradually
+- Total Phase B: ~80-120 rules
+
+## NEXT STEP: Automated Dependency Mapping
+1. Map each !important rule to HTML elements
+2. Verify elements exist in current templates
+3. Flag orphaned rules
+4. Flag redundant rules (same rule in multiple places)
+5. Create detailed removal checklist
+
+## RISK ASSESSMENT
+- Low risk: Remove orphaned + obvious duplicates (~60-70 rules)
+- Medium risk: Consolidate necessary rules carefully
+- High risk: Requires full cascade refactor (Epic 9.2)
+
+## TIMELINE
+- Day 1-2: Complete inventory + mapping + removal plan
+- Day 3: Remove orphaned (v1.5.134)
+- Day 4: Remove redundant (v1.5.135-137)
+- Day 5: QA + sign-off
+

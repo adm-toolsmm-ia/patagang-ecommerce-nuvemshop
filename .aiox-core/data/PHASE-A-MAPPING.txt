@@ -1,0 +1,11 @@
+EPIC 9 PHASE A — MAPPING SUMMARY
+Generated: 2026-03-26T04:31:58.296Z
+
+Total !important rules: 188
+- CSS rule format: 188
+- Inline/assign format: 0
+
+Safe to remove (Phase A): ~60-70 rules (0-low risk)
+Defer to Phase B (Epic 9.2): ~125-135 rules (medium-high risk)
+
+Next: Manual review of top 30 candidates for orphaned/redundant removal
