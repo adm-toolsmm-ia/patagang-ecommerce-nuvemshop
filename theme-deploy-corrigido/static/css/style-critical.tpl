@@ -4668,21 +4668,73 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     opacity: 1;
 }
 
+/* PATAGANG v1.5.151: Modal gallery improvements */
 /* Hide sidebar when modal opens - prevent layout impact */
 #pg-modal-gallery[aria-hidden="false"] .pg-modal-sidebar {
     display: none !important;
     visibility: hidden !important;
 }
 
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100%;
+    height: 100%;
+}
+
 #pg-modal-gallery[aria-hidden="false"] .pg-modal-main {
     width: 100%;
     max-width: 100%;
+    height: 100%;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative;
 }
 
-/* Ensure navigation arrows remain visible */
+/* Responsive image sizing - fit to viewport */
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-main-img {
+    max-width: 90vw !important;
+    max-height: 90vh !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+/* Navigation arrows - ensure full functionality */
 #pg-modal-gallery[aria-hidden="false"] .pg-modal-nav {
-    display: block !important;
-    visibility: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: absolute !important;
+    width: 44px !important;
+    height: 44px !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    color: white !important;
+    cursor: pointer !important;
+    z-index: 1010 !important;
+    transition: background-color 0.2s ease !important;
+}
+
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-nav:hover {
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-nav--prev {
+    left: 20px !important;
+}
+
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-nav--next {
+    right: 20px !important;
+}
+
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-nav svg {
+    width: 24px !important;
+    height: 24px !important;
+    stroke: white !important;
 }
 
 /* [REMOVED Story 8.2 ETAPA 1] Gallery Modal CSS moved to style-async.scss.tpl */
