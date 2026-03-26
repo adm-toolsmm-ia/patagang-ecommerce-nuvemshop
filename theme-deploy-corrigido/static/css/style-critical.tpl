@@ -3573,6 +3573,12 @@ main.patagang-section-content {
 	padding-top: 160px;  /* Space for fixed header (~120px) + ad bar (~40px) = ~160px */
 }
 
+/* GENERIC PAGES: Reduce padding for template-home (comunidade, blog, etc) */
+/* Story 9.1: Fix white background band on generic pages */
+body.template-home main.patagang-section-content {
+	padding-top: 100px;  /* ✅ Generic pages: header space only, no extra band */
+}
+
 /* PRODUCT PAGE: Reduce padding because banners handle their own spacing */
 body.template-product main.patagang-section-content {
 	padding-top: 0;  /* ✅ Banners estão dentro, eles controlam seu espaçamento */
@@ -3581,6 +3587,11 @@ body.template-product main.patagang-section-content {
 @media (max-width: 991px) {
 	main.patagang-section-content {
 		padding-top: 140px;  /* Tablet: slightly less */
+	}
+
+	/* GENERIC PAGES: Tablet adjustments */
+	body.template-home main.patagang-section-content {
+		padding-top: 90px;  /* ✅ Tablet: proportional reduction */
 	}
 
 	/* PRODUCT PAGE: Mobile adjustments */
@@ -3592,6 +3603,11 @@ body.template-product main.patagang-section-content {
 @media (max-width: 576px) {
 	main.patagang-section-content {
 		padding-top: 130px;  /* Mobile: header is smaller but still fixed */
+	}
+
+	/* GENERIC PAGES: Mobile adjustments */
+	body.template-home main.patagang-section-content {
+		padding-top: 80px;  /* ✅ Mobile: larger reduction for small screens */
 	}
 
 	/* PRODUCT PAGE: Mobile adjustments */
