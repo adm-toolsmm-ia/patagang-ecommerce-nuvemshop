@@ -109,6 +109,35 @@
         {# Fase 1: CSS-only improvements for gallery + card alignment #}
         {# PATAGANG v1.5.34: Gallery 2-Column Grid - 4 Imagens Visíveis Alinhadas ao Card #}
         {# PATAGANG v1.5.35: Gallery Height Alignment — Galeria cresce com card (DYNAMIC HEIGHT) #}
+        {# PATAGANG v1.5.153: Banner Services — Distribuir 3 frases na horizontal #}
+        <style>
+            /* Banner Services — 3 frases lado a lado com espaçamento distribuído */
+            .js-informative-banners {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+            }
+
+            .js-informative-banners .swiper-wrapper {
+                display: flex !important;
+                width: 100% !important;
+                justify-content: space-around !important;
+                align-items: stretch !important;
+                gap: 20px !important;
+            }
+
+            .js-informative-banners .pg-service-item {
+                flex: 1 1 calc(33.333% - 13px) !important;
+                max-width: calc(33.333% - 13px) !important;
+                padding: 1.5rem !important;
+            }
+
+            .js-informative-banners .pg-service-item__description {
+                text-align: center !important;
+                text-justify: none !important;
+                word-spacing: normal !important;
+                line-height: 1.4 !important;
+            }
+        </style>
         <style>
             /* =====================================================================
                PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
@@ -134,6 +163,20 @@
                 padding: 0;                             /* Sem padding (gap já espaça) */
                 width: 100%;
                 height: fit-content;                    /* Cresce com conteúdo */
+            }
+
+            /* AJUSTE v1.5.153: Limitar altura das imagens para 4 visíveis + card */
+            .pg-gallery-item {
+                aspect-ratio: 1;                        /* Quadrado (1:1) */
+                overflow: hidden;
+                border-radius: 8px;
+            }
+
+            .pg-gallery-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
             }
 
             /* =====================================================================
@@ -373,27 +416,30 @@
         </style>
         {% endif %}
 
-        {# Override final: Botões laterais - Help Button CLEAN DESIGN (gray) + WhatsApp keeps yellow #}
+        {# Override final: Botões laterais - Help Button + WhatsApp Button com padrão Patagang #}
+        {# PATAGANG v1.5.153: WhatsApp button refactored to match Help button pattern #}
         <style>
+        /* Help Button — Padrão Patagang (Amarelo, lado direito) */
         body .pg-help-btn {
-            background: #F0F0F0 !important;
-            color: #666666 !important;
-            border: 1px solid #E0E0E0 !important;
+            background: #EAFE67 !important;
+            color: #1A1A1A !important;
+            border: none !important;
             padding: 12px 8px !important;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.1) !important;
         }
         body .pg-help-btn:hover {
-            background: #E8E8E8 !important;
-            color: #333333 !important;
-            border: 1px solid #D0D0D0 !important;
+            background: #d4e65d !important;
             padding-right: 12px !important;
         }
         body .pg-help-btn__text {
             font-weight: 700 !important;
             font-size: 12px !important;
+            color: #1A1A1A !important;
         }
         body .pg-help-btn__icon {
             width: 20px !important;
             height: 20px !important;
+            color: #1A1A1A !important;
         }
         @media (max-width: 768px) {
             body .pg-help-btn {
@@ -405,22 +451,38 @@
             }
             body .pg-help-btn__text { font-size: 11px !important; }
         }
+
+        /* WhatsApp Button — Refactored to match Help button pattern (left side) */
         body .btn-whatsapp-left {
-            background-color: #F0F0F0 !important;
-            border: 1px solid #E0E0E0 !important;
+            background-color: #EAFE67 !important;
+            border: none !important;
             padding: 12px 8px !important;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1) !important;
+            color: #1A1A1A !important;
         }
         body .btn-whatsapp-left:hover {
-            background-color: #E8E8E8 !important;
-            border: 1px solid #D0D0D0 !important;
-            padding-right: 12px !important;
+            background-color: #d4e65d !important;
+            padding-left: 12px !important;
         }
         body .btn-whatsapp-left svg {
-            color: #25D366 !important;
+            color: #1A1A1A !important;
+            width: 20px !important;
+            height: 20px !important;
         }
         body .btn-whatsapp-left span {
             font-weight: 700 !important;
             font-size: 12px !important;
+            color: #1A1A1A !important;
+        }
+        @media (max-width: 768px) {
+            body .btn-whatsapp-left {
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                left: 0 !important;
+                z-index: 9990 !important;
+                padding: 10px 6px !important;
+            }
+            body .btn-whatsapp-left span { font-size: 11px !important; }
         }
         @media (max-width: 480px) {
             body .pg-help-btn__text { font-size: 11px !important; }
