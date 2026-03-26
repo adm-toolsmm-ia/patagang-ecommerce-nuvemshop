@@ -3400,9 +3400,19 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	.pg-pdp-container .section-single-product {
-		flex-direction: column;
-		padding: 20px 0;              /* ✅ BUG #3 FIX: zero padding lateral — filhos controlam o próprio espaço */
+		display: flex !important;     /* ✅ EXTRA: força flex layout explicitamente */
+		flex-direction: column !important;  /* ✅ EXTRA: força coluna com !important */
+		padding: 20px 0 !important;   /* ✅ BUG #3 FIX: zero padding lateral — filhos controlam o próprio espaço */
 		gap: 20px;
+		width: 100% !important;       /* ✅ EXTRA: container ocupa 100% */
+		align-items: stretch !important;  /* ✅ EXTRA: filhos ocupam full width */
+	}
+
+	/* Remove Bootstrap padding from both columns */
+	.pg-pdp-image-col,
+	.pg-pdp-info-col {
+		padding-right: 0 !important;  /* ✅ CRÍTICO: remove Bootstrap .col padding */
+		padding-left: 0 !important;   /* ✅ CRÍTICO: remove Bootstrap .col padding */
 	}
 
 	.pg-pdp-image-col {
@@ -3422,10 +3432,13 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	.pg-pdp-info-col {
-		max-width: 100%;
-		width: 100%;                  /* ✅ BUG #3 FIX: garante 100% */
+		max-width: 100% !important;   /* ✅ BUG #3 CRITICAL FIX: sobrescreve Bootstrap .col-lg-5 max-width */
+		width: 100% !important;       /* ✅ BUG #3 FIX: garante 100% */
 		padding: 0 !important;        /* ✅ BUG #3 FIX: sem padding lateral no col */
+		padding-right: 0 !important;  /* ✅ EXTRA: remove padding direito Bootstrap */
+		padding-left: 0 !important;   /* ✅ EXTRA: remove padding esquerdo Bootstrap */
 		box-sizing: border-box;
+		flex: 0 0 100% !important;    /* ✅ EXTRA: força flex layout a 100% */
 	}
 
 	.pg-pdp-watermark {
