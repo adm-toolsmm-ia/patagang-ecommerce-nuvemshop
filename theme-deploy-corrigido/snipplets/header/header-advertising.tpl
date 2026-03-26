@@ -6,14 +6,10 @@
 			{% endif %}
 			<div class="section-advertising__track">
 				<div class="section-advertising__copy">
-					{% if settings.ad_text contains '|' %}
-						{% assign phrases = settings.ad_text | split: '|' %}
-						{% for phrase in phrases %}
-							<span class="section-advertising__phrase">{{ phrase | strip }}</span>
-						{% endfor %}
-					{% else %}
-						<span class="section-advertising__phrase">{{ settings.ad_text }}</span>
-					{% endif %}
+					{% assign phrases = settings.ad_text | split: '|' %}
+					{% for phrase in phrases %}
+						<span class="section-advertising__phrase">{{ phrase | strip }}</span>
+					{% endfor %}
 				</div>
 			</div>
 			{% if settings.ad_url %}
@@ -22,4 +18,3 @@
 		</div>
 	{% endif %}
 </section>
-
