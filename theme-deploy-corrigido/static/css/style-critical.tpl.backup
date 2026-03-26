@@ -2051,7 +2051,7 @@ div.product-informative-banner {
   background-color: transparent;
   padding: 0.5rem 0;
   margin: 0;
-  margin-top: 130px;              /* ✅ Espaço abaixo do header fixo (160px total espaço do header) */
+  margin-top: 0;                  /* ✅ FIX: Remove redundant margin (main padding-top: 160px já afasta) */
   position: relative;
   z-index: 1;                     /* Garante que fica abaixo do header (z-index: 9999) */
 }
