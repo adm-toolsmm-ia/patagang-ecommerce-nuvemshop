@@ -1670,7 +1670,8 @@ p{
    ============================================================================ */
 
 .section-advertising {
-  background-color: transparent;
+  background-color: transparent !important;
+  background-image: none !important;
   padding: 10px 20px;
   width: 100%;
   max-width: 100%;
@@ -1697,12 +1698,16 @@ p{
 
 .section-advertising__copy {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
+  word-spacing: 0.3em;
   color: #000;
   margin: 0;
   line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .section-advertising__link {
@@ -1727,7 +1732,7 @@ p{
   }
 
   .section-advertising__copy {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 
   /* Adjust header when ad-bar is visible on mobile */
@@ -1743,7 +1748,7 @@ p{
   }
 
   .section-advertising__copy {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   /* Adjust header when ad-bar is visible on tablet */
@@ -1759,7 +1764,7 @@ p{
   }
 
   .section-advertising__copy {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
 
   /* Adjust header when ad-bar is visible on desktop */
