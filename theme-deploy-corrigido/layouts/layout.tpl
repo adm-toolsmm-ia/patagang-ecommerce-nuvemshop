@@ -27,7 +27,7 @@
         {# <meta name="google-site-verification" content="CODIGO_AQUI" /> #}
 
         <link rel="preload" as="style" href="{{ [settings.font_headings, settings.font_rest] | google_fonts_url('300, 400, 700') }}" />
-        <link rel="preload" href="{{ 'css/style-colors.scss.tpl' | static_url }}" as="style" />
+        <link rel="preload" href="{{ 'css/style-colors.scssscss.tpl' | static_url }}?v=1.5.141" as="style" />
 
         {# Preload LCP home, category and product page elements #}
 
@@ -206,7 +206,7 @@
 
         {# Load async styling not mandatory for first meaningfull paint #}
 
-        <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ 'css/style-async.scssscss.tpl' | static_url }}?v=1.5.141" media="print" onload="this.media='all'">
 
         {# HOME V2 - Estilos específicos da nova home page #}
         {% if template == 'home' %}
@@ -219,7 +219,7 @@
 
         {# Blog styles - PATAGANG - Loaded asynchronously (not above-the-fold) #}
 
-        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ 'css/style-blog.scssscss.tpl' | static_url }}?v=1.5.141" media="print" onload="this.media='all'">
 
         {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
 
@@ -239,6 +239,7 @@
                 box-sizing: border-box !important;
                 margin-bottom: 0 !important;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+                background-color: transparent !important;
             }
             body .section-advertising__marquee {
                 display: flex !important;
