@@ -1893,17 +1893,21 @@ button {
    HEADER
    ============================================ */
 
+/* ============================================
+   HEADER POSITIONING — Cascata sem !important
+   z-index: 999 (abaixo de modals/lightbox 1050)
+   ============================================ */
 .header {
     /* AJUSTADO: Header totalmente transparente conforme protótipo */
     /* Permite que o fundo da página apareça naturalmente */
-    background: transparent !important;
-    height: var(--header-height) !important;
-    position: fixed !important; /* Fixed para sobrepor o conteúdo */
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    z-index: 1000 !important;
-    border-bottom: none !important;
+    background: transparent;
+    height: var(--header-height);
+    position: fixed; /* Fixed para sobrepor conteúdo normal */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* Abaixo de gallery/lightbox (1050) para UX fix */
+    border-bottom: none;
     /* REMOVIDO: backdrop-filter e overlay para seguir protótipo */
 }
 
