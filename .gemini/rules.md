@@ -2,6 +2,12 @@
 
 Este arquivo define as instrucoes do projeto para Gemini CLI neste repositorio.
 
+
+
+
+
+
+
 <!-- AIOX-MANAGED-START: core -->
 ## Core Rules
 

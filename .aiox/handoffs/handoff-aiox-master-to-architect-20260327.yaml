@@ -21,7 +21,7 @@ decisions_made:
   - Risk level: LOW
 
 files_modified:
-  - docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md (created)
+  - Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md (created)
   - docs/architecture/9.1-IMPLEMENTATION-APPROACH.md (created)
   - .aiox-core/data/EPIC-9-CONTEXT-CHECKPOINT.md (updated)
 
@@ -37,7 +37,7 @@ workflow_context:
   unblocks: "Stories 9.2, 9.3, 9.4, 9.5, 9.6"
 
 required_documents:
-  - docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md
+  - Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md
   - docs/architecture/9.1-IMPLEMENTATION-APPROACH.md
   - .claude/rules/nuvemshop-ftp-constraints.md
   - .claude/rules/patagang-ftp-production-standard.md

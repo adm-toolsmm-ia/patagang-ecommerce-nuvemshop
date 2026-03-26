@@ -1,0 +1,91 @@
+---
+handoff:
+  from_agent: "Claude (Orion @aiox-master)"
+  to_agent: "@dev (Dex)"
+  session_date: "2026-03-26"
+  session_time: "14:11:06 UTC"
+
+story_context:
+  story_id: "9.2"
+  story_name: "STORY-9.2-UX-AJUSTES-LAYOUT"
+  story_path: "docs/stories/STORY-9.2-UX-AJUSTES-LAYOUT.md"
+  story_status: "IN_PROGRESS"
+  current_task: "Validating v1.5.152 fixes in production"
+  branch: "feature/8.3-phase-b"
+
+current_state:
+  deployed_version: "v1.5.152"
+  deploy_status: "SUCCESS (2/2 files validated)"
+  deploy_time: "2026-03-26 14:11:06 UTC"
+  awaiting: "Gabriel's validation feedback on 3 CSS adjustments"
+
+decisions_made:
+  - "layout.tpl has inline <style> that overrides style-critical.tpl (4-phase cascade)"
+  - "Banner: Change transparent → white (#ffffff) instead of transparent"
+  - "Gallery: Remove max-height: 520px/480px limits to allow growth with card"
+  - "Modal: Keep v1.5.151 fixes (arrows, responsive images working)"
+  - "Document layout cascade patterns for future CSS debugging"
+
+files_modified:
+  - "theme-deploy-corrigido/layouts/layout.tpl (2 changes: banner, gallery)"
+  - "theme-deploy-corrigido/static/css/style-critical.tpl (via v1.5.151)"
+  - "docs/stories/STORY-9.2-UX-AJUSTES-LAYOUT.md (status updated)"
+
+files_created:
+  - ".aiox-core/data/learned-patterns-layout-cascade-issues.yaml"
+  - ".aiox-core/development/agents/dev/LEARNED-PATTERNS-LAYOUT-CASCADE.md"
+  - "Docs/reports/AJUSTE-NOVO-WHATSAPP-BUTTON-INVESTIGATION.md"
+  - ".aiox-core/data/patagang-session-checkpoint-2026-03-26.yaml"
+
+blockers: []
+
+pending_issues:
+  - "Gabriel validating banner (background color, spacing)"
+  - "Gabriel validating gallery (image size, height matching card)"
+  - "Gabriel validating modal (working correctly)"
+  - "New issues/failures may be reported after validation"
+
+next_actions:
+  - "Gabriel returns with validation feedback"
+  - "@dev analyzes reported failures"
+  - "Create v1.5.153 with fixes based on feedback"
+  - "Deploy v1.5.153 and validate again"
+  - "When all ACs pass: implement WhatsApp button (v1.5.153+)"
+
+validation_checklist_sent: true
+investigation_docs_ready: true
+whatsapp_button_research_complete: true
+
+consumed: false
+---
+
+## Handoff Summary
+
+**What was accomplished:**
+- Diagnosed root cause of CSS issues (layout.tpl cascade)
+- Fixed banner (removed word-spacing, white background)
+- Fixed gallery (removed max-height limits)
+- Modal already fixed in v1.5.151
+- Extensive documentation created for future debugging
+
+**What Gabriel is doing:**
+- Validating v1.5.152 in production
+- Testing 3 adjustments
+- Identifying any remaining failures
+
+**What @dev needs to do next:**
+1. Wait for Gabriel's feedback
+2. Analyze reported issues
+3. Create v1.5.153 with fixes
+4. Deploy and validate
+5. Repeat until all ACs pass
+
+**Key learning:**
+- layout.tpl inline styles have higher priority than style-critical.tpl
+- Always check DevTools Computed tab to identify rule source
+- Document patterns for future reference
+
+**Resources for @dev:**
+- `.aiox-core/data/learned-patterns-layout-cascade-issues.yaml` — 4 CSS patterns
+- `.aiox-core/development/agents/dev/LEARNED-PATTERNS-LAYOUT-CASCADE.md` — quick ref
+- `.aiox-core/data/patagang-session-checkpoint-2026-03-26.yaml` — full context

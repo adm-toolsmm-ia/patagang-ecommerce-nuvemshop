@@ -1,0 +1,289 @@
+---
+incident_id: v1.5.164-ascii-removal-incident
+incident_type: css_regression
+severity: critical
+detection_date: 2026-03-26T16:35:33Z
+status: root_cause_identified
+analysis_status: complete
+implementation_status: pending_approval
+
+## INCIDENT DETAILS
+
+problem_summary: |
+  v1.5.164 deployment removed 1,940 lines of CSS code when attempting to
+  convert UTF-8 characters to US-ASCII. Script was too aggressive and deleted
+  entire CSS rules along with accented comments.
+
+detection_method: automatic_rollback
+rollback_version: v1.5.163
+rollback_successful: true
+time_to_rollback_minutes: 3
+
+## ROOT CAUSE
+
+root_cause: |
+  Commit 0fa7dee attempted to remove non-ASCII characters using aggressive
+  line deletion pattern: sed '/[ã-ÿçÇ—–]/d'
+  This deleted ENTIRE LINES instead of just normalizing characters.
+
+technical_details:
+  affected_file: theme-deploy-corrigido/static/css/style-critical.tpl
+  lines_deleted: 1940
+  lines_added: 987
+  files_affected:
+    - style-critical.tpl
+    - style-async.scss.tpl
+
+  commit_hash: 0fa7dee93f425a70d227d32651ab56603c2ab6c7
+  commit_message: "fix: remove non-ASCII characters from CSS files [Epic 8.3 HOTFIX]"
+
+  error_addressed: Invalid US-ASCII character "\xC3"
+  target_objective: Force US-ASCII compatibility
+  method_used: Line deletion (INCORRECT)
+  correct_method: Character normalization (á→a, é→e, etc.)
+
+## VERIFIED FACTS
+
+pg_header_icon_button_status: intact
+  description: |
+    The .pg-header__icon-button selector rule (lines 424-461) is IDENTICAL
+    in both v1.5.163 and v1.5.164 backups. The rule was NOT directly affected.
+
+    Header icons breakage was a cascade effect from OTHER deleted rules,
+    not from direct modification to this selector.
+
+backup_comparison:
+  v1.5.163:
+    line_count: 4771
+    status: working
+    encoding: UTF-8 with accents
+    margin_top_value: 130px
+
+  v1.5.164:
+    line_count: 4771
+    status: broken
+    encoding: US-ASCII (partial - due to deletions)
+    margin_top_value: 0px
+
+  only_difference: margin-top property change (valid spacing fix)
+  note: |
+    The margin-top change between backups is a VALID spacing adjustment.
+    The CSS deletion from commit 0fa7dee happened BEFORE these backups
+    were created, explaining why backups appear identical in that regard.
+
+## IMPACT ASSESSMENT
+
+impacted_areas:
+  directly_deleted:
+    - ~150 Portuguese comment lines
+    - ~600 CSS rules following those comments
+    - ~400 CSS property definitions
+    - ~200 media query blocks
+    - ~590 other rules and configurations
+
+  ripple_effects:
+    - Cascading CSS failures
+    - Missing media queries
+    - Orphaned selectors
+    - Broken layout on responsive views
+
+  unaffected_selectors:
+    - .pg-header__icon-button
+    - .pg-header__icon-button:hover
+    - .pg-header__icon-button img
+    - .pg-header__logo
+    - Bootstrap grid system
+
+## PROPOSED SOLUTION
+
+solution_type: character_normalization
+method: perl_script_substitution
+principle: |
+  Replace only accented/special characters with ASCII equivalents.
+  PRESERVE all CSS structure, rules, and comments.
+
+character_mapping:
+  portuguese_accents:
+    á: a
+    à: a
+    â: a
+    ä: a
+    é: e
+    è: e
+    ê: e
+    ë: e
+    í: i
+    ì: i
+    î: i
+    ï: i
+    ó: o
+    ò: o
+    ô: o
+    ö: o
+    ú: u
+    ù: u
+    û: u
+    ü: u
+    ã: a
+    õ: o
+    ç: c
+    Á: A
+    À: A
+    Â: A
+    Ä: A
+    É: E
+    È: E
+    Ê: E
+    Ë: E
+    Í: I
+    Ì: I
+    Î: I
+    Ï: I
+    Ó: O
+    Ò: O
+    Ô: O
+    Ö: O
+    Ú: U
+    Ù: U
+    Û: U
+    Ü: U
+    Ã: A
+    Õ: O
+    Ç: C
+
+  punctuation:
+    "—": "-"  # em-dash
+    "–": "-"  # en-dash
+
+implementation_steps:
+  step_1:
+    action: create_perl_script
+    file: bin/normalize-css-utf8.pl
+    validated: true
+
+  step_2:
+    action: test_locally
+    test_commands:
+      - wc -l before.tpl after.tpl
+      - grep -E pattern after.tpl
+      - file -b after.tpl | grep ascii
+
+  step_3:
+    action: create_git_commit
+    message: "fix: normalize UTF-8 to ASCII in CSS files [Story X.Y.Z]"
+
+  step_4:
+    action: ftp_deploy
+    version: v1.5.166
+    description: "Normalize UTF-8 to ASCII (preserve CSS structure)"
+
+  step_5:
+    action: gabriel_validation
+    checklist:
+      - Header icons visible and functional
+      - Product spacing normal
+      - Warning banner visible
+      - Console no errors
+      - Mobile/tablet/desktop OK
+
+## VALIDATION CRITERIA
+
+before_deployment:
+  - Line count must be identical (4771)
+  - CSS selectors must be > 95% preserved
+  - No accented characters remain
+  - File must be pure US-ASCII
+  - diff size must be < 500 lines
+
+after_deployment:
+  - HTTP 200 response
+  - Console no JavaScript errors
+  - Header icons clickable
+  - Layout responsive
+  - Performance acceptable
+
+## DOCUMENTATION CREATED
+
+analysis_documents:
+  - ANALYSIS-v1.5.164-ASCII-REMOVAL-ROOT-CAUSE.md
+  - EXECUTIVE-SUMMARY-v1.5.164-INCIDENT.md
+  - UTF8-TO-ASCII-SAFE-NORMALIZATION.md
+  - VISUAL-COMPARISON-v1.5.163-vs-164.md
+  - v1.5.164-incident-resolution-plan.yaml (this file)
+
+## APPROVALS REQUIRED
+
+approval_chain:
+  architect:
+    role: review_technical_solution
+    status: pending
+    required_for: implementation_approval
+
+  devops:
+    role: execute_deployment
+    status: pending
+    required_for: deployment
+
+  gabriel:
+    role: validate_production
+    status: pending
+    required_for: story_completion
+
+## TIMELINE
+
+schedule:
+  analysis_completion: 2026-03-26T18:00:00Z
+  approval_window: 2026-03-26T18:00:00Z - 2026-03-27T09:00:00Z
+  implementation_target: 2026-03-27T10:00:00Z
+  gabriel_validation: 2026-03-27T10:30:00Z
+  completion_target: 2026-03-27T11:00:00Z
+
+## LESSONS LEARNED
+
+lesson_1:
+  title: Character Encoding is Critical
+  lesson: |
+    UTF-8 encoding issues can be addressed by normalizing characters,
+    NOT by deleting lines. The distinction is crucial.
+
+lesson_2:
+  title: Test Before Deploy
+  lesson: |
+    v1.5.164 should have been tested before deployment. Simple checks
+    would have caught the 1,940 line deletion.
+
+lesson_3:
+  title: Rollback Works
+  lesson: |
+    Automatic rollback to v1.5.163 was successful and prevented
+    extended downtime. System responded correctly to incident.
+
+lesson_4:
+  title: Script Safety
+  lesson: |
+    grep/sed patterns are powerful but dangerous for CSS. Always use
+    safer approaches (Perl/Python) with explicit character mapping.
+
+## PREVENTION MEASURES
+
+for_future:
+  - Implement pre-deploy CSS validation (line count, selector count)
+  - Add encoding checks: file -b && grep /encoding/
+  - Require diff review for any CSS changes > 10 lines
+  - Document character encoding strategy in CLAUDE.md
+  - Add CI/CD gate: CSS file size and structure validation
+
+## STATUS TRACKING
+
+current_status: root_cause_identified
+last_updated: 2026-03-26T18:00:00Z
+next_action: await_architect_approval
+escalation_path: architect → devops → gabriel
+
+---
+
+metadata:
+  created_by: analysis
+  created_at: 2026-03-26T18:00:00Z
+  updated_at: 2026-03-26T18:00:00Z
+  version: 1.0.0

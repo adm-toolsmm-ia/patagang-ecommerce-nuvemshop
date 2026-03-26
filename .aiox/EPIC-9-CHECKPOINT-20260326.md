@@ -38,7 +38,7 @@ Solution: Remove redundant #ffffff from main in layout.tpl
   - Overwrites style-critical.tpl rules due to cascading
 
 ### 2. Document Created
-**File:** `docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md`
+**File:** `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md`
 - Maps all 336+ `background-color` occurrences
 - Explains CSS hierarchy problem
 - Provides recommendations for future refactoring
@@ -102,7 +102,7 @@ v1.5.131: Yellow banner test (to validate CSS application)
   4. Centralize control in one file, comment out conflicting rules in others
 
 ### For Background/Color Analysis:
-- **File:** `docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md`
+- **File:** `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md`
 - **Quality Issues Identified:** 336+ redundant background-color definitions
 - **Recommendation:** Future refactoring to centralize color definitions
 
@@ -140,7 +140,7 @@ Story 9.6: EPIC 9 Consolidation & Learnings Registry — @architect
 If resuming Story 9.1:
 
 1. **Read:** `.aiox/EPIC-9-CHECKPOINT-20260326.md` (THIS FILE)
-2. **Reference:** `docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md` (detailed analysis)
+2. **Reference:** `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md` (detailed analysis)
 3. **Remember:** layout.tpl line 505 has the redundant `background-color: #ffffff;` on main
 4. **Next:** Apply the fix (remove that line) and test with yellow banner again
 
@@ -156,7 +156,7 @@ If resuming Story 9.1:
 
 ### Saved to Reuse:
 - `memory/lesson_story-9-1-css-structure.md` — Apply to ALL CSS work
-- `docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md` — Reference for color system
+- `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md` — Reference for color system
 - Deployment process: v1.5.x versioning works well, backups saved
 
 ### Can Forget Safely:

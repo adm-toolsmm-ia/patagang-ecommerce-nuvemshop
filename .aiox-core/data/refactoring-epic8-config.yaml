@@ -227,7 +227,7 @@ documentation:
     - "Docs/stories/8.4-template-cleanup.story.md"
     - "Docs/stories/8.5-javascript-optimization.story.md"
   guides:
-    - "Docs/guides/refactoring-execution-guide.md"
+    - "Docs/epics/.archive/refactoring-execution-guide.md"
   checklists:
     - ".aiox-core/development/checklists/refactoring-phase-validation.md"
   constraints:

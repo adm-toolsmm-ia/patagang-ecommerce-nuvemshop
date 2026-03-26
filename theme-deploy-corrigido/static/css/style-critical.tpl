@@ -1701,7 +1701,9 @@ p{
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5em;
+  /* Phrase spacing — keep in sync: layouts/layout.tpl (ad_bar + ad_text block) */
+  gap: clamp(0.75rem, 2.5vw, 1.75rem);
+  row-gap: 0.35em;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2px;
@@ -1716,12 +1718,6 @@ p{
 .section-advertising__phrase {
   display: inline;
   white-space: normal;
-}
-
-.section-advertising__separator {
-  display: inline;
-  margin: 0 0.3em;
-  color: rgba(0, 0, 0, 0.5);
 }
 
 .section-advertising__link {
@@ -1747,7 +1743,6 @@ p{
 
   .section-advertising__copy {
     font-size: 0.65rem;
-    gap: 0 0.3em;
   }
 
   .section-advertising__phrase {
@@ -1768,7 +1763,6 @@ p{
 
   .section-advertising__copy {
     font-size: 0.7rem;
-    gap: 0 0.4em;
   }
 
   .section-advertising__phrase {
@@ -1789,7 +1783,6 @@ p{
 
   .section-advertising__copy {
     font-size: 0.75rem;
-    gap: 0 0.5em;
   }
 
   .section-advertising__phrase {

@@ -1,0 +1,357 @@
+# Patagang Lateral Buttons Pattern — AIOX Knowledge Base
+# Story 9.2 UX Ajustes — Padrão Consolidado de Botões Fixos Laterais
+
+name: patagang-lateral-buttons-pattern
+type: design-pattern
+version: 1.0.0
+created: 2026-03-26
+maintained_by: "@architect + @dev + @qa"
+applies_to:
+  - Story 9.2 (WhatsApp Left Button Fix)
+  - Future lateral button implementations
+
+---
+
+## PATTERN OVERVIEW
+
+Padrão consolidado para implementar botões fixos nas laterais (LEFT/RIGHT) da página, baseado em aprendizados de Epic 8 e Epic 9.
+
+**Key Property:** Posicionamento `fixed` com centering vertical via `transform: translateY(-50%)`
+
+---
+
+## CORE PATTERN
+
+### Base CSS Template
+
+```css
+/* 🔵 LATERAL BUTTON TEMPLATE — Aplicável a qualquer botão fixed */
+
+body .btn-lateral-{direction} {
+    position: fixed !important;
+    {left|right}: 0 !important;                    /* LEFT: left: 0  |  RIGHT: right: 0 */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: {z-index} !important;                  /* Recomendado: 9990 */
+    background-color: #F0F0F0 !important;          /* Cor background padrão (ajustar se necessário) */
+    border: 1px solid #E0E0E0 !important;
+    padding: 12px 8px !important;                  /* Desktop: 12px 8px */
+    border-radius: 4px !important;                 /* Apenas lados internos (top-RIGHT/LEFT + bottom-RIGHT/LEFT) */
+    box-shadow: {+|-}2px 0 8px rgba(0,0,0,0.1) !important;  /* LEFT: +2px  |  RIGHT: -2px */
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+body .btn-lateral-{direction}:hover {
+    background-color: #E8E8E8 !important;
+    border: 1px solid #D0D0D0 !important;
+    padding-{left|right}: 12px !important;         /* LEFT: padding-left  |  RIGHT: padding-right */
+}
+
+body .btn-lateral-{direction}:focus {
+    outline: 2px solid {icon-color} !important;    /* Usar cor representativa do serviço */
+    outline-offset: 2px !important;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 768px) {
+    body .btn-lateral-{direction} {
+        {left|right}: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: {z-index} !important;
+        padding: 10px 6px !important;              /* Tablet: reduzido 17% */
+    }
+    body .btn-lateral-{direction} span {
+        font-size: 11px !important;                /* Reduzido 8% */
+    }
+}
+
+@media (max-width: 480px) {
+    body .btn-lateral-{direction} {
+        {left|right}: 0 !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        z-index: {z-index} !important;
+        padding: 8px 5px !important;               /* Mobile: reduzido 33% */
+    }
+    body .btn-lateral-{direction} span {
+        font-size: 10px !important;                /* Reduzido 17% */
+    }
+}
+```
+
+---
+
+## REAL-WORLD EXAMPLE: WhatsApp Left Button
+
+### Aplicação do Pattern
+
+**Story:** 9.2 UX Ajustes
+**Implementation Date:** 2026-03-26
+**Status:** ✅ Deployed v1.5.154
+
+#### Mapeamento Pattern → Implementação
+
+```
+PATTERN VARIABLE          │ IMPLEMENTATION (WhatsApp Left)
+──────────────────────────┼─────────────────────────────
+{direction}               │ left (oposto ao Help: right)
+{left|right}: 0           │ left: 0
+box-shadow: {+|-}2px      │ box-shadow: 2px 0 8px (+ porque está LEFT)
+border-radius             │ border-top-RIGHT-radius + border-bottom-RIGHT-radius
+padding-{left|right}      │ padding-left (hover expand para fora)
+{icon-color}              │ #25D366 (WhatsApp Green)
+{z-index}                 │ 9990 (sem conflitos com Help 9999)
+```
+
+#### Full Implementation (v1.5.154)
+
+**File:** `theme-deploy-corrigido/layouts/layout.tpl` (linhas 468-532)
+
+Referência completa: Commit `92f737a`
+
+---
+
+## AGENT COORDINATION PATTERN
+
+Como os agentes AIOX devem trabalhar juntos neste tipo de correção:
+
+### Phase 1: Investigação (@architect)
+
+**Ativação:** Quando há problema de posicionamento/layout
+
+**Responsabilidades:**
+1. Revisar HTML structure da solução existente (Help Button, em caso do WhatsApp)
+2. Analisar CSS de referência (style-help-sidebar.css.tpl)
+3. Validar z-index hierarchy e stacking context
+4. Conferir responsiveness com media queries
+5. Consultar aprendizados de Epic 8 (layout cascata)
+6. Fornecer recomendação de CSS final
+
+**Saída:** Relatório técnico com CSS validado + recomendações
+
+**Tempo:** ~2 horas investigação
+
+---
+
+### Phase 2: Implementação (@dev)
+
+**Ativação:** Após aprovação de @architect
+
+**Responsabilidades:**
+1. Ler CSS recomendado de @architect
+2. Implementar em arquivo correto (layout.tpl ou arquivo CSS separado)
+3. Adicionar breakpoints (768px, 480px obrigatório)
+4. Validar sem `!important` excessivo (cascata intacta)
+5. Fazer commit com padrão AIOX:
+   - Tipo: `fix:` (correção)
+   - Descrição clara
+   - Story reference: `[Story X.Y.Z]`
+   - Co-Author: Claude
+   - Body explicando decisões técnicas
+
+**Saída:** Commit com implementação pronta para teste
+
+**Tempo:** ~1 hora implementação + commit
+
+---
+
+### Phase 3: Validação (@qa)
+
+**Ativação:** Após implementação de @dev
+
+**Responsabilidades:**
+1. Validar CSS tecnicamente:
+   - position: fixed ✓
+   - left/right: 0 ✓
+   - top: 50% + transform ✓
+   - z-index sem conflitos ✓
+2. Validar responsiveness (3 breakpoints)
+3. Validar acessibilidade (focus state, aria-label)
+4. Validar Nuvemshop constraints (checkout, footer, forms)
+5. Validar conflitos com componentes existentes
+6. Testar interações (Help sidebar, navbar)
+7. Gerar QA verdict: PASS / CONCERNS / FAIL
+
+**Saída:** QA Report com recomendações (se houver)
+
+**Tempo:** ~1,5 horas validação completa
+
+---
+
+### Phase 4: Deploy (@devops)
+
+**Ativação:** Após aprovação de @qa (PASS verdict)
+
+**Responsabilidades:**
+1. Ler QA Report
+2. Deploy FTP: `node ftp-deploy/deploy.js "vX.X.X: message"`
+3. Monitor: Versão, backup, logs
+4. Report a Gabriel com versão exata
+
+**Saída:** Deployment completo, versão tagged
+
+**Tempo:** ~30 min deploy + monitoramento
+
+---
+
+### Phase 5: Validação de Gabriel
+
+**Ativação:** Após deploy de @devops
+
+**Responsabilidades (Gabriel):**
+1. Abrir patagang.com.br em produção
+2. Verificar botão em desktop/tablet/mobile
+3. Testar: click, hover, visual, performance
+4. Relatório: ✅ APROVADO ou ⚠️ CONCERNS ou ❌ FAILED
+
+**Saída:** Aprovação para GitHub push
+
+**Tempo:** ~15 min validação visual
+
+---
+
+## KNOWLEDGE BASE INFOBOX: Aprendizados Consolidados
+
+### Do Epic 8 (CSS Refactoring Lessons)
+
+- ✅ **Batch CSS em pequenas unidades** (10-15 regras max por deploy)
+- ✅ **Validar cascata**: sem !important excessivo
+- ✅ **Media queries cobertura**: 768px (tablet) + 480px (mobile pequeno)
+- ✅ **Transform para centering**: `transform: translateY(-50%)` é padrão robusto
+- ❌ **Não remover 50+ regras de uma vez** (pode quebrar interdependências)
+
+### Do Epic 9 (Layout Cascata)
+
+- ✅ **Z-index hierarchy clara**: Documentar stack order (9999, 9998, 9990, etc.)
+- ✅ **Espelhamento L-R**: border-radius, box-shadow, padding animação devem ser simétricos
+- ✅ **Template guards**: Usar `{% if template == 'product' %}` para limitar escopo
+- ✅ **Nuvemshop constraints rigorosas**: Nunca modificar checkout, footer, forms estruturalmente
+- ✅ **Acessibilidade obrigatória**: aria-label + focus state em todo botão interativo
+
+### Do Story 9.2 (WhatsApp Left Button)
+
+- ✅ **Posicionamento fixed requer explícito**: Sem posicionamento, elemento cai em fluxo normal (acima footer)
+- ✅ **Transform Y-only centering**: `top: 50% + transform: translateY(-50%)` funciona melhor que `margin-top`
+- ✅ **Hover padding change**: Gera feedback visual sem overflow (espaço calculado)
+- ✅ **Focus state com cor**: Usar cor do serviço (WhatsApp: #25D366 verde)
+
+---
+
+## PATTERN APPLICATION CHECKLIST
+
+Para implementar qualquer botão lateral no futuro:
+
+### Pre-Implementation
+- [ ] Investigar botão de referência existente (Help Button era referência)
+- [ ] Analisar CSS estrutura existente
+- [ ] @architect revisar proposta
+- [ ] Validar z-index sem conflitos
+
+### Implementation
+- [ ] Aplicar template CSS base
+- [ ] Adicionar 3 breakpoints: desktop, 768px, 480px
+- [ ] Focus state com cor apropriada
+- [ ] Hover animation (padding expand)
+- [ ] Commit com referência a story
+
+### Validation
+- [ ] @qa validar 44 itens (técnico, responsiveness, acessibilidade, constraints)
+- [ ] Testar em 5+ viewports (375px, 480px, 768px, 1024px, 1920px)
+- [ ] Keyboard navigation (Tab + focus ring)
+- [ ] Conflitos com componentes existentes
+
+### Deployment
+- [ ] @devops deploy em versão
+- [ ] Gabriel valida visualmente
+- [ ] Aprovação para GitHub merge
+
+---
+
+## FILE LOCATIONS & REFERENCES
+
+| Tipo | Arquivo | Responsável |
+|------|---------|------------|
+| **Implementation** | `theme-deploy-corrigido/layouts/layout.tpl` (linhas 468-532) | @dev |
+| **Reference CSS** | `theme-deploy-corrigido/static/css/style-help-sidebar.css.tpl` | Pattern base |
+| **HTML Snippet** | `theme-deploy-corrigido/snipplets/whatsapp-left.tpl` | Template guard |
+| **Commit** | `92f737a` — Fix WhatsApp Left Button | @dev |
+| **QA Report** | `Docs/reports/VALIDATION-WHATSAPP-LEFT-v1.5.154.md` | @qa |
+| **Investigation** | `Docs/reports/WHATSAPP-LEFT-BUTTON-INVESTIGATION.md` | @architect |
+
+---
+
+## FUTURE ENHANCEMENTS
+
+### v1.5.155+: Opcional Improvements
+
+1. **CSS-in-JS Migration**
+   - Mover CSS inline para `static/css/style-lateral-buttons.css.tpl`
+   - Consolidar Help + WhatsApp em arquivo único
+   - Benefício: Reuso em futuras implementações
+
+2. **Focus-Visible Support**
+   - Adicionar `:focus-visible` para melhor UX (ignora focus-on-click)
+   - Especificidade: `:focus-visible { outline... }`
+
+3. **Aria-Current Enhancement**
+   - Se botão representar "current service", adicionar `aria-current="service"`
+   - Melhor acessibilidade semântica
+
+4. **Animation Variants**
+   - Considerar `@media (prefers-reduced-motion)` para transições
+   - Respeitar preferências de usuário
+
+---
+
+## COMPLIANCE & CONSTRAINTS
+
+### ✅ Sempre Respeitado
+
+- **Nuvemshop Terms:** Sem checkout/footer/form mods
+- **CSS Cascata:** !important estratégico apenas
+- **Acessibilidade:** WCAG 2.1 nível AA (focus states, aria labels)
+- **Responsiveness:** Mobile-first, 3 breakpoints minimum
+- **Performance:** CSS inline (sem HTTP requests adicionais)
+
+### ⚠️ Risco Mitigado
+
+- **Z-index conflicts:** Documentar hierarchy clara
+- **Hover overflow:** Calcular padding para não ultrapassar viewport
+- **Mobile cramping:** Reduzir padding em pequenas telas
+- **Keyboard navigation:** Sempre testar Tab + focus ring
+
+---
+
+## MAINTENANCE
+
+| Ação | Frequência | Responsável |
+|------|-----------|------------|
+| Revisar pattern com novos aprendizados | Após nova story relevante | @architect |
+| Testar em novos navegadores | Quarterly (iOS, Chrome, Firefox) | @qa |
+| Validar Nuvemshop constraints | Anualmente (May, Nov) | @architect |
+| Atualizar documentation | Após mudanças pattern | @architect |
+
+---
+
+## REFERENCES & LINKS
+
+- **Story:** [Story 9.2 UX Ajustes Layout]
+- **Commit:** `92f737a` (Fix WhatsApp Left Button)
+- **Related:** `.claude/rules/nuvemshop-ftp-constraints.md`
+- **Related:** `.aiox-core/data/learned-patterns-layout-cascade-issues.yaml`
+- **Related:** `.claude/rules/css-refactoring-safety-pattern.md`
+
+---
+
+**Pattern Status:** ✅ VALIDATED & DOCUMENTED
+**Version:** 1.0.0
+**Created:** 2026-03-26
+**Next Review:** 2026-06-26
+**Maintained By:** @architect + @dev + @qa Squad

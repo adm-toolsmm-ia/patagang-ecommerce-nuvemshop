@@ -195,7 +195,7 @@ Result: Se white background desaparece → CAUSE FOUND
 
 ### Investigation Report
 
-Criar documento: `docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md`
+Criar documento: `Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md`
 
 Conteúdo obrigatório:
 ```markdown

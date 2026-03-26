@@ -375,7 +375,7 @@ style-critical.tpl
 - **Cascade Guide:** `Docs/architecture/patagang-css-cascade.md` (v1.5.133+)
 - **Constraints:** `.claude/rules/nuvemshop-ftp-constraints.md`
 - **Deployment Standard:** `.claude/rules/patagang-ftp-production-standard.md`
-- **Color Analysis:** `Docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md`
+- **Color Analysis:** `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md`
 - **Design System:** `.aiox-core/development/agents/ux-design-expert/MEMORY.md`
 
 ---

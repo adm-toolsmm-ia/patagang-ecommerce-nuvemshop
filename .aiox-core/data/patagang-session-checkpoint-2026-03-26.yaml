@@ -1,0 +1,219 @@
+---
+name: Session Checkpoint — STORY-9.2 Mid-Implementation
+description: Current state snapshot for resuming work after context cleanup
+type: project-state
+created_at: "2026-03-26T14:11:06Z"
+session_id: "a1ff9ebc-edc2-4677-9c29-18477631d71b"
+status: IN_PROGRESS
+---
+
+## 📍 Current Context
+
+**Active Story:** STORY-9.2-UX-AJUSTES-LAYOUT
+**Current Branch:** feature/8.3-phase-b
+**Active Version:** v1.5.152 (DEPLOYED)
+**Last Deploy:** 2026-03-26 14:11:06 UTC
+
+---
+
+## ✅ Work Completed This Session
+
+### Phase 1: Initial Implementation (v1.5.150)
+- ✅ Implemented 3 CSS adjustments
+- ✅ Commits: 8a6226b, cd8fae8, 88a7e21
+- ✅ Deploy v1.5.150 success
+- ✅ Validation: Gabriel identified 4 issues
+
+### Phase 2: Root Cause Analysis & Fixes (v1.5.151)
+- ✅ Deep investigation: layout.tpl cascades override style-critical.tpl
+- ✅ Root causes identified for all 3 issues
+- ✅ Corrective commits: d8b46ca, 0ab08ba, 88a7e21 (revised)
+- ✅ Deploy v1.5.151 success
+- ✅ Modal fixes working (arrows, responsive images)
+- ✅ Learned patterns documented
+
+### Phase 3: Final Adjustments (v1.5.152)
+- ✅ **Banner Fix:**
+  - Removed word-spacing (leave Admin default)
+  - Changed background: transparent → #ffffff (white)
+  - Commit 4c9139d
+
+- ✅ **Gallery Fix:**
+  - Removed max-height: 520px limit (desktop)
+  - Removed max-height: 480px limit (tablet)
+  - Gallery now grows to match card height
+  - Commit 9ecf3a1
+
+- ✅ Deploy v1.5.152 success (2/2 files validated)
+
+### Documentation Created
+- ✅ `.aiox-core/data/learned-patterns-layout-cascade-issues.yaml` (4 patterns)
+- ✅ `.aiox-core/development/agents/dev/LEARNED-PATTERNS-LAYOUT-CASCADE.md` (quick ref)
+- ✅ `docs/stories/STORY-9.2-UX-AJUSTES-LAYOUT.md` (story doc)
+- ✅ `Docs/reports/AJUSTE-NOVO-WHATSAPP-BUTTON-INVESTIGATION.md` (new feature research)
+- ✅ This checkpoint file
+
+---
+
+## ⏳ Current Status: Awaiting Validation Feedback
+
+**What Gabriel is doing:**
+1. Validating v1.5.152 in production (https://patagang.com.br/)
+2. Checking 3 adjustments (banner, gallery, modal)
+3. Identifying additional failures/issues
+
+**What will happen next:**
+1. Gabriel reports failures after context cleanup
+2. @dev analyzes failures
+3. Implement v1.5.153 with fixes
+4. Repeat cycle until all ACs passed
+
+---
+
+## 🔍 Known Issues (From Gabriel's Feedback)
+
+### Fixed in v1.5.152
+- ✅ Banner: word-spacing removed, background white
+- ✅ Gallery: max-height limits removed, grows with card
+- ✅ Modal: arrows functional, responsive images
+
+### Potentially Still Failing (Awaiting Report)
+- ❓ Banner background color (white showing correctly?)
+- ❓ Gallery: images size (still too large?)
+- ❓ Gallery: height matching card end (reaching "TROCAS E DEVOLUÇÕES"?)
+- ❓ Other issues: TBD after Gabriel validates
+
+---
+
+## 🆕 New Feature Identified: WhatsApp Button
+
+**Status:** 🔍 Investigation complete, ready for implementation
+
+**Files Created:**
+- `Docs/reports/AJUSTE-NOVO-WHATSAPP-BUTTON-INVESTIGATION.md`
+
+**Implementation Plan:**
+1. Phase 1: Create `snipplets/whatsapp-button.tpl`
+2. Phase 2: Add CSS to `style-help-sidebar.css.tpl`
+3. Phase 3: Integrate in `layout.tpl`
+4. Phase 4: Adjust coordination (mobile positioning, z-index)
+
+**Timeline:** v1.5.153+ (after STORY-9.2 finalized)
+
+---
+
+## 🛠️ Key Files Modified
+
+```
+theme-deploy-corrigido/layouts/layout.tpl
+  └─ Banner CSS (word-spacing removed, white background)
+  └─ Gallery CSS (max-height limits removed)
+
+theme-deploy-corrigido/static/css/style-critical.tpl
+  └─ Modal CSS (already fixed in v1.5.151)
+
+.aiox-core/data/
+  └─ learned-patterns-layout-cascade-issues.yaml (NEW)
+
+.aiox-core/development/agents/dev/
+  └─ LEARNED-PATTERNS-LAYOUT-CASCADE.md (NEW)
+
+docs/stories/
+  └─ STORY-9.2-UX-AJUSTES-LAYOUT.md (UPDATED)
+
+Docs/reports/
+  └─ AJUSTE-NOVO-WHATSAPP-BUTTON-INVESTIGATION.md (NEW)
+```
+
+---
+
+## 📋 Validation Checklist Sent to Gabriel
+
+**Banner (v1.5.152):**
+- [ ] Text natural (no word-spacing)
+- [ ] Background WHITE (not gray)
+- [ ] Readable on 3 breakpoints
+- [ ] Console version: 📦 PATAGANG v1.5.152
+
+**Gallery (v1.5.152):**
+- [ ] Desktop: Full card height (to end of card)
+- [ ] Images smaller (proportional 2x2 grid)
+- [ ] Scroll works for many images
+- [ ] No white space at bottom
+
+**Modal (v1.5.151):**
+- [ ] Sidebar hidden
+- [ ] Arrows work (< >)
+- [ ] Image responsive
+- [ ] Works on all breakpoints
+
+---
+
+## 🔄 How to Resume
+
+When Gabriel returns with feedback:
+
+1. **Read checkpoint:** This file
+2. **Get feedback:** Gabriel's reported issues
+3. **Analyze:** Root cause of new failures
+4. **Create commits:** v1.5.153 fixes
+5. **Update story:** Mark issues as resolved
+6. **Deploy:** v1.5.153
+7. **Repeat:** Until all ACs pass
+
+---
+
+## 💾 Git State
+
+```
+Current Branch: feature/8.3-phase-b
+Last Commits:
+  d8b46ca - fix: banner ad bar - correct font-size, word-spacing
+  0ab08ba - fix: gallery height - match card info size
+  88a7e21 - fix: modal gallery - enable arrow navigation
+  4c9139d - fix: banner ad bar - remove word-spacing and set white background
+  9ecf3a1 - fix: gallery height - remove max-height limits
+
+Active Tags:
+  v1.5.152 (deployed, awaiting validation)
+  v1.5.151 (previous revision)
+  v1.5.150 (first attempt)
+```
+
+---
+
+## 🎯 Success Criteria Remaining
+
+```
+AC #1: Banner without "•" → ✅ DONE (Admin removed)
+AC #2: Spacing visual between phrases → ⏳ VALIDATING (v1.5.152)
+AC #3: Transparent background → ⏳ VALIDATING (white #ffffff)
+AC #4: Gallery matches card height → ⏳ VALIDATING (max-height removed)
+AC #5: Gallery scroll works → ⏳ VALIDATING
+AC #6: Modal sidebar hidden → ✅ DONE (v1.5.151)
+AC #7: Modal arrows functional → ✅ DONE (v1.5.151)
+AC #8: Modal responsive → ✅ DONE (v1.5.151)
+```
+
+---
+
+## 📞 Next Session Action
+
+```
+1. Gabriel opens this checkpoint file
+2. Gabriel reports failures from validation
+3. Analyze and create v1.5.153 fixes
+4. Deploy, validate, repeat
+5. When all ACs pass → Story 9.2 DONE
+6. Then implement WhatsApp button (v1.5.153+)
+```
+
+---
+
+**Checkpoint Created:** 2026-03-26T14:11:06Z
+**Session Duration:** ~1 hour 30 minutes (implementation + documentation)
+**Commits Made:** 6 (3 initial + 3 revised + 2 final)
+**Documentation:** 4 new files + 2 updated
+**Deploy Status:** v1.5.152 ✅ LIVE
+
+**Ready to Resume:** ✅ YES — All context documented

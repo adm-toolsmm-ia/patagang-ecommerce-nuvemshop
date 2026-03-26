@@ -1,0 +1,254 @@
+---
+name: Layout Cascade and CSS Specificity Issues
+description: Patterns for debugging CSS conflicts where template styles override component CSS files
+type: learned-patterns
+created_at: "2026-03-26"
+source_story: "STORY-9.2-UX-AJUSTES-LAYOUT (v1.5.150-151)"
+severity: HIGH
+applies_to:
+  - nuvemshop-themes
+  - template-inline-css
+  - css-specificity-conflicts
+  - layout-tpl-overrides
+
+---
+
+## Pattern 1: Template Inline Styles Override File-Based CSS
+
+### Problem
+
+CSS modifications in `style-critical.tpl` are being ignored. Root cause: `layout.tpl` contains inline `<style>` blocks that:
+1. Load AFTER `style-critical.tpl` in the cascade
+2. Use `!important` flags systematically
+3. Target the same selectors with HIGH specificity (e.g., `body .selector`)
+
+**Example:** Changing `.section-advertising__copy { font-size: 0.7rem }` in `style-critical.tpl` has NO EFFECT because `layout.tpl` already declared:
+```css
+body .section-advertising__copy {
+    font-size: 0.875rem !important;
+}
+```
+
+### Why This Happens
+
+In Nuvemshop themes, `layout.tpl` loads AFTER `style-critical.tpl`:
+
+```html
+<!-- style-critical.tpl loads first (via {% include %}) -->
+<style>
+  .section-advertising__copy { font-size: 0.7rem; }  <!-- Gets overridden -->
+</style>
+
+<!-- Then layout.tpl loads with inline styles -->
+<style>
+  body .section-advertising__copy { font-size: 0.875rem !important; }  <!-- Wins! -->
+</style>
+```
+
+### Solution: Edit layout.tpl, NOT style-critical.tpl
+
+When modifying styling for elements controlled by `layout.tpl` inline styles:
+
+1. **Identify the conflict:** Use DevTools → Computed tab → check which rule is active
+2. **Trace back:** Is the rule coming from `layout.tpl` inline `<style>`?
+3. **Edit layout.tpl:** Don't waste time editing `style-critical.tpl` — modify the inline `<style>` block in `layout.tpl` directly
+
+**Elements affected by layout.tpl inline styles:**
+- `.section-advertising` (ad bar) — lines 230-291
+- `.pg-header` — lines 293-319
+- `section.patagang-section-*` — lines 439-529
+
+---
+
+## Pattern 2: Multi-Container Height Conflicts in Flex Layouts
+
+### Problem
+
+When setting `height: 100%` on a `.pg-gallery-container`, it assumes the parent has a defined height. But the parent (`.pg-pdp-image-col`) also has `height: 100%`, which refers to its parent (`.section-single-product`), which may be infinitely tall (flex container).
+
+**Result:** Gallery expands to fit ALL images, growing beyond the info card height.
+
+### Why This Happens
+
+Flex container behavior:
+```css
+.section-single-product {
+    display: flex;
+    align-items: stretch;  /* Children match each other's height */
+}
+
+.pg-pdp-image-col {
+    height: 100%;  /* Refers to .section-single-product height */
+}
+
+.pg-gallery-container {
+    height: 100%;  /* Refers to .pg-pdp-image-col height = infinite if content grows */
+}
+```
+
+The gallery content (all 2x2 images) causes the column to grow infinitely.
+
+### Solution: Use max-height with Viewport Constraints
+
+```css
+@media (min-width: 992px) {
+  .pg-pdp-image-col {
+    max-height: calc(100vh - 200px);  /* Limit to viewport - header/margins */
+    overflow-y: auto;  /* Allow scroll within container */
+  }
+
+  .pg-gallery-container {
+    max-height: 100%;  /* Cap to parent's max-height */
+    overflow-y: auto;
+  }
+}
+```
+
+**Why this works:**
+- `max-height: calc(100vh - 200px)` creates a hard ceiling
+- `overflow-y: auto` allows scrolling when content exceeds max-height
+- Child elements cannot exceed parent's max-height
+
+---
+
+## Pattern 3: Modal Responsiveness - Viewport vs Container Sizing
+
+### Problem
+
+When modal opens fullscreen (`position: fixed; width: 100%; height: 100%`), the image inside loads at original resolution (e.g., 2400x3000px). Result: image is MUCH larger than viewport, forcing user to zoom out to see entire image.
+
+### Why This Happens
+
+```css
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-main-img {
+    /* ❌ NO CONSTRAINTS */
+    src="...product_image_url('original')"  /* Full resolution */
+}
+```
+
+Browser renders image at native dimensions (2400x3000) → exceeds viewport (1920x1080) → image doesn't fit.
+
+### Solution: Viewport-Relative Sizing with object-fit
+
+```css
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-main-img {
+    max-width: 90vw !important;      /* 90% of viewport width */
+    max-height: 90vh !important;     /* 90% of viewport height */
+    width: auto !important;          /* Maintain aspect ratio */
+    height: auto !important;         /* Maintain aspect ratio */
+    object-fit: contain !important;  /* Fit image in box without distortion */
+}
+```
+
+**Why this works:**
+- `max-width: 90vw` caps width to 90% of current viewport
+- `max-height: 90vh` caps height to 90% of current viewport
+- Together, they fit image in a 90% × 90% box
+- `object-fit: contain` shrinks image proportionally to fit inside
+- `width: auto` + `height: auto` prevent stretching/distortion
+
+---
+
+## Pattern 4: Interactive Elements in Fullscreen Modals
+
+### Problem
+
+Navigation arrows in modal are z-stacked incorrectly, positioned absolutely without proper layering. Result: arrows either invisible or unclickable due to:
+- Lower z-index than modal backdrop
+- Position: relative without explicit positioning
+- No pointer-events handling
+
+### Solution: Explicit Stacking and Positioning
+
+```css
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-nav {
+    display: flex !important;
+    position: absolute !important;
+    z-index: 1010 !important;  /* Above modal container (1100) */
+    width: 44px !important;
+    height: 44px !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    border-radius: 50% !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.pg-modal-nav--prev {
+    left: 20px !important;  /* Left side */
+}
+
+.pg-modal-nav--next {
+    right: 20px !important;  /* Right side */
+}
+```
+
+**Why this works:**
+- `z-index: 1010` ensures arrows are above modal (1100 is backdrop, 1010 is content)
+- `position: absolute` with explicit `left` / `right` places arrows reliably
+- `flex` centers icon inside button
+- `cursor: pointer` signals interactivity
+- `transition` provides visual feedback on hover
+
+---
+
+## Debugging Checklist
+
+When CSS changes aren't taking effect:
+
+```
+□ 1. DevTools Computed Tab
+   ☐ Check which rule is ACTIVE (bold)
+   ☐ Check which rules are STRIKETHROUGH (overridden)
+   ☐ Note the file/line where active rule comes from
+
+□ 2. Identify Rule Source
+   ☐ Is it from style-critical.tpl?
+   ☐ Is it from layout.tpl inline <style>?
+   ☐ Is it from settings.css_code (admin custom CSS)?
+   ☐ Is it from style-colors.scss.tpl?
+
+□ 3. Determine Load Order
+   ☐ Which file loads LAST?
+   ☐ Does winner rule have !important?
+   ☐ What's the specificity? (body .class = higher than .class)
+
+□ 4. Choose Edit Location
+   ☐ If rule is from layout.tpl → EDIT layout.tpl
+   ☐ If rule is from style-critical.tpl → EDIT style-critical.tpl
+   ☐ Match specificity of existing rule (e.g., body .selector for layout.tpl)
+
+□ 5. Validate Change
+   ☐ Hard refresh browser (Ctrl+Shift+Delete)
+   ☐ Check DevTools Computed tab again
+   ☐ Verify rule is now ACTIVE (bold) and no longer STRIKETHROUGH
+```
+
+---
+
+## References
+
+- **Story:** STORY-9.2-UX-AJUSTES-LAYOUT
+- **Commits:** d8b46ca, 0ab08ba, 88a7e21
+- **Version:** v1.5.151
+- **Related:** learned-patterns-bootstrap-css-override.yaml
+
+---
+
+## For Next Developer
+
+When debugging CSS that "should work but doesn't":
+
+1. Read this pattern file FIRST
+2. Check DevTools Computed tab
+3. Identify which FILE the active rule comes from
+4. Edit THAT file, not a different one
+5. Don't assume style-critical.tpl is where all CSS goes — layout.tpl is equally important
+
+**Common mistake:** "I edited style-critical.tpl but nothing changed" → Actually need to edit layout.tpl
+
+---
+
+**Last Updated:** 2026-03-26 (Post v1.5.151 fixes)
+**Maintainer:** @dev (Dex)
+**Tags:** #css #specificity #layout.tpl #nuvemshop #modal #responsive
+

@@ -331,7 +331,9 @@
                 align-items: center !important;
                 justify-content: center !important;
                 flex-wrap: wrap !important;
-                gap: 0.5em !important;
+                /* Same gap as style-critical.tpl .section-advertising__copy */
+                gap: clamp(0.75rem, 2.5vw, 1.75rem) !important;
+                row-gap: 0.35em !important;
                 font-size: 0.65rem !important;
                 font-weight: 600 !important;
                 letter-spacing: 0.1px !important;
@@ -348,11 +350,6 @@
                 white-space: normal !important;
             }
 
-            body .section-advertising__separator {
-                display: inline !important;
-                margin: 0 0.3em !important;
-                color: rgba(0, 0, 0, 0.5) !important;
-            }
             body .section-advertising__link {
                 text-decoration: none !important;
                 color: inherit !important;
@@ -368,10 +365,6 @@
                 }
                 body .section-advertising__copy {
                     font-size: 0.55rem !important;
-                    gap: 0.3em !important;
-                }
-                body .section-advertising__separator {
-                    margin: 0 0.2em !important;
                 }
             }
             @media (min-width: 577px) and (max-width: 991px) {
@@ -380,20 +373,12 @@
                 }
                 body .section-advertising__copy {
                     font-size: 0.65rem !important;
-                    gap: 0.4em !important;
-                }
-                body .section-advertising__separator {
-                    margin: 0 0.25em !important;
                 }
             }
 
             @media (min-width: 992px) {
                 body .section-advertising__copy {
                     font-size: 0.7rem !important;
-                    gap: 0.5em !important;
-                }
-                body .section-advertising__separator {
-                    margin: 0 0.3em !important;
                 }
             }
         </style>
@@ -922,6 +907,83 @@
         }
         .pg-card .pg-card__image-container {
         }
+
+        /* ============================================
+           PDP — Hierarquia de preço (Pix/desconto + parcelamento)
+           Escopo: body.template-product #single-product apenas.
+           Não alterar display/visibility: store.js.tpl controla show/hide.
+        ============================================ */
+        body.template-product #single-product .pg-price-block {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+        }
+        body.template-product #single-product .pg-price-pix-highlight,
+        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product-container {
+            font-family: var(--pg-font-body) !important;
+            line-height: 1.25 !important;
+        }
+        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product {
+            font-size: 26px !important;
+            font-weight: 800 !important;
+            color: #000 !important;
+            letter-spacing: -0.02em !important;
+        }
+        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product-container {
+            font-size: 15px !important;
+            font-weight: 600 !important;
+        }
+        body.template-product #single-product .pg-price-block:not(:has(.pg-price-pix-highlight)) .pg-price-original {
+            font-family: var(--pg-font-body) !important;
+            font-size: 26px !important;
+            font-weight: 800 !important;
+            color: #000 !important;
+            letter-spacing: -0.02em !important;
+            text-decoration: none !important;
+        }
+        body.template-product #single-product .pg-price-block:has(.pg-price-pix-highlight) .pg-price-original {
+            font-family: var(--pg-font-body) !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            color: #666 !important;
+            text-decoration: line-through !important;
+            text-decoration-thickness: 1px !important;
+        }
+        body.template-product #single-product .pg-price-block .pg-price-compare-at {
+            font-family: var(--pg-font-body) !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            color: #888 !important;
+            text-decoration: line-through !important;
+        }
+        body.template-product #single-product .pg-price-installments {
+            font-family: var(--pg-font-body) !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: #000 !important;
+            line-height: 1.45 !important;
+            margin-top: 2px !important;
+        }
+        body.template-product #single-product .pg-price-installments .js-installment-amount {
+            font-weight: 800 !important;
+        }
+        body.template-product #single-product .pg-price-installments .js-installment-price {
+            font-weight: 800 !important;
+        }
+        @media (max-width: 576px) {
+            body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product {
+                font-size: 22px !important;
+            }
+            body.template-product #single-product .pg-price-block:not(:has(.pg-price-pix-highlight)) .pg-price-original {
+                font-size: 22px !important;
+            }
+            body.template-product #single-product .pg-price-installments {
+                font-size: 14px !important;
+            }
+        }
+
         /* ============================================
            CATEGORY DESCRIPTION: Match 'VISTA O PROPÓSITO' style
         ============================================ */

@@ -94,7 +94,7 @@ Total: ~11-15 hours
 
 **Before Phase 2 (Extraction):**
 - [ ] CSS categorization 100% complete
-- [ ] Mapeamento documentado em docs/analysis/8.2-css-analysis.md
+- [ ] Mapeamento documentado em Docs/reports/.archive/epic8/8.2-css-analysis.md
 - [ ] Gabriel aprova o mapeamento
 - [ ] Backup de style-critical.tpl criado
 
@@ -117,7 +117,7 @@ Total: ~11-15 hours
 ## 📚 Documentation Generated
 
 - [x] `.ai/decision-log-8.2.md` ← You are here ✅ COMPLETE
-- [x] `docs/analysis/8.2-css-analysis.md` (detailed CSS mapping) ✅ COMPLETE
+- [x] `Docs/reports/.archive/epic8/8.2-css-analysis.md` (detailed CSS mapping) ✅ COMPLETE
 - [x] `docs/guides/8.2-implementation-guide.md` (step-by-step implementation) ✅ COMPLETE
 - [ ] Story 8.2 Dev Agent Record (progress tracking) — Next step
 
@@ -236,7 +236,7 @@ Total: ~11-15 hours
 - Calculated size impact per section (~30-40 KB critical, ~128-138 KB async)
 
 **1.2 Document analysis** ✅
-- Created docs/analysis/8.2-css-analysis.md
+- Created Docs/reports/.archive/epic8/8.2-css-analysis.md
 - Detailed mapping of each CSS section
 - Size impact summary complete
 

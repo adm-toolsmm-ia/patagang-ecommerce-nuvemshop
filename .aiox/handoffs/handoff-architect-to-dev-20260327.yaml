@@ -112,7 +112,7 @@ timeline:
   after_dev_complete: Handoff to @devops for FTP deploy v1.6.1
 
 artifacts:
-  investigation: docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md
+  investigation: Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md
   approach: docs/architecture/9.1-IMPLEMENTATION-APPROACH.md
   this_handoff: .aiox/handoffs/handoff-architect-to-dev-20260327.yaml
 

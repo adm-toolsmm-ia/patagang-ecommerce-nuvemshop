@@ -121,7 +121,7 @@ If ANY step fails:
 ### Actions (Gabriel)
 1. Open: `https://patagang.com.br/`
 2. Console (F12): Check for "📦 PATAGANG vX.X.X"
-3. Use: `Docs/guides/8.2-MARQUEE-VALIDATION-CHECKLIST.md` (or story-specific checklist)
+3. Use: `Docs/stories/.archive/8.2/guides/8.2-MARQUEE-VALIDATION-CHECKLIST.md` (or story-specific checklist)
 4. Test: Desktop, Tablet, Mobile
 5. Report: ✅ APPROVED or ⚠️ CONCERNS or ❌ FAILED
 
@@ -300,7 +300,7 @@ IF CONCERNS/FAILED:
 - **Nuvemshop Constraints:** `.claude/rules/nuvemshop-ftp-constraints.md`
 - **Deployment Script:** `ftp-deploy/deploy.js`
 - **Rollback Script:** `ftp-deploy/rollback-incremental.js`
-- **Validation Checklist:** `Docs/guides/8.2-MARQUEE-VALIDATION-CHECKLIST.md`
+- **Validation Checklist:** `Docs/stories/.archive/8.2/guides/8.2-MARQUEE-VALIDATION-CHECKLIST.md`
 
 ---
 

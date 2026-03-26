@@ -168,7 +168,7 @@ Each story follows the same workflow:
 ## 📚 Related Documentation
 
 - **Epic Planning:** [Technical Debt Assessment](../prd/technical-debt-assessment.md)
-- **Execution Guide:** [Refactoring Execution Guide](../guides/refactoring-execution-guide.md)
+- **Execution Guide (arquivo Epic 8):** [Refactoring Execution Guide](../epics/.archive/refactoring-execution-guide.md)
 - **Checklists:** [Phase Validation Checklists](./../../.aiox-core/development/checklists/refactoring-phase-validation.md)
 - **Constraints:** [Nuvemshop FTP Constraints](./../../.claude/rules/nuvemshop-ftp-constraints.md)
 

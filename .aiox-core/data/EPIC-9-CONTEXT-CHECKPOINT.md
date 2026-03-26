@@ -143,7 +143,7 @@ Refinar UX/UI mobile + consolidar aprendizados de EPIC 8 de forma segura (sem im
 
 ### PHASE 1: Investigation (✅ COMPLETED 2026-03-27)
 ```
-Investigation Report: docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md
+Investigation Report: Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md
 Root Cause: CSS rule scoping side effect from Story 8.2 banner adjustments
 Confidence: 95%
 Recommended Solution: Solution A (Adjust main padding-top for generic pages)
@@ -182,7 +182,7 @@ Fri: Buffer/Testing
 ## 📊 Investigation Results (Story 9.1) — ✅ COMPLETED
 
 ### Root Cause Identified
-**File:** `docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md` ✅
+**File:** `Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md` ✅
 
 **The Issue:**
 CSS rule scoping side effect from Story 8.2 product page refactoring. Generic pages inherit `main.patagang-section-content { padding-top: 160px; }` which, combined with `body { background-color: #ffffff !important; }`, creates visual appearance of "white background band" below header on pages like /comunidade/.
@@ -207,7 +207,7 @@ CSS rule scoping side effect from Story 8.2 product page refactoring. Generic pa
 
 ### EPIC 9 Analysis Documents
 ```
-✅ Docs/guides/EPIC-9-VALIDATION-FINDINGS-CONSOLIDATED.md
+✅ Docs/architecture/.archive/epic-9/EPIC-9-VALIDATION-FINDINGS-CONSOLIDATED.md
    └─ Deep analysis of 6 ajustes (350+ lines)
    └─ Root causes, requirements, patterns
 
@@ -260,7 +260,7 @@ CSS rule scoping side effect from Story 8.2 product page refactoring. Generic pa
    - Chrome DevTools analysis
    - Code investigation
    - Hypothesis testing
-   - Report: `docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md`
+   - Report: `Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md`
 
 2. **Gabriel:** Review investigation findings
    - Approve root cause diagnosis
@@ -294,7 +294,7 @@ CSS rule scoping side effect from Story 8.2 product page refactoring. Generic pa
 
 ```
 EPIC 9 Planning & Analysis:
-├─ Docs/guides/EPIC-9-VALIDATION-FINDINGS-CONSOLIDATED.md
+├─ Docs/architecture/.archive/epic-9/EPIC-9-VALIDATION-FINDINGS-CONSOLIDATED.md
 │  └─ 6 ajustes analysis + root causes + padrões
 │
 ├─ .aiox-core/data/EPIC-9-IMPLEMENTATION-WORKFLOW.md
@@ -306,7 +306,7 @@ EPIC 9 Planning & Analysis:
    └─ Structured 3-phase methodology
 
 Current Work:
-├─ docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md
+├─ Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md
 │  └─ [To be created during investigation]
 │
 └─ docs/epics/EPIC-9-MOBILE-UX-REFINEMENT.md
@@ -316,7 +316,7 @@ Supporting:
 ├─ .aiox-core/data/EPIC-8-STATUS-REAL-ANALYSIS.md
 │  └─ EPIC 8 completion analysis (context for improvements)
 │
-└─ Docs/guides/EPIC-9-VALIDATION-FINDINGS-CONSOLIDATED.md
+└─ Docs/architecture/.archive/epic-9/EPIC-9-VALIDATION-FINDINGS-CONSOLIDATED.md
    └─ Detailed analysis of each ajuste
 ```
 
@@ -336,7 +336,7 @@ Supporting:
    ├─ Workflow AIOX 10/10 definido
    ├─ Story 9.1 INVESTIGATION COMPLETE ✅
    │  └─ Root cause: CSS rule scoping side effect (95% confidence)
-   │  └─ Report: docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md
+   │  └─ Report: Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md
    │  └─ Solutions: 3 options proposed, A recommended (45 min effort)
    ├─ Ready para @architect approach proposal
    └─ Ready para @dev implementation
@@ -377,6 +377,6 @@ cb6a1b4 docs: correct Story 8.5 status
 **Investigation Completed:** 2026-03-27 23:55 UTC
 **Last Action:** Awaiting Gabriel review of investigation report
 
-**Report Location:** `docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md`
+**Report Location:** `Docs/reports/epic-9/9.1-WHITE-BACKGROUND-INVESTIGATION.md`
 **Next Action:** Gabriel approves → @architect proposes approach → Implementation starts
 

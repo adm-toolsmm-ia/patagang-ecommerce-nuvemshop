@@ -1,0 +1,152 @@
+---
+# Product Page Spacing Fix — Analysis & Execution Plan
+# Created: 2026-03-26 18:00 UTC
+# Orchestrator: Orion (@aiox-master)
+# Execution: @dev (Dex) + @qa (Quinn) + @devops (Gage)
+# Story: Epic 8 Phase B (continuation)
+
+issue:
+  title: "Espaçamento vazio desnecessário entre header e galeria de produto"
+  severity: MEDIUM
+  impact_area: "Página de produto (todas as rotas /produto/*)"
+  user_reported_by: "Gabriel Cristofolini (CTO)"
+
+analysis:
+  root_cause: "Redundant margin-top on .product-informative-banner"
+  description: |
+    O `.product-informative-banner` tem `margin-top: 130px` que é REDUNDANTE com
+    `main.patagang-section-content { padding-top: 160px }`.
+
+    Cascata CSS atual:
+    1. main.patagang-section-content: padding-top: 160px (afasta todo conteúdo do header sticky)
+    2. .product-informative-banner: margin-top: 130px (EXTRA! Cria gap vazio)
+
+    Resultado: ~130px de espaço vazio entre identity banner e galeria.
+
+  affected_css_rules:
+    - file: "theme-deploy-corrigido/static/css/style-critical.tpl"
+      line: 2054
+      rule: "div.product-informative-banner { margin-top: 130px; }"
+      scope: "Página de produto (template == 'product')"
+      protected: false
+
+solution_selected: "OPTION_1_SURGICAL"
+rationale: |
+  - Minimal change (1 line CSS)
+  - Removes redundant spacing exactly
+  - Zero regression risk (template-scoped)
+  - 15 minutes total (impl + validation)
+  - Easily reversible if needed
+
+patch_details:
+  description: "Remove margin-top: 130px from .product-informative-banner"
+  file: "theme-deploy-corrigido/static/css/style-critical.tpl"
+  line_number: 2054
+
+  before: |
+    div.product-informative-banner {
+      background: transparent;
+      background-color: transparent;
+      padding: 0.5rem 0;
+      margin-top: 130px;  /* ❌ REDUNDANTE */
+    }
+
+  after: |
+    div.product-informative-banner {
+      background: transparent;
+      background-color: transparent;
+      padding: 0.5rem 0;
+      margin-top: 0;  /* ✅ Remove gap (main padding-top já afasta) */
+    }
+
+  lines_changed: 1
+  risk_level: VERY_LOW
+
+constraints_preserved:
+  - "✅ Galeria de produto — visível sem distorção"
+  - "✅ Info card — alinhado com galeria em desktop"
+  - "✅ Banner informativo — acima da galeria"
+  - "✅ Header sticky — mantém comportamento sticky"
+  - "✅ Banner de aviso padrão (identity) — presente"
+  - "✅ Sem regressão em home/categoria"
+
+validation_checklist:
+  desktop_1920:
+    - "Página carrega sem erros (F12 Console limpo)"
+    - "Galeria visível logo após banner informativo"
+    - "Header sticky não sobrepõe conteúdo"
+    - "Gap vazio eliminado"
+    - "Scroll suave"
+
+  tablet_768:
+    - "Responsividade mantida"
+    - "Identity banner quebra linha (esperado)"
+    - "Galeria alinhada após banner"
+
+  mobile_375:
+    - "Galeria em carousel (esperado)"
+    - "Sem gap vazio"
+    - "Header sticky funciona corretamente"
+
+  other_pages:
+    - "Home: sem regressão"
+    - "Categoria: sem regressão"
+    - "Busca: sem regressão"
+
+execution_workflow:
+  phase_1_dev:
+    description: "Implementar patch CSS"
+    assignee: "@dev (Dex)"
+    steps:
+      - "Leia style-critical.tpl (linha ~2054)"
+      - "Mude margin-top: 130px para margin-top: 0"
+      - "Verifique sintaxe CSS (nenhuma quebra)"
+      - "Commit: 'fix: remove redundant margin-top from product informative banner [Epic 8.3]'"
+
+  phase_2_devops:
+    description: "Deploy para produção via FTP"
+    assignee: "@devops (Gage)"
+    steps:
+      - "Verifica gates (git commit, constraints, versioning)"
+      - "Executa: node ftp-deploy/deploy.js 'vX.X.X: Fix product spacing gap [Epic 8.3]' --force"
+      - "Backup criado automaticamente"
+      - "Aguarda validação de Gabriel"
+
+  phase_3_gabriel:
+    description: "Validação visual em produção"
+    assignee: "Gabriel (CTO)"
+    steps:
+      - "Acessa https://patagang.com.br/produto/xyz"
+      - "Verifica gap vazio eliminado"
+      - "Testa em desktop/tablet/mobile"
+      - "Aprova: '✅ OK para prosseguir' OU encontra problemas"
+
+  phase_4_qa:
+    description: "QA Gate checklist"
+    assignee: "@qa (Quinn)"
+    checklist:
+      - "Validação visual confirmada"
+      - "Sem regressão em outras páginas"
+      - "Sticky header funcionando"
+      - "Responsive em todos breakpoints"
+    verdict: "PASS (se tudo OK) → Story avança para merge"
+
+metadata:
+  created_at: "2026-03-26T18:00:00Z"
+  orchestrator: "Orion (@aiox-master)"
+  story_context: "Epic 8.3 Phase B — Banner de Aviso + CSS Fixes"
+  related_story: "https://github.com/docs/stories/STORY-8.3-BANNER-AVISO-QA-VALIDATION.md"
+  priority: "MEDIUM (UX improvement)"
+  estimated_time: "15 minutes (implementation + validation)"
+
+rollback_plan: |
+  Se problema encontrado:
+  1. Gabriel informa: "vX.X.X encontrou problema..."
+  2. @dev reverte: margin-top: 0 → margin-top: 130px
+  3. Novo commit + deploy vX.X.X+1
+  4. Re-validação
+
+  OU:
+
+  @devops executa rollback:
+  node ftp-deploy/rollback-incremental.js --version vX.X.X-1

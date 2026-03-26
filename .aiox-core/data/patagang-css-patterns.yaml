@@ -417,7 +417,7 @@ Today (Story 9.1): Unmaintainable mess
 
 ## REFERENCE DOCUMENTS
 
-- **Deep CSS Analysis:** `Docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md`
+- **Deep CSS Analysis:** `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md`
 - **CSS Cascade Guide:** `Docs/architecture/patagang-css-cascade.md`
 - **Architecture Context:** `Docs/architecture/EPIC-9-EXECUTION-CONTEXT.md`
 - **Architecture State:** `.aiox-core/data/patagang-architecture-state.yaml`

@@ -74,7 +74,7 @@ agentValidations:
 
 documentation:
 
-  - file: "Docs/reports/SQUAD-VALIDATION-v1.5.161-BANNER-FIXED.md"
+  - file: "Docs/reports/.archive/sessions/SQUAD-VALIDATION-v1.5.161-BANNER-FIXED.md"
     purpose: "Relatório central de validação (preenchido por agentes)"
     status: "✅ TEMPLATE PRONTO"
     sections:
@@ -84,7 +84,7 @@ documentation:
       - "Validação de 8 constraints Nuvemshop"
       - "Status geral e checklist final"
 
-  - file: "Docs/guides/SQUAD-COORDINATION-v1.5.161-VALIDATION.md"
+  - file: "Docs/project/.archive/sessions/SQUAD-COORDINATION-v1.5.161-VALIDATION.md"
     purpose: "Guia detalhado para cada agente (o que validar, como)"
     status: "✅ PRONTO"
     sections:
@@ -94,7 +94,7 @@ documentation:
       - "Arquivos críticos a revisar"
       - "Padrão proposto (3 camadas)"
 
-  - file: "Docs/reports/EXECUTIVE-SUMMARY-v1.5.161-SQUAD-VALIDATION.md"
+  - file: "Docs/reports/.archive/sessions/EXECUTIVE-SUMMARY-v1.5.161-SQUAD-VALIDATION.md"
     purpose: "Sumário executivo para Gabriel (visão rápida)"
     status: "✅ PRONTO"
     content: "Baseline, status, insights, cronograma"
@@ -186,9 +186,9 @@ nextSteps:
 ## REFERÊNCIA RÁPIDA (PARA PRÓXIMOS 10 MIN)
 
 quicklinks:
-  reportCentral: "Docs/reports/SQUAD-VALIDATION-v1.5.161-BANNER-FIXED.md"
-  coordinationGuide: "Docs/guides/SQUAD-COORDINATION-v1.5.161-VALIDATION.md"
-  executiveSummary: "Docs/reports/EXECUTIVE-SUMMARY-v1.5.161-SQUAD-VALIDATION.md"
+  reportCentral: "Docs/reports/.archive/sessions/SQUAD-VALIDATION-v1.5.161-BANNER-FIXED.md"
+  coordinationGuide: "Docs/project/.archive/sessions/SQUAD-COORDINATION-v1.5.161-VALIDATION.md"
+  executiveSummary: "Docs/reports/.archive/sessions/EXECUTIVE-SUMMARY-v1.5.161-SQUAD-VALIDATION.md"
   learnedPatterns: ".aiox-core/data/patagang-learned-patterns.yaml"
   thisCheckpoint: ".aiox-core/data/squad-validation-checkpoint-2026-03-26.yaml"
 
@@ -228,5 +228,5 @@ O que foi preparado:
 ✅ Cronograma paralelo (~90 min para validação completa)
 
 Próximo: Monitorar enquanto agentes preenchem relatório central
-         (Docs/reports/SQUAD-VALIDATION-v1.5.161-BANNER-FIXED.md)
+         (Docs/reports/.archive/sessions/SQUAD-VALIDATION-v1.5.161-BANNER-FIXED.md)
 """

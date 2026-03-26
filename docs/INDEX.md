@@ -13,11 +13,11 @@ All 5 stories completed and deployed to production (v1.5.93).
 
 | Story | Title | Version | Status | Documentation |
 |-------|-------|---------|--------|---------------|
-| **8.1** | Design Tokens Unification | v1.5.x | ✅ DONE | [Story](stories/8.1-design-tokens-unification.story.md) |
-| **8.2** | Critical CSS Reduction | v1.5.x | ✅ DONE | [Story](stories/8.2-critical-css-reduction.story.md) \| [Guides](guides/8.2/) |
-| **8.3** | !important Resolution | v1.5.x | ✅ DONE | [Story](stories/8.3-important-resolution.story.md) \| [Guides](guides/8.3/) |
-| **8.4** | Template Cleanup | v1.5.93 | ✅ DONE | [Story](stories/8.4-template-cleanup.story.md) \| [Guides](guides/8.4/) |
-| **8.5** | JavaScript Optimization | v1.5.93 | ✅ APPROVED | [Story](stories/8.5-javascript-optimization.story.md) \| [Guides](guides/8.5/) |
+| **8.1** | Design Tokens Unification | v1.5.x | ✅ DONE | [Story](../Docs/stories/.archive/8.1/8.1-design-tokens-unification.story.md) |
+| **8.2** | Critical CSS Reduction | v1.5.x | ✅ DONE | [Story](../Docs/stories/.archive/8.2/8.2-critical-css-reduction.story.md) \| [Guides](../Docs/stories/.archive/8.2/guides/) |
+| **8.3** | !important Resolution | v1.5.x | ✅ DONE | [Story](../Docs/stories/.archive/8.3/8.3-important-resolution.story.md) \| [Guides](../Docs/stories/.archive/8.3/guides/) |
+| **8.4** | Template Cleanup | v1.5.93 | ✅ DONE | [Story](../Docs/stories/.archive/8.4/8.4-template-cleanup.story.md) \| [Guides](../Docs/stories/.archive/8.4/guides/) |
+| **8.5** | JavaScript Optimization | v1.5.93 | ✅ APPROVED | [Story](../Docs/stories/.archive/8.5/8.5-javascript-optimization.story.md) \| [Guides](../Docs/stories/.archive/8.5/guides/) |
 
 ---
 
@@ -65,17 +65,17 @@ Implementation guides, checklists, and workflow documentation organized by story
 Technical reports, deployment summaries, and execution logs organized by domain.
 
 #### Epic 8 Execution
-- `reports/epic8/` — Consolidated Epic 8 documentation
+- `reports/.archive/epic8/` — Consolidated Epic 8 documentation
   - `EPIC8-EXECUTION-MASTER-LOG.md` — Complete execution history
   - `BROWNFIELD-DISCOVERY-COMPLETION-SUMMARY.md` — Discovery summary
   - `REFACTORING-EPIC8-SUMMARY.md` — Epic completion report
   - `REFACTORING-STATUS.md` — Status tracking across phases
   - `STORY-8.3-*.md` — Story-specific reports (deployment, validation, audit)
-  - `8.2-css-analysis.md` — CSS analysis from Story 8.2
+  - [`8.2-css-analysis.md`](../Docs/reports/.archive/epic8/8.2-css-analysis.md) — CSS analysis from Story 8.2 (Epic 8 arquivo)
   - `GITHUB-INTEGRATION-VALIDATION.md` — GitHub integration validation
 
 #### Deployment Reports
-- `reports/DEVOPS-DEPLOYMENT-REPORT.md` — FTP deployment workflow & logs
+- `reports/.archive/sessions/DEVOPS-DEPLOYMENT-REPORT.md` — FTP deployment workflow & logs (arquivo)
 - `reports/*.md` — Previous story completion reports
 
 ### 🏗️ Architecture — Design Decisions & Technical Analysis
@@ -95,9 +95,9 @@ System design, technical decisions, and architectural documentation.
 
 ### For **Gabriel** (Project Owner/CTO)
 **Validation & Approval:**
-- [Epic 8 Master Log](reports/epic8/EPIC8-EXECUTION-MASTER-LOG.md) — Complete history
+- [Epic 8 Master Log](reports/.archive/epic8/EPIC8-EXECUTION-MASTER-LOG.md) — Complete history
 - [Story 8.5 JavaScript Optimization](stories/8.5-javascript-optimization.story.md) — Current story in validation
-- [Deployment Status](reports/epic8/REFACTORING-EPIC8-SUMMARY.md) — v1.5.93 deployment details
+- [Deployment Status](reports/.archive/epic8/REFACTORING-EPIC8-SUMMARY.md) — v1.5.93 deployment details
 - **Validate at:** https://patagang.com.br/ (v1.5.93 production)
 
 **Framework & Architecture:**
@@ -106,10 +106,10 @@ System design, technical decisions, and architectural documentation.
 
 ### For **@dev** (Development Team)
 **Implementation Guides:**
-- [Story 8.2 Guides](guides/8.2/) — CSS reduction techniques & checklist
-- [Story 8.3 Guides](guides/8.3/) — CSS specificity strategy
-- [Story 8.4 Guides](guides/8.4/) — Template cleanup process
-- [Story 8.5 Guides](guides/8.5/) — JavaScript optimization patterns
+- [Story 8.2 Guides (arquivo)](../Docs/stories/.archive/8.2/guides/) — CSS reduction techniques & checklist
+- [Story 8.3 Guides (arquivo)](../Docs/stories/.archive/8.3/guides/) — CSS specificity strategy
+- [Story 8.4 Guides (arquivo)](../Docs/stories/.archive/8.4/guides/) — Template cleanup process
+- [Story 8.5 Guides (arquivo)](../Docs/stories/.archive/8.5/guides/) — JavaScript optimization patterns
 
 **Technical Reference:**
 - [Learned Patterns](../.aiox-core/data/patagang-learned-patterns.yaml) — CSS, cart recovery, FTP strategies
@@ -117,17 +117,17 @@ System design, technical decisions, and architectural documentation.
 
 ### For **@qa** (Quality Assurance)
 **Validation Checklists:**
-- [Epic 8 Workflow](guides/EPIC-8-WORKFLOW-COMPLETE-GUIDE.md) — Validation process
+- [Epic 8 Workflow (arquivo)](../Docs/epics/.archive/EPIC-8-WORKFLOW-COMPLETE-GUIDE.md) — Validation process
 - [Story Acceptance Criteria](stories/8.1-design-tokens-unification.story.md#acceptance-criteria) — Testing requirements
 - [FTP Pre-Gate Checklist](../.claude/rules/devops-epic8-standard-workflow.md) — Deployment validation
 
 **QA Reports:**
-- [Epic 8 Reports](reports/epic8/) — All quality gates & verdicts
+- [Epic 8 Reports](reports/.archive/epic8/) — All quality gates & verdicts
 
 ### For **@devops** (Deployment/Infrastructure)
 **Deployment Procedures:**
 - [DevOps Standard Workflow](../.claude/rules/devops-epic8-standard-workflow.md) — Mandatory workflow (Commit → Deploy → Validate → Push)
-- [Deployment Status](reports/epic8/) — Version tracking & backup locations
+- [Deployment Status](reports/.archive/epic8/) — Version tracking & backup locations
 
 **Rollback & Recovery:**
 - [Learned Patterns — FTP Recovery](../.aiox-core/data/patagang-learned-patterns.yaml#ftpRecoverySafe) — Rollback procedure
@@ -177,14 +177,14 @@ System design, technical decisions, and architectural documentation.
 ### What Changed
 All documentation moved from scattered locations to proper AIOX L4 structure:
 - **Before:** Stories mixed with guides, reports, logs all in `Docs/guides/`
-- **After:** Organized by type (stories/, guides/8.x/, reports/epic8/, architecture/patagang/)
+- **After:** Organized by type (stories/, guides/8.x/, reports/.archive/epic8/, architecture/patagang/)
 
 ### Files Reorganized
 | File(s) | From | To | Reason |
 |---------|------|----|---------|
 | Story files | Docs/ | Docs/stories/ | Formal story documents |
 | Story guides/checklists | Docs/guides/ | Docs/guides/8.x/ | Organized by story |
-| Reports/logs | Scattered | Docs/reports/epic8/ | Consolidated in reports domain |
+| Reports/logs | Scattered | Docs/reports/.archive/epic8/ | Consolidated in reports domain |
 | Architecture analysis | .aiox/ | Docs/architecture/patagang/ | Permanent documentation |
 | FTP deploy logs | Root + Docs | ftp-deploy/logs/ | Runtime artifacts |
 | Scripts | Root | scripts/ | Utility scripts |
@@ -192,7 +192,7 @@ All documentation moved from scattered locations to proper AIOX L4 structure:
 ### Git History Preserved
 All moves used `git mv` to preserve commit history. Example:
 ```bash
-git log --follow Docs/reports/epic8/EPIC8-EXECUTION-MASTER-LOG.md
+git log --follow Docs/reports/.archive/epic8/EPIC8-EXECUTION-MASTER-LOG.md
 # Shows original location and all commits
 ```
 

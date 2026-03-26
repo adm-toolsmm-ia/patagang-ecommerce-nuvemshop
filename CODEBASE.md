@@ -55,7 +55,7 @@ O bloco `<style id="pg-v3-override-final">` no final do `layout.tpl` é o **úni
 ### CSS
 | Arquivo                           | Conteúdo Crítico                                                                              |
 | --------------------------------- | --------------------------------------------------------------------------------------------- |
-| `static/css/style-critical.tpl`   | `.img-absolute` (position, height), `.img-absolute-centered` (transform), regras base do tema |
+| `static/css/style-critical.tpl`   | `.img-absolute` (position, height), `.img-absolute-centered` (transform), regras base do tema; **ad bar** `.section-advertising__copy` usa `gap` responsivo (`clamp`) — deve ficar **idêntico** ao bloco `{% if settings.ad_bar and settings.ad_text %}` no `layouts/layout.tpl` |
 | `static/css/style-async.scss.tpl` | Regras de alta especificidade para `.item-product`, `.item-image`, grid flex (cacheado!)      |
 | `static/css/product-card-v3.css`  | Estilos dos cards V3 (`.pg-card`, `.pg-card__image`, etc.)                                    |
 | `static/css/style-home-v2.css`    | Estilos da home (não afeta category/search)                                                   |
@@ -88,7 +88,18 @@ Antes de qualquer alteração de frontend, execute este checklist:
 
 ## 🚀 Deploy
 
-- **Script**: `node ftp-deploy/deploy-optimized.js`
-- **Documentação completa**: `ftp-deploy/README.md`
-- **Rollback**: `node ftp-deploy/rollback-incremental.js <timestamp>`
-- **Cache Nuvemshop**: Após deploy, limpar cache em Admin > Meus Temas > 3 pontinhos > Limpar cache
+**Fluxo oficial:** rodar a partir da **raiz do repositório** (o script usa `git` na raiz e evita path errado no FTP).
+
+| Ação | Comando |
+| ---- | ------- |
+| Deploy (incremento patch de versão) | `node ftp-deploy/deploy.js "Descrição da mudança"` |
+| Sem prompts (CI / confiança) | `node ftp-deploy/deploy.js "Descrição" --force` |
+| Só simular | `node ftp-deploy/deploy.js "Descrição" --dry-run` |
+| Incrementar minor em vez de patch | acrescentar `--minor` |
+
+O script atualiza versão (`theme-deploy-corrigido/VERSION.json`, `version-info.js`), faz commit/tag/push conforme configurado e envia ao FTP os arquivos detectados no diff.
+
+- **Conferência rápida**: no site, abrir o console (F12) e localizar a mensagem `PATAGANG v…` coerente com o deploy.
+- **Documentação adicional**: `ftp-deploy/README.md` (backup full, dry-run legado, etc.).
+- **Rollback**: `node ftp-deploy/rollback-incremental.js` — uso e timestamps conforme README do `ftp-deploy`.
+- **Cache Nuvemshop**: após deploy, Admin → Meus Temas → três pontinhos → Limpar cache.

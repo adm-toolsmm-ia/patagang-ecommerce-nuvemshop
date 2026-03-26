@@ -10,7 +10,7 @@
 
 **Read in this order:**
 
-1. ⭐ **[EPIC 9 Execution Context](./EPIC-9-EXECUTION-CONTEXT.md)** (START HERE)
+1. ⭐ **[EPIC 9 Execution Context (Archived)](./.archive/epic-9/EPIC-9-EXECUTION-CONTEXT.md)** (START HERE)
    - Overview of what we discovered
    - CSS cascade explanation
    - Quality gate checklist
@@ -36,13 +36,50 @@
 
 ---
 
+## 🧭 Anatomia da loja — engenharia de contexto (AIOX)
+
+Ordem sugerida para **montar contexto** antes de implementar ou documentar:
+
+| Prioridade | Onde | O quê | Quem |
+|------------|------|-------|------|
+| 1º | **[patagang-store/](./patagang-store/README.md)** (série 01–08) | Visão da loja, páginas, componentes, CSS/JS, dependências, constraints Nuvemshop, deploy | `@architect`, `@dev`, `@qa` |
+| 2º | **[patagang-css-cascade.md](./patagang-css-cascade.md)** | Ordem de carga da CSS, `!important`, troubleshooting em produção | `@dev` em mudanças de estilo |
+| 3º | **[patagang/](./patagang/README.md)** | Análise estrutural v3 + `OPTIMIZATION_PLAN.md` (complemento / histórico de decisões) | `@architect` |
+| 4º | **Dados** — `patagang-architecture-state.yaml`, `patagang-css-patterns.yaml` | Snapshot e padrões máquina-legíveis | Todos os agentes |
+
+**Regra:** para “onde fica o ficheiro / que snipplet usar”, começar por **patagang-store**; para “por que o CSS não aplicou”, **patagang-css-cascade** + YAML de patterns.
+
+---
+
+## 🗄️ ARCHIVED (EPIC 9 Execution)
+
+Os docs de execução/planos da EPIC 9 foram movidos para `./.archive/epic-9/`:
+- `EPIC-9-EXECUTION-CONTEXT.md`
+- `EPIC-9-PHASE-A-CLEANUP-PLAN.md`
+- `EPIC-9-PHASE-A-FINAL-STATE.md`
+- `9.1-IMPLEMENTATION-APPROACH.md`
+- `EPIC-9-VALIDATION-FINDINGS-CONSOLIDATED.md` (achados de validação consolidados)
+
+---
+
+## 📐 Metodologia AIOX, governança e roadmap
+
+| Documento | Finalidade |
+|-----------|------------|
+| [Pasta `methodology/` — índice](./methodology/README.md) | Brownfield standard + referência de **limpeza segura** (tiers, L1–L4) |
+| [AIOX Brownfield Organization Standard](./methodology/AIOX-BROWNFIELD-ORGANIZATION-STANDARD.md) | Fases, pastas `docs/`, hierarquia de contexto |
+| [AIOX Cleanup Reference Summary](./methodology/AIOX-CLEANUP-REFERENCE-SUMMARY.md) | Constitution, preservação, o que nunca apagar em reorganizações |
+| [Structural Refinement Roadmap](./STRUCTURAL-REFINEMENT-ROADMAP.md) | Roadmap de refino estrutural do tema (dependências, CSS/JS) |
+
+---
+
 ## 📁 DOCUMENT STRUCTURE
 
 ### CORE REFERENCE (Read for EPIC 9)
 
 | Document | Location | Purpose | Audience |
 |----------|----------|---------|----------|
-| **EPIC 9 Execution Context** | `Docs/architecture/EPIC-9-EXECUTION-CONTEXT.md` | How to execute Stories 9.1-9.6 safely | Story developers |
+| **EPIC 9 Execution Context** | `Docs/architecture/.archive/epic-9/EPIC-9-EXECUTION-CONTEXT.md` | How to execute Stories 9.1-9.6 safely | Story developers |
 | **CSS Cascade Guide** | `Docs/architecture/patagang-css-cascade.md` | How CSS loading works, troubleshooting | CSS developers |
 | **Architecture State** | `.aiox-core/data/patagang-architecture-state.yaml` | Current system snapshot | Architects, @aiox-master |
 | **CSS Patterns** | `.aiox-core/data/patagang-css-patterns.yaml` | Good/bad patterns, lessons | Architects, @dev |
@@ -51,7 +88,7 @@
 
 | Document | Location | Purpose | Status |
 |----------|----------|---------|--------|
-| **Color Analysis** | `Docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md` | Deep CSS hierarchy analysis (336+ occurrences) | ✅ Complete |
+| **Color Analysis** | `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md` | Deep CSS hierarchy analysis (336+ occurrences) | ✅ Complete |
 | **EPIC 9 Checkpoint** | `.aiox/EPIC-9-CHECKPOINT-20260326.md` | Investigation checkpoint for session resumption | ✅ Complete |
 
 ### CONSTRAINT RULES (Non-Negotiable)
@@ -103,7 +140,7 @@
 Before working on Stories 9.1-9.6:
 
 ```
-□ Read: EPIC-9-EXECUTION-CONTEXT.md (start here)
+□ Read: .archive/epic-9/EPIC-9-EXECUTION-CONTEXT.md (start here)
 □ Read: patagang-css-cascade.md (understand cascade)
 □ Bookmark: patagang-architecture-state.yaml (reference)
 □ Bookmark: patagang-css-patterns.yaml (patterns guide)
@@ -205,7 +242,7 @@ Quick steps:
 
 ### Q: Should I modify style-critical.tpl or style-colors.scss.tpl?
 
-**A:** See **[EPIC-9-EXECUTION-CONTEXT.md](./EPIC-9-EXECUTION-CONTEXT.md) — Execution Guidelines**
+**A:** See **[EPIC-9-EXECUTION-CONTEXT.md](./.archive/epic-9/EPIC-9-EXECUTION-CONTEXT.md) — Execution Guidelines**
 
 Priority:
 1. Layout/structure? → `style-critical.tpl`
@@ -278,7 +315,7 @@ Example:
 
 ### Analysis & Reports
 
-- **Story 9.1 Analysis:** `Docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md`
+- **Story 9.1 Analysis:** `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md`
 - **EPIC 9 Checkpoint:** `.aiox/EPIC-9-CHECKPOINT-20260326.md`
 - **Handoff Artifact:** `.aiox/handoffs/handoff-investigation-to-implementation-20260326.yaml`
 
@@ -292,7 +329,7 @@ Example:
 
 **Questions? Issues?**
 
-1. Check **[EPIC-9-EXECUTION-CONTEXT.md](./EPIC-9-EXECUTION-CONTEXT.md)** FAQ section
+1. Check **[EPIC-9-EXECUTION-CONTEXT.md](./.archive/epic-9/EPIC-9-EXECUTION-CONTEXT.md)** FAQ section
 2. Reference **[patagang-css-cascade.md](./patagang-css-cascade.md)** for CSS issues
 3. Escalate to @architect for architectural decisions
 4. Report patterns to @aiox-master for framework evolution
@@ -313,7 +350,7 @@ Example:
 
 | Role | Start Here |
 |------|-----------|
-| **Story Developer (EPIC 9)** | [EPIC-9-EXECUTION-CONTEXT.md](./EPIC-9-EXECUTION-CONTEXT.md) |
+| **Story Developer (EPIC 9)** | [EPIC-9-EXECUTION-CONTEXT.md](./.archive/epic-9/EPIC-9-EXECUTION-CONTEXT.md) |
 | **CSS Developer** | [patagang-css-cascade.md](./patagang-css-cascade.md) |
 | **Architect** | [Architecture State](../.aiox-core/data/patagang-architecture-state.yaml) |
 | **QA/Validation** | [CSS Patterns](../.aiox-core/data/patagang-css-patterns.yaml) |
