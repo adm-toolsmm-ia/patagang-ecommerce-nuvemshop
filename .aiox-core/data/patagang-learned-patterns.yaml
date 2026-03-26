@@ -147,6 +147,49 @@ devPatterns:
       - "Always test on staging first (but Patagang has no staging — production IS staging)"
       - "Document rollback reason in git for future reference"
     source: "Epic 8.5 (production validation strategy)"
+
+  bannerContentStrategy:
+    name: "Banner Content Strategy — Hardcoded vs Dynamic (Story 8.3 Phase B)"
+    discovered: "2026-03-26"
+    status: "verified"
+    pattern: |
+      DECISION RULE: Use HARDCODED TEXT for banner content when:
+      1. Content is STATIC (never changes without deployment)
+      2. Nuvemshop Liquid syntax is limited (no 'contains', 'for' loops, complex logic)
+      3. Robustness is critical (no parsing errors)
+      4. Performance is key (simpler template = faster render)
+
+      FAILED APPROACH (v1.5.156-160):
+      - Attempted dynamic text via Liquid variables/loops
+      - Nuvemshop doesn't support: 'contains' filter, scoped variables, complex for loops
+      - Result: HTTP 500 errors, parsing failures, rollbacks
+
+      SUCCESSFUL APPROACH (v1.5.161):
+      - Hardcoded 3 phrases: "Frete grátis acima de R$250", "10% OFF no PIX", "30 dias para trocas"
+      - Used flexbox + gap: 0.5em for consistent spacing
+      - 3 breakpoints (mobile/tablet/desktop) for responsivity
+      - Zero Liquid complexity, zero parsing errors
+
+      FUTURE STRATEGY FOR BANNERS:
+      Layer 1 (STATIC): Hardcoded in TPL + CSS (use for marketing banners)
+      Layer 2 (SEMI-STATIC): Config YAML in .aiox-core/data/banners-content.yaml (use for seasonal)
+      Layer 3 (DYNAMIC): API call via custom JS (future phase, if needed)
+
+      Why this layering:
+      - Layer 1 is simplest, most robust, no deploy overhead
+      - Layer 2 allows content changes without code commit (config-driven)
+      - Layer 3 is for truly dynamic content (promotions, inventory, etc.)
+    tools:
+      - "header-advertising.tpl (hardcoded banner)"
+      - "style-critical.tpl (flexbox + gap CSS)"
+      - ".aiox-core/data/banners-content.yaml (future config)"
+    gotchas:
+      - "Don't use Liquid 'contains', 'for loops', or complex logic in Nuvemshop"
+      - "Flexbox gap is reliable alternative to word-spacing/margin hacks"
+      - "3 breakpoints (mobile/tablet/desktop) covers responsive requirements"
+      - "Test HTTP 200 after deploy (500 errors indicate Liquid parsing failure)"
+    confidence: "high"
+    source: "Story 8.3 Phase B (v1.5.161 deployment)"
     confidence: "high"
 
 ## ============================================================================
