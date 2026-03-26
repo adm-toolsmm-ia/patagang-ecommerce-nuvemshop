@@ -716,7 +716,7 @@
 
         {# SECTION 1: Top Banner (Ad Bar) — Completely isolated #}
         <section class="patagang-section-top" role="banner">
-          {% if settings.ad_bar and settings.ad_text %}
+          {% if settings.ad_bar %}
             {% snipplet "header/header-advertising.tpl" %}
           {% endif %}
         </section>
