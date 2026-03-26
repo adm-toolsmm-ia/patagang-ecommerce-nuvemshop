@@ -3054,6 +3054,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	position: relative;
 }
 
+/* Reset alignment on mobile */
+@media (max-width: 991px) {
+	.pg-pdp-info-col {
+		align-items: flex-start !important;
+		justify-content: flex-start !important;
+	}
+}
+
 /* MARCA D'ÁGUA DO LOGO - Visível através do blur do card */
 .pg-pdp-watermark {
 	position: absolute;
