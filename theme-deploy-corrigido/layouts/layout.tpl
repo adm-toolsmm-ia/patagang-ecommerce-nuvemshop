@@ -510,23 +510,32 @@
                 box-sizing: border-box;
             }
 
-            /* GLOBAL HEADER OFFSET: Pushes main content below the absolute/fixed header. 
-               Home page is excluded to allow the transparent header over the hero video/banner. */
+            /* GLOBAL HEADER OFFSET: Pushes main content below the absolute/fixed header.
+               Home page is excluded to allow the transparent header over the hero video/banner.
+               STORY 9.1: Padding rules moved to style-critical.tpl for responsive handling */
+            /* COMMENTED OUT - padding handled in style-critical.tpl with body.template-home selector
             body:not(.template-home) main.patagang-section-content {
                 padding-top: 120px !important;
             }
+            */
             @media (max-width: 991px) {
                 /* FORCE HIDE DESKTOP GRID ON MOBILE/TABLET */
                 .pg-gallery-container { display: none !important; }
             }
             @media (max-width: 992px) {
+                /* COMMENTED OUT - padding handled in style-critical.tpl
                 body:not(.template-home) main.patagang-section-content { padding-top: 110px !important; }
+                */
             }
             @media (max-width: 768px) {
+                /* COMMENTED OUT - padding handled in style-critical.tpl
                 body:not(.template-home) main.patagang-section-content { padding-top: 110px !important; }
+                */
             }
             @media (max-width: 480px) {
+                /* COMMENTED OUT - padding handled in style-critical.tpl
                 body:not(.template-home) main.patagang-section-content { padding-top: 80px !important; }
+                */
             }
 
             /* Mobile breakpoint — explicit spacing between sections */
