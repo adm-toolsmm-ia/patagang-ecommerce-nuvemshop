@@ -4582,4 +4582,39 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     }
 }
 
+/* ============================================
+   PRODUCT GALLERY MODAL — Hidden by default
+   Shows only when aria-hidden="false"
+   ============================================ */
+
+/* Esconde o modal de galeria por padrão */
+#pg-modal-gallery[aria-hidden="true"],
+#pg-modal-gallery[aria-hidden="true"] .pg-modal-container {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+/* Mostra o modal quando ativado via JavaScript */
+#pg-modal-gallery[aria-hidden="false"] {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1100;
+    align-items: center;
+    justify-content: center;
+}
+
+#pg-modal-gallery[aria-hidden="false"] .pg-modal-container {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+}
+
 /* [REMOVED Story 8.2 ETAPA 1] Gallery Modal CSS moved to style-async.scss.tpl */
