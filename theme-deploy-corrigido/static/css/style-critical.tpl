@@ -4637,3 +4637,4 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 }
 
 /* [REMOVED Story 8.2 ETAPA 1] Gallery Modal CSS moved to style-async.scss.tpl */
+

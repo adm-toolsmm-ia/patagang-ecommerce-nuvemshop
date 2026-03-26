@@ -330,3 +330,4 @@ img.pg-help-item__icon {
         max-width: none;
     }
 }
+
