@@ -2926,15 +2926,21 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	/* Gallery grid 2x2: Show on desktop (≥992px) */
+	/* PATAGANG v1.5.151: Limitar altura da galeria para acompanhar card info */
+	.pg-pdp-image-col {
+		max-height: calc(100vh - 200px);  /* Limitar altura da coluna */
+		overflow-y: auto;  /* Scroll se conteúdo ultrapassar */
+	}
+
 	.pg-gallery-container {
 		display: flex !important;
-		height: 100%;
-		max-height: none !important;
+		height: auto;  /* Não forçar 100% (causa overflow) */
+		max-height: 100%;  /* Limitar ao espaço disponível na coluna */
 		overflow-y: auto;
 	}
 
 	.pg-pdp-image-col .pg-gallery-grid {
-		height: 100%;
+		height: auto;
 		align-content: flex-start;
 	}
 }
