@@ -87,8 +87,14 @@
                 background-image: none !important;
             }
 
-            /* CRITICAL: Ensure sections OVERRIDE body background completely */
-            section.patagang-section-top,
+            /* CRITICAL: Ad bar section must match header (WHITE background) */
+            /* PATAGANG v1.5.152: Changed from transparent to white (#ffffff) */
+            section.patagang-section-top {
+                background-color: #ffffff !important;
+                background-image: none !important;
+            }
+
+            /* CRITICAL: Header section stays transparent to inherit body color */
             section.patagang-section-header {
                 background-color: transparent !important;
             }
@@ -258,16 +264,15 @@
             }
             body .section-advertising__copy {
                 display: block !important;
-                font-size: 0.7rem !important;
+                font-size: 0.65rem !important;
                 font-weight: 600 !important;
-                letter-spacing: 0.2px !important;
-                word-spacing: 0.4em !important;
+                letter-spacing: 0.1px !important;
                 color: #000 !important;
                 margin: 0 !important;
-                line-height: 1.4 !important;
-                white-space: nowrap !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
+                line-height: 1.3 !important;
+                white-space: normal !important;
+                overflow: visible !important;
+                text-overflow: clip !important;
             }
             body .section-advertising__link {
                 text-decoration: none !important;
