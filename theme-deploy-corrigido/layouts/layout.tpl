@@ -465,26 +465,70 @@
             }
             body .pg-help-btn__text { font-size: 11px !important; }
         }
+        {# WhatsApp Left Button — Fixed position on LEFT (opposite of Help Button on RIGHT) #}
         body .btn-whatsapp-left {
+            position: fixed !important;
+            left: 0 !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            z-index: 9990 !important;
             background-color: #F0F0F0 !important;
             border: 1px solid #E0E0E0 !important;
             padding: 12px 8px !important;
+            border-top-right-radius: 4px !important;
+            border-bottom-right-radius: 4px !important;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1) !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+            text-decoration: none !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
         }
         body .btn-whatsapp-left:hover {
             background-color: #E8E8E8 !important;
             border: 1px solid #D0D0D0 !important;
-            padding-right: 12px !important;
+            padding-left: 12px !important;
+        }
+        body .btn-whatsapp-left:focus {
+            outline: 2px solid #25D366 !important;
+            outline-offset: 2px !important;
         }
         body .btn-whatsapp-left svg {
+            width: 20px !important;
+            height: 20px !important;
             color: #25D366 !important;
         }
         body .btn-whatsapp-left span {
             font-weight: 700 !important;
             font-size: 12px !important;
+            writing-mode: vertical-rl !important;
+            text-orientation: mixed !important;
+            margin-top: 6px !important;
+        }
+        @media (max-width: 768px) {
+            body .btn-whatsapp-left {
+                left: 0 !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                z-index: 9990 !important;
+                padding: 10px 6px !important;
+            }
+            body .btn-whatsapp-left span {
+                font-size: 11px !important;
+            }
         }
         @media (max-width: 480px) {
             body .pg-help-btn__text { font-size: 11px !important; }
-            body .btn-whatsapp-left span { font-size: 11px !important; }
+            body .btn-whatsapp-left {
+                left: 0 !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                z-index: 9990 !important;
+                padding: 8px 5px !important;
+            }
+            body .btn-whatsapp-left span { font-size: 10px !important; }
         }
         </style>
 
