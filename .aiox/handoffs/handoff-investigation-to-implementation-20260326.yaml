@@ -1,0 +1,125 @@
+handoff:
+  from_phase: Investigation Complete
+  to_phase: Implementation Ready
+  timestamp: 2026-03-26T04:00:00Z
+  story_id: 9.1
+  story_name: "White Background Fix [BLOCKER]"
+  status: ready_for_fix_implementation
+  branch: feature/8.3-phase-b
+
+investigation_summary:
+  root_cause: |
+    CSS Specificity Conflict:
+    - main.patagang-section-content { background-color: #ffffff; } [layout.tpl:505]
+    - Has HIGHER specificity than .pg-pdp-banner-warning
+    - Overwrites any banner color changes
+
+  problem_identified:
+    - body inherits white from settings.background_color
+    - main.patagang-section-content reapplies #ffffff redundantly
+    - This redundant rule prevents banner styling
+
+  validation_test: |
+    v1.5.131 deployed with yellow banner (#FFFF00)
+    Result: Yellow did NOT appear (still white)
+    Conclusion: CSS rule is being overridden
+
+solution_identified:
+  fix_location: theme-deploy-corrigido/layouts/layout.tpl
+  line_range: 505-511
+  current_code: |
+    main.patagang-section-content {
+        background-color: #ffffff;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+  action: Remove background-color line (505)
+  reason: Main will inherit white from body (already set via settings), removes conflict
+
+  alternative_if_needed: |
+    If removing causes issues, instead apply:
+    section.patagang-section-top {
+        background-color: [desired-color] !important;
+    }
+    with higher specificity
+
+next_steps:
+  step_1:
+    title: Apply CSS Fix
+    task: Remove line 506 (background-color: #ffffff;) from layout.tpl
+    time_estimate: 5 minutes
+    commitment: Commit with message "fix: remove redundant background-color from main [Story 9.1]"
+
+  step_2:
+    title: Test with Debug Color
+    task: Change .pg-pdp-banner-warning to #FFFF00 again in style-critical.tpl
+    time_estimate: 2 minutes
+    validation: "Gabriel confirms yellow appears on /comunidade/"
+
+  step_3:
+    title: Implement Final Color
+    task: Set banner to appropriate color (likely transparent or page-matching)
+    time_estimate: 3 minutes
+    final_validation: "Gabriel approves visual on desktop/tablet/mobile"
+
+  step_4:
+    title: Complete Story 9.1
+    task: Final commit + deploy v1.5.132
+    time_estimate: 5 minutes
+    gate: "Story marked COMPLETE, Stories 9.2-9.6 unblocked"
+
+documents_created:
+  - .aiox/EPIC-9-CHECKPOINT-20260326.md
+    description: Full investigation checkpoint for session resumption
+
+  - docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md
+    description: Complete CSS hierarchy analysis (336+ background-color occurrences)
+
+  - memory/lesson_story-9-1-css-structure.md
+    description: Critical lesson for future CSS work (structure-first approach)
+
+  - memory/MEMORY.md
+    description: Memory index pointing to lessons learned
+
+git_state:
+  branch: feature/8.3-phase-b
+  last_commit: 3399aea
+  last_message: "test: change banner to yellow to validate CSS application"
+  uncommitted_changes: none
+  backups_available: deployment-1.5.131/
+  rollback_available: "Yes, to any v1.5.x version"
+
+critical_notes:
+  - Do NOT modify style-critical.tpl further without understanding layout.tpl conflicts
+  - Always test with debug colors (yellow, red) before final implementation
+  - Document any NEW CSS rules in layout.tpl side-by-side with style-critical.tpl
+
+estimated_time_remaining:
+  fix_and_test: 15 minutes
+  validation_by_gabriel: 5 minutes
+  total: 20 minutes
+
+ready_for:
+  - @dev agent continuation
+  - @devops deployment
+  - Gabriel final validation
+
+unblock_after_completion:
+  - Story 9.2: Gallery Refactoring (PDP Lightbox)
+  - Story 9.3: Info Card Mobile (Layout Fix)
+  - Story 9.4: WhatsApp Button + Banner Translúcido
+  - Story 9.5: Cart Design Simplification
+  - Story 9.6: EPIC 9 Consolidation
+
+version_tracking:
+  current_deployed: v1.5.131
+  next_target: v1.5.132 (final for Story 9.1)
+  git_tag_status: All tags pushed to GitHub
+
+consumed: false
+ready_for_next_session: true
+
+handoff_sign_off: "Investigation complete, fix identified, ready for implementation — Gage, deployando com confiança 🚀"

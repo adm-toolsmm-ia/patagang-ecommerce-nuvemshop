@@ -1670,7 +1670,7 @@ p{
    ============================================================================ */
 
 .section-advertising {
-  background-color: transparent;
+  background-color: #EAFE67;
   padding: 10px 20px;
   width: 100%;
   max-width: 100%;
@@ -2801,19 +2801,6 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
-}
-
-/* SEÇÃO 1: Banner de Aviso (identidade da marca) */
-.pg-pdp-banner-warning {
-	background-color: #FFFF00;
-	padding: 0;  /* Padding controlado pelo elemento interno */
-	/* TEST: Changed to yellow to validate CSS is being applied */
-}
-
-/* SEÇÃO 2: Banner Informativo do Produto */
-.pg-pdp-banner-informative {
-	background-color: transparent;
-	padding: 0;  /* Padding controlado pelo elemento interno */
 }
 
 /* SEÇÃO 3: Container principal do produto (galeria + card) */
