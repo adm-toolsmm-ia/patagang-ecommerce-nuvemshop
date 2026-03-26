@@ -327,7 +327,11 @@
                 animation: none !important;
             }
             body .section-advertising__copy {
-                display: block !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                gap: 0.5em !important;
                 font-size: 0.65rem !important;
                 font-weight: 600 !important;
                 letter-spacing: 0.1px !important;
@@ -336,8 +340,18 @@
                 line-height: 1.3 !important;
                 white-space: normal !important;
                 overflow: visible !important;
-                text-overflow: clip !important;
                 word-spacing: normal !important;
+            }
+
+            body .section-advertising__phrase {
+                display: inline !important;
+                white-space: normal !important;
+            }
+
+            body .section-advertising__separator {
+                display: inline !important;
+                margin: 0 0.3em !important;
+                color: rgba(0, 0, 0, 0.5) !important;
             }
             body .section-advertising__link {
                 text-decoration: none !important;
@@ -353,7 +367,11 @@
                     padding: 8px 15px !important;
                 }
                 body .section-advertising__copy {
-                    font-size: 0.65rem !important;
+                    font-size: 0.55rem !important;
+                    gap: 0.3em !important;
+                }
+                body .section-advertising__separator {
+                    margin: 0 0.2em !important;
                 }
             }
             @media (min-width: 577px) and (max-width: 991px) {
@@ -361,13 +379,21 @@
                     padding: 9px 18px !important;
                 }
                 body .section-advertising__copy {
-                    font-size: 0.7rem !important;
+                    font-size: 0.65rem !important;
+                    gap: 0.4em !important;
+                }
+                body .section-advertising__separator {
+                    margin: 0 0.25em !important;
                 }
             }
 
             @media (min-width: 992px) {
                 body .section-advertising__copy {
                     font-size: 0.7rem !important;
+                    gap: 0.5em !important;
+                }
+                body .section-advertising__separator {
+                    margin: 0 0.3em !important;
                 }
             }
         </style>

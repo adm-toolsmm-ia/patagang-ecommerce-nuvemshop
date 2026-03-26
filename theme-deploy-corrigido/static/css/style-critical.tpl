@@ -1697,7 +1697,11 @@ p{
 }
 
 .section-advertising__copy {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5em;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2px;
@@ -1707,7 +1711,17 @@ p{
   white-space: normal;
   overflow: visible;
   word-spacing: normal;
-  text-overflow: clip;
+}
+
+.section-advertising__phrase {
+  display: inline;
+  white-space: normal;
+}
+
+.section-advertising__separator {
+  display: inline;
+  margin: 0 0.3em;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .section-advertising__link {
