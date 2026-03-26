@@ -3392,6 +3392,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	.pg-pdp-container {
 		padding-top: 80px;
 		padding-bottom: 40px;         /* Padding inferior para separação */
+		padding-left: 0;              /* ✅ BUG #3 FIX: zero lateral para filhos full-width */
+		padding-right: 0;             /* ✅ BUG #3 FIX: zero lateral para filhos full-width */
 		align-items: flex-start;
 		background-color: #ffffff;    /* ✅ LIMPO: Branco puro (padrão home) */
 		background-image: none;
@@ -3399,14 +3401,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 	.pg-pdp-container .section-single-product {
 		flex-direction: column;
-		padding: 20px 15px;
+		padding: 20px 0;              /* ✅ BUG #3 FIX: zero padding lateral — filhos controlam o próprio espaço */
 		gap: 20px;
 	}
 
 	.pg-pdp-image-col {
 		max-width: 100%;
 		width: 100%;
-		padding: 0;
+		padding: 0 15px;              /* ✅ Imagem mantém padding lateral para respiro */
 		min-height: auto;
 		border-radius: 0;
 		background: transparent;
@@ -3421,7 +3423,9 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 	.pg-pdp-info-col {
 		max-width: 100%;
-		width: 100%;
+		width: 100%;                  /* ✅ BUG #3 FIX: garante 100% */
+		padding: 0 !important;        /* ✅ BUG #3 FIX: sem padding lateral no col */
+		box-sizing: border-box;
 	}
 
 	.pg-pdp-watermark {
@@ -3431,9 +3435,12 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	.pg-pdp-info-card {
-		padding: 22px 20px;
+		padding: 22px 20px;           /* Padding interno do card para conteúdo respirar */
 		max-width: 100%;
-		border-radius: 16px;
+		width: 100% !important;       /* ✅ BUG #3 FIX: card ocupa 100% */
+		border-radius: 0;             /* ✅ BUG #3 FIX: full-bleed mobile (sem bordas laterais) */
+		box-sizing: border-box;
+		margin: 0;                    /* ✅ Sem margin que quebraria full-width */
 	}
 }
 
@@ -3480,7 +3487,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	border-bottom: 1px solid #ddd;
 	padding: 12px 20px;
 	margin: 0;
-	margin-top: 0;
+	margin-top: 120px;  /* ✅ BUG #2 FIX: Espaço para header fixo (~80px) + ad bar (~40px) */
 	box-sizing: border-box;
 	position: relative;
 	z-index: 10;
@@ -3515,7 +3522,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 991px) {
 	.pg-identity-banner {
 		padding: 16px 15px;
-		margin-top: 0;
+		margin-top: 95px;  /* ✅ BUG #2 FIX Tablet: header mais compacto */
 		position: relative;
 		z-index: 10;
 	}
@@ -3533,7 +3540,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 576px) {
 	.pg-identity-banner {
 		padding: 12px 10px;
-		margin-top: 0;
+		margin-top: 80px;  /* ✅ BUG #2 FIX Mobile: header ainda mais compacto */
 		position: relative;
 		z-index: 10;
 	}
@@ -3561,10 +3568,10 @@ main.patagang-section-content {
 	padding-top: 160px;  /* Space for fixed header (~120px) + ad bar (~40px) = ~160px */
 }
 
-/* GENERIC PAGES: Reduce padding for template-home (comunidade, blog, etc) */
-/* Story 9.1: Fix white background band on generic pages */
+/* HOME PAGE: padding-top 0 — hero é full-bleed, header é transparente sobre o hero */
+/* Bug #1 FIX: Faixa branca removida. A home não precisa de padding pois o hero ocupa o topo */
 body.template-home main.patagang-section-content {
-	padding-top: 100px;  /* ✅ Generic pages: header space only, no extra band */
+	padding-top: 0;  /* ✅ HOME: hero começa imediatamente, sem espaço branco */
 }
 
 /* PRODUCT PAGE: Reduce padding because banners handle their own spacing */
@@ -3577,9 +3584,9 @@ body.template-product main.patagang-section-content {
 		padding-top: 140px;  /* Tablet: slightly less */
 	}
 
-	/* GENERIC PAGES: Tablet adjustments */
+	/* HOME PAGE Tablet: hero full-bleed em todos os breakpoints */
 	body.template-home main.patagang-section-content {
-		padding-top: 90px;  /* ✅ Tablet: proportional reduction */
+		padding-top: 0;  /* ✅ HOME Tablet: hero começa imediatamente */
 	}
 
 	/* PRODUCT PAGE: Mobile adjustments */
@@ -3593,9 +3600,9 @@ body.template-product main.patagang-section-content {
 		padding-top: 130px;  /* Mobile: header is smaller but still fixed */
 	}
 
-	/* GENERIC PAGES: Mobile adjustments */
+	/* HOME PAGE Mobile: hero full-bleed em todos os breakpoints */
 	body.template-home main.patagang-section-content {
-		padding-top: 80px;  /* ✅ Mobile: larger reduction for small screens */
+		padding-top: 0;  /* ✅ HOME Mobile: hero começa imediatamente */
 	}
 
 	/* PRODUCT PAGE: Mobile adjustments */
