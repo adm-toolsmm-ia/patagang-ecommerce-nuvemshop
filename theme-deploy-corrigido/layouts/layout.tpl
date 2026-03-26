@@ -262,7 +262,6 @@
             }
             body .section-advertising__copy {
                 display: block !important;
-                font-size: 0.875rem !important;
                 font-weight: 600 !important;
                 letter-spacing: 0.3px !important;
                 color: #000 !important;
@@ -287,7 +286,6 @@
                     padding: 8px 15px !important;
                 }
                 body .section-advertising__copy {
-                    font-size: 0.75rem !important;
                 }
             }
             @media (min-width: 577px) and (max-width: 991px) {
@@ -295,7 +293,6 @@
                     padding: 9px 18px !important;
                 }
                 body .section-advertising__copy {
-                    font-size: 0.8rem !important;
                 }
             }
         </style>
@@ -417,7 +414,6 @@
         }
         @media (max-width: 480px) {
             body .pg-help-btn__text { font-size: 11px !important; }
-            body .btn-whatsapp-left span { font-size: 11px !important; }
         }
         </style>
 
@@ -519,7 +515,6 @@
             */
             @media (max-width: 991px) {
                 /* FORCE HIDE DESKTOP GRID ON MOBILE/TABLET */
-                .pg-gallery-container { display: none !important; }
             }
             @media (max-width: 992px) {
                 /* COMMENTED OUT - padding handled in style-critical.tpl
@@ -869,8 +864,6 @@
                 font-size: 9px !important;
                 white-space: normal !important;
             }
-            .pg-trust-strip__item:nth-child(1) { grid-row: 1 !important; }
-            .pg-trust-strip__item:nth-child(2) { grid-row: 2 !important; }
             .pg-trust-strip__item:nth-child(3),
             .pg-trust-strip__item:nth-child(4) {
                 grid-column: 2 !important;
@@ -878,8 +871,6 @@
                 font-size: 9px !important;
                 white-space: nowrap !important;
             }
-            .pg-trust-strip__item:nth-child(3) { grid-row: 1 !important; }
-            .pg-trust-strip__item:nth-child(4) { grid-row: 2 !important; }
         }
         </style>
 
