@@ -2838,6 +2838,13 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	justify-content: flex-start;
 }
 
+/* MOBILE: Stack verticalmente em telas pequenas */
+@media (max-width: 991px) {
+	.pg-pdp-container .section-single-product {
+		flex-direction: column !important;  /* Colunas uma embaixo da outra em mobile */
+	}
+}
+
 /* Row principal - Bootstrap row - AQUI está o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
