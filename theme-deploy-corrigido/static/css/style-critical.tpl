@@ -2805,7 +2805,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 /* SEÇÃO 1: Banner de Aviso (identidade da marca) */
 .pg-pdp-banner-warning {
-	background-color: #ffffff;
+	background-color: transparent;
 	padding: 0;  /* Padding controlado pelo elemento interno */
 }
 
