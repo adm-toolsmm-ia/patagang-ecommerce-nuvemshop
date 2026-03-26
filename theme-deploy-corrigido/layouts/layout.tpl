@@ -229,6 +229,7 @@
 
         {# Ad Bar: override final (PATAGANG v1.5.17+ - Static layout, no fixed positioning) #}
         {# CRITICAL: Ensure advertising section remains VISUALLY SEPARATE from header #}
+        {# PATAGANG v1.5.151: Force transparency - remove any inherited background from parent/style-colors #}
         {% if settings.ad_bar and settings.ad_text %}
         <style>
             body .section-advertising {
@@ -240,6 +241,8 @@
                 margin-bottom: 0 !important;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
                 background-color: transparent !important;
+                background-image: none !important;
+                background-clip: border-box !important;
             }
             body .section-advertising__marquee {
                 display: flex !important;
@@ -255,12 +258,16 @@
             }
             body .section-advertising__copy {
                 display: block !important;
-                font-size: 0.875rem !important;
+                font-size: 0.7rem !important;
                 font-weight: 600 !important;
-                letter-spacing: 0.3px !important;
+                letter-spacing: 0.2px !important;
+                word-spacing: 0.4em !important;
                 color: #000 !important;
                 margin: 0 !important;
                 line-height: 1.4 !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
             }
             body .section-advertising__link {
                 text-decoration: none !important;
@@ -276,7 +283,7 @@
                     padding: 8px 15px !important;
                 }
                 body .section-advertising__copy {
-                    font-size: 0.75rem !important;
+                    font-size: 0.65rem !important;
                 }
             }
             @media (min-width: 577px) and (max-width: 991px) {
@@ -284,7 +291,13 @@
                     padding: 9px 18px !important;
                 }
                 body .section-advertising__copy {
-                    font-size: 0.8rem !important;
+                    font-size: 0.7rem !important;
+                }
+            }
+
+            @media (min-width: 992px) {
+                body .section-advertising__copy {
+                    font-size: 0.7rem !important;
                 }
             }
         </style>
