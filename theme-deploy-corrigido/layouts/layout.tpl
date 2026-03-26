@@ -501,11 +501,15 @@
             color: #25D366 !important;
         }
         body .btn-whatsapp-left span {
-            font-weight: 700 !important;
-            font-size: 12px !important;
             writing-mode: vertical-rl !important;
             text-orientation: mixed !important;
-            margin-top: 6px !important;
+            font-family: 'Familjen Grotesk', sans-serif !important;
+            font-weight: 500 !important;
+            font-size: 12px !important;
+            letter-spacing: 0.03em !important;
+            text-transform: uppercase !important;
+            margin-bottom: 6px !important;
+            color: #1A1A1A !important;
         }
         @media (max-width: 768px) {
             body .btn-whatsapp-left {
@@ -517,6 +521,8 @@
             }
             body .btn-whatsapp-left span {
                 font-size: 11px !important;
+                letter-spacing: 0.03em !important;
+                text-transform: uppercase !important;
             }
         }
         @media (max-width: 480px) {
@@ -528,7 +534,11 @@
                 z-index: 9990 !important;
                 padding: 8px 5px !important;
             }
-            body .btn-whatsapp-left span { font-size: 10px !important; }
+            body .btn-whatsapp-left span {
+                font-size: 10px !important;
+                letter-spacing: 0.03em !important;
+                text-transform: uppercase !important;
+            }
         }
         </style>
 
