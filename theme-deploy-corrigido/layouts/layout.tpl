@@ -327,11 +327,7 @@
                 animation: none !important;
             }
             body .section-advertising__copy {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                flex-wrap: wrap !important;
-                gap: 0 0.5em !important;
+                display: block !important;
                 font-size: 0.65rem !important;
                 font-weight: 600 !important;
                 letter-spacing: 0.1px !important;
@@ -341,15 +337,6 @@
                 white-space: normal !important;
                 overflow: visible !important;
                 text-overflow: clip !important;
-                word-spacing: normal !important;
-            }
-
-            body .section-advertising__phrase {
-                display: inline-block !important;
-                white-space: nowrap !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
-                max-width: 100% !important;
             }
             body .section-advertising__link {
                 text-decoration: none !important;
@@ -366,10 +353,6 @@
                 }
                 body .section-advertising__copy {
                     font-size: 0.65rem !important;
-                    gap: 0 0.3em !important;
-                }
-                body .section-advertising__phrase {
-                    font-size: 0.65rem !important;
                 }
             }
             @media (min-width: 577px) and (max-width: 991px) {
@@ -378,19 +361,11 @@
                 }
                 body .section-advertising__copy {
                     font-size: 0.7rem !important;
-                    gap: 0 0.4em !important;
-                }
-                body .section-advertising__phrase {
-                    font-size: 0.7rem !important;
                 }
             }
 
             @media (min-width: 992px) {
                 body .section-advertising__copy {
-                    font-size: 0.7rem !important;
-                    gap: 0 0.5em !important;
-                }
-                body .section-advertising__phrase {
                     font-size: 0.7rem !important;
                 }
             }
