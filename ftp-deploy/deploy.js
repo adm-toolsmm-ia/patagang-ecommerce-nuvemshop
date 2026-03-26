@@ -376,11 +376,73 @@ async function phase4_backup(modifiedFiles, newVersion) {
 }
 
 // =============================================================================
+// CACHE BUSTING: INJECT VERSION INTO CSS LINKS
+// =============================================================================
+
+function injectVersionIntoCSSLinks(layoutPath, version) {
+  /**
+   * Injeta ?v=VERSION nos links CSS para forçar cache busting
+   * Evita que navegador e CDN sirvam CSS desatualizado
+   *
+   * Exemplo:
+   *   <link href="{{ 'css/style-colors.scss.tpl' | static_url }}" ...>
+   *   Vira:
+   *   <link href="{{ 'css/style-colors.scss.tpl' | static_url }}?v=1.5.140" ...>
+   *
+   * Opera em layout.tpl e injeta ?v=VERSION a TODOS os CSS links
+   * que ainda não têm versão query string.
+   */
+
+  try {
+    if (!fs.existsSync(layoutPath)) {
+      log('warning', `Cache busting: arquivo layout não encontrado: ${layoutPath}`);
+      return;
+    }
+
+    let content = fs.readFileSync(layoutPath, 'utf-8');
+
+    // Encontra href="..." que acabam com .css, .scss, ou .scss.tpl
+    // Usa callback para injetar versão apenas se não existir ?v=
+    const cssLinkRegex = /href="([^"]*\.(css|scss|scss\.tpl))([^"]*?)"/g;
+
+    let injected = 0;
+    content = content.replace(cssLinkRegex, (match, url, ext, suffix) => {
+      const fullUrl = url + ext + suffix;
+
+      // Se já tem ?v=, deixar como está
+      if (fullUrl.includes('?v=')) {
+        return match;
+      }
+
+      // Injetar versão
+      injected++;
+      return `href="${fullUrl}?v=${version}"`;
+    });
+
+    if (injected > 0) {
+      fs.writeFileSync(layoutPath, content);
+      log('success', `Cache busting: ${injected} CSS links injetados com v${version}`);
+    } else {
+      log('info', `Cache busting: todos os CSS links já têm versão`);
+    }
+  } catch (err) {
+    log('error', `Erro ao injetar cache busting: ${err.message}`);
+    throw err;
+  }
+}
+
+// =============================================================================
 // PHASE 5: DEPLOY TO FTP
 // =============================================================================
 
-async function phase5_deploy(modifiedFiles, isDryRun = false) {
+async function phase5_deploy(modifiedFiles, newVersion, isDryRun = false) {
   log('section', 'FASE 5: Deploy para FTP');
+
+  // Cache busting: Injetar versão nos CSS links (força refresh no navegador)
+  const layoutPath = path.join(PROJECT_ROOT, 'theme-deploy-corrigido', 'layouts', 'layout.tpl');
+  if (!isDryRun && fs.existsSync(layoutPath)) {
+    injectVersionIntoCSSLinks(layoutPath, newVersion);
+  }
 
   if (isDryRun) {
     log('info', '(DRY RUN - simulando upload)');
@@ -523,8 +585,8 @@ async function main() {
     // Fase 4: Backup incremental
     const backupDir = isDryRun ? '[DRY-RUN]' : await phase4_backup(modifiedFiles, newVersion);
 
-    // Fase 5: Deploy para FTP
-    const deployResult = await phase5_deploy(modifiedFiles, isDryRun);
+    // Fase 5: Deploy para FTP (com cache busting automático)
+    const deployResult = await phase5_deploy(modifiedFiles, newVersion, isDryRun);
 
     // Fase 6: Validação pós-deploy
     const validationResult = await phase6_validate(modifiedFiles);
