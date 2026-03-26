@@ -63,3 +63,7 @@ Interprete os atalhos abaixo carregando o arquivo correspondente em `.aiox-core/
 - `@squad-creator`, `/squad-creator`, `/squad-creator.md` -> `.aiox-core/development/agents/squad-creator.md`
 - `@aiox-master`, `/aiox-master`, `/aiox-master.md` -> `.aiox-core/development/agents/aiox-master.md`
 <!-- AIOX-MANAGED-END: shortcuts -->
+
+## Contexto Patagang — tema Nuvemshop (LLM)
+
+Antes de alterar `theme-deploy-corrigido/`, seguir a ordem em `CODEBASE.md` (ponte) → documento canónico `Docs/architecture/patagang-ai-operating-context.md` → `Docs/architecture/patagang-css-cascade.md`. Dados estruturados: `.aiox-core/data/patagang-*-patterns.yaml`, `patagang-architecture-state.yaml`.

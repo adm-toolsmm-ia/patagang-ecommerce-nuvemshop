@@ -22,6 +22,9 @@
 - Conventional commits: `feat:`, `fix:`, `docs:`, `test:`, `chore:`, `refactor:`
 - Reference story: `feat: implement feature [Story NOG-18]`
 
+### Patagang theme (Nuvemshop)
+- Before changing `theme-deploy-corrigido/`: read `Docs/architecture/patagang-ai-operating-context.md`, then `Docs/architecture/patagang-css-cascade.md` for cascade depth; data: `.aiox-core/data/patagang-*.yaml`.
+
 ### Common Gotchas
 - Windows paths: use forward slashes in code, bash shell not cmd
 - `fs.existsSync` for sync checks, `fs.promises` for async

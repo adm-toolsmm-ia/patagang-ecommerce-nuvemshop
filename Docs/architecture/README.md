@@ -6,6 +6,16 @@
 
 ## 🎯 QUICK START
 
+### For AI agents & LLMs (theme / Nuvemshop)
+
+**Read in this order (AIOX — contexto canónico):**
+
+1. **[patagang-ai-operating-context.md](./patagang-ai-operating-context.md)** — obrigatório antes de alterar `theme-deploy-corrigido/`: auditoria, ordem de CSS, ficheiros críticos, checklist, deploy.
+2. **[patagang-css-cascade.md](./patagang-css-cascade.md)** — cascade, `!important`, troubleshooting.
+3. **Dados:** `patagang-css-patterns.yaml`, `patagang-learned-patterns.yaml`, `patagang-architecture-state.yaml` em `.aiox-core/data/`.
+
+Ponte na raiz: [CODEBASE.md](../../CODEBASE.md) (só links; não duplicar regras lá).
+
 ### For EPIC 9 Story Developers
 
 **Read in this order:**
@@ -42,12 +52,13 @@ Ordem sugerida para **montar contexto** antes de implementar ou documentar:
 
 | Prioridade | Onde | O quê | Quem |
 |------------|------|-------|------|
-| 1º | **[patagang-store/](./patagang-store/README.md)** (série 01–08) | Visão da loja, páginas, componentes, CSS/JS, dependências, constraints Nuvemshop, deploy | `@architect`, `@dev`, `@qa` |
-| 2º | **[patagang-css-cascade.md](./patagang-css-cascade.md)** | Ordem de carga da CSS, `!important`, troubleshooting em produção | `@dev` em mudanças de estilo |
-| 3º | **[patagang/](./patagang/README.md)** | Análise estrutural v3 + `OPTIMIZATION_PLAN.md` (complemento / histórico de decisões) | `@architect` |
-| 4º | **Dados** — `patagang-architecture-state.yaml`, `patagang-css-patterns.yaml` | Snapshot e padrões máquina-legíveis | Todos os agentes |
+| 1º | **[patagang-ai-operating-context.md](./patagang-ai-operating-context.md)** | Pré-voo obrigatório: auditoria, mapa de CSS/tpl, checklist, deploy | `@dev`, LLMs, `@qa` |
+| 2º | **[patagang-store/](./patagang-store/README.md)** (série 01–08) | Visão da loja, páginas, componentes, CSS/JS, dependências, constraints Nuvemshop, deploy | `@architect`, `@dev`, `@qa` |
+| 3º | **[patagang-css-cascade.md](./patagang-css-cascade.md)** | Ordem de carga da CSS, `!important`, troubleshooting em produção | `@dev` em mudanças de estilo |
+| 4º | **[patagang/](./patagang/README.md)** | Análise estrutural v3 + `OPTIMIZATION_PLAN.md` (complemento / histórico de decisões) | `@architect` |
+| 5º | **Dados** — `patagang-architecture-state.yaml`, `patagang-css-patterns.yaml` | Snapshot e padrões máquina-legíveis | Todos os agentes |
 
-**Regra:** para “onde fica o ficheiro / que snipplet usar”, começar por **patagang-store**; para “por que o CSS não aplicou”, **patagang-css-cascade** + YAML de patterns.
+**Regra:** antes de editar o tema, **patagang-ai-operating-context**; para “onde fica o ficheiro / que snipplet usar”, **patagang-store**; para “por que o CSS não aplicou”, **patagang-css-cascade** + YAML de patterns.
 
 ---
 
@@ -80,6 +91,7 @@ Os docs de execução/planos da EPIC 9 foram movidos para `./.archive/epic-9/`:
 | Document | Location | Purpose | Audience |
 |----------|----------|---------|----------|
 | **EPIC 9 Execution Context** | `Docs/architecture/.archive/epic-9/EPIC-9-EXECUTION-CONTEXT.md` | How to execute Stories 9.1-9.6 safely | Story developers |
+| **AI operating context (canonical)** | `Docs/architecture/patagang-ai-operating-context.md` | Pre-flight rules, file map, checklist, deploy | All agents changing theme |
 | **CSS Cascade Guide** | `Docs/architecture/patagang-css-cascade.md` | How CSS loading works, troubleshooting | CSS developers |
 | **Architecture State** | `.aiox-core/data/patagang-architecture-state.yaml` | Current system snapshot | Architects, @aiox-master |
 | **CSS Patterns** | `.aiox-core/data/patagang-css-patterns.yaml` | Good/bad patterns, lessons | Architects, @dev |

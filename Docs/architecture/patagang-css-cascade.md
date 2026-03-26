@@ -8,6 +8,8 @@
 
 ## 🎯 Overview
 
+**Agents (read first):** [patagang-ai-operating-context.md](./patagang-ai-operating-context.md) — mandatory audit rule, file map, Nuvemshop classes, deploy commands. This document goes deeper on cascade timeline, `!important`, and case studies.
+
 Patagang CSS is loaded in a specific order. Understanding this order is essential to predict which rules will be applied.
 
 **Key Principle:** Later files override earlier files (cascade), BUT `!important` breaks this rule.

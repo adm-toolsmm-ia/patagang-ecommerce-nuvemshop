@@ -84,6 +84,7 @@ Technical reports, deployment summaries, and execution logs organized by domain.
 System design, technical decisions, and architectural documentation.
 
 #### Patagang Architecture
+- [patagang-ai-operating-context.md](../Docs/architecture/patagang-ai-operating-context.md) — **Canónico (AIOX):** pré-voo para agentes/IA no tema Nuvemshop (auditoria, CSS, checklist, deploy)
 - `architecture/patagang/` — Project-specific architecture
   - `architecture-analysis-patagang-v3.md` — Complete system analysis (v3)
   - `OPTIMIZATION_PLAN.md` — Technical optimization roadmap
@@ -101,7 +102,7 @@ System design, technical decisions, and architectural documentation.
 - **Validate at:** https://patagang.com.br/ (v1.5.93 production)
 
 **Framework & Architecture:**
-- [CODEBASE.md](../CODEBASE.md) — Project structure & development constraints
+- [CODEBASE.md](../CODEBASE.md) — Ponte AIOX: ordem de leitura para tema (`Docs/architecture/patagang-ai-operating-context.md`)
 - [Patagang Architecture](architecture/patagang/architecture-analysis-patagang-v3.md) — System design
 
 ### For **@dev** (Development Team)
@@ -112,6 +113,7 @@ System design, technical decisions, and architectural documentation.
 - [Story 8.5 Guides (arquivo)](../Docs/stories/.archive/8.5/guides/) — JavaScript optimization patterns
 
 **Technical Reference:**
+- [AI operating context (canonical)](../Docs/architecture/patagang-ai-operating-context.md) — Ler antes de mudar `theme-deploy-corrigido/`
 - [Learned Patterns](../.aiox-core/data/patagang-learned-patterns.yaml) — CSS, cart recovery, FTP strategies
 - [Nuvemshop Constraints](../.claude/rules/nuvemshop-ftp-constraints.md) — Platform constraints (8/8 checklist)
 

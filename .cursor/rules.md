@@ -54,6 +54,7 @@ docs/
 ## Best Practices
 
 ### When implementing:
+- **Patagang theme / Nuvemshop:** read [Docs/architecture/patagang-ai-operating-context.md](Docs/architecture/patagang-ai-operating-context.md) first, then [patagang-css-cascade.md](Docs/architecture/patagang-css-cascade.md) if changing CSS; root [CODEBASE.md](CODEBASE.md) is only a link hub.
 - Check existing patterns first
 - Reuse components and utilities
 - Follow naming conventions
