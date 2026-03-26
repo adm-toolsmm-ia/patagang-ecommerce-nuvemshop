@@ -406,30 +406,27 @@ function injectVersionIntoCSSLinks(layoutPath, version) {
 
     let content = fs.readFileSync(layoutPath, 'utf-8');
 
-    // Regex 1: Encontra href="..." com .css/.scss/.scss.tpl E já tem ?v=VERSAO_ANTIGA
-    // Substitui a versão antiga pela nova
-    const oldVersionRegex = /href="([^"]*\.(css|scss|scss\.tpl))\?v=[^"]*"/g;
+    // Regex 1: Encontra href="..." com versão antiga ?v=
+    // Substitui mantendo o URL exato e atualizando APENAS a versão
+    const oldVersionRegex = /href="([^"]*)\?v=[^"]*"/g;
     let updated = 0;
-    content = content.replace(oldVersionRegex, (match, url, ext) => {
+    content = content.replace(oldVersionRegex, (match, url) => {
+      // Verificar se é realmente um CSS
+      if (!url.match(/\.(css|scss|scss\.tpl)$/i)) {
+        return match; // Não é CSS, pular
+      }
       updated++;
-      return `href="${url}${ext}?v=${version}"`;
+      return `href="${url}?v=${version}"`;
     });
 
     // Regex 2: Encontra href="..." com .css/.scss/.scss.tpl mas SEM ?v=
     // Adiciona a versão
-    const noVersionRegex = /href="([^"]*\.(css|scss|scss\.tpl))([^"]*?)"/g;
+    const noVersionRegex = /href="([^"]*\.(css|scss|scss\.tpl))"(?!\?v=)/g;
     let injected = 0;
-    content = content.replace(noVersionRegex, (match, url, ext, suffix) => {
-      const fullUrl = url + ext + suffix;
-
-      // Se JÁ tem ?v=, pular (já foi tratado na regex anterior)
-      if (fullUrl.includes('?v=')) {
-        return match;
-      }
-
+    content = content.replace(noVersionRegex, (match, url) => {
       // Injetar versão nova
       injected++;
-      return `href="${fullUrl}?v=${version}"`;
+      return `href="${url}?v=${version}"`;
     });
 
     if (updated > 0 || injected > 0) {
