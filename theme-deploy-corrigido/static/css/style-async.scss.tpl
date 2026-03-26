@@ -6623,7 +6623,7 @@ body.template-category .item-image {
     width: 100%;
 }
 
-.product-grid .item-actions .btn {
+.pg-product-grid .item-actions .btn {
     width: 100%;
     min-height: 48px; /* Altura fixa para garantir alinhamento entre diferentes botões */
     display: flex;
@@ -6643,20 +6643,20 @@ body.template-category .item-image {
     line-height: 1.2; /* Para textos que quebram linha */
 }
 
-.product-grid .item-actions .btn:hover {
+.pg-product-grid .item-actions .btn:hover {
     background-color: #d4e655;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(234, 254, 103, 0.3);
 }
 
 /* Botão Desenvolvimento (Padronizado Amarelo) */
-.product-grid .item-actions .btn-development {
+.pg-product-grid .item-actions .btn-development {
     background-color: #EAFE67;
     color: #000;
     border: none;
 }
 
-.product-grid .item-actions .btn-development:hover {
+.pg-product-grid .item-actions .btn-development:hover {
     background-color: #d4e655;
     color: #000;
 }
@@ -6779,7 +6779,7 @@ body.template-category .item-image {
    Forces the "SEJA O PRIMEIRO A CONHECER" button to match the standard styling.
    Uses high specificity via cascata CSS (parent context).
    ========================================================================== */
-.product-grid .item-product .item-actions .btn.btn-development {
+.pg-product-grid .item-product .item-actions .btn.btn-development {
     background: #EAFE67;
     background-color: #EAFE67;
     color: #000000;
@@ -6806,7 +6806,7 @@ body.template-category .item-image {
    ========================================================================== */
 
 /* 1. Grid Container */
-.product-grid {
+.pg-product-grid {
     display: flex;
     flex-wrap: wrap;
     align-items: stretch; /* Key for equal height */
@@ -6814,7 +6814,7 @@ body.template-category .item-image {
 }
 
 /* 2. Grid Item (Card) */
-.product-grid .item-product {
+.pg-product-grid .item-product {
     display: flex;
     flex-direction: column;
     height: auto; /* Let flexbox control height */
@@ -6824,27 +6824,27 @@ body.template-category .item-image {
 }
 
 /* 3. Content Expansion (Pushes footer down) */
-.product-grid .item-product .item-description {
+.pg-product-grid .item-product .item-description {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-.product-grid .item-product .item-link {
+.pg-product-grid .item-product .item-link {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
 /* 4. Action Button Alignment (Always at bottom) */
-.product-grid .item-product .item-actions {
+.pg-product-grid .item-product .item-actions {
     margin-top: auto;
     width: 100%;
     padding-top: 16px;
 }
 
-.product-grid .item-product .item-actions .btn.btn-development:hover {
+.pg-product-grid .item-product .item-actions .btn.btn-development:hover {
     background: #d4e655;
     background-color: #d4e655;
     color: #000000;
