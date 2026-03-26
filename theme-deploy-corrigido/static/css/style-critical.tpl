@@ -1,9 +1,11 @@
 {% raw %}@charset "UTF-8":
 
 /*============================================================================
-critical-css.tpl
+style-critical.tpl — Critical Path CSS (Inline in <head>)
 
-    -This file contains all the theme critical styles wich will be loaded inline before the rest of the site
+    -WHAT IS THIS FILE?
+    Above-the-fold CSS inlined in <head> = blocks render until loaded.
+    Users see styles immediately = critical for LCP (Largest Contentful Paint).
     -Rest of styling can be found in:
     	--static/css/style-async.css.tpl --> For non critical styles witch will be loaded asynchronously
       --static/css/style-colors.scss.tpl --> For color and font styles related to config/settings.txt
@@ -881,7 +883,7 @@ body.has-ad-bar .pg-header--sticky {
   -webkit-perspective: 1000;
   -webkit-backface-visibility: hidden;
 }
-/* PATAGANG v1.5.33: FIXED - Keep only SECOND blur-up declaration with left: 50% */
+/* PATAGANG — Product Image Zoom blur-up effect
 .product-slider-image.blur-up{
   position: absolute;
   left: 50%;
@@ -1894,7 +1896,7 @@ p{
   padding: 50px 0;
 }
 
-/* PATAGANG - Banner de Serviço/Aviso (Refatorado - v1.5.12+) */
+/* PATAGANG — Service/Warning Banner (Information panels)
 .pg-service-item {
   display: flex;
   align-items: center;
@@ -2007,6 +2009,56 @@ p{
     max-width: 320px;
     margin: 0 auto;
   }
+}
+
+/* Product Informative Banner — Transparent background + compact text */
+div.product-informative-banner {
+  background: transparent;
+  background-color: transparent;
+  padding: 0.5rem 0;
+  margin: 0;
+  margin-top: 130px;              /* ✅ Espaço abaixo do header fixo (160px total espaço do header) */
+  position: relative;
+  z-index: 1;                     /* Garante que fica abaixo do header (z-index: 9999) */
+}
+
+/* Adjust for pages with main padding-top (non-product pages) */
+body:not(.template-product) div.product-informative-banner {
+  margin-top: 0;  /* Outras páginas com padding-top não usam banner */
+}
+
+div.product-informative-banner.position-relative {
+  background: transparent;
+  background-color: transparent;
+}
+
+.product-informative-banner .col-md {
+  background: transparent;
+  padding: 0.5rem 0.25rem;
+  min-height: auto;
+  border: none;
+}
+
+.product-informative-banner .d-md-flex {
+  background: transparent;
+}
+
+.product-informative-banner .js-informative-product {
+  background: transparent;
+}
+
+.product-informative-title,
+.product-informative-banner .product-informative-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  line-height: 1.3;
+}
+
+.product-informative-banner div {
+  font-size: 11px;
+  line-height: 1.3;
+  background: transparent;
 }
 
 .service-pagination {
@@ -2735,25 +2787,67 @@ p{
 REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 ==============================================================================*/
 
-/* Container principal - FUNDO CLARO COM DEGRADÊ PARA O FOOTER AMARELO */
-.pg-pdp-container {
-	padding-top: 90px;
-	padding-bottom: 60px;           /* Padding inferior para separação */
+/* =====================================================================
+   SEÇÕES DA PÁGINA DO PRODUTO — ESTRUTURA INDEPENDENTE
+   Cada seção ocupa 100% width, está abaixo da anterior, sem sobreposição
+   ===================================================================== */
+
+/* Base para todas as seções da página do produto */
+.pg-pdp-section {
+	width: 100%;
 	margin: 0;
-	background-color: #ffffff;      /* ✅ LIMPO: Branco puro (padrão home) */
+	padding: 0;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+
+/* SEÇÃO 1: Banner de Aviso (identidade da marca) */
+.pg-pdp-banner-warning {
+	background-color: #ffffff;
+	padding: 0;  /* Padding controlado pelo elemento interno */
+}
+
+/* SEÇÃO 2: Banner Informativo do Produto */
+.pg-pdp-banner-informative {
+	background-color: transparent;
+	padding: 0;  /* Padding controlado pelo elemento interno */
+}
+
+/* SEÇÃO 3: Container principal do produto (galeria + card) */
+.pg-pdp-container {
+	background-color: transparent;
+	background-image: none;
+	min-height: auto;
+	padding: 0;  /* Sem padding no container pai */
+	margin: 0;
+}
+
+/* Container principal - TRANSPARENT para banner ficar limpo */
+.pg-pdp-container {
+	padding-top: 0;                 /* ✅ REMOVIDO: padding-top: 90px causava desalinhamento */
+	padding-bottom: 0;              /* ✅ REMOVIDO: padding-bottom: 60px */
+	margin: 0;
+	background-color: transparent;
 	background-image: none;
 	min-height: auto;               /* Sem height mínimo - cresce com conteúdo */
 	display: flex;
-	align-items: flex-start;
-	justify-content: center;
+	flex-direction: column;          /* ✅ Banners em vertical (linhas), não colunas */
+	align-items: stretch;            /* Filhos ocupam 100% width */
+	justify-content: flex-start;
 }
 
-/* Row principal - Bootstrap row */
+/* Row principal - Bootstrap row - AQUI está o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
-	padding: 30px 20px;
+	padding: 40px 20px;             /* Padding para respiro interno */
 	width: 100%;
-	max-width: 1400px; /* Mais largo */
+	background-color: #ffffff;      /* ✅ Branco puro (seção de galeria + card) */
+	background-image: none;
+	display: flex;                  /* ✅ Explicit flex para garantir */
+	flex-direction: row;            /* ✅ Horizontal por padrão */
+	gap: 0;                         /* Reset gap, será definido em media query */
 }
 
 /* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
@@ -2768,11 +2862,11 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		margin-top: 0;  /* Remove margin superior */
 	}
 
-	/* COLUNA ESQUERDA - Imagem - PREENCHE ALTURA + STICKY */
-	.pg-pdp-container .pg-pdp-image-col.col-lg-7 {
-		flex: 0 0 58%;
-		max-width: 58%;
-		width: 58%;
+	/* LEFT COLUMN — Product Image (full height, clean design)
+	.pg-pdp-container .pg-pdp-image-col {
+		flex: 0 0 60%;
+		max-width: 60%;
+		width: 60%;
 		padding: 0;
 		height: 100%;  /* Preenche altura total */
 		display: flex;
@@ -2783,7 +2877,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	/* COLUNA DIREITA - Info - PREENCHE ALTURA */
-	.pg-pdp-container .pg-pdp-info-col.col-lg-5 {
+	.pg-pdp-container .pg-pdp-info-col {
 		flex: 0 0 40%;
 		max-width: 40%;
 		width: 40%;
@@ -2795,7 +2889,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* COLUNA ESQUERDA - Imagem SEM BORDAS, SEM CARD (v1.5.46: FULL HEIGHT) */
+/* LEFT COLUMN — Product Image (full height, clean design)
 .pg-pdp-image-col {
 	background: transparent; /* SEM fundo */
 	border-radius: 0; /* SEM bordas arredondadas */
@@ -2810,7 +2904,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	height: 100%;  /* Preenche altura total */
 }
 
-/* Container da imagem - preenche parent (v1.5.46: FULL HEIGHT) */
+/* Image Container — Fills parent, responsive
 .pg-pdp-image-col .product-image-container {
 	width: 100%;
 	flex: 1;  /* Cresce para preencher altura */
@@ -2829,13 +2923,27 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	min-height: auto;
 }
 
-/* Desktop: Esconder Swiper (mostra grid 2x2 em vez disso) */
+/* Desktop (≥992px): Show grid 2x2, hide Swiper */
 @media (min-width: 992px) {
 	.pg-pdp-image-col .product-image-container {
-		display: none !important;
+		display: none;
 	}
 	.pg-pdp-image-col .js-swiper-product {
+		display: none;
+	}
+
+	/* Gallery grid 2x2: Show on desktop (≥992px) */
+	.pg-gallery-container {
+		display: flex !important;
+	}
+}
+
+/* Mobile (<992px): Hide grid 2x2, show Swiper */
+@media (max-width: 991px) {
+	/* Gallery grid must be completely hidden on mobile */
+	.pg-gallery-container {
 		display: none !important;
+		visibility: hidden !important;
 	}
 }
 
@@ -3388,11 +3496,11 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	align-items: center;
 	justify-content: center;
 	gap: 40px;
-	max-width: 1200px;
-	margin: 0 auto;
+	margin: 0;                      /* ✅ Sem margin auto - ocupa 100% width */
 	width: 100%;
 	flex-wrap: wrap;
 	padding: 0;
+	box-sizing: border-box;
 }
 
 .pg-identity-banner__phrase {
@@ -3457,9 +3565,19 @@ main.patagang-section-content {
 	padding-top: 160px;  /* Space for fixed header (~120px) + ad bar (~40px) = ~160px */
 }
 
+/* PRODUCT PAGE: Reduce padding because banners handle their own spacing */
+body.template-product main.patagang-section-content {
+	padding-top: 0;  /* ✅ Banners estão dentro, eles controlam seu espaçamento */
+}
+
 @media (max-width: 991px) {
 	main.patagang-section-content {
 		padding-top: 140px;  /* Tablet: slightly less */
+	}
+
+	/* PRODUCT PAGE: Mobile adjustments */
+	body.template-product main.patagang-section-content {
+		padding-top: 0;  /* ✅ Banners controlam espaçamento */
 	}
 }
 
@@ -3467,6 +3585,32 @@ main.patagang-section-content {
 	main.patagang-section-content {
 		padding-top: 130px;  /* Mobile: header is smaller but still fixed */
 	}
+
+	/* PRODUCT PAGE: Mobile adjustments */
+	body.template-product main.patagang-section-content {
+		padding-top: 0;  /* ✅ Banners controlam espaçamento */
+	}
+}
+
+/* ============================================
+   PRODUCT PAGE SECTIONS - Banner + Product container spacing
+   ============================================ */
+
+/* Banner informativo do produto - espaçamento independente */
+body.template-product div.pg-pdp-section.pg-pdp-banner-informative {
+	width: 100%;
+	margin: 0;
+	padding: 20px;
+	background: #ffffff;
+	z-index: 10;
+	position: relative;
+}
+
+/* Seção do produto (galeria + card) - conteúdo principal */
+body.template-product div.pg-pdp-section.pg-pdp-container {
+	width: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 /* ============================================
@@ -4145,6 +4289,55 @@ main.patagang-section-content {
     transform: translateX(-100%);
 }
 
+/* Cart Drawer Coupon Input — Apply discount codes
+.pg-drawer__coupon-section {
+    margin: 12px 0 8px;
+    padding: 0;
+}
+
+.pg-drawer__coupon-form {
+    width: 100%;
+    margin: 0;
+}
+
+.pg-drawer__coupon-group {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+}
+
+.pg-drawer__coupon-input {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    color: #333;
+}
+
+.pg-drawer__coupon-input::placeholder {
+    color: #999;
+    font-size: 12px;
+}
+
+.pg-drawer__coupon-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.pg-drawer__coupon-btn:hover {
+    background-color: #333;
+}
+
 /* ============================================
    PATAGANG HOME - Anti-FOUC (Critical CSS)
    ============================================ */
@@ -4297,426 +4490,7 @@ main.patagang-section-content {
     margin-top: -20px;
 }
 
-/* =========================================
-   IMPROVED FILTERS DESIGN (UX/UI 10/10)
-   ========================================= */
-
-/* Filter Container */
-.filters-container {
-    border: none;
-    padding: 0;
-    margin-bottom: 30px;
-}
-
-.filters-container h6 {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 14px;
-    letter-spacing: 0.05em;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #EAFE67; /* Patagang Yellow underline */
-    padding-bottom: 8px;
-    display: inline-block;
-}
-
-/* Filter Items */
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.checkbox-container:hover .checkbox-text {
-    opacity: 0.7;
-}
-
-/* Custom Checkbox */
-.checkbox-icon {
-    width: 18px;
-    height: 18px;
-    border: 1px solid #000;
-    background: #fff;
-    margin-right: 10px;
-    position: relative;
-    transition: all 0.2s ease;
-    border-radius: 4px; /* Soft rounded corners */
-}
-
-/* Checked State */
-.checkbox input:checked + .checkbox-icon {
-    background: #EAFE67; /* Patagang Yellow */
-    border-color: #000;
-}
-
-.checkbox-icon:after {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 2px;
-    width: 6px;
-    height: 10px;
-    border: solid #000;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-.checkbox input:checked + .checkbox-icon:after {
-    opacity: 1;
-}
-
-/* Filter Text */
-.checkbox-text {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: #000;
-}
-
-/* Color Filters */
-.checkbox-color {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    margin-left: auto;
-    border: 1px solid rgba(0,0,0,0.1);
-}
-
-/* Price Filter */
-.price-filter input {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 8px;
-    font-family: 'Familjen Grotesk', sans-serif;
-}
-
-.price-filter button {
-    background: #000;
-    color: #fff;
-    border-radius: 4px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 12px;
-    padding: 8px 16px;
-    transition: background 0.3s ease;
-}
-
-.price-filter button:hover {
-    background: #333;
-}
-
-/* Chips (Applied Filters) */
-.chip {
-    background: #EAFE67;
-    color: #000;
-    font-weight: 600;
-    border-radius: 20px;
-    padding: 6px 12px;
-    font-size: 12px;
-    border: 1px solid #000;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    display: inline-flex;
-    align-items: center;
-    transition: all 0.2s ease;
-}
-
-.chip:hover {
-    background: #D4E856;
-    transform: translateY(-1px);
-}
-
-.chip-remove-icon {
-    fill: #000;
-    margin-left: 6px;
-    width: 10px;
-    height: 10px;
-}
-
-/* Remove all filters link */
-.js-remove-all-filters {
-    font-size: 12px;
-    text-decoration: underline;
-    color: #666;
-}
-
-/* =========================================
-   FILTER BUTTON & SORT DROPDOWN IMPROVEMENTS
-   ========================================= */
-
-/* Filter button - clean minimal design */
-.filter-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: #fff;
-    border: 1px solid #000;
-    border-radius: 6px;
-    color: #000;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all 0.2s ease;
-    text-decoration: none;
-}
-
-.filter-link:hover {
-    background: #000;
-    color: #EAFE67;
-    text-decoration: none;
-}
-
-.filter-link .icon-inline {
-    width: 14px;
-    height: 14px;
-    fill: currentColor;
-}
-
-/* Sort dropdown - cleaner icon and layout */
-.sort-by select,
-.form-select {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    padding-right: 30px;
-}
-
-/* Hide default select arrow and use custom */
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-    background-size: 16px;
-}
-
-/* Uppercase for size filter values (Pp -> PP, Gg -> GG, etc) */
-.checkbox-text {
-    text-transform: uppercase;
-}
-
-/* Price filter - Add R$ prefix */
-.price-filter label {
-    position: relative;
-}
-
-.price-filter input[type="number"]::before,
-.price-filter input[type="text"]::before {
-    content: 'R$ ';
-    position: absolute;
-    left: 12px;
-    color: #666;
-    font-weight: 500;
-}
-
-/* Alternative: Add R$ via pseudo-element on label */
-.price-filter label::after {
-    content: 'R$';
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 12px;
-    color: #666;
-    pointer-events: none;
-    font-family: 'Familjen Grotesk', sans-serif;
-}
-
-.price-filter input {
-    padding-left: 38px; /* Space for R$ */
-}
-
-/* PROBLEMA 3: Filter Modal - Match Main Menu Design + Compact */
-.modal.filters {
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-}
-
-.modal.filters .modal-header {
-    background: transparent;
-    border-bottom: 2px solid #EAFE67;
-    padding: 15px 20px; /* More compact */
-}
-
-.modal.filters .modal-header h2,
-.modal.filters .modal-header .h2 {
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 18px; /* Smaller */
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #000;
-    margin: 0;
-}
-
-.modal.filters .modal-body {
-    padding: 15px 20px; /* More compact */
-}
-
-.modal.filters .modal-close {
-    color: #000;
-    font-size: 24px;
-    font-weight: 300;
-}
-
-.modal.filters .modal-close:hover {
-    color: #666;
-}
-
-/* Ensure filter text is visible on glassmorphism background */
-.filters-container {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-    padding: 12px; /* More compact */
-    margin-bottom: 15px; /* Reduced spacing */
-}
-
-.filters-container h6 {
-    color: #000;
-    font-size: 13px; /* Smaller */
-    margin-bottom: 10px; /* Compact */
-}
-
-.checkbox-container {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 6px;
-    padding: 6px 10px; /* More compact */
-    margin-bottom: 6px; /* Reduced spacing */
-}
-
-.checkbox-text {
-    color: #000;
-    font-weight: 500;
-    font-size: 12px; /* Smaller */
-}
-
-/* PROBLEMA 3: Centralize filter and sort controls side by side */
-.category-controls,
-.js-category-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    max-width: 600px;
-    margin: 0 auto 30px auto;
-}
-
-.category-controls > div,
-.js-category-controls > div {
-    flex: 0 0 auto;
-    width: auto;
-}
-
-/* Filter button - smaller and cleaner */
-.filter-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px; /* Smaller */
-    background: #fff;
-    border: 1px solid #000;
-    border-radius: 6px;
-    color: #000;
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 11px; /* Smaller */
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-.filter-link:hover {
-    background: #000;
-    color: #EAFE67;
-    text-decoration: none;
-}
-
-.filter-link .icon-inline {
-    width: 12px;
-    height: 12px;
-    fill: currentColor;
-}
-
-/* PROBLEMA 3: ORDENAÇÃO PADRONIZADA (Igual ao botão Filtrar) */
-.sort-by {
-    margin: 0;
-    display: inline-block;
-}
-
-.sort-by select,
-.form-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-    /* Layout Box igual ao botão Filtrar */
-    background-color: #fff;
-    border: 1px solid #000;
-    border-radius: 6px;
-    padding: 8px 35px 8px 16px; /* Espaço extra na direita para a seta */
-    height: auto;
-
-    /* Tipografia igual ao botão Filtrar */
-    font-family: 'Familjen Grotesk', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #000;
-
-    /* Ícone de Seta (Chevron Down) customizado */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 12px;
-
-    cursor: pointer;
-    min-width: 160px;
-    max-width: 220px;
-    box-shadow: none;
-    outline: none;
-}
-
-.sort-by select:hover {
-    background-color: #000;
-    color: #EAFE67;
-    border-color: #000;
-    /* Inverte a cor da seta no hover */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23EAFE67' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-}
-
-/* Centralizar controles */
-.category-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-/* PROBLEMA 2: REMOVER ÍCONE ANTIGO DA ORDENAÇÃO (Seletor mais específico e agressivo) */
-.sort-by .form-select-icon,
-.js-sort-by .form-select-icon,
-.search-controls .form-select-icon,
-.category-controls .form-select-icon,
-.form-group .form-select-icon {
-    display: none;
-    visibility: hidden;
-    opacity: 0;
-    width: 0;
-}
+/* [REMOVED Story 8.2 ETAPA 2] Filter & Sort CSS moved to style-async.scss.tpl */
 
 /* PROBLEMA 1: MOBILE HEADER - LUPA NA ESQUERDA & ÍCONES REDUZIDOS */
 @media (max-width: 767px) {
@@ -4808,537 +4582,4 @@ select {
     }
 }
 
-/* =====================================================================
-   PATAGANG v1.5.33: PRODUCT GALLERY MODAL & NAV BUTTONS
-   Complete CSS for gallery lightbox and carousel navigation
-   ===================================================================== */
-
-/* MODAL GALLERY - Fullscreen overlay */
-#pg-modal-gallery {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: rgba(0,0,0,0.92);
-}
-
-#pg-modal-gallery.is-open {
-  display: flex;
-}
-
-/* Modal backdrop - Close on click */
-.pg-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  cursor: zoom-out;
-  z-index: 1;
-}
-
-/* Modal container - Main layout */
-.pg-modal-container {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
-/* Modal sidebar - Thumbnail gallery */
-.pg-modal-sidebar {
-  width: 80px;
-  min-width: 80px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 16px 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background: rgba(0,0,0,0.3);
-}
-
-/* Modal thumbnail item */
-.pg-modal-thumb {
-  width: 64px;
-  height: 64px;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  overflow: hidden;
-  cursor: pointer;
-  padding: 0;
-  background: none;
-  transition: border-color 0.2s ease;
-}
-
-.pg-modal-thumb:hover {
-  border-color: rgba(255,255,255,0.5);
-}
-
-.pg-modal-thumb.is-active {
-  border-color: #ffffff;
-}
-
-.pg-modal-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Modal main image area */
-.pg-modal-main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  position: relative;
-}
-
-/* Modal main image */
-#pg-modal-main-image {
-  max-width: 100%;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 12px;
-}
-
-/* Modal close button */
-.pg-modal-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: rgba(255,255,255,0.15);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: #ffffff;
-  font-size: 24px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-  z-index: 10;
-}
-
-.pg-modal-close:hover {
-  background: rgba(255,255,255,0.25);
-}
-
-/* Modal navigation buttons */
-.pg-modal-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255,255,255,0.15);
-  border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  color: #ffffff;
-  font-size: 18px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-  z-index: 10;
-}
-
-.pg-modal-nav:hover {
-  background: rgba(255,255,255,0.25);
-}
-
-.pg-modal-nav[data-direction="prev"] {
-  left: 12px;
-}
-
-.pg-modal-nav[data-direction="next"] {
-  right: 12px;
-}
-
-/* Modal counter - Image position indicator */
-.pg-modal-counter {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(255,255,255,0.7);
-  font-size: 12px;
-  font-family: 'Familjen Grotesk', sans-serif;
-  z-index: 10;
-}
-
-/* Modal responsive - Hide sidebar on mobile */
-@media (max-width: 768px) {
-  .pg-modal-sidebar {
-    display: none;
-  }
-
-  .pg-modal-main {
-    padding: 8px;
-  }
-
-  .pg-modal-nav {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
-  }
-
-  .pg-modal-nav[data-direction="prev"] {
-    left: 8px;
-  }
-
-  .pg-modal-nav[data-direction="next"] {
-    right: 8px;
-  }
-}
-
-/* =====================================================================
-   CAROUSEL NAVIGATION BUTTONS - Prev/Next arrows
-   ===================================================================== */
-
-/* Navigation button base */
-.pg-nav-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.9);
-  border: 1px solid rgba(0,0,0,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: opacity 0.2s ease, background 0.2s ease;
-  padding: 0;
-}
-
-.pg-nav-btn:hover {
-  background: rgba(255,255,255,0.95);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.pg-nav-btn:active {
-  opacity: 0.7;
-}
-
-/* Previous button */
-.pg-nav-btn--prev {
-  left: 8px;
-}
-
-/* Next button */
-.pg-nav-btn--next {
-  right: 8px;
-}
-
-/* Button logo/icon */
-.pg-nav-btn__logo {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
-}
-
-/* Flip previous button icon */
-.pg-nav-btn--prev .pg-nav-btn__logo {
-  transform: scaleX(-1);
-}
-
-/* Mobile responsive navigation */
-@media (max-width: 768px) {
-  .pg-nav-btn {
-    width: 32px;
-    height: 32px;
-  }
-
-  .pg-nav-btn--prev {
-    left: 4px;
-  }
-
-  .pg-nav-btn--next {
-    right: 4px;
-  }
-
-  .pg-nav-btn__logo {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-/* =====================================================================
-   PATAGANG v1.5.36: MODERN & MINIMALIST UX/UI — Gallery Images
-   Efeitos suaves, minimalistas, foco na experiência do usuário
-   ===================================================================== */
-
-/* Gallery grid container - 2x2 layout, responsive */
-.pg-gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);  /* 2 colunas */
-  gap: 16px;  /* Espaçamento entre itens */
-  width: 100%;
-  height: auto;  /* Cresce dinamicamente com conteúdo */
-}
-
-/* Gallery item wrapper - Modern styling */
-.pg-gallery-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: 14px;  /* Moderno: não quadrado rígido */
-  background: #f9f9f9;
-  aspect-ratio: 1;  /* Quadrado: altura = largura */
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);  /* Sombra discreta */
-  cursor: pointer;
-}
-
-/* Gallery item image - Smooth transitions */
-.pg-gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Gallery item hover - Modern zoom effect */
-.pg-gallery-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.12);  /* Sombra elevada ao hover */
-}
-
-.pg-gallery-item:hover img {
-  transform: scale(1.04);  /* Zoom suave ao hover */
-}
-
-/* Overlay on hover - Minimal zoom indicator */
-.pg-gallery-item::before {
-  content: '🔍';
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,0);
-  font-size: 28px;
-  opacity: 0;
-  transition: opacity 0.25s ease, background 0.25s ease;
-  pointer-events: none;
-}
-
-.pg-gallery-item:hover::before {
-  opacity: 1;
-  background: rgba(0,0,0,0.15);  /* Overlay sutil ao hover */
-}
-
-/* Active/Selected image indicator - Modern glow */
-.pg-gallery-item.is-active,
-.pg-gallery-item[data-active="true"] {
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.06);
-  transform: scale(1.01);
-}
-
-/* Scroll container - Custom scrollbar styling (webkit browsers) */
-.pg-gallery-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.pg-gallery-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.pg-gallery-container::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.12);
-  border-radius: 3px;
-  transition: background 0.2s ease;
-}
-
-.pg-gallery-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.25);
-}
-
-/* Firefox scrollbar styling */
-.pg-gallery-container {
-  scrollbar-color: rgba(0,0,0,0.12) transparent;
-  scrollbar-width: thin;
-  width: 100%;
-  height: auto;
-  overflow-y: auto;  /* Permite scroll vertical se necessário */
-  overflow-x: hidden;
-}
-
-/* Desktop: Gallery container preenche altura da coluna */
-@media (min-width: 992px) {
-  .pg-gallery-container {
-    height: 100%;  /* Preenche altura total da coluna */
-    display: flex;
-    flex-direction: column;
-  }
-
-  .pg-gallery-grid {
-    flex: 1;  /* Expande para preencher espaço */
-    height: 100%;  /* Altura dinâmica */
-  }
-}
-
-/* Tablet adjustments - Modern responsive */
-@media (min-width: 769px) and (max-width: 991px) {
-  .pg-gallery-item {
-    border-radius: 12px;
-  }
-}
-
-/* Mobile adjustments - Modern touch-friendly */
-@media (max-width: 768px) {
-  .pg-gallery-item {
-    border-radius: 10px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  }
-
-  /* Remove hover effects on touch devices */
-  .pg-gallery-item:hover {
-    transform: none;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  }
-
-  .pg-gallery-item:hover img {
-    transform: scale(1);  /* Sem zoom em mobile */
-  }
-
-  .pg-gallery-item:hover::before {
-    opacity: 0;  /* Sem overlay em mobile */
-    background: transparent;
-  }
-}
-
-/* ============================================================================
-   PATAGANG v1.6.0 — FASE 2 MODERNIZATION CSS
-   Aspect-ratio container + SVG size-lock (minimal additions)
-============================================================================ */
-
-/* Aspect-ratio container for mobile carousel (replaces padding-bottom hack) */
-.pg-aspect-ratio-container {
-  position: relative;
-  width: 100%;
-  display: block;
-  aspect-ratio: attr(data-aspect-ratio, auto);
-  /* data-aspect-ratio comes from product image dimensions */
-}
-
-.pg-aspect-ratio-container img,
-.pg-aspect-ratio-container svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* SVG size-lock for modal images (prevents CLS) */
-.pg-modal-main-img {
-  width: 100%;
-  height: auto;
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-}
-
-/* SVG size-lock rules - prevent CLS (Cumulative Layout Shift) */
-.pg-nav-btn__logo,
-.pg-gallery-zoom-icon svg {
-  width: 24px;
-  height: 24px;
-  display: block;
-  flex-shrink: 0;
-}
-
-/* Responsive aspect-ratio fallback */
-@supports (aspect-ratio: 1) {
-  .pg-aspect-ratio-container {
-    height: auto;
-  }
-}
-
-/* Ensure images respect container constraints */
-@media (max-width: 768px) {
-  .pg-modal-main-img {
-    max-width: 100%;
-    max-height: 70vh;
-  }
-}
-
-/* ============================================================================
-   PATAGANG V3 - PRICE BLOCK MINIMALIST (Estética Patagang)
-============================================================================ */
-.pg-price-block {
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin-bottom: 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    box-shadow: none;
-}
-
-/* Preço Principal com Desconto (PIX/Boleto) */
-.pg-price-block .pg-price-pix-highlight {
-    font-size: 34px !important;
-    font-weight: 900 !important;
-    color: #000000 !important;
-    line-height: 1.1;
-    letter-spacing: -1px;
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 6px;
-    text-transform: uppercase;
-}
-
-/* Textos auxiliares dentro do highlight (ex: 'no Pix') */
-.pg-price-block .pg-price-pix-highlight span:not(.js-price-display) {
-    font-size: 14px !important;
-    font-weight: 800 !important;
-    color: #000000 !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Preço Original (Tachado) */
-.pg-price-block .pg-price-original,
-.pg-price-block .pg-price-compare-at {
-    font-size: 14px !important;
-    color: #999999 !important;
-    text-decoration: line-through;
-    font-weight: 500;
-    margin-top: -2px;
-}
-
-/* Parcelamento Minimalista */
-.pg-price-block .pg-price-installments {
-    font-size: 13px !important;
-    font-weight: 600;
-    color: #666666;
-    background: transparent;
-    padding: 2px 0;
-    border: none;
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* Destaque para valores do parcelamento e 'sem juros' */
-.pg-price-block .pg-price-installments .js-installment-amount,
-.pg-price-block .pg-price-installments strong {
-    font-size: 14px !important;
-    font-weight: 900 !important;
-    color: #000000 !important;
-}
-
+/* [REMOVED Story 8.2 ETAPA 1] Gallery Modal CSS moved to style-async.scss.tpl */
