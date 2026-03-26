@@ -114,9 +114,11 @@
                PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
                ===================================================================== */
 
-            /* 1. DESKTOP: Gallery shows exactly 4 images (2x2) with scroll for extras */
+            /* 1. DESKTOP: Gallery grows with card height, scroll for extras */
+            /* PATAGANG v1.5.152: Removed max-height: 520px to allow gallery to match card */
             .pg-gallery-container {
-                max-height: 520px;          /* MÁXIMO: altura suficiente para 4 imagens (2x2) */
+                height: auto;               /* Grow with content */
+                max-height: none;           /* Remove hard limit */
                 overflow-y: auto;           /* Scroll automático se > 4 imagens */
                 box-sizing: border-box;
                 display: flex;              /* Flex container para filho ficar alinhado */
@@ -197,9 +199,11 @@
             }
 
             @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column, 4 imagens (2x2) com scroll para extras */
+                /* Tablet: galeria 2-column, grows with card */
+                /* PATAGANG v1.5.152: Removed max-height: 480px limit */
                 .pg-gallery-container {
-                    max-height: 480px;      /* MÁXIMO: altura para 2 linhas em tablet */
+                    height: auto;           /* Grow with content */
+                    max-height: none;       /* Remove hard limit */
                     overflow-y: auto;       /* Scroll automático se > 4 imagens */
                     padding-right: 8px;     /* Espaço para scrollbar */
                 }
