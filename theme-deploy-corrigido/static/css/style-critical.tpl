@@ -2928,6 +2928,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	/* Gallery grid 2x2: Show on desktop (≥992px) */
 	.pg-gallery-container {
 		display: flex !important;
+		height: 100%;
+		max-height: none !important;
+		overflow-y: auto;
+	}
+
+	.pg-pdp-image-col .pg-gallery-grid {
+		height: 100%;
+		align-content: flex-start;
 	}
 }
 
