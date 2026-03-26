@@ -141,17 +141,25 @@ Refinar UX/UI mobile + consolidar aprendizados de EPIC 8 de forma segura (sem im
 
 ## 🔄 Workflow Timeline
 
-### Week 1: Investigation + Implementation Phase 1
+### PHASE 1: Investigation (✅ COMPLETED 2026-03-27)
 ```
-Mon: Investigation (9.1 White Background)
-     ├─ @architect leads investigation
-     ├─ @dev supports code analysis
-     └─ Gabriel reviews findings
+Investigation Report: docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md
+Root Cause: CSS rule scoping side effect from Story 8.2 banner adjustments
+Confidence: 95%
+Recommended Solution: Solution A (Adjust main padding-top for generic pages)
+```
 
-Tue-Wed: Story 9.1 Implementation + Deploy v1.6.1
-        ├─ Refactoring baseado em root cause
-        ├─ Testing (5+ páginas)
-        └─ Gabriel approval
+### Week 1: Implementation Phase (READY TO START)
+```
+Today: Gabriel Reviews Investigation Report
+       ├─ Approve root cause diagnosis
+       ├─ Approve Solution A recommendation
+       └─ @architect prepares implementation approach
+
+Tomorrow: Story 9.1 Implementation + Deploy v1.6.1
+         ├─ Implement Solution A (45 min)
+         ├─ Testing (5+ páginas)
+         └─ Gabriel approval on production
 
 Thu-Fri: Paralelo (após 9.1 ✅)
         ├─ Story 9.2 (Gallery) → v1.6.2
@@ -171,37 +179,27 @@ Fri: Buffer/Testing
 
 ---
 
-## 🔍 Current Phase: Investigation (Story 9.1)
+## 📊 Investigation Results (Story 9.1) — ✅ COMPLETED
 
-### Investigation Task Created
-**File:** `.aiox-core/development/tasks/investigate-white-background-issue.md`
+### Root Cause Identified
+**File:** `docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md` ✅
 
-**Structure:**
-1. Visual Analysis (30 min)
-   - Reproduce in Chrome DevTools
-   - Analyze HTML structure
-   - Check CSS computed styles
-   - Review layout properties
+**The Issue:**
+CSS rule scoping side effect from Story 8.2 product page refactoring. Generic pages inherit `main.patagang-section-content { padding-top: 160px; }` which, combined with `body { background-color: #ffffff !important; }`, creates visual appearance of "white background band" below header on pages like /comunidade/.
 
-2. Code Analysis (60 min)
-   - Search position: absolute/fixed elements
-   - Review layout.tpl structure
-   - Check recent banner adjustments
-   - Analyze CSS cascade
+**Root Cause Confidence:** 95%
 
-3. Hypothesis Testing (30 min)
-   - Test 4 hypotheses about root cause
-   - Verify which one is correct
-   - Document findings
+### Solutions Analyzed
+1. **Solution A (RECOMMENDED):** Adjust main padding-top for non-product pages (45 min)
+2. **Solution B:** Add visual separator section (1-2 hrs)
+3. **Solution C:** CSS containment approach (1 hr + risk)
 
-### Deliverable Expected
-**File:** `docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md`
-
-**Contents:**
-- Root cause identified + documented
-- 2-3 solutions proposed with recommendation
-- Gotcha entry for prevention
-- Ready for Gabriel review + @architect approach proposal
+### Next Action
+**Status:** Awaiting Gabriel Review
+- Gabriel: Review investigation report
+- @architect: Propose implementation approach
+- @dev: Implement Solution A
+- Deploy v1.6.1 + validate
 
 ---
 
@@ -324,7 +322,7 @@ Supporting:
 
 ---
 
-## ✅ Checkpoint Status
+## ✅ Checkpoint Status (UPDATED 2026-03-27)
 
 ```
 🟢 EPIC 8: COMPLETA
@@ -332,26 +330,31 @@ Supporting:
    ├─ Documentação atualizada com status real
    └─ Aprendizados consolidados
 
-🟡 EPIC 9: FASE 1 — Investigation Iniciada
+🟡 EPIC 9: FASE 2 — Implementation Ready
    ├─ 6 ajustes mapeados + análise profunda
    ├─ 6 stories estruturadas (AIOX SDC format)
    ├─ Workflow AIOX 10/10 definido
-   ├─ Story 9.1 investigation task created
-   ├─ @architect ready para investigação
-   └─ Awaiting investigation findings
+   ├─ Story 9.1 INVESTIGATION COMPLETE ✅
+   │  └─ Root cause: CSS rule scoping side effect (95% confidence)
+   │  └─ Report: docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md
+   │  └─ Solutions: 3 options proposed, A recommended (45 min effort)
+   ├─ Ready para @architect approach proposal
+   └─ Ready para @dev implementation
 
-📋 DOCUMENTAÇÃO: ✅ Completa
+📋 DOCUMENTAÇÃO: ✅ Completa + Updated
    ├─ Context captured
    ├─ Workflow defined
    ├─ Stories structured
    ├─ Quality gates defined
-   └─ Ready para resumption
+   ├─ Investigation findings documented
+   └─ Ready para Gabriel review + implementation
 
-🎯 PRÓXIMA SESSÃO: Resume Story 9.1 Investigation
-   ├─ @architect leads (Aria)
-   ├─ @dev supports
-   ├─ Gabriel reviews findings
-   └─ Initiate Story 9.1 Implementation
+🎯 PRÓXIMA SESSÃO: Story 9.1 Implementation
+   ├─ Gabriel: Review investigation report
+   ├─ @architect: Propose implementation approach (Solution A)
+   ├─ @dev: Code changes + testing
+   ├─ @devops: Deploy v1.6.1
+   └─ Gabriel: Validate in production → Stories 9.2-9.6 unblocked
 ```
 
 ---
@@ -368,8 +371,12 @@ cb6a1b4 docs: correct Story 8.5 status
 
 ---
 
-**Status:** ✅ Context Checkpoint Complete
-**Ready for:** Session resumption with Story 9.1 Investigation
+**Status:** ✅ Context Checkpoint Updated
+**Phase:** Investigation Complete, Ready for Implementation
 **Owner:** Gabriel Cristofolini (CTO)
-**Last Action:** Awaiting limpar janela/contexto
+**Investigation Completed:** 2026-03-27 23:55 UTC
+**Last Action:** Awaiting Gabriel review of investigation report
+
+**Report Location:** `docs/reports/9.1-WHITE-BACKGROUND-INVESTIGATION.md`
+**Next Action:** Gabriel approves → @architect proposes approach → Implementation starts
 
