@@ -182,6 +182,42 @@ O AIOX carrega regras contextuais de `.claude/rules/` automaticamente. Regras co
 > **Diretório:** `.claude/rules/` — rules são carregadas automaticamente pelo Claude Code quando relevantes.
 <!-- AIOX-MANAGED-END: rules-system -->
 
+<!-- AIOX-MANAGED-START: memory-architecture -->
+## Memory Architecture (L2-L3)
+
+O AIOX usa um modelo de 2 camadas para persistência de contexto:
+
+### L2: Agent-Specific Memory
+**Locação:** `.aiox-core/development/agents/{agent}/MEMORY.md`
+**Escopo:** Patterns, procedures, exclusive authorities por agente
+**Exemplos:**
+- `agents/dev/MEMORY.md` — Code patterns, FTP constraints, testing patterns
+- `agents/qa/MEMORY.md` — Gate verdicts, validation patterns
+- `agents/architect/MEMORY.md` — Design decisions, architecture patterns
+- `agents/devops/MEMORY.md` — Deployment flow, versioning process
+
+### L3: Project Configuration
+**Locação:** `.aiox-core/data/` e `.claude/rules/`
+**Escopo:** Project state, learned patterns, pattern registries
+**Exemplos:**
+- `.aiox-core/data/patagang-project-state.yaml` — Active stories, epics, QA state
+- `.aiox-core/data/patagang-learned-patterns.yaml` — Feedback patterns, decisions
+- `.aiox-core/data/nuvemshop-patterns.yaml` — FTP constraint registry
+
+### Estratégia de Carregamento
+Agentes carregam na sequência:
+1. **Agent MEMORY.md** (seu próprio): patterns + workflows
+2. **Project state YAML** (L3): contexto da story atual
+3. **Learned patterns YAML** (L3): histórico de decisões
+
+**Resultado:** ~0.5K tokens overhead por agent (vs. ~3-5K sem memory)
+
+**Importante:** Meta-documentação sobre memory (como usar, arquitetura) NÃO vai em memory files — vai em `.aiox-core/development/docs/` como referência.
+
+> **Referência completa:** `.aiox-core/development/docs/MEMORY-ARCHITECTURE-REFERENCE.md` (detailed architecture)
+> **Configuração em projeto:** `.aiox-core/data/patagang-project-state.yaml` + `.aiox-core/data/patagang-learned-patterns.yaml`
+<!-- AIOX-MANAGED-END: memory-architecture -->
+
 <!-- AIOX-MANAGED-START: code-intelligence -->
 ## Code Intelligence
 

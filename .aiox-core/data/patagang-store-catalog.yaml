@@ -1,0 +1,730 @@
+---
+# Patagang Store Catalog — Complete Architecture Index
+# Type: Configuration (L3 — Project Configuration, mutable)
+# Purpose: Machine-readable index of store structure for quick lookup and context enrichment
+# Consumed by: Agents (@dev, @qa, @architect), AI for context engineering
+# Updated: Continuously as structure evolves
+# Format: YAML — 1.2 (keys: lowercase, underscores for multi-word)
+
+version: "1.0.0"
+lastUpdated: "2026-03-24T21:15:00Z"
+project: "Patagang Ecommerce Theme (Nuvemshop FTP)"
+platform: "Nuvemshop Liquid Templating"
+theme_base: "theme-deploy-corrigido/"
+
+# ============================================================================
+# PAGES — Complete page inventory with structure
+# ============================================================================
+pages:
+  home:
+    id: "home"
+    name: "Homepage"
+    template_file: "templates/home.tpl"
+    type: "landing"
+    description: "Main homepage with hero section, product grids, and brand mission"
+    route: "/"
+    sections:
+      - name: "Hero V2"
+        component: "hero-v2"
+        type: "banner"
+        css: ["style-critical.tpl", "style-home-v2.css"]
+        js: ["smooth-scroll.js"]
+      - name: "Vista Products Grid"
+        component: "product-grid"
+        type: "product-showcase"
+        css: ["style-critical.tpl", "style-async.scss.tpl"]
+        js: ["store.js.tpl", "product-page-custom.js"]
+      - name: "Development Products Section"
+        component: "dev-products-grid"
+        type: "product-showcase"
+        css: ["style-critical.tpl"]
+        js: ["store.js.tpl"]
+    snipplets:
+      - "breadcrumbs.tpl"
+      - "product_grid.tpl"
+      - "newsletter.tpl"
+    performance:
+      lcp_target: "home-v2-hero"
+      critical_css_required: true
+      estimated_load_time: "1.2s"
+    nuvemshop_constraints: []
+
+  product_detail:
+    id: "product"
+    name: "Product Detail Page (PDP)"
+    template_file: "templates/product.tpl"
+    type: "product"
+    description: "Individual product page with images, variants, pricing, reviews"
+    route: "/products/:slug"
+    sections:
+      - name: "Product Identity Banner"
+        component: "product-identity-banner"
+        file: "snipplets/product/product-identity-banner.tpl"
+        css: ["style-critical.tpl"]
+      - name: "Product Informative Banner"
+        component: "product-informative-banner"
+        file: "snipplets/product/product-informative-banner.tpl"
+        css: ["style-critical.tpl"]
+      - name: "Product Images"
+        component: "product-image"
+        file: "snipplets/product/product-image.tpl"
+        css: ["style-critical.tpl", "style-async.scss.tpl"]
+        js: ["external.js.tpl"]
+      - name: "Product Form & Variants"
+        component: "product-form"
+        file: "snipplets/product/product-form.tpl"
+        css: ["style-critical.tpl"]
+        js: ["store.js.tpl", "external.js.tpl"]
+      - name: "Related Products"
+        component: "product-related"
+        file: "snipplets/product/product-related.tpl"
+        css: ["style-async.scss.tpl"]
+        js: ["store.js.tpl"]
+    snipplets:
+      - "product/product-image.tpl"
+      - "product/product-form.tpl"
+      - "product/product-related.tpl"
+      - "product/product-payment-details.tpl"
+      - "product/product-custom-fields.tpl"
+      - "labels.tpl"
+      - "social-share.tpl"
+    performance:
+      lcp_target: "product-image"
+      critical_css_required: true
+      estimated_load_time: "1.8s"
+    nuvemshop_constraints: ["CONSTRAINT #3: Form NOT modified", "CONSTRAINT #2: Footer visible"]
+
+  cart:
+    id: "cart"
+    name: "Shopping Cart"
+    template_file: "templates/cart.tpl"
+    type: "transaction"
+    description: "Cart page displaying items, totals, and checkout button"
+    route: "/cart"
+    sections:
+      - name: "Cart Items"
+        component: "cart-items"
+        css: ["style-critical.tpl", "style-async.scss.tpl"]
+        js: ["store.js.tpl", "cart-drawer.js.tpl", "cart-utils.js.tpl"]
+      - name: "Cart Summary"
+        component: "cart-totals"
+        file: "snipplets/cart-totals.tpl"
+        css: ["style-critical.tpl"]
+        js: ["store.js.tpl"]
+      - name: "Related Products"
+        component: "cart-related"
+        file: "snipplets/cart-related-products.tpl"
+        css: ["style-async.scss.tpl"]
+        js: ["store.js.tpl"]
+    snipplets:
+      - "cart-item-new.tpl"
+      - "cart-item-ajax.tpl"
+      - "cart-totals.tpl"
+      - "cart-related-products.tpl"
+      - "cart-banner.tpl"
+    performance:
+      lcp_target: "cart-item-new"
+      critical_css_required: true
+      estimated_load_time: "1.5s"
+    nuvemshop_constraints: ["CONSTRAINT #1: Checkout structure protected", "CONSTRAINT #2: Footer attribution"]
+    robots_meta: "noindex, nofollow"
+
+  checkout:
+    id: "checkout"
+    name: "Checkout (Nuvemshop Managed)"
+    template_file: "Not applicable (Nuvemshop platform)"
+    type: "transaction"
+    description: "Checkout flow managed entirely by Nuvemshop backend"
+    route: "/checkout"
+    notes: "CRITICAL: This page is controlled by Nuvemshop. Theme can only style, NOT modify structure."
+    nuvemshop_constraints: ["CONSTRAINT #1: Form structure PROTECTED", "CONSTRAINT #2: Footer attribution"]
+    robots_meta: "noindex, nofollow"
+
+  category:
+    id: "category"
+    name: "Category/Department Page"
+    template_file: "templates/category.tpl"
+    type: "listing"
+    description: "Product category with filters, sorting, and product grid"
+    route: "/category/:slug"
+    sections:
+      - name: "Category Banner"
+        component: "category-banner"
+        file: "snipplets/category-banner.tpl"
+        css: ["style-critical.tpl", "style-home-v2.css"]
+      - name: "Filters Panel"
+        component: "filters"
+        css: ["style-critical.tpl", "style-filters-patagang.css.tpl"]
+        js: ["store.js.tpl", "external.js.tpl"]
+      - name: "Product Grid"
+        component: "product-grid"
+        file: "snipplets/product_grid.tpl"
+        css: ["style-async.scss.tpl"]
+        js: ["store.js.tpl"]
+    snipplets:
+      - "product_grid.tpl"
+      - "breadcrumbs.tpl"
+      - "category-banner.tpl"
+    performance:
+      lcp_target: "category-banner"
+      critical_css_required: true
+      estimated_load_time: "2.0s"
+    nuvemshop_constraints: []
+
+  search:
+    id: "search"
+    name: "Search Results Page"
+    template_file: "templates/search.tpl"
+    type: "listing"
+    description: "Search results with product grid and filters"
+    route: "/search?q=:query"
+    sections:
+      - name: "Search Form"
+        component: "search-input"
+        css: ["style-critical.tpl"]
+      - name: "Results Grid"
+        component: "product-grid"
+        css: ["style-async.scss.tpl"]
+        js: ["store.js.tpl"]
+    snipplets:
+      - "product_grid.tpl"
+      - "breadcrumbs.tpl"
+    performance:
+      estimated_load_time: "1.8s"
+    robots_meta: "noindex, follow"
+
+  blog:
+    id: "blog"
+    name: "Blog Listing"
+    template_file: "templates/blog.tpl"
+    type: "content"
+    description: "Blog post listing page with pagination"
+    route: "/blog"
+    sections:
+      - name: "Blog Post Cards"
+        component: "blog-grid"
+        css: ["style-blog.scss.tpl", "style-async.scss.tpl"]
+        js: ["store.js.tpl"]
+    snipplets:
+      - "blog-item.tpl"
+      - "blog-post-card.tpl"
+    performance:
+      estimated_load_time: "1.5s"
+
+  blog_post:
+    id: "blog-post"
+    name: "Blog Post Detail"
+    template_file: "templates/blog-post.tpl"
+    type: "content"
+    description: "Individual blog post with comments, sharing"
+    route: "/blog/:slug"
+    sections:
+      - name: "Post Content"
+        component: "post-content"
+        css: ["style-blog.scss.tpl"]
+        js: ["store.js.tpl"]
+    snipplets:
+      - "blog-item.tpl"
+      - "social-share.tpl"
+    performance:
+      estimated_load_time: "1.4s"
+
+  page_generic:
+    id: "page"
+    name: "Generic Page (About, Contact, etc)"
+    template_file: "templates/page.tpl"
+    type: "content"
+    description: "Generic content page from Nuvemshop CMS"
+    route: "/pages/:slug"
+    sections:
+      - name: "Page Content"
+        component: "page-content"
+        css: ["style-critical.tpl"]
+    snipplets:
+      - "page-header.tpl"
+      - "page-custom.tpl"
+    performance:
+      estimated_load_time: "0.8s"
+
+  contact:
+    id: "contact"
+    name: "Contact Page"
+    template_file: "templates/contact.tpl"
+    type: "form"
+    description: "Contact form and support information"
+    route: "/contact"
+    sections:
+      - name: "Contact Form"
+        component: "contact-form"
+        css: ["style-critical.tpl"]
+        js: ["store.js.tpl"]
+      - name: "Contact Links"
+        component: "contact-links"
+        file: "snipplets/contact-links.tpl"
+        css: ["style-critical.tpl"]
+    nuvemshop_constraints: ["CONSTRAINT #3: Form structure protected"]
+    robots_meta: "index, follow"
+
+  account_login:
+    id: "account-login"
+    name: "Customer Account - Login"
+    template_file: "templates/account/login.tpl"
+    type: "account"
+    description: "Customer login page"
+    route: "/account/login"
+    sections:
+      - name: "Login Form"
+        component: "login-form"
+        css: ["style-critical.tpl"]
+        js: ["store.js.tpl"]
+    snipplets:
+      - "tooltip-login.tpl"
+    nuvemshop_constraints: ["CONSTRAINT #3: Form NOT modified"]
+    robots_meta: "noindex, nofollow"
+
+  account_register:
+    id: "account-register"
+    name: "Customer Account - Registration"
+    template_file: "templates/account/register.tpl"
+    type: "account"
+    description: "Customer registration page"
+    route: "/account/register"
+    nuvemshop_constraints: ["CONSTRAINT #5: Registration form protected"]
+    robots_meta: "noindex, nofollow"
+
+  account_orders:
+    id: "account-orders"
+    name: "Customer Account - Orders History"
+    template_file: "templates/account/orders.tpl"
+    type: "account"
+    description: "Customer orders list"
+    route: "/account/orders"
+    robots_meta: "noindex, nofollow"
+
+  error_404:
+    id: "404"
+    name: "404 Error Page"
+    template_file: "templates/404.tpl"
+    type: "error"
+    description: "Page not found"
+    route: "/404"
+
+  password_protected:
+    id: "password"
+    name: "Password Protected Store"
+    template_file: "templates/password.tpl"
+    type: "access"
+    description: "Password protection page (if store is in maintenance)"
+    route: "/password"
+
+# ============================================================================
+# COMPONENTS — Reusable snipplets and their usage
+# ============================================================================
+components:
+  snippet_count: 41
+  categories:
+    navigation:
+      - file: "snipplets/navigation/navigation.tpl"
+        purpose: "Main navigation wrapper"
+        used_in: ["home", "category", "product", "blog", "page"]
+      - file: "snipplets/navigation/navigation-mega-menu.tpl"
+        purpose: "Mega menu for desktop"
+        css: ["style-menu-patagang.css.tpl"]
+        js: ["store.js.tpl"]
+      - file: "snipplets/navigation/navigation-category.tpl"
+        purpose: "Category navigation"
+      - file: "snipplets/navigation/navigation-top.tpl"
+        purpose: "Top bar navigation (wishlist, account)"
+        js: ["external.js.tpl"]
+
+    cart_related:
+      - file: "snipplets/icon-cart.tpl"
+        purpose: "Shopping cart icon"
+        js: ["store.js.tpl"]
+      - file: "snipplets/cart-panel.tpl"
+        purpose: "Mini cart sidebar panel"
+        js: ["cart-drawer.js.tpl"]
+      - file: "snipplets/cart-banner.tpl"
+        purpose: "Cart summary banner"
+        css: ["style-critical.tpl"]
+      - file: "snipplets/cart-item-new.tpl"
+        purpose: "Cart item in list view"
+        js: ["store.js.tpl", "cart-utils.js.tpl"]
+      - file: "snipplets/cart-modal.tpl"
+        purpose: "Cart modal dialog"
+        css: ["style-async.scss.tpl"]
+        js: ["store.js.tpl", "external.js.tpl"]
+
+    product_related:
+      - file: "snipplets/product/product-image.tpl"
+        purpose: "Product image gallery/slider"
+        js: ["external.js.tpl"]
+      - file: "snipplets/product/product-form.tpl"
+        purpose: "Product purchase form"
+        js: ["store.js.tpl", "external.js.tpl"]
+      - file: "snipplets/product/product-related.tpl"
+        purpose: "Related/recommended products section"
+        css: ["style-async.scss.tpl"]
+      - file: "snipplets/product/product-payment-details.tpl"
+        purpose: "Installment and payment info"
+        css: ["style-critical.tpl"]
+      - file: "snipplets/product/product-custom-fields.tpl"
+        purpose: "Custom product fields"
+      - file: "snipplets/product/item-quantity.tpl"
+        purpose: "Quantity selector"
+        js: ["store.js.tpl"]
+
+    footer:
+      - file: "snipplets/footer.tpl"
+        purpose: "Main footer with attribution (CONSTRAINT #2)"
+        css: ["style-critical.tpl"]
+        nuvemshop_constraint: "CONSTRAINT #2: Must contain visible attribution"
+      - file: "snipplets/navigation/navigation-foot.tpl"
+        purpose: "Footer primary navigation"
+      - file: "snipplets/navigation/navigation-foot-secondary.tpl"
+        purpose: "Footer secondary links"
+
+    forms:
+      - file: "snipplets/modal-newsletter.tpl"
+        purpose: "Newsletter signup modal (CONSTRAINT #6)"
+        js: ["store.js.tpl"]
+        nuvemshop_constraint: "CONSTRAINT #6: Form structure protected"
+      - file: "snipplets/newsletter.tpl"
+        purpose: "Newsletter form in footer"
+        js: ["store.js.tpl"]
+
+    ui_elements:
+      - file: "snipplets/modal.tpl"
+        purpose: "Generic modal dialog"
+        css: ["style-async.scss.tpl"]
+      - file: "snipplets/notification.tpl"
+        purpose: "Notification banner"
+        css: ["style-critical.tpl"]
+      - file: "snipplets/notification-cart.tpl"
+        purpose: "Cart notification toast"
+        js: ["store.js.tpl"]
+      - file: "snipplets/breadcrumbs.tpl"
+        purpose: "Breadcrumb navigation"
+        css: ["style-critical.tpl"]
+      - file: "snipplets/labels.tpl"
+        purpose: "Product labels (sale, new, etc)"
+        css: ["style-critical.tpl"]
+      - file: "snipplets/card.tpl"
+        purpose: "Generic card component"
+        css: ["style-critical.tpl"]
+
+    help_sidebar:
+      - file: "snipplets/help-sidebar.tpl"
+        purpose: "Help/FAQ sidebar (Story 8.2)"
+        css: ["style-help-sidebar.css.tpl"]
+        js: ["store.js.tpl"]
+        note: "Implemented in Story 1.1.1"
+
+    special_features:
+      - file: "snipplets/whatsapp-chat.tpl"
+        purpose: "WhatsApp chat widget"
+        js: ["external.js.tpl"]
+      - file: "snipplets/seals.tpl"
+        purpose: "Trust badges/seals (SSL, certified, etc)"
+        css: ["style-critical.tpl"]
+      - file: "snipplets/social-share.tpl"
+        purpose: "Social sharing buttons"
+        js: ["external.js.tpl"]
+      - file: "snipplets/shipping_options.tpl"
+        purpose: "Shipping calculator options"
+        js: ["store.js.tpl"]
+
+# ============================================================================
+# CSS ARCHITECTURE — Style files and organization
+# ============================================================================
+css:
+  files:
+    critical_path:
+      - file: "static/css/style-critical.tpl"
+        size_bytes: 167829
+        size_kb: 163
+        status: "OVERSIZED (should be <50KB)"
+        inlined: true
+        load_timing: "blocking (critical render path)"
+        includes:
+          - "style-tokens.tpl"
+          - "style-colors.scss.tpl"
+          - "style-menu-patagang.css.tpl"
+          - "style-filters-patagang.css.tpl"
+          - "style-help-sidebar.css.tpl"
+          - "style-whatsapp-button.css.tpl"
+        purpose: "Critical CSS for above-the-fold rendering"
+
+    async_loading:
+      - file: "static/css/style-async.scss.tpl"
+        size_bytes: 168941
+        size_kb: 164
+        status: "OK (async loaded)"
+        load_timing: "non-blocking (asynchronous)"
+        purpose: "Non-critical styles loaded asynchronously"
+
+    specialized:
+      - file: "static/css/style-colors.scss.tpl"
+        size_kb: 45
+        purpose: "Design tokens and color definitions (from settings)"
+      - file: "static/css/style-fonts.tpl"
+        purpose: "Font loading and fallbacks"
+      - file: "static/css/style-blog.scss.tpl"
+        purpose: "Blog-specific styles"
+      - file: "static/css/style-menu-patagang.css.tpl"
+        purpose: "Navigation/menu styling"
+        inlined: "critical"
+      - file: "static/css/style-filters-patagang.css.tpl"
+        purpose: "Category filter UI"
+        inlined: "critical"
+      - file: "static/css/style-help-sidebar.css.tpl"
+        purpose: "Help sidebar styling"
+        inlined: "critical"
+      - file: "static/css/style-whatsapp-button.css.tpl"
+        purpose: "WhatsApp button styling"
+        inlined: "critical"
+
+    legacy_unused:
+      - file: "static/css/product-card-v3.css"
+        status: "LEGACY (check if still used)"
+      - file: "static/css/style-home-v2.css"
+        status: "ACTIVE (home page hero)"
+      - file: "static/css/checkout.scss.tpl"
+        note: "Nuvemshop checkout styling (limited customization)"
+
+  performance_budget:
+    critical_path_limit: "50KB"
+    critical_path_current: "163KB"
+    critical_path_status: "⚠️ EXCEEDS LIMIT BY 3.26x"
+    async_limit: "200KB"
+    async_current: "164KB"
+    async_status: "✅ OK"
+
+# ============================================================================
+# JAVASCRIPT ARCHITECTURE — Script files and dependencies
+# ============================================================================
+javascript:
+  files:
+    core_modules:
+      - file: "static/js/store.js.tpl"
+        size_bytes: 127897
+        size_kb: 125
+        purpose: "Core store functionality (forms, cart, shipping, product variants)"
+        dependencies: ["jQuery (Nuvemshop core)", "DOMContentLoaded polyfill"]
+        table_of_contents:
+          - "Lazy load (native HTML5)"
+          - "Notifications"
+          - "Modals"
+          - "Tabs"
+          - "Header and navigation"
+          - "Sliders (Swiper.js)"
+          - "Social (YouTube, Facebook)"
+          - "Product grid (filters, infinite scroll)"
+          - "Product detail (variants, installments)"
+          - "Cart operations"
+          - "Shipping calculator"
+          - "Forms validation"
+          - "Footer interactions"
+
+      - file: "static/js/external.js.tpl"
+        size_bytes: 106496
+        size_kb: 106
+        purpose: "External integrations and third-party scripts"
+        dependencies: ["Olark (lazy-loaded)", "Google Analytics", "Facebook SDK", "Swiper.js"]
+        modules:
+          - "Olark chat (lazy-loaded as of v1.5.74)"
+          - "Google Analytics tracking"
+          - "Facebook SDK integration"
+          - "Third-party widgets"
+        optimizations: "Olark now lazy-loaded (Priority 1, v1.5.74)"
+
+      - file: "static/js/cart-drawer.js.tpl"
+        size_bytes: 25600
+        size_kb: 25
+        purpose: "Cart side drawer panel interactions"
+        dependencies: ["store.js.tpl", "external.js.tpl"]
+        functions:
+          - "Toggle cart drawer"
+          - "Slide animations"
+          - "Item updates via AJAX"
+
+      - file: "static/js/cart-utils.js.tpl"
+        size_bytes: 15360
+        size_kb: 15
+        purpose: "Utility functions for cart operations"
+        dependencies: ["store.js.tpl"]
+        functions:
+          - "Add to cart helper"
+          - "Remove from cart helper"
+          - "Update quantity helper"
+          - "Cart total calculations"
+
+    secondary:
+      - file: "static/js/product-page-custom.js"
+        size_kb: 8
+        purpose: "Product page-specific functionality"
+
+      - file: "static/js/smooth-scroll.js"
+        size_kb: 3
+        purpose: "Smooth scrolling for anchor links"
+
+      - file: "static/js/payment-discount-text-override.js"
+        purpose: "Payment discount text customization"
+
+    external_dependencies:
+      - file: "static/js/external-no-dependencies.js.tpl"
+        purpose: "External integrations without dependencies"
+      - file: "static/js/google-survey.js.tpl"
+        purpose: "Google Survey integration"
+      - file: "static/js/instatheme.js"
+        purpose: "Instagram feed widget"
+
+  library_dependencies:
+    nuvemshop_core:
+      - "jQuery"
+      - "Bootstrap grid"
+      - "Nuvemshop cart API"
+      - "Nuvemshop admin SDK"
+
+    third_party:
+      - "Swiper.js (sliders)"
+      - "Olark (chat, lazy-loaded)"
+      - "Google Analytics"
+      - "Facebook SDK"
+      - "Drift (support)"
+
+  loading_strategy:
+    critical_js: []
+    async_js:
+      - "external.js.tpl"
+      - "external-no-dependencies.js.tpl"
+      - "cart-drawer.js.tpl"
+    lazy_loaded:
+      - "Olark (v1.5.74+)"
+      - "Google Survey"
+      - "Instatheme"
+
+# ============================================================================
+# NUVEMSHOP CONSTRAINTS — Critical restrictions
+# ============================================================================
+constraints:
+  nuvemshop_critical:
+    - id: "CONSTRAINT #1"
+      name: "Checkout Form Structure"
+      severity: "CRITICAL"
+      restriction: "Do NOT modify checkout page structure or form fields"
+      pages_affected: ["checkout", "cart"]
+      allowed_changes: ["CSS styling only", "Colors", "Typography"]
+      forbidden_changes: ["Field removal", "Field reordering", "Form endpoint modification"]
+
+    - id: "CONSTRAINT #2"
+      name: "Footer Attribution"
+      severity: "CRITICAL"
+      restriction: "Footer MUST contain visible Nuvemshop store attribution"
+      pages_affected: ["all"]
+      allowed_changes: ["Styling", "Positioning", "Additional content before/after"]
+      forbidden_changes: ["Removal", "Hidden (display:none, opacity:0, etc)", "Moved off-screen"]
+      file_location: "snipplets/footer.tpl"
+
+    - id: "CONSTRAINT #3"
+      name: "Contact Form Integrity"
+      severity: "HIGH"
+      restriction: "Do NOT modify contact form structure, fields, or submission"
+      pages_affected: ["contact", "page"]
+      file_location: "snipplets/contact-links.tpl"
+      allowed_changes: ["Input styling", "Placeholder text"]
+      forbidden_changes: ["Field removal", "Submission endpoint change", "Field reordering"]
+
+    - id: "CONSTRAINT #4"
+      name: "CSS Performance Budget"
+      severity: "HIGH"
+      restriction: "Critical CSS must be < 50KB (currently 163KB — EXCEEDS)"
+      pages_affected: ["all"]
+      current_status: "⚠️ OVERSIZE — Story 8.2 goal: reduce to 50KB"
+      action_plan: "Consolidate styles, extract unused CSS, split critical/async"
+
+    - id: "CONSTRAINT #5"
+      name: "Registration Form"
+      severity: "HIGH"
+      restriction: "Do NOT modify registration form fields or validation"
+      pages_affected: ["account_register"]
+      file_location: "templates/account/register.tpl"
+      allowed_changes: ["CSS styling", "Label text styling"]
+      forbidden_changes: ["Field addition", "Validation logic change", "Form endpoint"]
+
+    - id: "CONSTRAINT #6"
+      name: "Newsletter Form"
+      severity: "HIGH"
+      restriction: "Do NOT modify newsletter form submission"
+      pages_affected: ["home", "page"]
+      file_locations: ["snipplets/newsletter.tpl", "snipplets/modal-newsletter.tpl"]
+      allowed_changes: ["Button styling", "Input styling"]
+      forbidden_changes: ["Form action change", "Field removal", "Endpoint modification"]
+
+    - id: "CONSTRAINT #7"
+      name: "JavaScript Safety"
+      severity: "MEDIUM"
+      restriction: "Custom JS must NOT override Nuvemshop core functions"
+      allowed_changes: ["Scoped IIFE functions", "Event listeners", "Helper functions"]
+      forbidden_changes: ["window.Nuvemshop.* overrides", "jQuery $ override", "Global variable pollution"]
+
+    - id: "CONSTRAINT #8"
+      name: "Auto-Generated Files"
+      severity: "MEDIUM"
+      restriction: "Do NOT modify Nuvemshop auto-generated files"
+      files: ["sitemap.xml", "rss.xml", "robots.txt"]
+      note: "These are regenerated daily by Nuvemshop"
+
+# ============================================================================
+# COMPLETE SNIPPLETS INVENTORY (182 components) — VALIDATED 2026-03-24
+# ============================================================================
+snipplets_complete:
+  total: 182
+  coverage: "100%"
+  last_validation: "2026-03-24"
+  validation_status: "✅ AIOX 10/10 COMPLETO"
+  summary: "All 182 snipplets discovered, cataloged, and validated against code"
+  categories:
+    - "svg_icons: 46"
+    - "product_components: 17"
+    - "navigation_components: 16"
+    - "header_components: 7"
+    - "grid_components: 10"
+    - "footer_components: 5"
+    - "form_components: 4"
+    - "shipping_components: 4"
+    - "social_components: 3"
+    - "placeholder_components: 3"
+    - "defaults_helpers: 21"
+    - "banner_services: 2"
+    - "blog_components: 1"
+    - "home_components: 1"
+    - "shipping_suboptions: 1"
+    - "root_level: 41"
+
+# ============================================================================
+# DEPLOYMENT & VERSIONING
+# ============================================================================
+deployment:
+  current_version: "v1.5.93"
+  release_cycle: "Story-based (1-2 per week)"
+  backup_strategy: "Automatic on each FTP deploy"
+  rollback_capability: "Available (node ftp-deploy/rollback-incremental.js)"
+  ftp_deployment: "Nuvemshop FTP with auto-validation"
+
+# ============================================================================
+# METADATA & NAVIGATION
+# ============================================================================
+metadata:
+  file_count: 141  # Templates + snipplets + static files
+  total_size_estimate: "1.2MB"
+  last_major_refactor: "2026-03-24 (Epic 8 — CSS/JS optimization)"
+  related_docs:
+    - "docs/architecture/patagang-store/02-PAGE-STRUCTURE.md"
+    - "docs/architecture/patagang-store/03-COMPONENT-INVENTORY.md"
+    - "docs/architecture/patagang-store/04-CSS-ARCHITECTURE.md"
+    - "docs/architecture/patagang-store/05-JAVASCRIPT-MODULES.md"
+    - "docs/architecture/patagang-store/06-FILE-DEPENDENCY-TREE.md"
+    - "docs/architecture/patagang-store/07-NUVEMSHOP-CONSTRAINTS.md"
+  maintainer: "@architect"
+  next_review: "2026-04-24 (post-Epic-8)"
