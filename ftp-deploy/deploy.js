@@ -381,16 +381,21 @@ async function phase4_backup(modifiedFiles, newVersion) {
 
 function injectVersionIntoCSSLinks(layoutPath, version) {
   /**
-   * Injeta ?v=VERSION nos links CSS para forçar cache busting
+   * Injeta ou atualiza ?v=VERSION nos links CSS para forçar cache busting
    * Evita que navegador e CDN sirvam CSS desatualizado
    *
-   * Exemplo:
+   * Exemplos:
    *   <link href="{{ 'css/style-colors.scss.tpl' | static_url }}" ...>
    *   Vira:
-   *   <link href="{{ 'css/style-colors.scss.tpl' | static_url }}?v=1.5.140" ...>
+   *   <link href="{{ 'css/style-colors.scss.tpl' | static_url }}?v=1.5.142" ...>
    *
-   * Opera em layout.tpl e injeta ?v=VERSION a TODOS os CSS links
-   * que ainda não têm versão query string.
+   *   <link href="{{ 'css/style-async.scss.tpl' | static_url }}?v=1.5.141" ...>
+   *   Vira (ATUALIZADO):
+   *   <link href="{{ 'css/style-async.scss.tpl' | static_url }}?v=1.5.142" ...>
+   *
+   * Opera em layout.tpl e:
+   * - Injeta ?v=VERSION em CSS links sem versão
+   * - Atualiza versão anterior para nova versão (1.5.141 → 1.5.142)
    */
 
   try {
@@ -401,29 +406,43 @@ function injectVersionIntoCSSLinks(layoutPath, version) {
 
     let content = fs.readFileSync(layoutPath, 'utf-8');
 
-    // Encontra href="..." que acabam com .css, .scss, ou .scss.tpl
-    // Usa callback para injetar versão apenas se não existir ?v=
-    const cssLinkRegex = /href="([^"]*\.(css|scss|scss\.tpl))([^"]*?)"/g;
+    // Regex 1: Encontra href="..." com .css/.scss/.scss.tpl E já tem ?v=VERSAO_ANTIGA
+    // Substitui a versão antiga pela nova
+    const oldVersionRegex = /href="([^"]*\.(css|scss|scss\.tpl))\?v=[^"]*"/g;
+    let updated = 0;
+    content = content.replace(oldVersionRegex, (match, url, ext) => {
+      updated++;
+      return `href="${url}${ext}?v=${version}"`;
+    });
 
+    // Regex 2: Encontra href="..." com .css/.scss/.scss.tpl mas SEM ?v=
+    // Adiciona a versão
+    const noVersionRegex = /href="([^"]*\.(css|scss|scss\.tpl))([^"]*?)"/g;
     let injected = 0;
-    content = content.replace(cssLinkRegex, (match, url, ext, suffix) => {
+    content = content.replace(noVersionRegex, (match, url, ext, suffix) => {
       const fullUrl = url + ext + suffix;
 
-      // Se já tem ?v=, deixar como está
+      // Se JÁ tem ?v=, pular (já foi tratado na regex anterior)
       if (fullUrl.includes('?v=')) {
         return match;
       }
 
-      // Injetar versão
+      // Injetar versão nova
       injected++;
       return `href="${fullUrl}?v=${version}"`;
     });
 
-    if (injected > 0) {
+    if (updated > 0 || injected > 0) {
       fs.writeFileSync(layoutPath, content);
-      log('success', `Cache busting: ${injected} CSS links injetados com v${version}`);
+      if (updated > 0 && injected > 0) {
+        log('success', `Cache busting: ${updated} versões atualizadas, ${injected} novas injetadas → v${version}`);
+      } else if (updated > 0) {
+        log('success', `Cache busting: ${updated} versões atualizadas para v${version}`);
+      } else {
+        log('success', `Cache busting: ${injected} CSS links injetados com v${version}`);
+      }
     } else {
-      log('info', `Cache busting: todos os CSS links já têm versão`);
+      log('info', `Cache busting: nenhuma mudança necessária (versão v${version} já atual)`);
     }
   } catch (err) {
     log('error', `Erro ao injetar cache busting: ${err.message}`);
