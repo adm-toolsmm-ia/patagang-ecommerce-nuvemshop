@@ -1697,17 +1697,28 @@ p{
 }
 
 .section-advertising__copy {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0 0.5em;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2px;
-  word-spacing: 0.3em;
   color: #000;
   margin: 0;
   line-height: 1.4;
+  white-space: normal;
+  overflow: visible;
+  word-spacing: normal !important;
+}
+
+.section-advertising__phrase {
+  display: inline-block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .section-advertising__link {
@@ -1733,6 +1744,11 @@ p{
 
   .section-advertising__copy {
     font-size: 0.65rem;
+    gap: 0 0.3em;
+  }
+
+  .section-advertising__phrase {
+    font-size: 0.65rem;
   }
 
   /* Adjust header when ad-bar is visible on mobile */
@@ -1749,6 +1765,11 @@ p{
 
   .section-advertising__copy {
     font-size: 0.7rem;
+    gap: 0 0.4em;
+  }
+
+  .section-advertising__phrase {
+    font-size: 0.7rem;
   }
 
   /* Adjust header when ad-bar is visible on tablet */
@@ -1764,6 +1785,11 @@ p{
   }
 
   .section-advertising__copy {
+    font-size: 0.75rem;
+    gap: 0 0.5em;
+  }
+
+  .section-advertising__phrase {
     font-size: 0.75rem;
   }
 
