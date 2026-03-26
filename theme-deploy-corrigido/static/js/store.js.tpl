@@ -853,14 +853,15 @@ DOMContentLoaded.addEventOrExecute(() => {
 
 	{% if has_banner_services %}
 
-		{# /* // Banner services slider */ #}
+		{# /* // Banner services slider - DISABLED v1.5.153 */ #}
+		{# /* // Using CSS Grid instead for 3-column layout */ #}
 
-        createSwiper('.js-informative-banners', {
+        {# DISABLED: createSwiper('.js-informative-banners', {
             pagination: {
                 el: '.js-informative-banners-pagination',
                 clickable: true,
             },
-        });
+        }); #}
 
     {% endif %}
 

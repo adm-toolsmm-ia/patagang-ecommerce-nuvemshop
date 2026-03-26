@@ -109,7 +109,67 @@
         {# Fase 1: CSS-only improvements for gallery + card alignment #}
         {# PATAGANG v1.5.34: Gallery 2-Column Grid - 4 Imagens Visíveis Alinhadas ao Card #}
         {# PATAGANG v1.5.35: Gallery Height Alignment — Galeria cresce com card (DYNAMIC HEIGHT) #}
+        {# PATAGANG v1.5.153-FIX: Banner Services 3-Column Grid #}
         <style>
+            /* =====================================================================
+               BANNER SERVICES (HOME) — 3 Colunas Distribuídas Horizontalmente
+               v1.5.153: Remover Swiper carousel, usar Grid simples
+               ===================================================================== */
+
+            /* Container: grid de 3 colunas */
+            .js-informative-banners {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 20px !important;
+                width: 100% !important;
+            }
+
+            /* Wrapper do swiper: ocupar 100% */
+            .js-informative-banners .swiper-wrapper {
+                display: contents !important;  /* Permite que filhos ocupem grid direto */
+            }
+
+            /* Cada item: flex column, espaçamento */
+            .js-informative-banners .pg-service-item {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 1.5rem !important;
+                min-height: 140px !important;
+                background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%) !important;
+                border-radius: 8px !important;
+                margin-bottom: 0 !important;  /* Remove margin do carousel */
+            }
+
+            /* Descrição: sem text-justify, texto natural */
+            .js-informative-banners .pg-service-item__description {
+                text-align: center !important;
+                word-spacing: normal !important;
+                text-justify: none !important;
+                line-height: 1.4 !important;
+                margin: 0 !important;
+            }
+
+            /* Ocultar pagination (sem carousel) */
+            .js-informative-banners-pagination {
+                display: none !important;
+            }
+
+            /* Mobile: voltar a 1 coluna */
+            @media (max-width: 768px) {
+                .js-informative-banners {
+                    grid-template-columns: 1fr !important;
+                }
+            }
+
+            /* Tablet: 2 colunas */
+            @media (min-width: 769px) and (max-width: 991px) {
+                .js-informative-banners {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+            }
+
             /* =====================================================================
                PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
                ===================================================================== */
