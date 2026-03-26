@@ -503,7 +503,6 @@
 
             /* L3: MAIN CONTENT (explicit background) */
             main.patagang-section-content {
-                background-color: #ffffff;
                 width: 100%;
                 margin: 0;
                 padding: 0;
