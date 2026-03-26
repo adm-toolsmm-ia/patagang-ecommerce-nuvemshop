@@ -2838,13 +2838,6 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	justify-content: flex-start;
 }
 
-/* MOBILE: Stack verticalmente em telas pequenas */
-@media (max-width: 991px) {
-	.pg-pdp-container .section-single-product {
-		flex-direction: column !important;  /* Colunas uma embaixo da outra em mobile */
-	}
-}
-
 /* Row principal - Bootstrap row - AQUI está o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
@@ -3575,56 +3568,33 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 /* ============================================
    MAIN CONTENT PADDING - Accommodate sticky header
-   Story 9.1: White Background Fix (CSS scoping side effect from Story 8.2)
    ============================================ */
-
-/* 1. DEFAULT: All pages get header + ad bar spacing (160px desktop) */
 main.patagang-section-content {
 	padding-top: 160px;  /* Space for fixed header (~120px) + ad bar (~40px) = ~160px */
 }
 
-/* 2. GENERIC PAGES: Reduce padding to header space only (100px desktop) */
-/* Story 9.1 Fix: Use :not() to target non-product pages */
-body:not(.template-product) main.patagang-section-content {
-	padding-top: 100px;  /* ✅ Generic pages: header space only (120px - 20px buffer) */
-}
-
-/* 3. PRODUCT PAGES: No padding (banners control spacing) */
+/* PRODUCT PAGE: Reduce padding because banners handle their own spacing */
 body.template-product main.patagang-section-content {
-	padding-top: 0;  /* ✅ Product pages: banners estão dentro, eles controlam seu espaçamento */
+	padding-top: 0;  /* ✅ Banners estão dentro, eles controlam seu espaçamento */
 }
 
-/* TABLET ADJUSTMENTS (max-width: 991px) */
 @media (max-width: 991px) {
-	/* 1. Default: tablet gets slightly less space */
 	main.patagang-section-content {
-		padding-top: 140px;
+		padding-top: 140px;  /* Tablet: slightly less */
 	}
 
-	/* 2. Generic pages: proportional reduction */
-	body:not(.template-product) main.patagang-section-content {
-		padding-top: 90px;  /* ✅ Tablet: proportional reduction (-10px) */
-	}
-
-	/* 3. Product pages: unchanged */
+	/* PRODUCT PAGE: Mobile adjustments */
 	body.template-product main.patagang-section-content {
 		padding-top: 0;  /* ✅ Banners controlam espaçamento */
 	}
 }
 
-/* MOBILE ADJUSTMENTS (max-width: 576px) */
 @media (max-width: 576px) {
-	/* 1. Default: mobile gets minimal space */
 	main.patagang-section-content {
 		padding-top: 130px;  /* Mobile: header is smaller but still fixed */
 	}
 
-	/* 2. Generic pages: significant reduction for mobile */
-	body:not(.template-product) main.patagang-section-content {
-		padding-top: 80px;  /* ✅ Mobile: larger reduction (-20px from generic default) */
-	}
-
-	/* 3. Product pages: unchanged */
+	/* PRODUCT PAGE: Mobile adjustments */
 	body.template-product main.patagang-section-content {
 		padding-top: 0;  /* ✅ Banners controlam espaçamento */
 	}
