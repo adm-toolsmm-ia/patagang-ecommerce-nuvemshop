@@ -1,0 +1,430 @@
+---
+name: Patagang CSS Patterns & Lessons Learned
+description: CSS patterns, anti-patterns, and best practices discovered during Story 9.1 investigation
+type: project-patterns
+source: Deep CSS analysis (Story 9.1 investigation)
+date_created: 2026-03-26
+date_updated: 2026-03-26
+maintained_by: '@architect, @dev'
+---
+
+## PATTERN REGISTRY
+
+### ✅ GOOD PATTERNS (Maintain These)
+
+#### Pattern 1: Semantic Class Naming
+
+**Type:** Naming Convention
+**Discovery:** Story 9.1
+**Example:**
+```
+✅ .section-advertising (clear, descriptive)
+✅ .pg-pdp-container (prefixed, scoped)
+✅ .pg-identity-banner (purpose is obvious)
+
+❌ .box-1 (generic, useless)
+❌ .style-blue (tied to implementation, not purpose)
+```
+
+**When to Use:** All new CSS classes
+**Why:** Code is self-documenting, easier to maintain
+
+---
+
+#### Pattern 2: BEM-like Structure (Partial)
+
+**Type:** Naming Convention
+**Discovery:** Story 9.1
+**Example:**
+```
+✅ .section-advertising (Block)
+   ├─ .section-advertising__marquee (Element)
+   ├─ .section-advertising__track (Element)
+   └─ .section-advertising__copy (Element)
+
+Naming: .block__element (two underscores)
+```
+
+**When to Use:** Components with sub-parts
+**Why:** Clear hierarchy, prevents naming conflicts
+**Note:** Not applied consistently throughout codebase (improvement area for Epic 9.2)
+
+---
+
+#### Pattern 3: Mobile-First Responsive Design
+
+**Type:** CSS Architecture
+**Discovery:** Story 9.1
+**Example:**
+```css
+/* style-critical.tpl: Mobile defaults first */
+.section-advertising {
+  padding: 10px 20px;  /* Mobile size */
+}
+
+/* Then desktop overrides via media query */
+@media (min-width: 992px) {
+  .section-advertising {
+    padding: 15px 30px;  /* Desktop size */
+  }
+}
+```
+
+**When to Use:** All responsive CSS
+**Why:** Progressive enhancement, smaller CSS initially
+**Status:** Good pattern, keep this approach in Epic 9.2
+
+---
+
+#### Pattern 4: Settings-Driven Colors (Nuvemshop Integration)
+
+**Type:** Integration Pattern
+**Discovery:** Story 9.1
+**Example:**
+```scss
+/* style-colors.scss.tpl */
+$main-background: {{ settings.background_color }};  /* From Nuvemshop */
+$main-foreground: {{ settings.foreground_color }};
+
+body {
+  background-color: $main-background;
+  color: $main-foreground;
+}
+```
+
+**When to Use:** For theme colors that should be customizable
+**Why:** Integrates with Nuvemshop admin theme settings
+**Status:** Excellent pattern, maintain in all color definitions
+
+---
+
+### ❌ ANTI-PATTERNS (Fix These - Epic 9.2)
+
+#### Anti-Pattern 1: !important Abuse
+
+**Type:** CSS Cascade Anti-pattern
+**Discovery:** Story 9.1 (188 occurrences in layout.tpl!)
+**Example:**
+```css
+/* ❌ layout.tpl lines 79-511 */
+body { background-color: #ffffff !important; }
+section.patagang-section-top { background-color: transparent !important; }
+main.patagang-section-content { background-color: #ffffff !important; }
+/* ... 184 more !important ... */
+
+/* WHY: Someone tried to fix cascading issue with band-aid */
+/* RESULT: Cascade is now broken, CSS changes unpredictable */
+```
+
+**Impact:**
+- Simple CSS changes fail 5x
+- Developer friction: 3-5x slower modifications
+- Unmaintainable cascade
+
+**Fix:** Epic 9.2 refactor (remove ALL !important, fix cascade naturally)
+
+**Lesson:** Never use !important to fix cascade problems. Refactor the cascade itself.
+
+---
+
+#### Anti-Pattern 2: Monolithic CSS Files
+
+**Type:** File Organization Anti-pattern
+**Discovery:** Story 9.1
+**Example:**
+```
+Current:
+- style-critical.tpl: 4,645 lines (549 classes)
+- style-async.scss.tpl: 7,132 lines (697 classes)
+Total: 11,777 lines in 2 files
+
+Problems:
+- Hard to find specific component styles
+- Mixing layout, components, utilities
+- Difficult to refactor pieces
+```
+
+**Impact:**
+- Hard to maintain
+- Changes affect unexpected elements
+- Reuse difficult
+
+**Fix:** Epic 9.2 refactor into:
+- `style-layout.css` (< 20 KB)
+- `style-components.css` (< 30 KB)
+- `style-utilities.css` (async)
+
+---
+
+#### Anti-Pattern 3: Inline <style> in Template (layout.tpl)
+
+**Type:** Separation of Concerns Anti-pattern
+**Discovery:** Story 9.1
+**Example:**
+```
+Current:
+theme-deploy-corrigido/layouts/layout.tpl contains:
+  <style>
+    /* 188 !important declarations embedded in HTML */
+    body { background-color: #ffffff !important; }
+    section.patagang-section-top { background-color: transparent !important; }
+    /* ... more ... */
+  </style>
+
+Problems:
+- CSS mixed with HTML (defeats MVC separation)
+- Hard to reason about CSS (where is it? in layout.tpl!)
+- Impossible to minify properly
+```
+
+**Impact:**
+- Code organization is confusing
+- Cache busting difficult
+- Reusability poor
+
+**Fix:** Move all CSS to separate files, reference via classes in HTML
+
+---
+
+#### Anti-Pattern 4: Orphaned/Dead CSS Classes
+
+**Type:** Code Cleanliness Anti-pattern
+**Discovery:** Story 9.1 (2+ found)
+**Example:**
+```css
+/* style-critical.tpl lines 2807-2817 */
+.pg-pdp-banner-warning {
+  background-color: #FFFF00;
+  padding: 0;
+}
+
+.pg-pdp-banner-informative {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* PROBLEM: These classes are DEFINED in CSS but NEVER USED in HTML */
+/* They were created in Story 8.2, HTML was never updated */
+/* Result: Orphaned code, confusion, wasted space */
+```
+
+**Impact:**
+- Code clutter
+- Confusion (is this class used?)
+- Wasted space
+- Misleads developers
+
+**Fix:**
+- Always verify HTML uses new CSS classes BEFORE deploying
+- Archive dead code with traceability (Story, date, reason)
+- Never just delete (may be referenced somewhere)
+
+**Status:** Fixed in v1.5.133 (both classes removed)
+
+---
+
+#### Anti-Pattern 5: Commented Code Without Context
+
+**Type:** Code Cleanliness Anti-pattern
+**Discovery:** Story 9.1
+**Example:**
+```scss
+/* style-colors.scss.tpl lines 1048-1055 */
+/* {# COMMENTED OUT #}
+.section-advertising {
+  background-color: $main-foreground;
+  color: $main-background;
+}
+*/
+
+/* PROBLEM: Why is this commented? */
+/* - Was it broken? */
+/* - Replaced by something else? */
+/* - Temporary debug? */
+/* - Dead code? */
+/* We don't know! No context. */
+```
+
+**Impact:**
+- Confusion (should I uncomment this?)
+- Waste time investigating
+- Risk of uncommented-but-broken code
+
+**Fix:**
+- If dead: Delete with comment (Story, date, reason)
+- If temporary: Document why commented + intended fix
+- If replaced: Note what replaced it
+
+**Lesson:** Never commit "temporary" commented code. Always document context.
+
+---
+
+### 📋 LESSONS LEARNED
+
+#### Lesson 1: CSS-HTML Synchronization
+
+**Discovered:** Story 9.1 (`.pg-pdp-banner-warning` was orphaned)
+
+**What Went Wrong:**
+```
+Commit b707e3a (Story 8.2):
+- Created .pg-pdp-banner-warning in CSS ✅
+- Was supposed to update HTML to use it
+- HTML was NEVER updated ❌
+- Class sat orphaned for weeks
+```
+
+**Impact:**
+- Later, Story 9.1 tried to use this orphaned class
+- Spent hours wondering why CSS didn't work
+- Root cause: CSS and HTML out of sync
+
+**Rule for Future:**
+```
+BEFORE deploying:
+  1. Add CSS class definition
+  2. Add class to HTML element
+  3. TEST together
+
+NEVER:
+  - Define CSS without using it in HTML
+  - Use HTML class that doesn't have CSS
+  - Deploy without verifying both exist together
+```
+
+---
+
+#### Lesson 2: Cascade Fragility
+
+**Discovered:** Story 9.1 (Banner color wouldn't change)
+
+**What Went Wrong:**
+```
+Timeline:
+1. Removed background-color from main.patagang-section-content ✅
+2. Expected banner to show new color ❌
+3. Banner still showed old color
+4. Why?
+   - 188 !important rules in layout.tpl
+   - Parent background being forced
+   - Multiple media queries
+   - Async CSS loading late
+   - Result: Unpredictable cascade
+```
+
+**Impact:**
+- Simple change required 5 deploy attempts
+- Developer friction
+- Uncertainty about what's working
+
+**Rule for Future:**
+```
+BEFORE changing CSS:
+  1. Understand the cascade (which files run in order?)
+  2. Check for !important blocking you
+  3. Check for media queries overriding
+  4. Verify HTML element exists
+  5. Test on 3+ breakpoints
+
+NEVER:
+  - Just change CSS and hope
+  - Use !important to override !important
+  - Ignore media queries
+```
+
+---
+
+#### Lesson 3: Code Debt Compounds
+
+**Discovered:** Story 9.1 (Deep investigation revealed 10+ issues)
+
+**Timeline:**
+```
+Early: One issue (broken cascade)
+↓
+Someone applies band-aid (188 !important)
+↓
+Later: New developers avoid CSS (too risky)
+↓
+Later: Code stays broken (no one fixes root cause)
+↓
+Later: More features = more !important
+↓
+Today (Story 9.1): Unmaintainable mess
+```
+
+**Impact:**
+- 188 !important instead of fixing cascade
+- Monolithic CSS instead of modularizing
+- Dead code instead of cleaning up
+- Performance degradation (224 KB vs 50 KB)
+
+**Lesson:** Fix root causes early. Band-aids compound into debt.
+
+**Action:** Epic 9.2 CSS Refactor (repay the debt)
+
+---
+
+## PATTERN RECOMMENDATIONS FOR EPIC 9
+
+### For Stories 9.1-9.6
+
+**✅ DO:**
+1. Use semantic class naming (`.section-advertising` not `.box-1`)
+2. Follow BEM for components (`.block__element`)
+3. Mobile-first responsive design
+4. Reference settings for colors
+5. Test on 3+ breakpoints
+6. Verify HTML uses CSS classes before deploying
+7. Document workarounds (for Epic 9.2)
+
+**❌ DON'T:**
+1. Use !important (unless truly last resort, with comment)
+2. Create CSS without HTML (or vice versa)
+3. Modify layout.tpl (unless critical, with explanation)
+4. Commit commented code without context
+5. Assume cascade works (test everything)
+
+---
+
+## PATTERNS FOR EPIC 9.2 REFACTOR
+
+### During CSS Refactoring
+
+**New Patterns to Establish:**
+
+1. **No !important in base CSS**
+   - Only in utilities.css (helpers like `.is-hidden`)
+
+2. **3-file architecture:**
+   - `style-layout.css` (< 20 KB) — Semantic HTML structure
+   - `style-components.css` (< 30 KB) — Reusable components
+   - `style-utilities.css` (async) — Helper classes
+
+3. **Full BEM naming**
+   - `.block` (component)
+   - `.block__element` (sub-part)
+   - `.block--modifier` (variant)
+
+4. **Cascade order documented**
+   - Each file has clear responsibility
+   - No cross-file surprises
+
+5. **Component registry**
+   - Each class documented: purpose, where used, responsive notes
+
+---
+
+## REFERENCE DOCUMENTS
+
+- **Deep CSS Analysis:** `Docs/reports/9.1-COLOR-BACKGROUND-ANALYSIS.md`
+- **CSS Cascade Guide:** `Docs/architecture/patagang-css-cascade.md`
+- **Architecture Context:** `Docs/architecture/EPIC-9-EXECUTION-CONTEXT.md`
+- **Architecture State:** `.aiox-core/data/patagang-architecture-state.yaml`
+
+---
+
+**Document Version:** 1.0.0
+**Status:** CURRENT (Reference for EPIC 9 development)
+**Last Updated:** 2026-03-26 (v1.5.133)
+**Maintained by:** @architect, @dev
