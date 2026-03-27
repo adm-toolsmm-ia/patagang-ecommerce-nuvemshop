@@ -96,17 +96,17 @@ node ftp-deploy/deploy.js "rollback: ..." --force
 | Fase | Status | Responsável |
 |------|--------|-------------|
 | Planejamento | ✅ PRONTO | @pm (Morgan) |
-| Análise (Aguardando alterações) | 🟡 11.2 em andamento | @analyst (Atlas) |
-| Implementação | 🟡 11.2 em andamento | @dev (Dex) |
-| QA | ⏳ aguardando 11.2 | @qa (Quinn) |
-| Validação Gabriel | ⏳ aguardando 11.2 | Gabriel |
-| Deploy | ⏳ aguardando 11.2 | @devops (Gage) |
+| Análise (Aguardando alterações) | ✅ 11.2 concluída | @analyst (Atlas) |
+| Implementação | ✅ 11.2 concluída | @dev (Dex) |
+| QA | ✅ 11.2 concluída | @qa (Quinn) |
+| Validação Gabriel | 🟡 aguardando 11.2 | Gabriel |
+| Deploy | ✅ 11.2 publicado (v1.5.190) | @devops (Gage) |
 
 ---
 
 ## 🎯 Próximo Passo
 
-**Gabriel:** Story 11.2 iniciada. Seguimos até liberar para sua validação em produção.
+**Gabriel:** Story 11.2 publicada em produção e pronta para sua validação.
 
 Estrutura está pronta para receber:
 - ✅ Stories com padrão AIOX

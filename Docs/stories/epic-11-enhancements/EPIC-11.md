@@ -42,7 +42,7 @@ Implementar novas alterações e melhorias identificadas por Gabriel Cristofolin
 | Story | Título | Executor | QA | Risco | Status |
 |-------|--------|----------|-----|-------|--------|
 | 11.1 | WhatsApp esquerdo: manter rotate + restaurar ícone | @dev | @qa | Médio | ✅ Done (Aprovada por Gabriel) |
-| 11.2 | Galeria PDP 2x2 desktop + scroll isolado (sem regressão mobile) | @dev | @qa | Médio | 🟡 In Progress |
+| 11.2 | Galeria PDP 2x2 desktop + scroll isolado (sem regressão mobile) | @dev | @qa | Médio | 🟡 Aguardando validação Gabriel |
 | 11.3 | [AGUARDANDO ALTERAÇÃO 3] | @dev | @qa | ? | ⬜ Draft |
 | ... | [OUTRAS ALTERAÇÕES] | ... | ... | ... | ⬜ Draft |
 
@@ -205,6 +205,17 @@ Escopo confirmado da 11.2:
 - Desktop (>=992px): grid 2x2 com 4 imagens visíveis, gap e proporção consistentes.
 - Scroll isolado na área da galeria (sem vazar para a página durante rolagem da galeria).
 - Tablet/mobile: manter Swiper atual sem regressão.
+
+---
+
+## 📌 Execução Story 11.2 (2026-03-27)
+
+- Branch: `feat/epic-11`
+- Commit funcional/docs: `46f9f2d`
+- Deploy FTP concluído: `v1.5.190`
+- Commit de versão (script): `74e852b`
+- Backup: `backups/deployment-1.5.190/2026-03-27T05-20-57`
+- Push remoto: pendente (gate da validação Gabriel)
 
 ---
 

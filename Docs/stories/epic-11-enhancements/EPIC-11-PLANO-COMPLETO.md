@@ -584,13 +584,13 @@ ENTÃO modal lightbox abre (comportamento existente preservado)
 - `theme-deploy-corrigido/static/js/product-page-custom.js` — isolamento de scroll da galeria desktop
 
 **Tarefas Técnicas:**
-1. [ ] Verificar `.pg-gallery-grid` tem `grid-template-columns: repeat(2, 1fr)`
-2. [ ] Adicionar `aspect-ratio: 1/1` em `.pg-gallery-item`
-3. [ ] Ajustar `.pg-gallery-container` max-height
-4. [ ] Implementar scroll hijacking JS (previne parent scroll)
-5. [ ] Teste local: desktop 2x2 visível, scroll isolado
-6. [ ] Teste tablet/mobile: Swiper funciona (regressão check)
-7. [ ] Commit: `feat(gallery): implement 2x2 grid + scroll isolation [Story 11.2]`
+1. [x] Verificar `.pg-gallery-grid` com 2 colunas no desktop
+2. [x] Ajustar sizing dos cards da galeria para grade estável (2x2 visível)
+3. [x] Ajustar `.pg-gallery-container` max-height e overflow isolado
+4. [x] Implementar isolamento de wheel scroll na galeria desktop (com fallback nos limites)
+5. [x] Teste local: desktop 2x2 visível, scroll isolado
+6. [x] Teste tablet/mobile: Swiper preservado (regressão check)
+7. [x] Commit: `feat: implement Story 11.2 gallery 2x2 desktop with isolated scroll [Story 11.2]`
 
 **Validação Gabriel:**
 - [ ] Desktop ≥1200px: 4 imagens visíveis 2x2
@@ -601,6 +601,16 @@ ENTÃO modal lightbox abre (comportamento existente preservado)
 - [ ] Lighthouse: performance score
 
 **Rollback:** `git reset --hard {commit-anterior}`
+
+**Execução técnica registrada (2026-03-27):**
+- [x] Grid desktop ajustado para 2 colunas com sizing estável e gap de 12px
+- [x] Scroll isolado da galeria aplicado no desktop (CSS + JS com fallback de borda)
+- [x] Swiper mobile/tablet preservado sem alteração de markup
+- [x] Commit funcional/docs realizado (`46f9f2d`)
+- [x] Deploy FTP executado via `node ftp-deploy/deploy.js "feat: story 11.2 gallery 2x2 + isolated scroll [Story 11.2]"`
+- [x] Versão publicada `v1.5.190` com validação FTP 4/4
+- [x] Backup gerado em `backups/deployment-1.5.190/2026-03-27T05-20-57`
+- [ ] Validação final do Gabriel em produção (pendente)
 
 ---
 
