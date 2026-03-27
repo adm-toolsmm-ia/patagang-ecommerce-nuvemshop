@@ -320,6 +320,7 @@
 
 /* Dropdown Container */
 .pg-header__dropdown {
+    display: none;
     position: absolute;
     top: 100%;
     left: 50%;

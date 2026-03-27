@@ -26,7 +26,7 @@
                     <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </button>
-                <div class="pg-header__dropdown js-dropdown-content" data-dropdown-id="{{ loop.index }}" style="display: none;">
+                <div class="pg-header__dropdown js-dropdown-content" data-dropdown-id="{{ loop.index }}">
                   <div class="pg-header__dropdown-inner">
                     {% if item.isCategory %}
                       <a href="{{ item.url }}" class="pg-header__dropdown-link pg-header__dropdown-link--all">
