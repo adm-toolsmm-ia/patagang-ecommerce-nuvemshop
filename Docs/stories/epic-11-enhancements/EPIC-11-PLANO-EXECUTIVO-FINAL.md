@@ -71,7 +71,7 @@ Rollback: git reset --hard {anterior}
 - Commit funcional/docs: `96cf417`
 - Deploy FTP concluído com sucesso: versão `v1.5.189`
 - Backup: `backups/deployment-1.5.189/2026-03-27T05-06-49`
-- Validação Gabriel: pendente (gate para push remoto)
+- Validação Gabriel: ✅ aprovada (liberado push/PR da branch)
 
 ---
 

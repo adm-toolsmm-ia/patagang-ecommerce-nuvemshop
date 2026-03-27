@@ -1,6 +1,6 @@
 # EPIC 11 — Melhorias & Ajustes Pós-EPIC 10
 
-**Status:** 🟡 PLANEJADA
+**Status:** 🟡 EM ANDAMENTO (Story 11.1 concluída)
 **Criado em:** 2026-03-27
 **PM:** @pm (Morgan)
 **Versão base:** v1.5.184 (estável, pós-rollback EPIC 10)
@@ -41,7 +41,7 @@ Implementar novas alterações e melhorias identificadas por Gabriel Cristofolin
 
 | Story | Título | Executor | QA | Risco | Status |
 |-------|--------|----------|-----|-------|--------|
-| 11.1 | WhatsApp esquerdo: manter rotate + restaurar ícone | @dev | @qa | Médio | 🟡 Aguardando validação Gabriel |
+| 11.1 | WhatsApp esquerdo: manter rotate + restaurar ícone | @dev | @qa | Médio | ✅ Done (Aprovada por Gabriel) |
 | 11.2 | [AGUARDANDO ALTERAÇÃO 2] | @dev | @qa | ? | ⬜ Draft |
 | 11.3 | [AGUARDANDO ALTERAÇÃO 3] | @dev | @qa | ? | ⬜ Draft |
 | ... | [OUTRAS ALTERAÇÕES] | ... | ... | ... | ⬜ Draft |
@@ -189,7 +189,7 @@ Atualização aprovada para corrigir divergência de requisito identificada em p
 - Deploy FTP concluído: `v1.5.189`
 - Commit de versão (script): `6a2f4c6`
 - Backup: `backups/deployment-1.5.189/2026-03-27T05-06-49`
-- Push remoto: não executado (conforme gate de validação do Gabriel)
+- Push remoto: autorizado após aprovação do Gabriel (em execução por @devops)
 
 ---
 
@@ -216,7 +216,7 @@ Atualização aprovada para corrigir divergência de requisito identificada em p
 
 ---
 
-**Status:** 🟡 PLANEJADA — Aguardando alterações de Gabriel
+**Status:** 🟡 EM ANDAMENTO — Story 11.1 concluída e aprovada
 **Versão Base:** v1.5.184
 **Data Criação:** 2026-03-27
 

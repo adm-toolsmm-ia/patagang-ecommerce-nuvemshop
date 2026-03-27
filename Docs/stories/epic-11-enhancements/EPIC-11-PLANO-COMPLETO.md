@@ -509,14 +509,14 @@ ENTÃO ambos mantêm padding 10px 6px, centralizados
 2. [ ] Corrigir SVG inline em `whatsapp-left.tpl`
 3. [ ] Validar espaçamento e alinhamento visual com Help
 4. [ ] Teste local: visual check + computed style + ícone visível
-5. [ ] Commit: `fix(buttons): restore whatsapp icon and preserve left-side rotate [Story 11.1]`
+5. [x] Commit: `fix(buttons): restore whatsapp icon and preserve left-side rotate [Story 11.1]`
 
 **Validação Gabriel:**
-- [ ] Desktop: Help button texto vertical, normal
-- [ ] Desktop: WhatsApp esquerdo com rotate aplicado e leitura correta
-- [ ] Desktop: ícone WhatsApp visível
-- [ ] Mobile: Ambos centralizados com padding correto
-- [ ] Console: 0 CSS errors/warnings
+- [x] Desktop: Help button texto vertical, normal
+- [x] Desktop: WhatsApp esquerdo com rotate aplicado e leitura correta
+- [x] Desktop: ícone WhatsApp visível
+- [x] Mobile: Ambos centralizados com padding correto
+- [x] Console: 0 CSS errors/warnings
 
 **Rollback:** `git reset --hard {commit-anterior}`
 
@@ -528,7 +528,7 @@ ENTÃO ambos mantêm padding 10px 6px, centralizados
 - [x] Deploy FTP executado via `node ftp-deploy/deploy.js "fix: story 11.1 whatsapp left rotate + icone [Story 11.1]"`
 - [x] Versão publicada `v1.5.189` com validação FTP 4/4
 - [x] Backup gerado em `backups/deployment-1.5.189/2026-03-27T05-06-49`
-- [ ] Validação final do Gabriel em produção (pendente)
+- [x] Validação final do Gabriel em produção (aprovada)
 
 ---
 
