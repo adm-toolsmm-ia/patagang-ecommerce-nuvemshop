@@ -8,7 +8,7 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #EAFE67; /* Store Yellow */
+    background: #F0F0F0; /* Light gray - matches production design */
     color: #1A1A1A; /* Black Text */
     z-index: 9990;
     cursor: pointer;
@@ -24,7 +24,7 @@
 }
 
 .pg-help-btn:hover {
-    background: #d4e65d; /* Slightly darker yellow on hover */
+    background: #E8E8E8; /* Slightly darker gray on hover */
     padding-right: 12px;
 }
 

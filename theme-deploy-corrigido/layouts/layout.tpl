@@ -483,7 +483,7 @@
             left: 0 !important;
             top: 50% !important;
             transform: translateY(-50%) !important;
-            background: #EAFE67 !important; /* Store Yellow - same as Help */
+            background: #F0F0F0 !important; /* Light gray - matches Help actual production color */
             color: #1A1A1A !important; /* Black Text - same as Help */
             z-index: 9990 !important;
             cursor: pointer !important;
@@ -499,7 +499,7 @@
             text-decoration: none !important;
         }
         body .btn-whatsapp-left:hover {
-            background: #d4e65d !important; /* Same hover yellow as Help */
+            background: #E8E8E8 !important; /* Slightly darker gray - same as Help hover */
             padding-left: 12px !important; /* Same as Help but on left side */
         }
         body .btn-whatsapp-left:focus {
