@@ -514,7 +514,6 @@
         body .btn-whatsapp-left span {
             writing-mode: vertical-rl !important; /* Same as Help */
             text-orientation: mixed !important; /* Same as Help */
-            transform: rotate(180deg) !important; /* Inverted text direction */
             font-family: 'Familjen Grotesk', sans-serif !important; /* Same as Help */
             font-weight: 500 !important; /* Same as Help */
             font-size: 12px !important; /* Same as Help */
