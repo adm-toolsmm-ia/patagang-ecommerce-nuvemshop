@@ -4874,3 +4874,47 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     white-space: nowrap;
 }
 
+/* ============================================
+   FOUC FIX - BATCH 1 [Story 10.5]
+   Grid de Produtos - Classes críticas para /lancamentos e /comunidade
+   Movido de style-async.scss.tpl para evitar layout shift
+   ============================================ */
+.pg-product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Container do item de produto */
+.pg-product-grid .item-product {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    flex: 0 0 calc(25% - 24px);
+    max-width: calc(25% - 24px);
+    min-width: 280px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.pg-product-grid .item-product .js-quickshop-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.pg-product-grid .item-product:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
