@@ -6,25 +6,25 @@
 
 /* 1. Container - Fundo CINZA claro */
 #nav-hamburger {
-    background: #F5F5F5 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    opacity: 1 !important;
-    border-right: none !important;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08) !important;
-    width: 100% !important;
-    max-width: 420px !important;
+    background: #F5F5F5;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    opacity: 1;
+    border-right: none;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 420px;
 }
 
 /* 2. Header - Logo + botao fechar */
 #nav-hamburger .modal-header {
-    background: transparent !important;
-    border: none !important;
-    padding: 40px 32px 32px !important;
+    background: transparent;
+    border: none;
+    padding: 40px 32px 32px;
     display: flex;
-    justify-content: center !important;
+    justify-content: center;
     align-items: center;
-    border-bottom: none !important;
+    border-bottom: none;
 }
 
 /* Logo no header - escura sobre fundo claro */
@@ -47,29 +47,29 @@
     position: absolute;
     top: 40px;
     left: 32px;
-    color: #000000 !important;
-    opacity: 0.5 !important;
+    color: #000000;
+    opacity: 0.5;
     transition: opacity 0.2s ease;
-    font-size: 20px !important;
+    font-size: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
-    background: none !important;
-    border: none !important;
+    background: none;
+    border: none;
 }
 
 #nav-hamburger .modal-close:hover {
-    opacity: 1 !important;
+    opacity: 1;
 }
 
 /* 3. Corpo */
 #nav-hamburger .modal-body {
-    padding: 0 32px 40px !important;
+    padding: 0 32px 40px;
     display: flex;
     flex-direction: column;
-    background: transparent !important;
+    background: transparent;
 }
 
 .pg-menu-container {
@@ -96,36 +96,36 @@
 }
 
 #nav-hamburger .nav-list-link {
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    font-weight: 500 !important;
-    font-size: 15px !important;
-    line-height: 1 !important;
-    letter-spacing: 0.02em !important;
-    color: #1A1A1A !important;
-    text-transform: none !important;
-    text-align: left !important;
-    opacity: 1 !important;
-    padding: 18px 0 !important;
-    margin: 0 !important;
-    display: flex !important;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: #1A1A1A;
+    text-transform: none;
+    text-align: left;
+    opacity: 1;
+    padding: 18px 0;
+    margin: 0;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     transition: color 0.2s ease, background 0.2s ease;
-    border: none !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     position: relative;
 }
 
 #nav-hamburger .nav-list-link:hover {
-    color: #000000 !important;
-    opacity: 0.7 !important;
-    padding-left: 0 !important;
+    color: #000000;
+    opacity: 0.7;
+    padding-left: 0;
 }
 
 /* Remover indicadores extras */
 #nav-hamburger .nav-list-link::before,
 #nav-hamburger .nav-list-link::after {
-    display: none !important;
+    display: none;
 }
 
 /* Seta do Accordion - Escura, estilo Zee.Dog */
@@ -139,13 +139,13 @@
 #nav-hamburger .nav-list-arrow svg {
     width: 10px;
     height: 10px;
-    fill: #1A1A1A !important;
+    fill: #1A1A1A;
     opacity: 0.4;
     transition: fill 0.2s ease, opacity 0.2s ease;
 }
 
 #nav-hamburger .nav-list-link:hover .nav-list-arrow svg {
-    fill: #000000 !important;
+    fill: #000000;
     opacity: 0.7;
 }
 
@@ -155,37 +155,37 @@
 
 /* 5. Submenus - Indentados, estilo clean */
 #nav-hamburger .list-subitems {
-    padding-left: 16px !important;
-    margin: 0 !important;
-    border-left: 2px solid rgba(0, 0, 0, 0.1) !important;
+    padding-left: 16px;
+    margin: 0;
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
     list-style: none;
-    margin-left: 4px !important;
+    margin-left: 4px;
 }
 
 #nav-hamburger .list-subitems .nav-list-link {
-    font-size: 13px !important;
-    font-weight: 400 !important;
-    line-height: 1 !important;
-    letter-spacing: 0.02em !important;
-    color: rgba(0, 0, 0, 0.6) !important;
-    padding: 14px 0 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: rgba(0, 0, 0, 0.6);
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
 #nav-hamburger .list-subitems .nav-list-link:hover {
-    color: #000000 !important;
-    opacity: 1 !important;
+    color: #000000;
+    opacity: 1;
 }
 
 /* 6. Divisor */
 .pg-menu-divider {
-    display: none !important;
+    display: none;
 }
 
 /* 7. Secao de Conta - ESCONDER */
 #nav-hamburger .nav-secondary,
 #nav-hamburger .nav-account {
-    display: none !important;
+    display: none;
 }
 
 /* 7.5. Secao O Movimento */
@@ -197,39 +197,39 @@
 
 /* O Movimento - Link com destaque especial */
 .pg-menu-movimento__link {
-    display: block !important;
-    font-family: 'Familjen Grotesk', sans-serif !important;
-    font-weight: 600 !important;
-    font-size: 15px !important;
-    line-height: 1 !important;
-    letter-spacing: 0.02em !important;
-    color: #1A1A1A !important;
-    text-transform: none !important;
-    text-align: left !important;
-    padding: 18px 0 !important;
-    margin: 0 !important;
-    border: none !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    display: block;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: #1A1A1A;
+    text-transform: none;
+    text-align: left;
+    padding: 18px 0;
+    margin: 0;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     transition: opacity 0.2s ease;
 }
 
 .pg-menu-movimento__link:hover {
-    opacity: 0.6 !important;
-    padding-left: 0 !important;
+    opacity: 0.6;
+    padding-left: 0;
 }
 
 /* 8. Mobile - Full width */
 @media (max-width: 768px) {
     #nav-hamburger {
-        max-width: 100% !important;
+        max-width: 100%;
     }
 
     #nav-hamburger .modal-body {
-        padding: 0 24px 32px !important;
+        padding: 0 24px 32px;
     }
 
     #nav-hamburger .modal-header {
-        padding: 36px 24px 28px !important;
+        padding: 36px 24px 28px;
     }
 
     #nav-hamburger .modal-close {
@@ -238,8 +238,8 @@
     }
 
     #nav-hamburger .nav-list-link {
-        font-size: 16px !important;
-        padding: 20px 0 !important;
+        font-size: 16px;
+        padding: 20px 0;
     }
 }
 
@@ -320,6 +320,7 @@
 
 /* Dropdown Container */
 .pg-header__dropdown {
+    display: none !important;
     position: absolute;
     top: 100%;
     left: 50%;
@@ -340,6 +341,13 @@
     display: block !important;
     opacity: 1;
     visibility: visible;
+}
+
+/* Guarda adicional contra regressao de submenu exposto no desktop */
+.pg-header__nav-desktop .nav-dropdown-content {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
 }
 
 .pg-header__dropdown-inner {
@@ -369,3 +377,4 @@
     margin-bottom: 4px;
     padding-bottom: 12px;
 }
+

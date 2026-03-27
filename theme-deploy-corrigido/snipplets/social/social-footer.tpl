@@ -1,28 +1,22 @@
 {% for sn in ['instagram', 'facebook', 'youtube', 'tiktok', 'twitter', 'pinterest'] %}
-    {% set sn_url = attribute(store,sn) %}
+    {% set sn_url = attribute(store, sn) %}
     {% if sn == 'tiktok' %}
         {% set sn_url = 'https://www.tiktok.com/@pata_gang' %}
     {% endif %}
     {% if sn_url %}
-        <a class="social-icon" href="{{ sn_url }}" target="_blank" aria-label="{{ sn }} {{ store.name }}">
+        <a class="social-icon" href="{{ sn_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ sn }} {{ store.name }}">
             {% if sn == "facebook" %}
-                <svg class="icon-inline icon-2x"><use xlink:href="#facebook-f"/></svg>
-            {% elseif sn == "instagram" %}
-                <svg class="icon-inline icon-2x"><use xlink:href="#instagram"/></svg>
-            {% elseif sn == "pinterest" %}
-                <svg class="icon-inline icon-2x"><use xlink:href="#pinterest"/></svg>
-            {% elseif sn == "youtube" %}
-                <svg class="icon-inline icon-2x"><use xlink:href="#youtube"/></svg>                
-            {% elseif sn == "tiktok" %}
-                <svg class="icon-inline icon-2x"><use xlink:href="#tiktok"/></svg>               
+                {% set social_network = 'facebook-f' %}
             {% else %}
-                <svg class="icon-inline icon-2x"><use xlink:href="#twitter"/></svg>
+                {% set social_network = sn %}
             {% endif %}
+            {% include "snipplets/svg/" ~ social_network ~ ".tpl" with {svg_custom_class: "icon-inline icon-2x"} %}
         </a>
     {% endif %}
 {% endfor %}
-{% if settings.linkedin_account %}
-    <a class="social-icon" href="{{ settings.linkedin_account }}" target="_blank" aria-label="linkedin {{ store.name }}">
-        <svg class="icon-inline icon-2x"><use xlink:href="#linkedin"/></svg>
+{% set linkedin_url = settings.linkedin_account is iterable ? (settings.linkedin_account[0] ?? '') : (settings.linkedin_account | default('')) %}
+{% if linkedin_url and linkedin_url != 'Array' %}
+    <a class="social-icon" href="{{ linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="linkedin {{ store.name }}">
+        {% include "snipplets/svg/linkedin.tpl" with {svg_custom_class: "icon-inline icon-2x"} %}
     </a>
 {% endif %}

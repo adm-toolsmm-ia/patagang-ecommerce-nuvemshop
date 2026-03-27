@@ -1,0 +1,283 @@
+{
+  "version": "1.5.222",
+  "timestamp": "2026-03-27T20-47-20",
+  "files": [
+    {
+      "local": "theme-deploy-corrigido/README.md",
+      "remote": "/README.md",
+      "size": 1059,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/VERSION.json",
+      "remote": "/VERSION.json",
+      "size": 199,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/_BACKUP_METADATA.json",
+      "remote": "/_BACKUP_METADATA.json",
+      "size": 46518,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/backup/category.tpl",
+      "remote": "/backup/category.tpl",
+      "size": 3623,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/backup/home.tpl.backup-v1",
+      "remote": "/backup/home.tpl.backup-v1",
+      "size": 6837,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/backup/item.tpl",
+      "remote": "/backup/item.tpl",
+      "size": 9903,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/backup/search.tpl",
+      "remote": "/backup/search.tpl",
+      "size": 649,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/backup/style-async.scss.tpl",
+      "remote": "/backup/style-async.scss.tpl",
+      "size": 148204,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/config/settings.txt",
+      "remote": "/config/settings.txt",
+      "size": 25493,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/layouts/layout.tpl",
+      "remote": "/layouts/layout.tpl",
+      "size": 42383,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/banner-services/banner-services-item.tpl",
+      "remote": "/snipplets/banner-services/banner-services-item.tpl",
+      "size": 1964,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/cart-drawer-new.tpl",
+      "remote": "/snipplets/cart-drawer-new.tpl",
+      "size": 6745,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/defaults/help_banner_services_item.tpl",
+      "remote": "/snipplets/defaults/help_banner_services_item.tpl",
+      "size": 1208,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/footer.tpl",
+      "remote": "/snipplets/footer.tpl",
+      "size": 11458,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/footer/footer.tpl",
+      "remote": "/snipplets/footer/footer.tpl",
+      "size": 25291,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/grid/item.tpl",
+      "remote": "/snipplets/grid/item.tpl",
+      "size": 8284,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/header/header-advertising.tpl",
+      "remote": "/snipplets/header/header-advertising.tpl",
+      "size": 505,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/header/header-patagang.tpl",
+      "remote": "/snipplets/header/header-patagang.tpl",
+      "size": 15886,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/header/header-search.tpl",
+      "remote": "/snipplets/header/header-search.tpl",
+      "size": 2060,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/preload-images.tpl",
+      "remote": "/snipplets/preload-images.tpl",
+      "size": 4335,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/product-card.tpl",
+      "remote": "/snipplets/product-card.tpl",
+      "size": 3404,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/product/product-form-development.tpl",
+      "remote": "/snipplets/product/product-form-development.tpl",
+      "size": 1269,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/product/product-form.tpl",
+      "remote": "/snipplets/product/product-form.tpl",
+      "size": 11572,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/product/product-image-thumb.tpl",
+      "remote": "/snipplets/product/product-image-thumb.tpl",
+      "size": 651,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/product/product-image.tpl",
+      "remote": "/snipplets/product/product-image.tpl",
+      "size": 4300,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/product/product-related.tpl",
+      "remote": "/snipplets/product/product-related.tpl",
+      "size": 4821,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/social/social-footer.tpl",
+      "remote": "/snipplets/social/social-footer.tpl",
+      "size": 1186,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/snipplets/svg/icons.tpl",
+      "remote": "/snipplets/svg/icons.tpl",
+      "size": 66054,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/checkout.scss.tpl.backup-20260109-215632",
+      "remote": "/static/checkout.scss.tpl.backup-20260109-215632",
+      "size": 23256,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/css/style-async.scss.tpl",
+      "remote": "/static/css/style-async.scss.tpl",
+      "size": 164796,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/css/style-blog.scss.tpl",
+      "remote": "/static/css/style-blog.scss.tpl",
+      "size": 4153,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/css/style-colors.scss.tpl",
+      "remote": "/static/css/style-colors.scss.tpl",
+      "size": 25374,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/css/style-critical.tpl",
+      "remote": "/static/css/style-critical.tpl",
+      "size": 168924,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/css/style-filters-patagang.css.tpl",
+      "remote": "/static/css/style-filters-patagang.css.tpl",
+      "size": 15102,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/css/style-home-v2.css",
+      "remote": "/static/css/style-home-v2.css",
+      "size": 24180,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/css/style-menu-patagang.css.tpl",
+      "remote": "/static/css/style-menu-patagang.css.tpl",
+      "size": 8758,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/css/style-tokens.tpl",
+      "remote": "/static/css/style-tokens.tpl",
+      "size": 37953,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/js/cart-drawer.js",
+      "remote": "/static/js/cart-drawer.js",
+      "size": 15939,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/js/instatheme-83af8dd95a83e9bfd631a208ebe4476030.js",
+      "remote": "/static/js/instatheme-83af8dd95a83e9bfd631a208ebe4476030.js",
+      "size": 1562,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/js/instatheme.js",
+      "remote": "/static/js/instatheme.js",
+      "size": 989,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/js/product-page-custom.js",
+      "remote": "/static/js/product-page-custom.js",
+      "size": 7043,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/js/store.js.tpl",
+      "remote": "/static/js/store.js.tpl",
+      "size": 130328,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/static/js/version-info.js",
+      "remote": "/static/js/version-info.js",
+      "size": 201,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/templates/category.tpl",
+      "remote": "/templates/category.tpl",
+      "size": 3761,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/templates/home.tpl",
+      "remote": "/templates/home.tpl",
+      "size": 19387,
+      "backed_up": true
+    },
+    {
+      "local": "theme-deploy-corrigido/templates/product.tpl",
+      "remote": "/templates/product.tpl",
+      "size": 4601,
+      "backed_up": true
+    }
+  ],
+  "deployed_at": "2026-03-27T20:47:20.454Z"
+}

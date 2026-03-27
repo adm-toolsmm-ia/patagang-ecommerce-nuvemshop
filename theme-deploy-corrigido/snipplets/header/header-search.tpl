@@ -7,14 +7,27 @@
     </div>
 
     <div class="pg-search-nav__quick">
-        <span class="pg-search-nav__label">Filtros rapidos</span>
+        <span class="pg-search-nav__label">Filtros rápidos</span>
         <div class="pg-search-nav__chips">
-            {% set quick_filters = ['Cachorros', 'Passeio', 'Para o Tutor', 'Lancamentos', 'Camisetas', 'Acessorios'] %}
-            {% for term in quick_filters %}
-                <a href="{{ store.search_url }}?q={{ term | url_encode }}" class="pg-search-nav__chip" data-search-term="{{ term }}">
-                    {{ term }}
-                </a>
-            {% endfor %}
+            {% if settings.search_quick_filters %}
+                {% set quick_filters = settings.search_quick_filters | split(',') %}
+                {% for term in quick_filters %}
+                    {% set term_clean = term | trim %}
+                    {% if term_clean %}
+                        <a href="{{ store.search_url }}?q={{ term_clean | url_encode }}" class="pg-search-nav__chip" data-search-term="{{ term_clean }}">
+                            {{ term_clean }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {# Fallback default filters if not configured #}
+                {% set quick_filters = ['Cachorros', 'Passeio', 'Para o Tutor', 'Lancamentos', 'Camisetas', 'Acessorios'] %}
+                {% for term in quick_filters %}
+                    <a href="{{ store.search_url }}?q={{ term | url_encode }}" class="pg-search-nav__chip" data-search-term="{{ term }}">
+                        {{ term }}
+                    </a>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 </form>

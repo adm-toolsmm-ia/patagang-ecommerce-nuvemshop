@@ -1,15 +1,15 @@
 # Backup Completo FTP - Patagang Nuvemshop
 
-**Data/Hora:** 13/02/2026, 21:16:55
-**Timestamp:** 2026-02-14T00-10-23
+**Data/Hora:** 30/01/2026, 18:45:02
+**Timestamp:** 2026-01-30T21-39-03
 
 ## Estatísticas
 
-- **Total de arquivos:** 293
-- **Arquivos baixados:** 293
+- **Total de arquivos:** 288
+- **Arquivos baixados:** 288
 - **Falhas:** 0
-- **Tamanho total:** 18.92 MB
-- **Duração:** 346.4s
+- **Tamanho total:** 18.57 MB
+- **Duração:** 314.8s
 
 ## Estrutura
 
@@ -21,7 +21,7 @@ Para restaurar este backup:
 
 1. Copiar arquivos do backup para `theme-deploy-corrigido/`:
    ```powershell
-   Copy-Item -Recurse -Force 2026-02-14T00-10-23/* ../theme-deploy-corrigido/
+   Copy-Item -Recurse -Force 2026-01-30T21-39-03/* ../theme-deploy-corrigido/
    ```
 
 2. Fazer deploy:

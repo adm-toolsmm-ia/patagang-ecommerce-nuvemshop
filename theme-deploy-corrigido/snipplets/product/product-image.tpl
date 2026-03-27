@@ -17,17 +17,11 @@
 				   data-image-index="{{ loop.index0 }}"
 				   data-image-original="{{ image | product_image_url('original') }}"
 				   data-image-large="{{ image | product_image_url('huge') }}">
-					<img 
-						{% if loop.first %}
-							src="{{ image | product_image_url('huge') }}"
-							fetchpriority="high"
-						{% else %}
-							src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-							data-src="{{ image | product_image_url('huge') }}"
-							class="lazyload"
-						{% endif %}
+					<img
+						src="{{ image | product_image_url('huge') }}"
+						{% if loop.first %}fetchpriority="high"{% endif %}
 						alt="{{ image.alt | default(product.name) }}"
-						class="pg-gallery-img {% if not loop.first %}lazyload{% endif %}"
+						class="pg-gallery-img"
 						loading="{% if loop.first %}eager{% else %}lazy{% endif %}"
 					/>
 					<div class="pg-gallery-zoom-icon">
@@ -52,10 +46,11 @@
 		    <div class="swiper-wrapper">
 		    	{% for image in product.images %}
 		         <div class="swiper-slide js-product-slide slider-slide" data-image="{{image.id}}" data-image-position="{{loop.index0}}">
-		         	<a href="#" 
-		         	   class="js-open-modal-gallery js-product-slide-link d-block position-relative" 
+		         	<a href="#"
+		         	   class="js-open-modal-gallery js-product-slide-link d-block position-relative pg-aspect-ratio-container"
 		         	   data-image-index="{{ loop.index0 }}"
-		         	   style="padding-bottom: {{ image.dimensions['height'] / image.dimensions['width'] * 100}}%;">
+		         	   data-aspect-ratio="{{ image.dimensions['width'] / image.dimensions['height'] }}"
+		         	   style="width: 100%; display: block;">
 
 						{% set apply_lazy_load = not loop.first %}
 
@@ -66,11 +61,11 @@
 						{% endif %}
 
 						<img
+							src="{{ image | product_image_url('large') }}"
+							srcset='{{  image | product_image_url('large') }} 480w, {{  image | product_image_url('huge') }} 640w, {{  image | product_image_url('original') }} 1024w'
+							class="js-product-slide-img product-slider-image img-absolute img-absolute-centered"
 							{% if not apply_lazy_load %}fetchpriority="high"{% endif %}
-							{% if apply_lazy_load %}data-{% endif %}src="{{ product_image_src }}"
-							{% if apply_lazy_load %}data-{% endif %}srcset='{{  image | product_image_url('large') }} 480w, {{  image | product_image_url('huge') }} 640w, {{  image | product_image_url('original') }} 1024w'
-							class="js-product-slide-img product-slider-image img-absolute img-absolute-centered {% if apply_lazy_load %}lazyautosizes lazyload{% endif %}"
-							{% if apply_lazy_load %}data-sizes="auto"{% endif %}
+							{% if apply_lazy_load %}loading="lazy"{% endif %}
 							{% if image.dimensions.width and image.dimensions.height %}width="{{ image.dimensions.width }}" height="{{ image.dimensions.height }}"{% endif %}
 							{% if image.alt %}alt="{{image.alt}}"{% endif %} />
 	        	</a>
@@ -91,61 +86,5 @@
 		</div>
 	</div>
 
-	{# ============================================================================
-	   MODAL CUSTOMIZADO - Galeria Fullscreen com Thumbnails
-	============================================================================ #}
-	<div id="pg-modal-gallery" class="pg-modal-gallery" aria-hidden="true">
-		<div class="pg-modal-backdrop js-close-modal-gallery"></div>
-		<div class="pg-modal-container">
-			{# Sidebar com Thumbnails #}
-			<div class="pg-modal-sidebar">
-				<div class="pg-modal-thumbs">
-					{% for image in product.images %}
-					<button 
-						class="pg-modal-thumb js-modal-thumb {% if loop.first %}is-active{% endif %}" 
-						data-thumb-index="{{ loop.index0 }}"
-						data-image-original="{{ image | product_image_url('original') }}"
-						data-image-large="{{ image | product_image_url('huge') }}">
-						<img 
-							src="{{ image | product_image_url('small') }}" 
-							alt="{{ image.alt | default(product.name ~ ' foto ' ~ loop.index) }}"
-							loading="lazy"
-						/>
-					</button>
-					{% endfor %}
-				</div>
-			</div>
-			{# Imagem Principal #}
-			<div class="pg-modal-main">
-				<img 
-					id="pg-modal-main-image" 
-					class="pg-modal-main-img" 
-					src="{{ product.images | first | product_image_url('original') }}" 
-					alt="{{ product.name }}"
-				/>
-				{# Navegação com setas #}
-				<button class="pg-modal-nav pg-modal-nav--prev js-modal-nav" data-direction="prev" aria-label="Anterior">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<polyline points="15 18 9 12 15 6"></polyline>
-					</svg>
-				</button>
-				<button class="pg-modal-nav pg-modal-nav--next js-modal-nav" data-direction="next" aria-label="Próximo">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-						<polyline points="9 18 15 12 9 6"></polyline>
-					</svg>
-				</button>
-			</div>
-			{# Botão Fechar #}
-			<button class="pg-modal-close js-close-modal-gallery" aria-label="Fechar">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-					<line x1="18" y1="6" x2="6" y2="18"></line>
-					<line x1="6" y1="6" x2="18" y2="18"></line>
-				</svg>
-			</button>
-			{# Contador #}
-			<div class="pg-modal-counter">
-				<span id="pg-modal-current">1</span> / <span id="pg-modal-total">{{ product.images_count }}</span>
-			</div>
-		</div>
-	</div>
+
 {% endif %}

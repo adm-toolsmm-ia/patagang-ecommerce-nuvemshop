@@ -54,11 +54,11 @@
     {% endif %}
 {% elseif template == 'product' %}
 
-    {# Preload product LCP image #}
+    {# Preload product LCP image - v1.5.33 FIX: Correct resolutions for desktop rendering #}
 
     {% for image in product.images %}
         {% if loop.first %}
-            <link rel="preload" as="image" href="{{ image | product_image_url('large') }}" imagesrcset="{{ image | product_image_url('large') }} 480w, {{ image | product_image_url('huge') }} 640w, {{ image | product_image_url('original') }} 1024w">
+            <link rel="preload" as="image" href="{{ image | product_image_url('large') }}" imagesrcset="{{ image | product_image_url('large') }} 480w, {{ image | product_image_url('huge') }} 1600w, {{ image | product_image_url('original') }} 2400w">
         {% endif %}
     {% endfor %}
 {% elseif template == 'category' %}

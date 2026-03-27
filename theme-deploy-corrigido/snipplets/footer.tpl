@@ -58,16 +58,48 @@
                 </ul>
             </div>
 
-            {# Coluna 4: Redes Sociais #}
+            {# Coluna 4: Redes Sociais + Formas de pagamento (abaixo) #}
             <div class="footer__col">
                 <span class="footer__title">REDES SOCIAIS</span>
-                <ul class="footer__list">
-                    <li><a href="https://www.instagram.com/patagang_/" target="_blank" rel="noopener">Instagram</a></li>
-                    <li><a href="https://www.tiktok.com/@pata_gang" target="_blank" rel="noopener">Tiktok</a></li>
-                </ul>
+                <div class="footer__social-icons">
+                    {% include "snipplets/social/social-footer.tpl" %}
+                    <a class="social-icon" href="https://open.spotify.com/playlist/2wqIyVegSwIJMOVZQI7kYp?si=tLJWK8_WSRW-E6y2Gx8k_Q&pi=kf6g-BBAS_6_7&pt=774c7ba1d5633e0478e12a4d19576d63" target="_blank" rel="noopener noreferrer" aria-label="Spotify {{ store.name }}">
+                        {% include "snipplets/svg/spotify.tpl" with {svg_custom_class: "icon-inline icon-2x"} %}
+                    </a>
+                </div>
+                {% if settings.payments_show and settings.payments %}
+                <span class="footer__title">Formas de pagamento</span>
+                <div class="footer__payments-logos">
+                    {% include "snipplets/logos-icons.tpl" with {'payments': true} %}
+                </div>
+                {% endif %}
             </div>
 
         </div>
+
+        {# Row secundária: apenas Segurança (Google) #}
+        {% if settings.google_security %}
+        <div class="footer__secondary">
+            <div class="footer__col footer__col--security">
+                <span class="footer__title">Segurança</span>
+                <div class="footer__security">
+                    {% if settings.security_link %}
+                        <a href="{{ settings.security_link }}" target="_blank" rel="noopener noreferrer" aria-label="Google Site Seguro {{ store.name }}">
+                    {% endif %}
+                    {% if settings.security_color == 'white' %}
+                        <img src="{{ 'images/empty-placeholder.png' | static_url }}" data-src="{{ 'images/google-safe-white.png' | static_url }}" class="custom-seal-img lazyload" alt="Google Site Seguro {{ store.name }}">
+                    {% elseif settings.security_color == 'mono' %}
+                        <img src="{{ 'images/google-safe-mono.svg' | static_url }}" class="custom-seal-img" alt="Google Site Seguro {{ store.name }}" width="48" height="48">
+                    {% else %}
+                        <img src="{{ 'images/empty-placeholder.png' | static_url }}" data-src="{{ 'images/google-safe-color.png' | static_url }}" class="custom-seal-img lazyload" alt="Google Site Seguro {{ store.name }}">
+                    {% endif %}
+                    {% if settings.security_link %}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
 
         {# Copyright #}
         <div class="footer__bottom">
@@ -220,6 +252,73 @@
     text-transform: uppercase !important;
 }
 
+/* Redes sociais - ícones em linha */
+/* Ícones mais próximos do título "REDES SOCIAIS" */
+.footer__title + .footer__social-icons {
+    margin-top: -12px;
+}
+
+.footer__social-icons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+}
+
+.footer__social-icons .social-icon {
+    color: #000000;
+    transition: opacity 0.2s;
+}
+
+.footer__social-icons .social-icon:hover {
+    opacity: 0.7;
+}
+
+.footer__social-icons .social-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Row secundária: Segurança (Google) */
+.footer__secondary {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Selo Google - monocromático */
+.footer .footer__security .custom-seal-img {
+    max-height: 48px;
+    width: auto;
+    height: auto;
+    filter: grayscale(1);
+    opacity: 0.9;
+}
+
+/* Bandeiras de pagamento - monocromáticas */
+/* Mais espaço entre redes sociais e o bloco Formas de pagamento */
+.footer__social-icons + .footer__title {
+    margin-top: 1.25rem;
+}
+
+.footer .footer__payments-logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.footer .footer__payments-logos .icon-logo {
+    filter: grayscale(1);
+    opacity: 0.85;
+    max-height: 32px;
+    width: auto;
+}
+
 /* Copyright */
 .footer__bottom {
     /* Removed border-top */
@@ -236,6 +335,9 @@
 @media (min-width: 768px) {
     .footer__content-row {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .footer__secondary {
+        grid-template-columns: 1fr 1fr;
     }
 }
 

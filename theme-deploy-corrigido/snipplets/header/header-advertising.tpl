@@ -1,19 +1,13 @@
 <section class="section-advertising">
-	<div class="container">
-	    <div class="row-fluid">
-	        <div class="col text-center">
-	           	{% if settings.ad_bar and settings.ad_text %}
-	           	    {% if settings.ad_url %}
-				        <a class="link-contrast" href="{{ settings.ad_url | setting_url }}">
-					{% endif %}  
-			        	{% if settings.ad_text %}
-			        		{{ settings.ad_text }}
-			        	{% endif %} 
-					{% if settings.ad_url %}
-				        </a>
-			        {% endif %}  
-			    {% endif %}       	
-	        </div>
-	    </div>
-	</div>
+	{% if settings.ad_bar %}
+		<div class="section-advertising__marquee">
+			<div class="section-advertising__track">
+				<div class="section-advertising__copy">
+					<span class="section-advertising__phrase">Frete grátis acima de R$250</span>
+					<span class="section-advertising__phrase">10% OFF no PIX</span>
+					<span class="section-advertising__phrase">30 dias para trocas e devoluções</span>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 </section>

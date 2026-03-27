@@ -63,23 +63,14 @@ window.urls = {
 }
 
 {#/*============================================================================
-  #Lazy load
+  #Lazy load — CONSOLIDATED to native loading="lazy"
+  Removed custom lazysizes implementation (replaced with browser native)
+  lazysizes library events are no longer used as of v1.6.0
 ==============================================================================*/ #}
 
-document.addEventListener('lazybeforeunveil', function(e){
-    if ((e.target.parentElement) && (e.target.nextElementSibling)) {
-        var parent = e.target.parentElement;
-        var sibling = e.target.nextElementSibling;
-        if (sibling.classList.contains('js-lazy-loading-preloader')) {
-            sibling.style.display = 'none';
-            parent.style.display = 'block';
-        }
-    }
-});
-
-
-window.lazySizesConfig = window.lazySizesConfig || {};
-lazySizesConfig.hFac = 0.4;
+// Lazyload now handled by native HTML5 loading="lazy" attribute
+// This section kept for backward compatibility reference
+// If needed to support older browsers, lazysizes can be restored
 
 
 DOMContentLoaded.addEventOrExecute(() => {
@@ -795,8 +786,8 @@ DOMContentLoaded.addEventOrExecute(() => {
                 watchOverflow: true,
                 loop: alternativeLoopVal,
                 centerInsufficientSlides: true,
-                spaceBetween: 24,
-                slidesPerView: 1.2,  /* Mobile: 1 card + preview */
+                spaceBetween: 12,
+                slidesPerView: 1,  /* Mobile: 1 card */
                 pagination: {
                     el: '.js-swiper-related-pagination',
                     clickable: true,
@@ -807,16 +798,16 @@ DOMContentLoaded.addEventOrExecute(() => {
                 },
                 breakpoints: {
                     480: {
-                        slidesPerView: 2,  /* Tablet pequeno */
+                        slidesPerView: 2,
+                        spaceBetween: 16,
+                    },
+                    768: {
+                        slidesPerView: 3,
                         spaceBetween: 20,
                     },
-                    767: {
-                        slidesPerView: 3,  /* Desktop: 3 cards (antes era 4) para cards mais largos */
-                        spaceBetween: 24,
-                    },
                     1200: {
-                        slidesPerView: 3,  /* Desktop grande: mantém 3 para cards quadrados */
-                        spaceBetween: 30,
+                        slidesPerView: 4,
+                        spaceBetween: 24,
                     }
                 }
             });
@@ -828,8 +819,8 @@ DOMContentLoaded.addEventOrExecute(() => {
                 watchOverflow: true,
                 loop: complementaryLoopVal,
                 centerInsufficientSlides: true,
-                spaceBetween: 30,
-                slidesPerView: {{ columns }},
+                spaceBetween: 12,
+                slidesPerView: 1,  /* Mobile: 1 card */
                 pagination: {
                     el: '.js-swiper-complementary-pagination',
                     clickable: true,
@@ -839,8 +830,17 @@ DOMContentLoaded.addEventOrExecute(() => {
                     prevEl: '.js-swiper-complementary-prev',
                 },
                 breakpoints: {
-                    767: {
-                        slidesPerView: desktopColumns,
+                    480: {
+                        slidesPerView: 2,
+                        spaceBetween: 16,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                    },
+                    1200: {
+                        slidesPerView: 4,
+                        spaceBetween: 24,
                     }
                 }
             });
@@ -853,17 +853,15 @@ DOMContentLoaded.addEventOrExecute(() => {
 
 	{% if has_banner_services %}
 
-		{# /* // Banner services slider */ #}
+		{# /* // Banner services slider - DISABLED v1.5.153 */ #}
+		{# /* // Using CSS Grid instead for 3-column layout */ #}
 
-        var width = window.innerWidth;
-        if (width < 767) {
-            createSwiper('.js-informative-banners', {
-                pagination: {
-                    el: '.js-informative-banners-pagination',
-                    clickable: true,
-                },
-            });
-        }
+        {# DISABLED: createSwiper('.js-informative-banners', {
+            pagination: {
+                el: '.js-informative-banners-pagination',
+                clickable: true,
+            },
+        }); #}
 
     {% endif %}
 
@@ -1714,7 +1712,7 @@ DOMContentLoaded.addEventOrExecute(() => {
                 '.js-swiper-product',
                 {
                     direction: 'horizontal',
-                    lazy: true,
+                    lazy: false,
                     loop: false,
                     pagination: {
                         el: '.js-swiper-product-pagination',
@@ -1777,12 +1775,14 @@ DOMContentLoaded.addEventOrExecute(() => {
                     currentIndex = index;
                     updateMainImage();
                     modal.classList.add('is-open');
+                    modal.setAttribute('aria-hidden', 'false');  // Dynamic toggle
                     document.body.style.overflow = 'hidden';
                 }
-                
+
                 // Função para fechar o modal
                 function closeModal() {
                     modal.classList.remove('is-open');
+                    modal.setAttribute('aria-hidden', 'true');  // Dynamic toggle
                     document.body.style.overflow = '';
                 }
                 

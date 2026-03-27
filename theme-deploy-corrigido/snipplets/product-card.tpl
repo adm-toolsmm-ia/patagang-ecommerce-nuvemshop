@@ -1,6 +1,7 @@
 {#
   PRODUCT CARD - Componente Reutilizável
-  Usado em grids de produtos
+  NÃO INCLUÍDO por nenhum template do tema; uso apenas se for referenciado por seção do admin ou outro canal.
+  Evitar adicionar novos estilos aqui.
 #}
 
 <div class="product-card">

@@ -45,7 +45,7 @@ Colores de tu marca
 				accent_color = #86C2B4
 	subtitle
 		subtitle = <a target='_blank' href='https://ayuda.tiendanube.com/es_ES/124497-colores-de-tu-marca/como-cambiar-los-colores-de-mi-diseno/?utm_source=admin-desktop&utm_medium=feature-page&utm_campaign=help'>¿Cómo cambio los colores de mi diseño?</a>
-		
+
 Tipo de letra
 	meta
 		icon = font
@@ -247,6 +247,19 @@ Encabezado
 	i18n_input
 		name = ad_url
 		description = Link (opcional)
+
+Buscador
+	meta
+		icon = search
+		advanced = false
+	title
+		title = Filtros rápidos
+	description
+		description = Ingresá los términos separados por coma (ej: Cachorros, Passeio, Para o Tutor)
+	textarea
+		name = search_quick_filters
+		description = Términos de búsqueda
+
 
 
 Página de inicio
@@ -775,6 +788,28 @@ Pie de página
 		subtitle = Código Javascript o HTML del sello
 	textarea
 		name = custom_seal_code
+	title
+		title = Sello Google Site Seguro
+	checkbox
+		name = google_security
+		description = Mostrar el sello de verificación de Google en el footer
+	text
+		name = security_link
+		description = Link opcional del sello (ej. informe Safe Browsing)
+		placeholder = https://transparencyreport.google.com/safe-browsing/search?url=...
+	dropdown
+		name = security_color
+		description = Estilo del sello
+		values
+			mono = Monocromático (recomendado)
+			white = Blanco
+			color = Color
+	title
+		title = Redes sociales en el footer
+	text
+		name = spotify_url
+		description = URL del perfil de Spotify (opcional). Si está configurado, se mostrará el ícono en el footer.
+		placeholder = https://open.spotify.com/user/...
 
 Edición avanzada de CSS
 	meta
