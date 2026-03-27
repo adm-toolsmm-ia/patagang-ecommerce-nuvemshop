@@ -4761,4 +4761,61 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 
 /* [REMOVED Story 8.2 ETAPA 1] Gallery Modal CSS moved to style-async.scss.tpl */
 
+/* PATAGANG vX.X.X: Restore missing modal CSS (Story 10.2)
+   Close button, backdrop, counter elementos que faltavam */
+
+/* Botão Fechar (X) */
+.pg-modal-gallery .pg-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s ease, opacity 0.2s ease;
+    opacity: 0.7;
+}
+
+.pg-modal-gallery .pg-modal-close:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.pg-modal-gallery .pg-modal-close svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    stroke-width: 2;
+}
+
+/* Backdrop - Overlay para fechar ao clicar fora */
+.pg-modal-gallery .pg-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Contador de Imagens */
+.pg-modal-gallery .pg-modal-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
 
