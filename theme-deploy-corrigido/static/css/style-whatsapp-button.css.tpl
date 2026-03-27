@@ -18,7 +18,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 12px 8px;
+    padding: 16px 10px;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
     box-shadow: 2px 0 8px rgba(0,0,0,0.1);
@@ -28,7 +28,7 @@
 
 .btn-whatsapp-left:hover {
     background: #E8E8E8; /* Slightly darker gray on hover */
-    padding-left: 12px;
+    padding-left: 14px;
 }
 
 .btn-whatsapp-left:focus {
@@ -38,8 +38,8 @@
 
 /* BEM: Icon element */
 .btn-whatsapp-left__icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     color: #1A1A1A; /* Black Icon */
 }
 
@@ -50,10 +50,10 @@
     transform: rotate(180deg); /* Inverted text direction for left-side readability */
     font-family: 'Familjen Grotesk', sans-serif;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    margin-bottom: 6px; /* Space between icon and text */
+    margin-bottom: 8px; /* Space between icon and text */
     color: #1A1A1A;
     display: inline-block;
 }
@@ -79,7 +79,7 @@
         top: 50%;
         transform: translateY(-50%);
         left: 0;
-        padding: 10px 6px;
+        padding: 13px 8px;
         z-index: 9990;
     }
     .btn-whatsapp-left span {
