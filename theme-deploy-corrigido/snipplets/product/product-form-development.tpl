@@ -3,7 +3,10 @@
 
 <div class="pg-dev-card">
     {# Marcadores de canto (Brackets em L) #}
-
+    <span class="pg-dev-card__corner pg-dev-card__corner--top-left"></span>
+    <span class="pg-dev-card__corner pg-dev-card__corner--top-right"></span>
+    <span class="pg-dev-card__corner pg-dev-card__corner--bottom-left"></span>
+    <span class="pg-dev-card__corner pg-dev-card__corner--bottom-right"></span>
     
     {# Conteúdo central #}
     <div class="pg-dev-card__content">

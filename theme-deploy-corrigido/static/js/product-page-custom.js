@@ -4,31 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    // ============================================================================
-    // Story 11.2 - Isolated gallery scroll on desktop PDP
-    // ============================================================================
-    const galleryContainer = document.querySelector('.pg-gallery-container');
-    const isDesktop = window.matchMedia('(min-width: 992px)').matches;
-
-    if (galleryContainer && isDesktop) {
-        galleryContainer.addEventListener('wheel', function (event) {
-            const canScroll = galleryContainer.scrollHeight > galleryContainer.clientHeight;
-            if (!canScroll) return;
-
-            const deltaY = event.deltaY;
-            const nextScrollTop = galleryContainer.scrollTop + deltaY;
-            const maxScrollTop = galleryContainer.scrollHeight - galleryContainer.clientHeight;
-            const scrollingDownAtBottom = deltaY > 0 && galleryContainer.scrollTop >= maxScrollTop;
-            const scrollingUpAtTop = deltaY < 0 && galleryContainer.scrollTop <= 0;
-
-            // Allow page scroll once gallery reaches bounds.
-            if (scrollingDownAtBottom || scrollingUpAtTop) return;
-
-            // Keep wheel interaction inside gallery while there is internal scroll room.
-            event.preventDefault();
-            galleryContainer.scrollTop = Math.max(0, Math.min(maxScrollTop, nextScrollTop));
-        }, { passive: false });
-    }
 
     // ============================================================================
     // Accordion Functionality - Toggle individual accordions

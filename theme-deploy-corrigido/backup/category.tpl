@@ -6,17 +6,23 @@
 
 {% if not show_help %}
 
-	<section class="pg-search-page">
-		<div class="pg-search-page__container">
-			
-			<div class="pg-search-page__header">
-				<h1 class="pg-search-page__title">{{ category.name }}</h1>
-				{% if category.description %}
-					<p class="pg-search-page__term">{{ category.description }}</p>
-				{% endif %}
+	<section class="category-header mt-4 section-margin">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					{% embed "snipplets/page-header.tpl" with { breadcrumbs: false } %}
+						{% block page_header_text %}{{ category.name }}{% endblock page_header_text %}
+					{% endembed %}
+					{% if (category.images is not empty) or ("banner-products.jpg" | has_custom_image) %}
+						{% include 'snipplets/category-banner.tpl' %}
+					{% endif %}
+				</div>
 			</div>
+		</div>
+	</section>
 
-			{# Controles de filtro e ordenação #}
+	<section class="category-body">
+		<div class="container">
 			<div class="js-category-controls-prev category-controls-sticky-detector"></div>
 			<div class="js-category-controls row align-items-center mb-md-3 category-controls">
 				{% if products %}
@@ -54,31 +60,26 @@
 								sort_by_classes: {
 									select_group: "form-group mb-0",
 									select_svg: "icon-inline icon-w-14 icon-lg svg-icon-text",
-								},
+									},
 								select_custom_icon: include("snipplets/svg/chevron-down.tpl", {svg_custom_class: "icon-inline icon-w-14 icon-lg svg-icon-text"}),
 							})
 						}}
 					</div>
 				{% endif %}
 			</div>
-			
-			{# Filtros aplicados #}
 			<div class="row">
 				{% include "snipplets/grid/filters.tpl" with {applied_filters: true} %}
 			</div>
-
-			<div class="pg-search-page__body">
-				{% if products %}
-					<div class="js-product-table pg-product-grid" data-store="category-grid-{{ category.id }}">
-						{% include 'snipplets/product_grid.tpl' %}
-					</div>
-					{% include 'snipplets/grid/pagination.tpl' with { infinite_scroll: true } %}
-				{% else %}
-					<div class="pg-search-page__empty text-center">
-						<h3 class="pg-search-page__empty-title">{{(has_filters_enabled ? "No tenemos resultados para tu búsqueda. Por favor, intentá con otros filtros." : "Próximamente") | translate}}</h3>
-					</div>
-				{% endif %}
-			</div>
+			{% if products %}
+				<div class="js-product-table row" data-store="category-grid-{{ category.id }}">
+					{% include 'snipplets/product_grid.tpl' %}
+				</div>
+				{% include 'snipplets/grid/pagination.tpl' with { infinite_scroll: true } %}
+			{% else %}
+				<p class="text-center">
+					{{(has_filters_enabled ? "No tenemos resultados para tu búsqueda. Por favor, intentá con otros filtros." : "Próximamente") | translate}}
+				</p>
+			{% endif %}
 		</div>
 	</section>
 {% elseif show_help %}

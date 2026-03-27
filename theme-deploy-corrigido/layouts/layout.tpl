@@ -26,6 +26,10 @@
         {# SEO: Google Search Console - Inserir meta tag de verificacao abaixo quando receber do especialista #}
         {# <meta name="google-site-verification" content="CODIGO_AQUI" /> #}
 
+        {# Versão do Deploy - Atualizado automaticamente pelo script de deploy #}
+        {# DEPLOY_VERSION: 2026-02-07T04-27-52-98DF69A8 #}
+        <meta name="deploy-version" content="2026-02-07T04-27-52-98DF69A8" />
+
         <link rel="preload" as="style" href="{{ [settings.font_headings, settings.font_rest] | google_fonts_url('300, 400, 700') }}" />
         <link rel="preload" href="{{ 'css/style-colors.scss.tpl' | static_url }}" as="style" />
 
@@ -69,183 +73,11 @@
             {% include "static/css/style-critical.tpl" %}
             {% include "static/css/style-menu-patagang.css.tpl" %}
             {% include "static/css/style-filters-patagang.css.tpl" %}
-            {% include "static/css/style-help-sidebar.css.tpl" %}
-            {% include "static/css/style-whatsapp-button.css.tpl" %}
         </style>
 
         {# Colors and fonts used from settings.txt and defined on theme customization #}
 
         {{ 'css/style-colors.scss.tpl' | static_url | static_inline }}
-
-        {# PATAGANG v1.5.31: CRITICAL FIX - Reset body background after style-colors loads #}
-        {# Reason: style-colors.scss defines body { background-color: $main-background } #}
-        {# If $main-background is gray/non-white, it cascades to ad-bar and header sections #}
-        {# Fix: Explicit white background + section-level transparent overrides #}
-        <style>
-            /* CRITICAL: Force body background to WHITE to prevent gray cascade */
-            body {
-                background-color: #ffffff !important;
-                background-image: none !important;
-            }
-
-            /* CRITICAL: Ad bar section must match header (WHITE background) */
-            /* PATAGANG v1.5.152: Changed from transparent to white (#ffffff) */
-            section.patagang-section-top {
-                background-color: #ffffff !important;
-                background-image: none !important;
-            }
-
-            /* CRITICAL: Header section stays transparent to inherit body color */
-            section.patagang-section-header {
-                background-color: transparent !important;
-            }
-
-            /* CRITICAL: Main content section is explicit white (no inheritance issues) */
-            main.patagang-section-content {
-                background-color: #ffffff !important;
-            }
-        </style>
-
-        {# PATAGANG v1.5.32: Product Layout Refinements - Scroll, Fallback, Alignment #}
-        {# Fase 1: CSS-only improvements for gallery + card alignment #}
-        {# PATAGANG v1.5.34: Gallery 2-Column Grid - 4 Imagens Visíveis Alinhadas ao Card #}
-        {# PATAGANG v1.5.35: Gallery Height Alignment — Galeria cresce com card (DYNAMIC HEIGHT) #}
-        {# PATAGANG v1.5.153-FIX: Banner Services 3-Column Grid #}
-        <style>
-            /* =====================================================================
-               BANNER SERVICES (HOME) — 3 Colunas Distribuídas Horizontalmente
-               v1.5.153: Remover Swiper carousel, usar Grid simples
-               ===================================================================== */
-
-            /* Container: grid de 3 colunas */
-            .js-informative-banners {
-                display: grid !important;
-                grid-template-columns: repeat(3, 1fr) !important;
-                gap: 20px !important;
-                width: 100% !important;
-            }
-
-            /* Wrapper do swiper: ocupar 100% */
-            .js-informative-banners .swiper-wrapper {
-                display: contents !important;  /* Permite que filhos ocupem grid direto */
-            }
-
-            /* Cada item: flex column, espaçamento */
-            .js-informative-banners .pg-service-item {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                justify-content: center !important;
-                padding: 1.5rem !important;
-                min-height: 140px !important;
-                background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%) !important;
-                border-radius: 8px !important;
-                margin-bottom: 0 !important;  /* Remove margin do carousel */
-            }
-
-            /* Descrição: sem text-justify, texto natural */
-            .js-informative-banners .pg-service-item__description {
-                text-align: center !important;
-                word-spacing: normal !important;
-                text-justify: none !important;
-                line-height: 1.4 !important;
-                margin: 0 !important;
-            }
-
-            /* Ocultar pagination (sem carousel) */
-            .js-informative-banners-pagination {
-                display: none !important;
-            }
-
-            /* Mobile: voltar a 1 coluna */
-            @media (max-width: 768px) {
-                .js-informative-banners {
-                    grid-template-columns: 1fr !important;
-                }
-            }
-
-            /* Tablet: 2 colunas */
-            @media (min-width: 769px) and (max-width: 991px) {
-                .js-informative-banners {
-                    grid-template-columns: repeat(2, 1fr) !important;
-                }
-            }
-
-            /* =====================================================================
-               PRODUCT GALLERY REFINEMENTS — Grid 2x2 Desktop (Story 11.2)
-               Aplicado APENAS em desktop (≥992px) para não conflitar com Swiper
-               ===================================================================== */
-
-            @media (min-width: 992px) {
-                /* Container da galeria: mostra exatamente 2 linhas (4 imagens) */
-                .pg-gallery-container {
-                    /* max-height = 2×clamp(200,24vh,280) + gap = clamp(412,48vh+12,572) */
-                    max-height: clamp(412px, calc(48vh + 12px), 572px);
-                    overflow-y: auto;
-                    overflow-x: hidden;
-                    overscroll-behavior: contain;
-                    scroll-behavior: smooth;
-                    box-sizing: border-box;
-                    display: flex;
-                    flex-direction: column;
-                    min-height: 0;
-                    padding-right: 8px;
-                    width: 100%;
-                }
-
-                /* Grid da galeria — 2 colunas, linhas de altura fixa */
-                .pg-gallery-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, minmax(0, 1fr));
-                    grid-auto-rows: clamp(200px, 24vh, 280px);
-                    gap: 12px;
-                    padding: 0;
-                    width: 100%;
-                    height: fit-content;
-                }
-
-                /* Coluna imagem: STRETCH para crescer com card */
-                .pg-pdp-image-col {
-                    align-self: stretch !important;
-                    display: flex;
-                    flex-direction: column;
-                    min-height: 0;
-                    overflow: visible;
-                }
-
-                /* Coluna info: STRETCH para alinhar altura com galeria */
-                .pg-pdp-info-col {
-                    align-self: stretch !important;
-                    display: flex;
-                    flex-direction: column;
-                    padding-top: 0;
-                }
-
-                /* Card de info cresce para preencher altura */
-                .pg-pdp-info-card {
-                    flex: 1;
-                }
-            }
-
-            /* =====================================================================
-               CARD STYLING — Fallback para Backdrop Filter + Refinements
-               ===================================================================== */
-
-            /* Base: Fallback para navegadores sem suporte a backdrop-filter */
-            .pg-pdp-info-card {
-                background: rgba(255, 255, 255, 0.85);
-                backdrop-filter: blur(0);
-            }
-
-            /* Modern browsers: use backdrop-filter com blur */
-            @supports (backdrop-filter: blur(1px)) {
-                .pg-pdp-info-card {
-                    background: rgba(255, 255, 255, 0.55);
-                    backdrop-filter: blur(12px);
-                    -webkit-backdrop-filter: blur(12px);
-                }
-            }
-        </style>
 
         {# Load async styling not mandatory for first meaningfull paint #}
 
@@ -257,200 +89,14 @@
             <link rel="stylesheet" href="{{ 'css/style-home-v2.css' | static_url }}?v=2026-02-03T04-40">
         {% endif %}
 
-        {# PRODUCT CARD V3 - Cards compactos e limpos (categoria, busca, similares, 404) #}
-        <link rel="stylesheet" href="{{ 'css/product-card-v3.css' | static_url }}?v=2026-02-14">
+        {# Blog styles - PATAGANG - Load immediately, not async #}
 
-        {# Blog styles - PATAGANG - Loaded asynchronously (not above-the-fold) #}
-
-        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}">
 
         {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
 
         <style>
             {{ settings.css_code | raw }}
-        </style>
-
-        {# Ad Bar: override final (PATAGANG v1.5.17+ - Static layout, no fixed positioning) #}
-        {# CRITICAL: Ensure advertising section remains VISUALLY SEPARATE from header #}
-        {# PATAGANG v1.5.151: Force transparency - remove any inherited background from parent/style-colors #}
-        {% if settings.ad_bar and settings.ad_text %}
-        <style>
-            body .section-advertising {
-                position: static !important;
-                z-index: auto !important;
-                width: 100% !important;
-                padding: 10px 20px !important;
-                box-sizing: border-box !important;
-                margin-bottom: 0 !important;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-                background-color: transparent !important;
-                background-image: none !important;
-                background-clip: border-box !important;
-            }
-            body .section-advertising__marquee {
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                max-width: 1200px !important;
-                margin: 0 auto !important;
-            }
-            body .section-advertising__track {
-                text-align: center !important;
-                padding: 0 !important;
-                animation: none !important;
-            }
-            body .section-advertising__copy {
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                flex-wrap: wrap !important;
-                /* Same gap as style-critical.tpl .section-advertising__copy */
-                gap: clamp(0.75rem, 2.5vw, 1.75rem) !important;
-                row-gap: 0.35em !important;
-                font-size: 0.65rem !important;
-                font-weight: 600 !important;
-                letter-spacing: 0.1px !important;
-                color: #000 !important;
-                margin: 0 !important;
-                line-height: 1.3 !important;
-                white-space: normal !important;
-                overflow: visible !important;
-                word-spacing: normal !important;
-            }
-
-            body .section-advertising__phrase {
-                display: inline !important;
-                white-space: normal !important;
-            }
-
-            body .section-advertising__link {
-                text-decoration: none !important;
-                color: inherit !important;
-                outline: none !important;
-                transition: opacity 0.2s ease !important;
-            }
-            body .section-advertising__link:hover {
-                opacity: 0.8 !important;
-            }
-            @media (max-width: 576px) {
-                body .section-advertising {
-                    padding: 8px 15px !important;
-                }
-                body .section-advertising__copy {
-                    font-size: 0.55rem !important;
-                }
-            }
-            @media (min-width: 577px) and (max-width: 991px) {
-                body .section-advertising {
-                    padding: 9px 18px !important;
-                }
-                body .section-advertising__copy {
-                    font-size: 0.65rem !important;
-                }
-            }
-
-            @media (min-width: 992px) {
-                body .section-advertising__copy {
-                    font-size: 0.7rem !important;
-                }
-            }
-        </style>
-        {% endif %}
-
-        {# Header styling - ensure visual independence from advertising bar #}
-        <style>
-            {# Header container: transparent by default, can have bg from design #}
-            body .pg-header {
-                background: transparent !important;
-                border: none !important;
-                clear: both !important;
-            }
-
-            {# Ensure header has proper spacing from ad bar #}
-            body.has-ad-bar .pg-header {
-                margin-top: 0 !important;
-                padding-top: 50px !important;
-                background: transparent !important;
-            }
-            {# Mobile: Ensure header stays independent when ad bar present #}
-            @media (max-width: 768px) {
-                body.has-ad-bar .pg-header {
-                    min-height: 56px !important;
-                    padding-top: 8px !important;
-                    padding-bottom: 8px !important;
-                }
-                body.has-ad-bar .pg-header__logo-img {
-                    max-height: 26px !important;
-                }
-            }
-        </style>
-
-        {# Konfidence widget removido - será reimplementado posteriormente #}
-
-        {# Override V3: listagem (categoria/busca) - Margens do Header #}
-        {% if template == 'category' or template == 'search' %}
-        <style>
-        /* Reduce header margin on Desktop */
-        body.template-category .pg-search-page__header,
-        body.template-search .pg-search-page__header {
-            margin-bottom: 24px !important;
-        }
-        </style>
-        {% endif %}
-
-        {# Banner responsive mobile - PATAGANG v3 #}
-        {% if template == 'category' or template == 'search' %}
-        <style>
-        @media (max-width: 768px) {
-          .category-banner {
-            max-height: 200px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-          }
-          .category-banner img {
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            object-position: center;
-          }
-        }
-        </style>
-        {% endif %}
-
-        {# Override final: Botões laterais - Help Button CLEAN DESIGN (gray) + WhatsApp keeps yellow #}
-        <style>
-        body .pg-help-btn {
-            background: #F0F0F0 !important;
-            color: #666666 !important;
-            border: 1px solid #E0E0E0 !important;
-            padding: 12px 8px !important;
-        }
-        body .pg-help-btn:hover {
-            background: #E8E8E8 !important;
-            color: #333333 !important;
-            border: 1px solid #D0D0D0 !important;
-            padding-right: 12px !important;
-        }
-        body .pg-help-btn__text {
-            font-weight: 700 !important;
-            font-size: 12px !important;
-        }
-        body .pg-help-btn__icon {
-            width: 20px !important;
-            height: 20px !important;
-        }
-        @media (max-width: 768px) {
-            body .pg-help-btn {
-                top: 50% !important;
-                transform: translateY(-50%) !important;
-                right: 0 !important;
-                z-index: 9990 !important;
-                padding: 10px 6px !important;
-            }
-            body .pg-help-btn__text { font-size: 11px !important; }
-        }
-        {# WhatsApp Left Button — IDENTICAL design to pg-help-btn, positioned LEFT #}
         </style>
 
         {#/*============================================================================
@@ -483,99 +129,15 @@
 
 
     
-        {# PATAGANG v1.5.30: Structural Refactor - Section-level isolation with semantic HTML #}
-        <style>
-            /* L1: TOP SECTION — Ad Bar (completely isolated) */
-            section.patagang-section-top {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-            section.patagang-section-top .section-advertising {
-                padding: 10px 20px !important;
-                box-shadow: none !important;
-            }
-            section.patagang-section-top .section-advertising * {
-            }
-
-            /* L2: HEADER SECTION — Navigation (completely independent) */
-            section.patagang-section-header {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                clear: both;
-                border: none;
-                box-shadow: none;
-            }
-            section.patagang-section-header .pg-header {
-                padding: 0 !important;
-                box-shadow: none !important;
-            }
-
-            /* L3: MAIN CONTENT (explicit background) */
-            main.patagang-section-content {
-                width: 100%;
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            /* GLOBAL HEADER OFFSET: Pushes main content below the absolute/fixed header.
-               Home page is excluded to allow the transparent header over the hero video/banner.
-               STORY 9.1: Padding rules moved to style-critical.tpl for responsive handling */
-            /* COMMENTED OUT - padding handled in style-critical.tpl with body.template-home selector
-            body:not(.template-home) main.patagang-section-content {
-                padding-top: 120px !important;
-            }
-            */
-            @media (max-width: 991px) {
-                /* FORCE HIDE DESKTOP GRID ON MOBILE/TABLET */
-                .pg-gallery-container { display: none !important; }
-            }
-            @media (max-width: 992px) {
-                /* COMMENTED OUT - padding handled in style-critical.tpl
-                body:not(.template-home) main.patagang-section-content { padding-top: 110px !important; }
-                */
-            }
-            @media (max-width: 768px) {
-                /* COMMENTED OUT - padding handled in style-critical.tpl
-                body:not(.template-home) main.patagang-section-content { padding-top: 110px !important; }
-                */
-            }
-            @media (max-width: 480px) {
-                /* COMMENTED OUT - padding handled in style-critical.tpl
-                body:not(.template-home) main.patagang-section-content { padding-top: 80px !important; }
-                */
-            }
-
-            /* Mobile breakpoint — explicit spacing between sections */
-            @media (max-width: 768px) {
-                section.patagang-section-top {
-                    border-bottom: 1px solid rgba(0,0,0,0.05);
-                }
-                section.patagang-section-top .section-advertising {
-                    padding-bottom: 10px !important;
-                }
-
-                section.patagang-section-header {
-                    border-top: none;
-                    border-bottom: 1px solid rgba(0,0,0,0.08);
-                }
-                section.patagang-section-header .pg-header {
-                    min-height: 56px !important;
-                    padding-top: 8px !important;
-                    padding-bottom: 8px !important;
-                }
-
-                main.patagang-section-content {
-                    margin-top: 0;
-                }
-            }
-        </style>
     </head>
-    <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}{% if settings.ad_bar and settings.ad_text %} has-ad-bar{% endif %}">
+    <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}" data-deploy-version="2026-02-07T04-27-52-98DF69A8">
+        {# Console log com versão do deploy - Para facilitar validação #}
+        <script>
+            console.log('%c📦 VERSÃO DO DEPLOY', 'color: #EAFE67; font-size: 16px; font-weight: bold; background: #000; padding: 4px 8px;');
+            console.log('%cVersão ID: 2026-02-07T04-27-52-98DF69A8', 'color: #00ff00; font-size: 14px;');
+            console.log('%cPara validar: Verifique se esta versão corresponde ao deploy atual', 'color: #ffff00; font-size: 12px;');
+            console.log('%cCódigo-fonte: Procure por "DEPLOY_VERSION" no HTML', 'color: #00ffff; font-size: 12px;');
+        </script>
         {# Facebook comments on product page #}
 
         {% if template == 'product' %}
@@ -594,26 +156,18 @@
 
         {{back_to_admin}}
 
-        {# ========================================================================
-           PATAGANG v1.5.30: Structural Layout — Three Independent Sections
-           ======================================================================== #}
+        {# Barra de anúncio - FIXO no topo (z-index 10000) #}
+        {% if settings.ad_bar and settings.ad_text %}
+          {% snipplet "header/header-advertising.tpl" %}
+        {% endif %}
 
-        {# SECTION 1: Top Banner (Ad Bar) — Completely isolated #}
-        <section class="patagang-section-top" role="banner">
-          {% if settings.ad_bar %}
-            {% snipplet "header/header-advertising.tpl" %}
-          {% endif %}
-        </section>
+        {# Header = Logo + Search + Ajax Cart (top: 30px para não sobrepor banner) #}
 
-        {# SECTION 2: Header Navigation — Completely independent #}
-        <section class="patagang-section-header" role="navigation">
-          {% snipplet "header/header-patagang.tpl" %}
-        </section>
+        {% snipplet "header/header-patagang.tpl" %}
 
-        {# SECTION 3: Main Content — Explicit background context #}
-        <main class="patagang-section-content" role="main">
-          {% template_content %}
-        </main>
+        {# Page content #}
+
+        {% template_content %}
 
         {# Modals overlay #}
 
@@ -631,12 +185,6 @@
         {# WhatsApp chat button #}
 
         {% snipplet "whatsapp-chat.tpl" %}
-
-        {# WhatsApp Left Button (Fixed/Floating) #}
-        {% snipplet "whatsapp-left.tpl" %}
-
-        {# Help Sidebar (Floating Right) #}
-        {% snipplet "help-sidebar.tpl" %}
 
         {# Footer #}
 
@@ -704,271 +252,7 @@
 
         {{ foot_content }}
 
-        {# ===================================================================
-           PATAGANG V3 OVERRIDE FINAL
-           Último CSS da página = vence QUALQUER regra anterior.
-           Corrige conflitos com:
-             - style-critical.tpl (.img-absolute: height auto, .img-absolute-centered: transform)
-             - style-async.scss.tpl (object-fit cover, flex grid com calc(25%))
-           NÃO REMOVER - é a garantia de que os estilos V3 funcionam.
-        =================================================================== #}
-        {% if template == 'category' or template == 'search' or template == '404' or template == 'product' %}
-        <style id="pg-v3-override-final">
-        /* ============================================
-           GRID: CSS Grid real (centraliza com <4 items)
-           Substitui flex + calc(25%) que deixava espaço vazio
-        ============================================ */
-        body.template-category .pg-product-grid,
-        body.template-search .pg-product-grid,
-        body.template-product .pg-product-grid,
-        .pg-404-products__grid {
-            display: grid !important;
-            grid-template-columns: repeat(2, 1fr) !important; /* MOBILE: 2 colunas */
-            gap: 16px !important;
-            max-width: 1400px !important;
-            margin: 0 auto !important;
-            float: none !important;
-        }
-        /* DESKTOP: 4 colunas (ou auto-fit para centralizar poucos itens) */
-        @media (min-width: 769px) {
-            body.template-category .pg-product-grid,
-            body.template-search .pg-product-grid,
-            body.template-product .pg-product-grid,
-            .pg-404-products__grid {
-                 gap: 24px !important;
-                 grid-template-columns: repeat(auto-fit, minmax(260px, 300px)) !important;
-            }
-        }
-
-        /* ============================================
-           CARD: Reset flex/width herdados do tema
-        ============================================ */
-        body.template-category .pg-product-grid .pg-card,
-        body.template-category .pg-product-grid .js-item-product,
-        body.template-search .pg-product-grid .pg-card,
-        body.template-search .pg-product-grid .js-item-product,
-        body.template-product .pg-product-grid .pg-card,
-        body.template-product .pg-product-grid .js-item-product {
-            flex: none !important;
-            max-width: none !important;
-            min-width: 0 !important;
-            float: none !important;
-        }
-
-        /* ============================================
-           IMAGEM: Mostra completa, sem cortar
-           Neutraliza .img-absolute (height:auto) e
-           .img-absolute-centered (transform:translateX(-50%))
-        ============================================ */
-        body.template-category .pg-product-grid .pg-card__image-container img,
-        body.template-category .pg-product-grid .item-image img,
-        body.template-search .pg-product-grid .pg-card__image-container img,
-        body.template-search .pg-product-grid .item-image img,
-        body.template-product .pg-product-grid .pg-card__image-container img,
-        body.template-product .pg-product-grid .item-image img,
-        body.template-404 .pg-404-products__grid .item-image img,
-        .pg-card .pg-card__image-container img,
-        .pg-card .pg-card__image-container .img-absolute,
-        .pg-card .pg-card__image-container .img-absolute-centered {
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-            height: 100% !important;
-            object-fit: contain !important;
-            object-position: center center !important;
-            transform: none !important;
-            -webkit-transform: none !important;
-            -ms-transform: none !important;
-        }
-
-        /* ============================================
-           TEXTO: Centraliza todas as informações
-        ============================================ */
-        body.template-category .pg-product-grid .item-product,
-        body.template-search .pg-product-grid .item-product,
-        body.template-category .pg-product-grid .item-description,
-        body.template-search .pg-product-grid .item-description,
-        body.template-product .pg-product-grid .item-product,
-        body.template-product .pg-product-grid .item-description,
-        .pg-card,
-        .pg-card.item,
-        .pg-card .pg-card__info,
-        .pg-card .pg-card__name,
-        .pg-card .pg-card__price,
-        .pg-card .pg-card__discount,
-        .pg-card .pg-card__installments {
-        }
-        .pg-card .pg-card__price {
-        }
-
-        /* RESET */
-        .pg-card.item {
-        }
-        .pg-card .pg-card__image-container {
-        }
-
-        /* ============================================
-           PDP — Hierarquia de preço (Pix/desconto + parcelamento)
-           Escopo: body.template-product #single-product apenas.
-           Não alterar display/visibility: store.js.tpl controla show/hide.
-        ============================================ */
-        body.template-product #single-product .pg-price-block {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
-            gap: 10px !important;
-            margin-bottom: 18px !important;
-        }
-        body.template-product #single-product .pg-price-pix-highlight,
-        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product-container {
-            font-family: var(--pg-font-body) !important;
-            line-height: 1.25 !important;
-        }
-        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product {
-            font-size: 26px !important;
-            font-weight: 800 !important;
-            color: #000 !important;
-            letter-spacing: -0.02em !important;
-        }
-        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product-container {
-            font-size: 15px !important;
-            font-weight: 600 !important;
-        }
-        body.template-product #single-product .pg-price-block:not(:has(.pg-price-pix-highlight)) .pg-price-original {
-            font-family: var(--pg-font-body) !important;
-            font-size: 26px !important;
-            font-weight: 800 !important;
-            color: #000 !important;
-            letter-spacing: -0.02em !important;
-            text-decoration: none !important;
-        }
-        body.template-product #single-product .pg-price-block:has(.pg-price-pix-highlight) .pg-price-original {
-            font-family: var(--pg-font-body) !important;
-            font-size: 15px !important;
-            font-weight: 500 !important;
-            color: #666 !important;
-            text-decoration: line-through !important;
-            text-decoration-thickness: 1px !important;
-        }
-        body.template-product #single-product .pg-price-block .pg-price-compare-at {
-            font-family: var(--pg-font-body) !important;
-            font-size: 13px !important;
-            font-weight: 500 !important;
-            color: #888 !important;
-            text-decoration: line-through !important;
-        }
-        body.template-product #single-product .pg-price-installments {
-            font-family: var(--pg-font-body) !important;
-            font-size: 15px !important;
-            font-weight: 700 !important;
-            color: #000 !important;
-            line-height: 1.45 !important;
-            margin-top: 2px !important;
-        }
-        body.template-product #single-product .pg-price-installments .js-installment-amount {
-            font-weight: 800 !important;
-        }
-        body.template-product #single-product .pg-price-installments .js-installment-price {
-            font-weight: 800 !important;
-        }
-        @media (max-width: 576px) {
-            body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product {
-                font-size: 22px !important;
-            }
-            body.template-product #single-product .pg-price-block:not(:has(.pg-price-pix-highlight)) .pg-price-original {
-                font-size: 22px !important;
-            }
-            body.template-product #single-product .pg-price-installments {
-                font-size: 14px !important;
-            }
-        }
-
-        /* ============================================
-           CATEGORY DESCRIPTION: Match 'VISTA O PROPÓSITO' style
-        ============================================ */
-        .pg-category-desc {
-            font-family: 'Familjen Grotesk', sans-serif !important;
-            font-size: 14px !important;
-            line-height: 1.45 !important;
-            font-weight: 400 !important;
-            color: #000000 !important;
-            margin: 8px auto 0 !important;
-            max-width: 800px !important;
-        }
-
-        </style>
-        {% endif %}
-
-        <style id="pg-mobile-spacing-fix">
-        /* PATAGANG: Centralized Mobile Spacing Fix (Overrides Everything) */
-        @media (max-width: 768px) {
-            /* 1. Increase Top Space (Header to Page Title) */
-            body.template-category .pg-search-page,
-            body.template-search .pg-search-page {
-                padding-top: 110px !important; 
-            }
-
-            /* 2. Reduce Gap (Page Title to Filters) */
-            body.template-category .pg-search-page__header,
-            body.template-search .pg-search-page__header {
-                margin-bottom: 10px !important; /* Drastically reduced from 40px+ */
-                margin-top: 0 !important;
-            }
-            
-            /* 3. Reduce Filter Container Internal Spacing */
-            body.template-category .pg-search-page .category-controls,
-            body.template-search .pg-search-page .category-controls {
-                padding-top: 0 !important;
-                margin-bottom: 15px !important;
-                gap: 8px !important;
-                border-top: none !important;
-            }
-            
-            /* Optional: Tweak Title Margin directly */
-            body.template-category .pg-search-page__title,
-            body.template-search .pg-search-page__title {
-                margin-bottom: 5px !important;
-            }
-        }
-        </style>
-
-        <style id="pg-trust-strip-mobile-fix">
-        /* PATAGANG: Trust Strip Mobile — grid 2x2: esquerda (textos maiores) | direita (textos menores) */
-        @media (max-width: 768px) {
-            .pg-trust-strip__content {
-                display: grid !important;
-                grid-template-columns: 1fr auto !important;
-                grid-template-rows: auto auto !important;
-                gap: 4px 12px !important;
-                padding: 6px 12px !important;
-            }
-            .pg-trust-strip__item:nth-child(1),
-            .pg-trust-strip__item:nth-child(2) {
-                grid-column: 1 !important;
-                text-align: left !important;
-                font-size: 9px !important;
-                white-space: normal !important;
-            }
-            .pg-trust-strip__item:nth-child(1) { grid-row: 1 !important; }
-            .pg-trust-strip__item:nth-child(2) { grid-row: 2 !important; }
-            .pg-trust-strip__item:nth-child(3),
-            .pg-trust-strip__item:nth-child(4) {
-                grid-column: 2 !important;
-                text-align: right !important;
-                font-size: 9px !important;
-                white-space: nowrap !important;
-            }
-            .pg-trust-strip__item:nth-child(3) { grid-row: 1 !important; }
-            .pg-trust-strip__item:nth-child(4) { grid-row: 2 !important; }
-        }
-        </style>
-
-        {# PATAGANG Version Info - Deployment Status Console #}
-        {# Cache busting: força navegador a carregar versão mais recente (sem cache) #}
-        <script src="{{ 'js/version-info.js' | static_url }}?v={{ "now" | date('YmdHis') }}" defer></script>
     </body>
 </html>
 
 {# deploy touch - no output #}
- 
-

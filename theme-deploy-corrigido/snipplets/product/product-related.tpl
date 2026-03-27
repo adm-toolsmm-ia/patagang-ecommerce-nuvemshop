@@ -61,18 +61,33 @@
 {% set alternative_data_component = source_alternative == 'default' ? 'related-products' : 'alternative-products' %}
 
 {% if alternative_products %}
-    <section id="related-products" class="section-products-related my-3" data-store="related-products">
-        <div class="container">
-            <h2 class="h3 text-center mb-4">{{ settings.products_related_title }}</h2>
-            <div class="pg-product-grid">
-                {% for product in related_products %}
-                    {# Force original image to avoid cropping #}
-                    {% set force_original_image = true %}
-                    {% include 'snipplets/grid/item.tpl' %}
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+    {{ component(
+        'products-section',{
+            title: settings.products_related_title,
+            id: 'related-products',
+            data_component: alternative_data_component,
+            products_amount: related_products | length,
+            products_array: related_products,
+            product_template_path: 'snipplets/grid/item.tpl',
+            product_template_params: {'slide_item': true},
+            slider_controls_position: 'bottom',
+            slider_pagination: true,
+            svg_sprites: false,
+            section_classes: {
+                section: 'js-related-products ' ~ section_class,
+                container: container_class,
+                title: title_class,
+                products_container: products_container_class,
+                slider_container: 'js-swiper-related ' ~ slider_container_class,
+                slider_wrapper: swiper_wrapper_class,
+                slider_control_pagination: 'js-swiper-related-pagination ' ~ slider_control_pagination_class,
+                slider_control_prev_container: 'js-swiper-related-prev ' ~ slider_control_prev_class,
+                slider_control_next_container: 'js-swiper-related-next ' ~ slider_control_next_class,
+            },
+            custom_control_prev: control_prev,
+            custom_control_next: control_next,
+        }) 
+    }}
 {% endif %}
 
 {# Complementary products #}
@@ -80,16 +95,31 @@
 {% set complementary_section_id = 'complementary-products' %}
 
 {% if complementary_products %}
-    <section id="complementary-products" class="section-products-related my-3" data-store="complementary-products">
-        <div class="container">
-             <h2 class="h3 text-center mb-4">{{ settings.products_complementary_title }}</h2>
-            <div class="pg-product-grid">
-                {% for product in complementary_product_list %}
-                    {# Force original image to avoid cropping #}
-                    {% set force_original_image = true %}
-                    {% include 'snipplets/grid/item.tpl' %}
-                {% endfor %}
-            </div>
-        </div>
-    </section>
+    {{ component(
+        'products-section',{
+            title: settings.products_complementary_title,
+            id: complementary_section_id,
+            data_component: complementary_section_id,
+            products_amount: complementary_product_list | length,
+            products_array: complementary_product_list,
+            product_template_path: 'snipplets/grid/item.tpl',
+            product_template_params: {'slide_item': true},
+            slider_controls_position: 'bottom',
+            slider_pagination: true,
+            svg_sprites: false,
+            section_classes: {
+                section: 'js-complementary-products ' ~ section_class,
+                container: container_class,
+                title: title_class,
+                products_container: products_container_class,
+                slider_container: 'js-swiper-complementary ' ~ slider_container_class,
+                slider_wrapper: swiper_wrapper_class,
+                slider_control_pagination: 'js-swiper-complementary-pagination ' ~ slider_control_pagination_class,
+                slider_control_prev_container: 'js-swiper-complementary-prev ' ~ slider_control_prev_class,
+                slider_control_next_container: 'js-swiper-complementary-next ' ~ slider_control_next_class,
+            },
+            custom_control_prev: control_prev,
+            custom_control_next: control_next,
+        }) 
+    }}
 {% endif %}

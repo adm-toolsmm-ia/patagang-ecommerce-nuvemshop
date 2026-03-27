@@ -1,25 +1,6 @@
-{# /* Style tokens - Unified design system v1.2.0 */ #}
+{# /* Style tokens */ #}
 
 :root {
-
-  {#/*============================================================================
-    # UNIFIED CSS CUSTOM PROPERTIES  Foundation for design system
-  ==============================================================================*/#}
-
-  {# Extracted colors from current theme for token reference #}
-  --color-primary: #007bff;
-  --color-secondary: #EAFE67;
-  --color-accent: #D4E856;
-  --color-background: #FFFFFF;
-  --color-border-light: #E2E2E2;
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #666666;
-  --color-whatsapp: #25D366;
-
-  {# Breakpoints  Standardized responsive values #}
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1024px;
-  --breakpoint-desktop-lg: 1200px;
 
   {#/*============================================================================
     #Colors
@@ -33,7 +14,7 @@
   {% set secondary_color = settings.secondary_color %}
   {% set accent_color = settings.accent_color %}
 
-  {% set main_background = '#E2E2E2' %} {# PATAGANG: Cor fixa do prottipo #}
+  {% set main_background = '#E2E2E2' %} {# PATAGANG: Cor fixa do protótipo #}
   {% set main_foreground = settings.text_color %}
 
   {% set button_background = settings.add_button_background_color %}

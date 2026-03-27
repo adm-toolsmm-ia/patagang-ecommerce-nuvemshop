@@ -12,57 +12,24 @@
     {# Card especial para produtos em desenvolvimento #}
     {% include 'snipplets/product/product-form-development.tpl' %}
 {% else %}
-{# Card de compra normal — Redesign PDP V2 #}
+{# Card de compra normal #}
 <div class="pg-product-card-content">
     
-    {# ==========================================
-       1. TÍTULO — Destaque principal
-    ========================================== #}
+    {# Product Header - Nome + Preco na mesma linha #}
     <div class="pg-product-header">
         <h1 class="pg-product-title">{{ product.name }}</h1>
-    </div>
-    
-    {# ==========================================
-       2. BLOCO DE PREÇOS — Hierarquia visual clara
-    ========================================== #}
-    {% if product.display_price %}
-    <div class="pg-price-block" data-store="product-price-{{ product.id }}">
-        
-        {# Preço PIX/Boleto — DESTAQUE PRINCIPAL — Componente nativo Nuvemshop #}
-        {{ component('payment-discount-price', {
-                visibility_condition: settings.payment_discount_price,
-                location: 'product',
-                container_classes: "pg-price-pix-highlight",
-            })
-        }}
-        
-        {# Preço normal (sem desconto PIX) — sempre tachado abaixo do PIX #}
-        <span class="js-price-display pg-price-original" id="price_display" data-product-price="{{ product.price }}">
-            {{ product.price | money }}
-        </span>
-        
-        {# Compare at price (de/por) se houver — opcional #}
-        {% if product.compare_at_price and product.compare_at_price > product.price %}
-            <span class="js-compare-price-display pg-price-compare-at">
-                {{ product.compare_at_price | money }}
+        <div class="pg-product-price-section">
+            <span class="pg-product-price" id="price_display" data-product-price="{{ product.price }}">
+                {% if product.display_price %}{{ product.price | money }}{% endif %}
             </span>
-        {% endif %}
-        
-        {# Parcelamento — Componente nativo Nuvemshop (mesmo do grid) #}
-        {{ component('installments', {
-            'location': 'product_item',
-            container_classes: { installment: "pg-price-installments" }
-        }) }}
-        
+        </div>
     </div>
-    {% endif %}
     
-    {# ==========================================
-       3. VARIANTES — Cor, Tamanho, Tabela de Medidas
-    ========================================== #}
+    {# Product Form with Variants #}
     <form id="product_form" class="js-product-form pg-product-form" method="post" action="{{ store.cart_url }}" data-store="product-form-{{ product.id }}">
         <input type="hidden" name="add_to_cart" value="{{product.id}}" />
         
+        {# Custom Variant Selectors #}
         {% if product.variations %}
             <div class="pg-variants-container">
                 {% for variation in product.variations %}
@@ -82,6 +49,7 @@
                                     </button>
                                 {% endfor %}
                             </div>
+                            {# Hidden select for Nuvemshop integration #}
                             <select name="variation[{{ variation.id }}]" class="js-variation-option js-refresh-installment-data d-none" data-variation-id="{{ variation.id }}">
                                 {% for option in variation.options %}
                                     <option value="{{ option.id }}" {% if product.default_options[variation.id] is same as(option.id) %}selected="selected"{% endif %}>{{ option.name }}</option>
@@ -113,6 +81,7 @@
                                     {% endfor %}
                                 {% endif %}
                             </div>
+                            {# Hidden select for Nuvemshop integration #}
                             <select name="variation[{{ variation.id }}]" class="js-variation-option js-refresh-installment-data d-none" data-variation-id="{{ variation.id }}">
                                 {% for option in variation.options %}
                                     <option value="{{ option.id }}" {% if product.default_options[variation.id] is same as(option.id) %}selected="selected"{% endif %}>{{ option.name }}</option>
@@ -125,9 +94,7 @@
             </div>
         {% endif %}
         
-        {# ==========================================
-           4. BOTÃO ADICIONAR — Amarelo Patagang
-        ========================================== #}
+        {# Add to Cart Button #}
         {% set state = store.is_catalog ? 'catalog' : (product.available ? product.display_price ? 'cart' : 'contact' : 'nostock') %}
         {% set texts = {'cart': "Adicionar", 'contact': "Consultar preço", 'nostock': "Sin stock", 'catalog': "Consultar"} %}
         
@@ -135,32 +102,15 @@
             {{ texts[state] | translate | upper }}
         </button>
         
+        {# Fake add to cart CTA visible during add to cart event #}
         {% include 'snipplets/placeholders/button-placeholder.tpl' with {custom_class: "btn-block mb-4 d-none"} %}
         
     </form>
     
-    {# ==========================================
-       5. BANNER CUPOM — Destaque promocional
-    ========================================== #}
-    <div class="pg-coupon-banner">
-        {# Logo SVG no lugar do emoji #}
-        <img src="{{ 'images/logos/logo-mark.svg' | static_url }}" alt="Patagang" class="pg-coupon-banner__icon" loading="lazy">
-        
-        <div class="pg-coupon-banner__content">
-            <div class="pg-coupon-banner__highlight">
-                <strong>10% OFF</strong> na primeira compra
-            </div>
-            <div class="pg-coupon-banner__code">
-                Use o cupom <span class="pg-coupon-banner__coupon">GANGDAPATA</span> no checkout
-            </div>
-        </div>
-    </div>
-    
-    {# ==========================================
-       6. ACCORDIONS — Descrição, Cuidados, Trocas
-    ========================================== #}
+    {# Accordion Sections #}
     <div class="pg-product-accordions">
         
+        {# Description Accordion - SEMPRE EXPANDIDO por padrão #}
         {% if product.description is not empty %}
             <div class="pg-accordion-item active">
                 <button type="button" class="pg-accordion-header">
@@ -175,6 +125,7 @@
             </div>
         {% endif %}
         
+        {# Care Instructions Accordion #}
         <div class="pg-accordion-item">
             <button type="button" class="pg-accordion-header">
                 <span>{{ "CUIDADOS" | translate }}</span>
@@ -191,6 +142,7 @@
             </div>
         </div>
         
+        {# Returns & Exchanges Accordion #}
         <div class="pg-accordion-item">
             <button type="button" class="pg-accordion-header">
                 <span>{{ "TROCAS E DEVOLUÇÕES" | translate }}</span>

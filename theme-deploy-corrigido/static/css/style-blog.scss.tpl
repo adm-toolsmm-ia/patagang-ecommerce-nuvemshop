@@ -3,7 +3,7 @@
    Cards com glassmorphism e destaque visual
 ============================================================================ */
 
-/* Espaamento horizontal entre os cards */
+/* Espaçamento horizontal entre os cards */
 .pg-page .row {
     margin-left: -12px;
     margin-right: -12px;
@@ -68,7 +68,7 @@
     position: relative;
 }
 
-/* Garantir que imagens fiquem visveis e dentro do card - Altura fixa para alinhamento */
+/* Garantir que imagens fiquem visíveis e dentro do card - Altura fixa para alinhamento */
 .pg-page article .post-item__image,
 .pg-page article .post-item__image--placeholder,
 .pg-page article .post-item__image-link img {
@@ -80,7 +80,7 @@
     margin: 0;
 }
 
-/* Ttulo do Card */
+/* Título do Card */
 .pg-page article .post-item__title,
 .pg-page article h3 {
     margin-top: 0;
@@ -123,10 +123,10 @@
     line-height: 1.6;
     color: #333;
     margin-bottom: 20px;
-    flex-grow: 1; /* Empurra o boto para baixo */
+    flex-grow: 1; /* Empurra o botão para baixo */
 }
 
-/* Boto Ler Mais */
+/* Botão Ler Mais */
 .pg-page article .post-item__read-more,
 .pg-page article .btn-link {
     display: inline-block;
@@ -145,10 +145,10 @@
 
 .pg-page article .post-item__read-more:hover,
 .pg-page article .btn-link:hover {
-    background-color: #EAFE67;
-    color: #000;
-    text-decoration: none;
+    background-color: #EAFE67 !important;
+    color: #000 !important;
+    text-decoration: none !important;
     padding: 2px 4px;
-    margin: -2px -4px; /* Compensa o padding para no mover */
+    margin: -2px -4px; /* Compensa o padding para não mover */
     border-radius: 4px;
 }
