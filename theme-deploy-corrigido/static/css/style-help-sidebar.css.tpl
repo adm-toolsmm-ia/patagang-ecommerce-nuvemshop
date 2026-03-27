@@ -312,7 +312,7 @@ img.pg-help-item__icon {
     pointer-events: none;
 }
 
-/* Mobile Tweaks - botão centralizado verticalmente (igual ao WhatsApp) */
+/* Mobile Tweaks - boto centralizado verticalmente (igual ao WhatsApp) */
 @media (max-width: 768px) {
     .pg-help-btn {
         top: 50%;

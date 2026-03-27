@@ -226,10 +226,10 @@ body{
 
 .pg-product-card__media img {
   width: 100%;
-  height: auto;                     /* Altura automática baseada na proporção */
-  max-height: 180px;                /* Limite máximo mais razoável */
+  height: auto;                     /* Altura automtica baseada na proporo */
+  max-height: 180px;                /* Limite mximo mais razovel */
   object-fit: contain;
-  display: block;                   /* Remove espaço extra embaixo */
+  display: block;                   /* Remove espao extra embaixo */
 }
 
 .pg-product-card__body h3 {
@@ -284,7 +284,7 @@ body{
 .pg-hero__media img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Forçando contain para mostrar imagem completa */
+  object-fit: contain; /* Forando contain para mostrar imagem completa */
   object-position: center center; /* Centralizando imagem */
   display: block;
   filter: grayscale(100%);
@@ -384,9 +384,9 @@ body{
   left: 0;
   right: 0;
   z-index: 9999;
-  /* Espaço para banner de aviso (ad bar) - ~48px para banner + padding */
+  /* Espao para banner de aviso (ad bar) - ~48px para banner + padding */
   padding-top: 50px;
-  /* CORRIGIDO 26/11: Altura mínima para garantir área clicável completa */
+  /* CORRIGIDO 26/11: Altura mnima para garantir rea clicvel completa */
   min-height: 70px;
 }
 
@@ -418,11 +418,11 @@ body.has-ad-bar .pg-header--sticky {
   position: relative;
   gap: var(--pg-spacing-3);
   height: 100%;
-  min-height: 46px; /* Altura mínima para conter os botões */
+  min-height: 46px; /* Altura mnima para conter os botes */
 }
 
 .pg-header__icon-button {
-  /* CORRIGIDO 26/11: Solução definitiva para área clicável */
+  /* CORRIGIDO 26/11: Soluo definitiva para rea clicvel */
   box-sizing: border-box;
   width: 44px; /* Aumentado para 44px */
   height: 44px; /* Aumentado para 44px */
@@ -438,10 +438,10 @@ body.has-ad-bar .pg-header--sticky {
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  padding: 0; /* REMOVIDO padding - ícone centralizado apenas com flexbox */
+  padding: 0; /* REMOVIDO padding - cone centralizado apenas com flexbox */
   position: relative;
   z-index: 10;
-  /* CRITICAL: Garante cliques em toda a área */
+  /* CRITICAL: Garante cliques em toda a rea */
   isolation: isolate; /* Cria novo contexto de empilhamento */
 }
 
@@ -451,12 +451,12 @@ body.has-ad-bar .pg-header--sticky {
 }
 
 .pg-header__icon-button img {
-  /* CORRIGIDO 26/11: Ícones menores e centralizados para evitar conflito de área clicável */
+  /* CORRIGIDO 26/11: cones menores e centralizados para evitar conflito de rea clicvel */
   filter: none;
   width: 18px; /* Reduzido de 20px para 18px */
   height: 18px; /* Reduzido de 20px para 18px */
   display: block;
-  pointer-events: none; /* Cliques passam para o botão pai */
+  pointer-events: none; /* Cliques passam para o boto pai */
   flex-shrink: 0;
 }
 
@@ -476,7 +476,7 @@ body.has-ad-bar .pg-header--sticky {
   max-height: 34px;
   height: auto;
   width: auto;
-  /* AJUSTADO: Remover filtro para logo preto conforme protótipo */
+  /* AJUSTADO: Remover filtro para logo preto conforme prottipo */
   filter: none;
   transition: transform 0.4s ease, opacity 0.4s ease;
   transform: translateY(0);
@@ -510,12 +510,12 @@ body.has-ad-bar .pg-header--sticky {
   height: 100%;
 }
 
-/* Busca inline expansível - hover */
+/* Busca inline expansvel - hover */
 .pg-header__search-wrapper {
   display: flex;
   align-items: center;
   position: relative;
-  height: 44px; /* Mesma altura dos botões */
+  height: 44px; /* Mesma altura dos botes */
 }
 
 .pg-header__search-form {
@@ -526,8 +526,8 @@ body.has-ad-bar .pg-header--sticky {
   display: flex;
   align-items: center;
   overflow: hidden;
-  width: 44px; /* Mesma largura dos botões */
-  height: 44px; /* Mesma altura dos botões */
+  width: 44px; /* Mesma largura dos botes */
+  height: 44px; /* Mesma altura dos botes */
   border-radius: 6px;
   background: rgba(200, 200, 200, 0.7);
   backdrop-filter: blur(8px);
@@ -609,14 +609,14 @@ body.has-ad-bar .pg-header--sticky {
 .pg-header__search-wrapper:focus-within .pg-header__search-toggle,
 .pg-header__search-wrapper.is-open .pg-header__search-toggle {
   opacity: 0;
-  pointer-events: none; /* Desabilitar apenas quando invisível */
+  pointer-events: none; /* Desabilitar apenas quando invisvel */
 }
 
 .pg-header__cart-count {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: var(--pg-color-black); /* AJUSTADO: Preto discreto (opção 2) */
+  background: var(--pg-color-black); /* AJUSTADO: Preto discreto (opo 2) */
   color: #fff; /* Texto branco para contraste */
   border-radius: var(--pg-radius-pill);
   padding: 0 var(--pg-spacing-2);
@@ -630,9 +630,9 @@ body.has-ad-bar .pg-header--sticky {
   line-height: 1;
 }
 
-/* MOBILE SEARCH FIX - Opção 1: Logo oculta ao expandir busca */
+/* MOBILE SEARCH FIX - Opo 1: Logo oculta ao expandir busca */
 @media (max-width: 767px) {
-  /* Logo: aplicar z-index menor para ficar atrás da busca */
+  /* Logo: aplicar z-index menor para ficar atrs da busca */
   .pg-header__logo {
     position: absolute;
     z-index: 5;
@@ -649,29 +649,29 @@ body.has-ad-bar .pg-header--sticky {
     z-index: 100; /* Garante que fica sobre a logo */
   }
 
-  /* Logo oculta quando busca está expandida */
+  /* Logo oculta quando busca est expandida */
   .pg-header__search-wrapper.is-open ~ .pg-header__logo {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
   }
 
-  /* Busca expande ocupando espaço disponível */
+  /* Busca expande ocupando espao disponvel */
   .pg-header__search-wrapper.is-open .pg-header__search-form {
-    width: calc(100vw - 180px); /* Mais espaço - apenas menu (44px) + perfil (44px) + carrinho (44px) + gaps (48px) */
+    width: calc(100vw - 180px); /* Mais espao - apenas menu (44px) + perfil (44px) + carrinho (44px) + gaps (48px) */
     background: rgba(255, 255, 255, 0.98); /* Mais opaco para cobrir logo */
     border: 1px solid rgba(234, 254, 103, 0.3);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     z-index: 110; /* Sobre tudo */
   }
 
-  /* Ocultar botão toggle (lupa externa) quando busca aberta */
+  /* Ocultar boto toggle (lupa externa) quando busca aberta */
   .pg-header__search-wrapper.is-open .pg-header__search-toggle {
     opacity: 0;
     pointer-events: none;
   }
 
-  /* Botão de fechar (X) - oculto por padrão */
+  /* Boto de fechar (X) - oculto por padro */
   .pg-header__search-close {
     display: none;
     width: 44px;
@@ -687,27 +687,27 @@ body.has-ad-bar .pg-header--sticky {
     color: var(--pg-color-black);
     font-weight: 300;
     line-height: 1;
-    z-index: 120; /* Acima de tudo para ser clicável */
+    z-index: 120; /* Acima de tudo para ser clicvel */
     position: relative;
-    pointer-events: auto; /* Garantir que seja clicável */
+    pointer-events: auto; /* Garantir que seja clicvel */
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     -webkit-user-select: none;
   }
 
-  /* Mostra botão X quando busca expandida */
+  /* Mostra boto X quando busca expandida */
   .pg-header__search-wrapper.is-open .pg-header__search-close {
     display: flex;
-    pointer-events: auto; /* Forçar clicável quando visível */
+    pointer-events: auto; /* Forar clicvel quando visvel */
   }
 
-  /* Botão submit dentro do form: sempre visível mas muda comportamento via JS */
+  /* Boto submit dentro do form: sempre visvel mas muda comportamento via JS */
   .pg-header__search-submit {
-    /* Mantém visível, JS controla o comportamento */
+    /* Mantm visvel, JS controla o comportamento */
   }
 
   /* ========================================= */
-  /* FIX: Remover cor azul padrão do mobile   */
+  /* FIX: Remover cor azul padro do mobile   */
   /* ========================================= */
 
   /* Remover highlight azul ao tocar (Safari/iOS/Android) */
@@ -720,12 +720,12 @@ body.has-ad-bar .pg-header--sticky {
     tap-highlight-color: transparent;
   }
 
-  /* Forçar apenas STROKE (contorno) nos SVGs - SEM FILL (preenchimento) */
+  /* Forar apenas STROKE (contorno) nos SVGs - SEM FILL (preenchimento) */
   .pg-header__search-toggle svg,
   .pg-header__search-submit svg,
   .pg-header__icon-button svg {
     fill: none; /* Remove preenchimento */
-    stroke: currentColor; /* Mantém apenas contorno */
+    stroke: currentColor; /* Mantm apenas contorno */
     color: var(--pg-color-black);
   }
 
@@ -745,7 +745,7 @@ body.has-ad-bar .pg-header--sticky {
     border: none;
   }
 
-  /* Garantir que SVGs dentro dos botões também fiquem apenas com contorno */
+  /* Garantir que SVGs dentro dos botes tambm fiquem apenas com contorno */
   .pg-header__search-toggle:active svg,
   .pg-header__search-toggle:focus svg,
   .pg-header__search-submit:active svg,
@@ -1701,7 +1701,7 @@ p{
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  /* Phrase spacing — keep in sync: layouts/layout.tpl (ad_bar + ad_text block) */
+  /* Phrase spacing  keep in sync: layouts/layout.tpl (ad_bar + ad_text block) */
   gap: clamp(0.75rem, 2.5vw, 1.75rem);
   row-gap: 0.35em;
   font-size: 0.7rem;
@@ -2043,21 +2043,21 @@ div.product-informative-banner {
   background: transparent;
   background-color: transparent;
   padding: 0.5rem 0;
-  margin: 0;  /* ✅ REFATORAÇÃO: Main (160px padding) compensa header */
-  margin-bottom: 16px;  /* ✅ Espaço abaixo do banner */
+  margin: 0;  /*  REFATORAO: Main (160px padding) compensa header */
+  margin-bottom: 16px;  /*  Espao abaixo do banner */
   position: relative;
-  z-index: 10;  /* ✅ Visível acima de conteúdo comum, abaixo do header (9999) */
+  z-index: 10;  /*  Visvel acima de contedo comum, abaixo do header (9999) */
 }
 
-/* Mobile (≤576px): Responsive spacing */
+/* Mobile (576px): Responsive spacing */
 @media (max-width: 576px) {
   div.product-informative-banner {
     margin-top: 0;
-    margin-bottom: 12px;  /* ✅ Reduzido no mobile */
+    margin-bottom: 12px;  /*  Reduzido no mobile */
   }
 }
 
-/* Tablet (577px-768px): Transição suave */
+/* Tablet (577px-768px): Transio suave */
 @media (min-width: 577px) and (max-width: 768px) {
   div.product-informative-banner {
     margin-top: 0;
@@ -2065,7 +2065,7 @@ div.product-informative-banner {
   }
 }
 
-/* Desktop (≥769px): Espaço confortável */
+/* Desktop (769px): Espao confortvel */
 @media (min-width: 769px) {
   div.product-informative-banner {
     margin-top: 0;
@@ -2183,7 +2183,7 @@ div.product-informative-banner.position-relative {
 	object-fit: contain;
 }
 
-/* Conteúdo */
+/* Contedo */
 .pg-cart-item__content {
 	flex: 1;
 	display: flex;
@@ -2221,7 +2221,7 @@ div.product-informative-banner.position-relative {
 	color: #666;
 }
 
-/* Preço */
+/* Preo */
 .pg-cart-item__price {
 	font-family: 'Familjen Grotesk', sans-serif;
 	font-size: 15px;
@@ -2315,7 +2315,7 @@ div.product-informative-banner.position-relative {
 	color: #666;
 }
 
-/* Estado de atualização do item do carrinho */
+/* Estado de atualizao do item do carrinho */
 .pg-cart-item.is-updating {
 	opacity: 0.7;
 	pointer-events: none;
@@ -2325,7 +2325,7 @@ div.product-informative-banner.position-relative {
 	border-color: #EAFE67;
 }
 
-/* Botão remover */
+/* Boto remover */
 .pg-cart-item__remove {
 	position: absolute;
 	top: 16px;
@@ -2390,7 +2390,7 @@ div.product-informative-banner.position-relative {
 }
 
 /* ============================================
-   CART TOTALS - NOVO DESIGN PROTÓTIPO
+   CART TOTALS - NOVO DESIGN PROTTIPO
    ============================================ */
 
 /* Container principal dos totais */
@@ -2539,7 +2539,7 @@ div.product-informative-banner.position-relative {
 
 /* Modal Container Width */
 .modal-cart.modal-docked-md {
-	width: 400px; /* Aumentado para melhor espaçamento */
+	width: 400px; /* Aumentado para melhor espaamento */
 	max-width: 100%;
 }
 
@@ -2559,13 +2559,13 @@ div.product-informative-banner.position-relative {
 	align-items: center;
 	padding: 24px 20px;
 	background-color: #FFFFFF;
-	border-bottom: 1px solid #E5E5E5; /* Adiciona separação visual */
+	border-bottom: 1px solid #E5E5E5; /* Adiciona separao visual */
 }
 
 .modal-cart .modal-header .d-inline-flex {
 	font-family: 'Familjen Grotesk', sans-serif;
 	font-size: 16px; /* Reduzido de 20px */
-	font-weight: 600; /* Bold para título */
+	font-weight: 600; /* Bold para ttulo */
 	color: #000000;
 	order: 1;
 	text-transform: uppercase;
@@ -2592,7 +2592,7 @@ div.product-informative-banner.position-relative {
 .modal-cart .pg-cart-item-name a {
 	font-family: 'Familjen Grotesk', sans-serif;
 	font-size: 14px; /* Reduzido de 20px */
-	font-weight: 500; /* Peso médio */
+	font-weight: 500; /* Peso mdio */
 	color: #000000;
 	text-decoration: none;
 	line-height: 1.4;
@@ -2603,7 +2603,7 @@ div.product-informative-banner.position-relative {
 .modal-cart .pg-cart-item-price-mobile,
 .modal-cart .price {
 	font-family: 'Familjen Grotesk', sans-serif;
-	font-size: 16px; /* Destaque no preço */
+	font-size: 16px; /* Destaque no preo */
 	font-weight: 600; /* Bold */
 	color: #000000;
 }
@@ -2726,7 +2726,7 @@ div.product-informative-banner.position-relative {
 	font-weight: 600; /* Semi-bold */
 	color: #FFFFFF;
 	text-transform: uppercase; /* Caixa alta */
-	letter-spacing: 0.8px; /* Espaçamento entre letras */
+	letter-spacing: 0.8px; /* Espaamento entre letras */
 	padding: 0 24px;
 	display: flex;
 	align-items: center;
@@ -2740,7 +2740,7 @@ div.product-informative-banner.position-relative {
 .modal-cart #go-to-checkout:hover,
 .modal-cart .js-cart-submit:hover {
 	background-color: #1a1a1a; /* Cinza escuro no hover */
-	transform: translateY(-1px); /* Elevação sutil */
+	transform: translateY(-1px); /* Elevao sutil */
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -2753,7 +2753,7 @@ div.product-informative-banner.position-relative {
 
 /* Modal Body Padding */
 .modal-cart .modal-body {
-	padding: 20px; /* Mais espaçamento */
+	padding: 20px; /* Mais espaamento */
 	background-color: #FFFFFF;
 }
 
@@ -2834,11 +2834,11 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 ==============================================================================*/
 
 /* =====================================================================
-   SEÇÕES DA PÁGINA DO PRODUTO - ESTRUTURA INDEPENDENTE
-   Cada seção ocupa 100% width, está abaixo da anterior, sem sobreposição
+   SEES DA PGINA DO PRODUTO - ESTRUTURA INDEPENDENTE
+   Cada seo ocupa 100% width, est abaixo da anterior, sem sobreposio
    ===================================================================== */
 
-/* Base para todas as seções da página do produto */
+/* Base para todas as sees da pgina do produto */
 .pg-pdp-section {
 	width: 100%;
 	margin: 0;
@@ -2849,7 +2849,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	align-items: stretch;
 }
 
-/* SEÇÃO 3: Container principal do produto (galeria + card) */
+/* SEO 3: Container principal do produto (galeria + card) */
 .pg-pdp-container {
 	background-color: transparent;
 	background-image: none;
@@ -2860,22 +2860,22 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 /* Container principal - TRANSPARENT para banner ficar limpo */
 .pg-pdp-container {
-	padding-top: 0;                 /* ✅ REMOVIDO: padding-top: 90px causava desalinhamento */
-	padding-bottom: 0;              /* ✅ REMOVIDO: padding-bottom: 60px */
+	padding-top: 0;                 /*  REMOVIDO: padding-top: 90px causava desalinhamento */
+	padding-bottom: 0;              /*  REMOVIDO: padding-bottom: 60px */
 	margin: 0;
 	background-color: transparent;
 	background-image: none;
-	min-height: auto;               /* Sem height mínimo - cresce com conteúdo */
+	min-height: auto;               /* Sem height mnimo - cresce com contedo */
 	display: flex;
-	flex-direction: column;          /* ✅ Banners em vertical (linhas), não colunas */
+	flex-direction: column;          /*  Banners em vertical (linhas), no colunas */
 	align-items: stretch;            /* Filhos ocupam 100% width */
 	justify-content: flex-start;
 }
 
-/* Row principal - Bootstrap row - AQUI está o fundo branco */
+/* Row principal - Bootstrap row - AQUI est o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
-	padding: 20px;                  /* ✅ Reduzido: 40px → 20px (mobile não precisa de espaço duplo) */
+	padding: 20px;                  /*  Reduzido: 40px  20px (mobile no precisa de espao duplo) */
 	width: 100%;
 	background-color: #ffffff;
 	background-image: none;
@@ -2892,7 +2892,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* Desktop (≥769px) - Full padding */
+/* Desktop (769px) - Full padding */
 @media (min-width: 769px) {
 	.pg-pdp-container .section-single-product {
 		padding: 40px 40px;
@@ -2900,7 +2900,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
+/* DESKTOP: FORAR lado a lado - sobrescreve Bootstrap */
 @media (min-width: 992px) {
 	.pg-pdp-container .section-single-product.row {
 		display: flex;
@@ -2921,7 +2921,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		height: 100%;  /* Preenche altura total */
 		display: flex;
 		flex-direction: column;
-		position: sticky;  /* ✅ STICKY para acompanhar scroll */
+		position: sticky;  /*  STICKY para acompanhar scroll */
 		top: 120px;  /* Offset para header fixo */
 		align-self: stretch;
 	}
@@ -2966,14 +2966,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	height: 100%;
 }
 
-/* Swiper container - altura automática */
+/* Swiper container - altura automtica */
 .pg-pdp-image-col .js-swiper-product {
 	width: 100%;
 	height: auto;
 	min-height: auto;
 }
 
-/* Desktop (≥992px): Show grid 2x2, hide Swiper */
+/* Desktop (992px): Show grid 2x2, hide Swiper */
 @media (min-width: 992px) {
 	.pg-pdp-image-col .product-image-container {
 		display: none;
@@ -2991,7 +2991,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	.pg-gallery-container {
 		display: flex !important;
 		width: 100%;
-		/* max-height = 2 linhas × clamp(200px,24vh,280px) + 1 gap 12px = clamp(412,48vh+12,572) */
+		/* max-height = 2 linhas  clamp(200px,24vh,280px) + 1 gap 12px = clamp(412,48vh+12,572) */
 		max-height: clamp(412px, calc(48vh + 12px), 572px);
 		overflow-y: auto;
 		overflow-x: hidden;
@@ -3058,7 +3058,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	transition: opacity 0.5s ease-in-out;
 }
 
-/* Link da imagem - ajusta à imagem */
+/* Link da imagem - ajusta  imagem */
 .pg-pdp-image-col .js-product-slide-link {
 	padding-bottom: 0;
 	position: relative;
@@ -3071,7 +3071,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	padding: 0;
 }
 
-/* Imagem do produto - GRANDE E SEM RESTRIÇÕES */
+/* Imagem do produto - GRANDE E SEM RESTRIES */
 .pg-pdp-image-col .product-slider-image {
 	position: relative;
 	left: auto;
@@ -3083,11 +3083,11 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	max-height: none; /* SEM limite de altura */
 	object-fit: contain;
 	transition: opacity 0.4s ease;
-	border-radius: 20px; /* Bordas arredondadas na própria imagem */
+	border-radius: 20px; /* Bordas arredondadas na prpria imagem */
 	box-shadow: 0 8px 32px rgba(0,0,0,0.1); /* Sombra na imagem */
 }
 
-/* Navegação do slider - mais discreta */
+/* Navegao do slider - mais discreta */
 .pg-pdp-image-col .swiper-button-prev,
 .pg-pdp-image-col .swiper-button-next {
 	color: #333;
@@ -3117,7 +3117,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	content: '';
 }
 
-/* Paginação */
+/* Paginao */
 .pg-pdp-image-col .swiper-pagination {
 	bottom: 12px;
 	position: absolute;
@@ -3140,10 +3140,10 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	display: none;
 }
 
-/* COLUNA DIREITA - Card de informações */
+/* COLUNA DIREITA - Card de informaes */
 .pg-pdp-info-col {
 	display: flex;
-	align-items: center; /* Centraliza conteúdo interno */
+	align-items: center; /* Centraliza contedo interno */
 	justify-content: center;
 	padding: 0;
 	position: relative;
@@ -3157,7 +3157,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* MARCA D'ÁGUA DO LOGO - Visível através do blur do card */
+/* MARCA D'GUA DO LOGO - Visvel atravs do blur do card */
 .pg-pdp-watermark {
 	position: absolute;
 	top: 50%;
@@ -3187,7 +3187,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* Card de informações - COMPACTO verticalmente, LARGO horizontalmente */
+/* Card de informaes - COMPACTO verticalmente, LARGO horizontalmente */
 .pg-pdp-info-card {
 	background: rgba(255, 255, 255, 0.55);
 	backdrop-filter: blur(12px);
@@ -3215,12 +3215,12 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* Conteúdo do card */
+/* Contedo do card */
 .pg-product-card-content .page-header {
 	display: none;
 }
 
-/* Header do produto - Nome + Preço na mesma linha - COMPACTO */
+/* Header do produto - Nome + Preo na mesma linha - COMPACTO */
 .pg-product-header {
 	display: flex;
 	justify-content: space-between;
@@ -3231,7 +3231,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* Título do produto - DESTAQUE */
+/* Ttulo do produto - DESTAQUE */
 .pg-product-title {
 	font-family: 'Familjen Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	font-size: 13px;
@@ -3244,7 +3244,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	flex: 1;
 }
 
-/* Seção de preço - DESTAQUE */
+/* Seo de preo - DESTAQUE */
 .pg-product-price-section {
 	margin: 0;
 	text-align: right;
@@ -3259,7 +3259,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	letter-spacing: 0.3px;
 }
 
-/* Formulário do produto */
+/* Formulrio do produto */
 .pg-product-form {
 	margin: 0;
 }
@@ -3359,7 +3359,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	color: #000;
 }
 
-/* Botão adicionar - COMPACTO */
+/* Boto adicionar - COMPACTO */
 .pg-product-add-btn {
 	width: 100%;
 	height: 38px; /* REDUZIDO */
@@ -3447,7 +3447,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	padding-bottom: 14px; /* REDUZIDO */
 }
 
-/* Formatação do conteúdo do accordion */
+/* Formatao do contedo do accordion */
 .pg-accordion-content .user-content {
 	padding-top: 4px;
 }
@@ -3498,34 +3498,34 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 991px) {
 	.pg-pdp-container {
 		padding-top: 80px;
-		padding-bottom: 40px;         /* Padding inferior para separação */
-		padding-left: 0;              /* ✅ BUG #3 FIX: zero lateral para filhos full-width */
-		padding-right: 0;             /* ✅ BUG #3 FIX: zero lateral para filhos full-width */
+		padding-bottom: 40px;         /* Padding inferior para separao */
+		padding-left: 0;              /*  BUG #3 FIX: zero lateral para filhos full-width */
+		padding-right: 0;             /*  BUG #3 FIX: zero lateral para filhos full-width */
 		align-items: flex-start;
-		background-color: #ffffff;    /* ✅ LIMPO: Branco puro (padrão home) */
+		background-color: #ffffff;    /*  LIMPO: Branco puro (padro home) */
 		background-image: none;
 	}
 
 	.pg-pdp-container .section-single-product {
-		display: flex !important;     /* ✅ EXTRA: força flex layout explicitamente */
-		flex-direction: column !important;  /* ✅ EXTRA: força coluna com !important */
-		padding: 20px 0 !important;   /* ✅ BUG #3 FIX: zero padding lateral - filhos controlam o próprio espaço */
+		display: flex !important;     /*  EXTRA: fora flex layout explicitamente */
+		flex-direction: column !important;  /*  EXTRA: fora coluna com !important */
+		padding: 20px 0 !important;   /*  BUG #3 FIX: zero padding lateral - filhos controlam o prprio espao */
 		gap: 20px;
-		width: 100% !important;       /* ✅ EXTRA: container ocupa 100% */
-		align-items: stretch !important;  /* ✅ EXTRA: filhos ocupam full width */
+		width: 100% !important;       /*  EXTRA: container ocupa 100% */
+		align-items: stretch !important;  /*  EXTRA: filhos ocupam full width */
 	}
 
 	/* Remove Bootstrap padding from both columns */
 	.pg-pdp-image-col,
 	.pg-pdp-info-col {
-		padding-right: 0 !important;  /* ✅ CRÍTICO: remove Bootstrap .col padding */
-		padding-left: 0 !important;   /* ✅ CRÍTICO: remove Bootstrap .col padding */
+		padding-right: 0 !important;  /*  CRTICO: remove Bootstrap .col padding */
+		padding-left: 0 !important;   /*  CRTICO: remove Bootstrap .col padding */
 	}
 
 	.pg-pdp-image-col {
 		max-width: 100%;
 		width: 100%;
-		padding: 0 15px;              /* ✅ Imagem mantém padding lateral para respiro */
+		padding: 0 15px;              /*  Imagem mantm padding lateral para respiro */
 		min-height: auto;
 		border-radius: 0;
 		background: transparent;
@@ -3539,13 +3539,13 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	.pg-pdp-info-col {
-		max-width: 100% !important;   /* ✅ BUG #3 CRITICAL FIX: sobrescreve Bootstrap .col-lg-5 max-width */
-		width: 100% !important;       /* ✅ BUG #3 FIX: garante 100% */
-		padding: 0 !important;        /* ✅ BUG #3 FIX: sem padding lateral no col */
-		padding-right: 0 !important;  /* ✅ EXTRA: remove padding direito Bootstrap */
-		padding-left: 0 !important;   /* ✅ EXTRA: remove padding esquerdo Bootstrap */
+		max-width: 100% !important;   /*  BUG #3 CRITICAL FIX: sobrescreve Bootstrap .col-lg-5 max-width */
+		width: 100% !important;       /*  BUG #3 FIX: garante 100% */
+		padding: 0 !important;        /*  BUG #3 FIX: sem padding lateral no col */
+		padding-right: 0 !important;  /*  EXTRA: remove padding direito Bootstrap */
+		padding-left: 0 !important;   /*  EXTRA: remove padding esquerdo Bootstrap */
 		box-sizing: border-box;
-		flex: 0 0 100% !important;    /* ✅ EXTRA: força flex layout a 100% */
+		flex: 0 0 100% !important;    /*  EXTRA: fora flex layout a 100% */
 	}
 
 	.pg-pdp-watermark {
@@ -3555,12 +3555,12 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 
 	.pg-pdp-info-card {
-		padding: 22px 20px;           /* Padding interno do card para conteúdo respirar */
+		padding: 22px 20px;           /* Padding interno do card para contedo respirar */
 		max-width: 100%;
-		width: 100% !important;       /* ✅ BUG #3 FIX: card ocupa 100% */
-		border-radius: 0;             /* ✅ BUG #3 FIX: full-bleed mobile (sem bordas laterais) */
+		width: 100% !important;       /*  BUG #3 FIX: card ocupa 100% */
+		border-radius: 0;             /*  BUG #3 FIX: full-bleed mobile (sem bordas laterais) */
 		box-sizing: border-box;
-		margin: 0;                    /* ✅ Sem margin que quebraria full-width */
+		margin: 0;                    /*  Sem margin que quebraria full-width */
 	}
 }
 
@@ -3597,18 +3597,18 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 /* ============================================
    IDENTITY BANNER - MINIMALISTA PATAGANG
-   (Seção separada, fora do produto)
+   (Seo separada, fora do produto)
    ============================================ */
 
-/* Identity Banner - Main compensa header padding, banner não precisa de margin-top extra */
+/* Identity Banner - Main compensa header padding, banner no precisa de margin-top extra */
 .pg-identity-banner {
 	width: 100%;
 	background: #FFFFFF;
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	padding: 12px 20px;
-	margin: 0;  /* ✅ REFATORAÇÃO: Main (160px padding) compensa header */
-	margin-bottom: 16px;  /* ✅ Espaço abaixo do banner */
+	margin: 0;  /*  REFATORAO: Main (160px padding) compensa header */
+	margin-bottom: 16px;  /*  Espao abaixo do banner */
 	box-sizing: border-box;
 	position: relative;
 	z-index: 10;
@@ -3657,7 +3657,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* Large Tablet to Desktop (≥769px) - Full layout */
+/* Large Tablet to Desktop (769px) - Full layout */
 @media (min-width: 769px) {
 	.pg-identity-banner {
 		padding: 16px 20px;
@@ -3675,12 +3675,12 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* Mobile (≤576px) - Stack vertical */
+/* Mobile (576px) - Stack vertical */
 @media (max-width: 576px) {
 	.pg-identity-banner {
 		padding: 12px 10px;
-		margin: 0;  /* ✅ REFATORAÇÃO: Main compensa header */
-		margin-bottom: 12px;  /* ✅ Espaço abaixo */
+		margin: 0;  /*  REFATORAO: Main compensa header */
+		margin-bottom: 12px;  /*  Espao abaixo */
 		position: relative;
 		z-index: 10;
 	}
@@ -3708,15 +3708,15 @@ main.patagang-section-content {
 	padding-top: 160px;  /* Space for fixed header (~120px) + ad bar (~40px) = ~160px */
 }
 
-/* HOME PAGE: padding-top 0 - hero é full-bleed, header é transparente sobre o hero */
-/* Bug #1 FIX: Faixa branca removida. A home não precisa de padding pois o hero ocupa o topo */
+/* HOME PAGE: padding-top 0 - hero  full-bleed, header  transparente sobre o hero */
+/* Bug #1 FIX: Faixa branca removida. A home no precisa de padding pois o hero ocupa o topo */
 body.template-home main.patagang-section-content {
-	padding-top: 0;  /* ✅ HOME: hero começa imediatamente, sem espaço branco */
+	padding-top: 0;  /*  HOME: hero comea imediatamente, sem espao branco */
 }
 
 /* PRODUCT PAGE: Restore padding to compensate for fixed header (refactor fix) */
 body.template-product main.patagang-section-content {
-	padding-top: 160px;  /* ✅ REFATORAÇÃO: Main compensa header fixo, banners sem override */
+	padding-top: 160px;  /*  REFATORAO: Main compensa header fixo, banners sem override */
 }
 
 @media (max-width: 991px) {
@@ -3726,12 +3726,12 @@ body.template-product main.patagang-section-content {
 
 	/* HOME PAGE Tablet: hero full-bleed em todos os breakpoints */
 	body.template-home main.patagang-section-content {
-		padding-top: 0;  /* ✅ HOME Tablet: hero começa imediatamente */
+		padding-top: 0;  /*  HOME Tablet: hero comea imediatamente */
 	}
 
 	/* PRODUCT PAGE: Mobile adjustments */
 	body.template-product main.patagang-section-content {
-		padding-top: 140px;  /* ✅ Tablet PDP: compensa header */
+		padding-top: 140px;  /*  Tablet PDP: compensa header */
 	}
 }
 
@@ -3742,12 +3742,12 @@ body.template-product main.patagang-section-content {
 
 	/* HOME PAGE Mobile: hero full-bleed em todos os breakpoints */
 	body.template-home main.patagang-section-content {
-		padding-top: 0;  /* ✅ HOME Mobile: hero começa imediatamente */
+		padding-top: 0;  /*  HOME Mobile: hero comea imediatamente */
 	}
 
 	/* PRODUCT PAGE: Mobile adjustments */
 	body.template-product main.patagang-section-content {
-		padding-top: 130px;  /* ✅ Mobile PDP: compensa header */
+		padding-top: 130px;  /*  Mobile PDP: compensa header */
 	}
 }
 
@@ -3755,7 +3755,7 @@ body.template-product main.patagang-section-content {
    PRODUCT PAGE SECTIONS - Banner + Product container spacing
    ============================================ */
 
-/* Banner informativo do produto - espaçamento independente */
+/* Banner informativo do produto - espaamento independente */
 body.template-product div.pg-pdp-section.pg-pdp-banner-informative {
 	width: 100%;
 	margin: 0;
@@ -3765,7 +3765,7 @@ body.template-product div.pg-pdp-section.pg-pdp-banner-informative {
 	position: relative;
 }
 
-/* Seção do produto (galeria + card) - conteúdo principal */
+/* Seo do produto (galeria + card) - contedo principal */
 body.template-product div.pg-pdp-section.pg-pdp-container {
 	width: 100%;
 	margin: 0;
@@ -3776,7 +3776,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
    SACOLA LATERAL (CART MODAL) - PATAGANG DESIGN
    ============================================ */
 
-/* Modal do carrinho - Estilo similar ao protótipo */
+/* Modal do carrinho - Estilo similar ao prottipo */
 #modal-cart {
 	background: #fff;
 	box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
@@ -3800,7 +3800,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 	border-top: none;
 }
 
-/* Botão fechar do modal */
+/* Boto fechar do modal */
 #modal-cart .modal-close {
 	position: absolute;
 	right: 20px;
@@ -3930,7 +3930,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 	margin: 0;
 }
 
-/* Botão de remover item */
+/* Boto de remover item */
 .pg-cart-delete-btn {
 	background: transparent;
 	border: none;
@@ -3965,7 +3965,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 	border-top: 1px solid #e0e0e0;
 }
 
-/* Botão Finalizar Compra */
+/* Boto Finalizar Compra */
 #modal-cart .btn-primary,
 .js-ajax-cart-panel .btn-primary {
 	width: 100%;
@@ -4053,7 +4053,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 
 /* ============================================
    CARD PRODUTO EM DESENVOLVIMENTO - PATAGANG
-   Baseado no protótipo oficial
+   Baseado no prottipo oficial
    ============================================ */
 
 .pg-dev-card {
@@ -4075,7 +4075,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     /* Sombra suave */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 
-    /* Centralização do conteúdo */
+    /* Centralizao do contedo */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -4126,13 +4126,13 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     border-right-width: 3px;
 }
 
-/* CONTEÚDO CENTRAL */
+/* CONTEDO CENTRAL */
 .pg-dev-card__content {
     text-align: center;
     z-index: 2;
 }
 
-/* TÍTULO */
+/* TTULO */
 .pg-dev-card__title {
     font-family: 'Familjen Grotesk', 'Helvetica', 'Arial', sans-serif;
     font-size: 14px;
@@ -4143,7 +4143,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     margin: 0 0 25px 0;
 }
 
-/* BOTÃO */
+/* BOTO */
 .pg-dev-card__button {
     display: inline-block;
     background-color: #000;
@@ -4165,7 +4165,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     color: #000;
 }
 
-/* Informações do produto abaixo do card */
+/* Informaes do produto abaixo do card */
 .pg-dev-card__product-info {
     margin-top: 24px;
     padding: 0 8px;
@@ -4438,7 +4438,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
    PATAGANG DRAWER - Critical CSS (Anti-FOUC)
    ============================================ */
 
-/* Garantir que drawer está oculto desde o início */
+/* Garantir que drawer est oculto desde o incio */
 #nav-drawer {
     visibility: hidden;
     pointer-events: none;
@@ -4501,7 +4501,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
    PATAGANG HOME - Anti-FOUC (Critical CSS)
    ============================================ */
 
-/* Ocultar elementos da home até CSS assíncrono carregar */
+/* Ocultar elementos da home at CSS assncrono carregar */
 .hero,
 .featured-product,
 .coming-soon,
@@ -4509,17 +4509,17 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     visibility: hidden;
 }
 
-/* Mostrar quando CSS assíncrono carregar */
+/* Mostrar quando CSS assncrono carregar */
 .visible-when-content-ready {
     visibility: visible;
 }
 
 /* ============================================
    PATAGANG - MODAL CART CRITICAL STYLES
-   IMPORTANTE: Inline no critical para garantir aplicação
+   IMPORTANTE: Inline no critical para garantir aplicao
    ============================================ */
 
-/* Força TODOS os textos em PRETO - Override máximo */
+/* Fora TODOS os textos em PRETO - Override mximo */
 #modal-cart *:not(.btn):not(.icon-inline):not(svg):not(path):not(button),
 #modal-cart .text-accent,
 #modal-cart .pg-cart-summary *,
@@ -4556,7 +4556,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 
 /* ===========================================
    SEO: Classe sr-only para acessibilidade
-   Esconde visualmente mas mantém para SEO/leitores de tela
+   Esconde visualmente mas mantm para SEO/leitores de tela
    =========================================== */
 
 .sr-only {
@@ -4651,7 +4651,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 
 /* [REMOVED Story 8.2 ETAPA 2] Filter & Sort CSS moved to style-async.scss.tpl */
 
-/* PROBLEMA 1: MOBILE HEADER - LUPA NA ESQUERDA & ÍCONES REDUZIDOS */
+/* PROBLEMA 1: MOBILE HEADER - LUPA NA ESQUERDA & CONES REDUZIDOS */
 @media (max-width: 767px) {
     /* 1. Container Header */
     .pg-header__row,
@@ -4663,7 +4663,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
         position: relative;
     }
 
-    /* 2. Ícones Menores (20px) */
+    /* 2. cones Menores (20px) */
     .pg-header__icon-button svg,
     .pg-header__actions svg {
         width: 20px;
@@ -4677,18 +4677,18 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     }
 
     /* 3. LUPA NA ESQUERDA (Position Absolute) */
-    /* Seleciona o botão de busca dentro das ações e move para a esquerda */
+    /* Seleciona o boto de busca dentro das aes e move para a esquerda */
     .pg-header__actions .js-search-open-mobile,
     .pg-header__actions a[href*="search"] {
         position: absolute;
-        left: 40px; /* Logo após o menu hambúrguer (que tem ~30-40px) */
+        left: 40px; /* Logo aps o menu hambrguer (que tem ~30-40px) */
         top: 50%;
         transform: translateY(-50%);
         margin: 0;
         z-index: 15;
     }
 
-    /* 4. Ícones da Direita (Carrinho/Conta) - Sem a lupa */
+    /* 4. cones da Direita (Carrinho/Conta) - Sem a lupa */
     .pg-header__actions {
         margin-right: 0;
         gap: 2px;
@@ -4706,11 +4706,11 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
         z-index: 10;
     }
 
-    /* 6. BUSCA EXPANDINDO DA ESQUERDA ATÉ A LOGO */
+    /* 6. BUSCA EXPANDINDO DA ESQUERDA AT A LOGO */
     .search-container.search-open {
         position: absolute;
         top: 0;
-        left: 40px; /* Começa onde está a lupa */
+        left: 40px; /* Comea onde est a lupa */
         height: 100%;
         /* Calcula largura para parar antes da logo (50% - margem) */
         width: calc(50% - 50px);
@@ -4735,9 +4735,9 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
         box-shadow: none;
     }
 
-    /* Garante que o botão de busca (lupa) continue visível/clicável */
+    /* Garante que o boto de busca (lupa) continue visvel/clicvel */
     .search-container.search-open .pg-header__search-btn {
-        display: none; /* Esconde ícone duplicado dentro do container se houver */
+        display: none; /* Esconde cone duplicado dentro do container se houver */
     }
 }
 
@@ -4746,7 +4746,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
    Shows only when aria-hidden="false"
    ============================================ */
 
-/* Esconde o modal de galeria por padrão */
+/* Esconde o modal de galeria por padro */
 #pg-modal-gallery[aria-hidden="true"],
 #pg-modal-gallery[aria-hidden="true"] .pg-modal-container {
     display: none;
@@ -4850,7 +4850,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 /* PATAGANG vX.X.X: Restore missing modal CSS (Story 10.2)
    Close button, backdrop, counter elementos que faltavam */
 
-/* Botão Fechar (X) */
+/* Boto Fechar (X) */
 .pg-modal-gallery .pg-modal-close {
     position: absolute;
     top: 20px;
@@ -4907,8 +4907,8 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 
 
 /* ============================================
-   FOUC FIX — COMPLETE SOLUTION [Story 10.5]
-   Grid de Produtos + Todas as Variações Responsivas
+   FOUC FIX  COMPLETE SOLUTION [Story 10.5]
+   Grid de Produtos + Todas as Variaes Responsivas
    Movido COMPLETO de style-async.scss.tpl para evitar layout shift
    Inclui: Base + Media Queries (1200px, 992px, 768px)
    ============================================ */

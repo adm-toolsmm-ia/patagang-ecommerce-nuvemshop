@@ -36,14 +36,14 @@
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-    /* Reset: limpar herança de .item e .col */
+    /* Reset: limpar herana de .item e .col */
     float: none;
     width: 100%;
     max-width: 100%;
     min-width: 0;
     margin-bottom: 0;
     text-align: center;
-    /* V3: centraliza todo o conteúdo */
+    /* V3: centraliza todo o contedo */
     flex: none;
 }
 
@@ -164,19 +164,19 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
-    /* Padrão para compatibilidade */
+    /* Padro para compatibilidade */
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 31px;
     /* 2 linhas para alinhamento consistente */
 }
 
-/* Preço principal */
+/* Preo principal */
 .pg-card__price {
     display: flex;
     align-items: baseline;
     justify-content: center;
-    /* Centraliza preços */
+    /* Centraliza preos */
     gap: 6px;
     flex-wrap: wrap;
     margin-bottom: 2px;
@@ -227,7 +227,7 @@
     /* Centraliza texto */
 }
 
-/* ---- BOTÃO ---- */
+/* ---- BOTO ---- */
 
 .pg-card__btn {
     display: flex;
@@ -287,7 +287,7 @@
 }
 
 /* ---- .item RESET ----
-   Neutraliza herança de .item da base do tema */
+   Neutraliza herana de .item da base do tema */
 
 .pg-card.item {
     margin-bottom: 0;
@@ -349,7 +349,7 @@
 }
 
 /* ---- ANTI-BLUR ----
-   Proteção contra blur do lazy-loader (.blur-up) */
+   Proteo contra blur do lazy-loader (.blur-up) */
 
 .pg-card img {
     filter: none;

@@ -4,7 +4,7 @@
    Same design as .pg-help-btn, positioned left instead of right
    =========================================== */
 
-/* 1. Floating WhatsApp Button (LEFT side) — BEM Pattern */
+/* 1. Floating WhatsApp Button (LEFT side)  BEM Pattern */
 .btn-whatsapp-left {
     position: fixed;
     left: 0;
@@ -46,7 +46,7 @@
     flex-shrink: 0;
 }
 
-/* BEM: Text element — vertical layout with rotate for left-side reading */
+/* BEM: Text element  vertical layout with rotate for left-side reading */
 .btn-whatsapp-left__text {
     writing-mode: vertical-rl;
     text-orientation: mixed;

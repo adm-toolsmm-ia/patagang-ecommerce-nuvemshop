@@ -4,7 +4,7 @@ style.css
     -Rest of styling can be found in:
       --static/css/style-colors.scss.tpl --> For color and font styles related to config/settings.txt
       --static/css/style-critical.tpl --> For critical CSS rendered inline before the rest of the site
-    LAST UPDATED: 2026-03-27 15:47 — Fix definitivo encoding UTF-8 (sem BOM) + content:"|" correto [v1.5.210 DEPLOY]
+    LAST UPDATED: 2026-03-27 15:47  Fix definitivo encoding UTF-8 (sem BOM) + content:"|" correto [v1.5.210 DEPLOY]
 ==============================================================================*/#}
 {#/*============================================================================
   Table of Contents

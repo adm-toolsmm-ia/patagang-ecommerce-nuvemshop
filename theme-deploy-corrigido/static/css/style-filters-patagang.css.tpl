@@ -12,7 +12,7 @@
 }
 
 /* ============================================
-   BOTÃO FILTRAR - Design clean, sem arredondamento
+   BOTO FILTRAR - Design clean, sem arredondamento
    ============================================ */
 .pg-search-page .filter-link {
     display: inline-flex;
@@ -46,7 +46,7 @@
 }
 
 /* ============================================
-   DROPDOWN ORDENAÇÃO - Mesmo estilo do FILTRAR
+   DROPDOWN ORDENAO - Mesmo estilo do FILTRAR
    ============================================ */
 .pg-search-page .form-group {
     margin: 0;
@@ -94,7 +94,7 @@
     box-shadow: none;
 }
 
-/* Oculta ícone nativo do select */
+/* Oculta cone nativo do select */
 .pg-search-page .form-select-arrow,
 .pg-search-page .select-icon,
 .pg-search-page select + svg,
@@ -148,7 +148,7 @@
 
 /* ===========================================
    MODAL DE FILTROS (sidebar esquerda)
-   Fundo preto sólido
+   Fundo preto slido
    =========================================== */
 
 /* ===========================================
@@ -203,7 +203,7 @@
     color: #000000;
 }
 
-/* Botão fechar (X) */
+/* Boto fechar (X) */
 #nav-filters .modal-close {
     color: #000000;
     opacity: 0.6;
@@ -237,14 +237,14 @@
     padding: 0;
 }
 
-/* Espaçamento Bootstrap mb-5 reset */
+/* Espaamento Bootstrap mb-5 reset */
 #nav-filters .filters-container.mb-5,
 #nav-filters .mb-5 {
     margin-bottom: 28px;
 }
 
 /* ============================================
-   TÍTULOS DOS GRUPOS (CATEGORIAS, TAMANHO, MARCA, Preço)
+   TTULOS DOS GRUPOS (CATEGORIAS, TAMANHO, MARCA, Preo)
    ============================================ */
 #nav-filters h6,
 #nav-filters .filter-group-title,
@@ -393,7 +393,7 @@
     display: block;
 }
 
-/* Oculta checkbox-icon do tema (substituído pelo input customizado) */
+/* Oculta checkbox-icon do tema (substitudo pelo input customizado) */
 #nav-filters .checkbox-icon {
     display: none;
     width: 0;
@@ -401,7 +401,7 @@
     overflow: hidden;
 }
 
-/* Texto do checkbox - DEVE SER VISÍVEL */
+/* Texto do checkbox - DEVE SER VISVEL */
 #nav-filters .checkbox-text {
     color: #333333;
     font-family: 'Familjen Grotesk', sans-serif;
@@ -429,10 +429,10 @@
 }
 
 /* ============================================
-   PREÇO - Inputs De/Até + Botão Aplicar
+   PREO - Inputs De/At + Boto Aplicar
    ============================================ */
 
-/* Inputs de preço */
+/* Inputs de preo */
 #nav-filters input[type="number"],
 #nav-filters input[type="text"]:not([autocomplete]) {
     background: #F5F5F5;
@@ -454,7 +454,7 @@
     background: #FFFFFF;
 }
 
-/* Labels "De" / "Até" dentro do filtro de preço */
+/* Labels "De" / "At" dentro do filtro de preo */
 #nav-filters .price-filter label,
 #nav-filters .filter-price label {
     color: #666666;
@@ -466,7 +466,7 @@
     padding: 4px 0;
 }
 
-/* Botão APLICAR */
+/* Boto APLICAR */
 #nav-filters .btn-primary,
 #nav-filters .btn-default,
 #nav-filters .btn[type="submit"],

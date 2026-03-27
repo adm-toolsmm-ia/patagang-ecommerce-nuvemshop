@@ -1,7 +1,7 @@
 /* ============================================
    PATAGANG HOME V2 - ESTILOS
-   APENAS cards da home: .pg-product-card-v2 (Vista o Propósito), body.template-home .pg-dev-card (Seja o Primeiro).
-   Não deve conter regras genéricas de .item-product ou .pg-dev-card sem body.template-home.
+   APENAS cards da home: .pg-product-card-v2 (Vista o Propsito), body.template-home .pg-dev-card (Seja o Primeiro).
+   No deve conter regras genricas de .item-product ou .pg-dev-card sem body.template-home.
    ============================================ */
 
 /* ============================================
@@ -38,7 +38,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    /* Mobile: botões no rodapé */
+    /* Mobile: botes no rodap */
     align-items: center;
     padding: 20px;
     padding-bottom: 100px;
@@ -62,7 +62,7 @@
     align-items: center;
 }
 
-/* Desktop: Botões centralizados em cada metade (25% e 75%) */
+/* Desktop: Botes centralizados em cada metade (25% e 75%) */
 @media (min-width: 768px) {
     .pg-hero-v2__ctas {
         flex-direction: row;
@@ -77,19 +77,19 @@
     }
 
     .pg-hero-v2__ctas .pg-button--highlight {
-        /* Cada botão centralizado em sua metade */
+        /* Cada boto centralizado em sua metade */
         flex: 0 0 auto;
     }
 
     .pg-hero-v2__ctas .pg-button--highlight:first-child {
-        /* Botão esquerdo - centralizado sobre blueprint (25% da largura) */
+        /* Boto esquerdo - centralizado sobre blueprint (25% da largura) */
         position: absolute;
         left: 25%;
         transform: translateX(-50%);
     }
 
     .pg-hero-v2__ctas .pg-button--highlight:last-child {
-        /* Botão direito - centralizado sobre foto (75% da largura) */
+        /* Boto direito - centralizado sobre foto (75% da largura) */
         position: absolute;
         left: 75%;
         transform: translateX(-50%);
@@ -127,8 +127,8 @@
 }
 
 /* ============================================
-   DEGRADÊ NO TOPO DA HOME
-   Transição suave do hero para seção Vista
+   DEGRAD NO TOPO DA HOME
+   Transio suave do hero para seo Vista
    ============================================ */
 
 .pg-hero-v2::after {
@@ -147,7 +147,7 @@
 }
 
 /* ============================================
-   BOTÃO HIGHLIGHT (Amarelo)
+   BOTO HIGHLIGHT (Amarelo)
    ============================================ */
 
 .pg-button--highlight {
@@ -185,9 +185,9 @@
 }
 
 /* ============================================
-   SEÇÃO VISTA O PROPÓSITO
-   Background cinza claro conforme protótipo
-   Margens reduzidas para menos espaço em branco
+   SEO VISTA O PROPSITO
+   Background cinza claro conforme prottipo
+   Margens reduzidas para menos espao em branco
    ============================================ */
 
 .pg-section--vista-products {
@@ -204,7 +204,7 @@
     }
 }
 
-/* TransiÃ§Ã£o suave do hero para Vista (degradÃª para a imagem acima) */
+/* Transio suave do hero para Vista (degrad para a imagem acima) */
 .pg-section--vista-products::before {
     content: '';
     position: absolute;
@@ -225,8 +225,8 @@
 }
 
 /* ============================================
-   SEÇÃO SEJA O PRIMEIRO A CONHECER
-   Background: cinza + grid amarelo em ::before atrás do conteúdo
+   SEO SEJA O PRIMEIRO A CONHECER
+   Background: cinza + grid amarelo em ::before atrs do contedo
    ============================================ */
 
 body.template-home .pg-section--grid-bg {
@@ -236,7 +236,7 @@ body.template-home .pg-section--grid-bg {
     overflow: hidden;
 }
 
-/* Background grid: posicionado na parte inferior da seção, como no protótipo */
+/* Background grid: posicionado na parte inferior da seo, como no prottipo */
 body.template-home .pg-section--grid-bg::before {
     content: '';
     position: absolute;
@@ -256,11 +256,11 @@ body.template-home .pg-section--grid-bg::before {
     body.template-home .pg-section--grid-bg::before {
         background-image: url('../images/home-v2-grid-bg-desktop.png');
         height: 90%;
-        /* Aumentado para preencher mais a seção */
+        /* Aumentado para preencher mais a seo */
     }
 }
 
-/* Conteúdo acima do grid */
+/* Contedo acima do grid */
 body.template-home .pg-section--grid-bg .pg-container {
     position: relative;
     z-index: 1;
@@ -273,7 +273,7 @@ body.template-home .pg-section--grid-bg .pg-container {
 }
 
 /* ============================================
-   HEADER DA SEÇÃO - Textos menores e menos chamativos
+   HEADER DA SEO - Textos menores e menos chamativos
    ============================================ */
 
 .pg-section__header {
@@ -282,7 +282,7 @@ body.template-home .pg-section--grid-bg .pg-container {
     max-width: 1100px;
 }
 
-/* Título H3 - reduzido para proporção à página */
+/* Ttulo H3 - reduzido para proporo  pgina */
 .pg-section__title {
     font-family: 'Familjen Grotesk', sans-serif;
     font-size: 16px;
@@ -294,7 +294,7 @@ body.template-home .pg-section--grid-bg .pg-container {
     line-height: 1.25;
 }
 
-/* Descrição - menor e menos chamativa */
+/* Descrio - menor e menos chamativa */
 .pg-section__desc {
     font-family: 'Familjen Grotesk', sans-serif;
     font-size: 14px;
@@ -354,7 +354,7 @@ body.template-home .pg-section--coming-soon .pg-section__title {
 /* ============================================
    CARD DE PRODUTO V2
    Estrutura: card > link > image | shop
-   Baseado no padrão pg-dev-card que funciona
+   Baseado no padro pg-dev-card que funciona
    ============================================ */
 
 .pg-product-card-v2 {
@@ -442,7 +442,7 @@ body.template-home .pg-section--coming-soon .pg-section__title {
 }
 
 /* ============================================
-   SEÇÃO COMING SOON - V2
+   SEO COMING SOON - V2
    Cards com foto visivel, scroll horizontal
    ============================================ */
 
@@ -529,7 +529,7 @@ body.template-home .pg-section--coming-soon {
 
 /* ============================================
    CARD PRODUTO EM DESENVOLVIMENTO - HOME
-   Cards compactos (apenas imagem clicável)
+   Cards compactos (apenas imagem clicvel)
    RESET AGRESSIVO dos estilos de style-critical.tpl
    ============================================ */
 
@@ -544,7 +544,7 @@ body.template-home .pg-dev-card {
     border: none;
     border-radius: 12px;
 
-    /* Dimensões compactas */
+    /* Dimenses compactas */
     flex-shrink: 0;
     align-self: flex-start;
     width: 160px;
@@ -613,7 +613,7 @@ body.template-home .pg-dev-card:hover .pg-dev-card__image img {
     transform: scale(1.05);
 }
 
-/* Proteção abrangente contra blur do lazy-loader (.blur-up) em toda a home */
+/* Proteo abrangente contra blur do lazy-loader (.blur-up) em toda a home */
 body.template-home .pg-section img {
     filter: none;
     image-rendering: auto;
@@ -687,14 +687,14 @@ body.template-home .pg-dev-card--loading {
 }
 
 /* ============================================
-   FOOTER HOME V2 - Degradê + Logo Grande
+   FOOTER HOME V2 - Degrad + Logo Grande
    ============================================ */
 
 .footer-home.main-footer {
     position: relative;
 }
 
-/* Degradê no topo do footer (apenas na home) */
+/* Degrad no topo do footer (apenas na home) */
 .footer-home.main-footer::before {
     content: '';
     position: absolute;
@@ -744,7 +744,7 @@ body.template-home .pg-dev-card--loading {
     margin: 0 auto 40px;
 }
 
-/* Seção do logo centralizada */
+/* Seo do logo centralizada */
 .footer-home .footer-form .row>.col-12.col-lg-auto:first-child {
     width: 100%;
     text-align: center;
@@ -770,13 +770,13 @@ body.template-home .pg-dev-card--loading {
 }
 
 /* ============================================
-   ANTI-FOUC - Esconder até CSS carregar
+   ANTI-FOUC - Esconder at CSS carregar
    ============================================ */
 
 .pg-hero-v2,
 .pg-section--grid-bg {
     visibility: visible;
-    /* CRITICAL FIX: Garante que conteúdo apareça mesmo se JS falhar */
+    /* CRITICAL FIX: Garante que contedo aparea mesmo se JS falhar */
 }
 
 .pg-hero-v2.visible-when-content-ready,
@@ -885,7 +885,7 @@ body.template-home .pg-dev-card--loading {
 /* ==========================================================================
    CARD REBORN (Final Fix)
    Namespace: .pg-reborn-card
-   Style: Reference 'Vista o Propósito' (Gray BG) + Backup Size (Small)
+   Style: Reference 'Vista o Propsito' (Gray BG) + Backup Size (Small)
    ========================================================================== */
 
 .pg-reborn-card {
@@ -900,7 +900,7 @@ body.template-home .pg-dev-card--loading {
     color: inherit;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-    /* Estilo Visual (conforme seção 'Vista o Propósito') */
+    /* Estilo Visual (conforme seo 'Vista o Propsito') */
     background: #F6F6F6;
     border-radius: 24px;
     padding: 12px;
@@ -945,7 +945,7 @@ body.template-home .pg-dev-card--loading {
     transform: scale(1.08);
 }
 
-/* Footer com Botão */
+/* Footer com Boto */
 .pg-reborn-card__footer {
     display: flex;
     justify-content: center;
@@ -953,7 +953,7 @@ body.template-home .pg-dev-card--loading {
     margin-top: auto;
 }
 
-/* Botão Amarelo - Integrado e Pequeno */
+/* Boto Amarelo - Integrado e Pequeno */
 .pg-reborn-card__btn {
     display: block;
     width: 100%;
