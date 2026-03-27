@@ -564,9 +564,9 @@ ENTÃO vejo:
 
 QUANDO faço scroll DENTRO da galeria
 ENTÃO:
-  - Scroll afeta APENAS galeria (não página)
+  - Scroll afeta APENAS a galeria enquanto houver conteúdo interno para rolar
   - Comportamento smooth scroll
-  - Ao fim da galeria, scroll para na galeria (não afeta page)
+  - Ao atingir topo/fim da galeria, a página volta a responder ao scroll normalmente
 
 E QUANDO visualizo em tablet (768-991px)
 ENTÃO galeria exibe Swiper carousel (comportamento atual OK)
@@ -580,7 +580,8 @@ ENTÃO modal lightbox abre (comportamento existente preservado)
 
 **Arquivos Modificados:**
 - `theme-deploy-corrigido/static/css/style-critical.tpl` — adicionar/confirmar grid CSS
-- Novo: `theme-deploy-corrigido/static/js/pdp-gallery-scroll.js` — scroll hijacking
+- `theme-deploy-corrigido/layouts/layout.tpl` — alinhar overrides de galeria no breakpoint desktop
+- `theme-deploy-corrigido/static/js/product-page-custom.js` — isolamento de scroll da galeria desktop
 
 **Tarefas Técnicas:**
 1. [ ] Verificar `.pg-gallery-grid` tem `grid-template-columns: repeat(2, 1fr)`

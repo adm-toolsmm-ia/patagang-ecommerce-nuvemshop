@@ -2912,7 +2912,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		margin-top: 0;
 	}
 
-	/* LEFT COLUMN - Product Image (full height, clean design)
+	/* LEFT COLUMN - Product Image (full height, clean design) */
 	.pg-pdp-container .pg-pdp-image-col {
 		flex: 0 0 60%;
 		max-width: 60%;
@@ -2939,7 +2939,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* LEFT COLUMN - Product Image (full height, clean design)
+/* LEFT COLUMN - Product Image (full height, clean design) */
 .pg-pdp-image-col {
 	background: transparent; /* SEM fundo */
 	border-radius: 0; /* SEM bordas arredondadas */
@@ -2954,7 +2954,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	height: 100%;  /* Preenche altura total */
 }
 
-/* Image Container - Fills parent, responsive
+/* Image Container - Fills parent, responsive */
 .pg-pdp-image-col .product-image-container {
 	width: 100%;
 	flex: 1;  /* Cresce para preencher altura */
@@ -2982,23 +2982,53 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		display: none;
 	}
 
-	/* Gallery grid 2x2: Show on desktop (≥992px) */
-	/* PATAGANG v1.5.151: Limitar altura da galeria para acompanhar card info */
+	/* Story 11.2: desktop gallery must stay 2x2 visible */
 	.pg-pdp-image-col {
-		max-height: calc(100vh - 200px);  /* Limitar altura da coluna */
-		overflow-y: auto;  /* Scroll se conteúdo ultrapassar */
+		max-height: calc(100vh - 200px);
+		overflow: hidden;
+		min-height: 0;
 	}
 
 	.pg-gallery-container {
 		display: flex !important;
-		height: auto;  /* Não forçar 100% (causa overflow) */
-		max-height: 100%;  /* Limitar ao espaço disponível na coluna */
+		height: 100%;
+		max-height: calc(100vh - 200px);
 		overflow-y: auto;
+		overflow-x: hidden;
+		overscroll-behavior: contain;
+		scroll-behavior: smooth;
+		min-height: 0;
+		padding-right: 8px;
 	}
 
 	.pg-pdp-image-col .pg-gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-auto-rows: clamp(200px, 24vh, 280px);
+		gap: 12px;
 		height: auto;
 		align-content: flex-start;
+	}
+
+	.pg-pdp-image-col .pg-gallery-item {
+		min-height: 0;
+	}
+
+	.pg-pdp-image-col .pg-gallery-link {
+		display: block;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.pg-pdp-image-col .pg-gallery-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		border-radius: 4px;
 	}
 }
 

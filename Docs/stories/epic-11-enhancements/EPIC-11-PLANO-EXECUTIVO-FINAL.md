@@ -14,7 +14,7 @@
 | Trilha | Objetivo | Risco | Timeline | Status |
 |--------|----------|-------|----------|--------|
 | **A** | Padronizar botões Help ≈ WhatsApp | 🟢 Baixo | 1 dia | ✅ Ready |
-| **B** | Galeria 2x2: visibilidade + scroll | 🟡 Médio | 2-3 dias | ⚠️ Conflito media query |
+| **B** | Galeria 2x2: visibilidade + scroll | 🟡 Médio | 2-3 dias | 🟡 Em execução |
 | **C** | Konfidance: reviews + Q&A | 🟡 Médio | 2 dias | ✅ Ready (plugin existe) |
 | **D** | Débito técnico: refator CSS/JS | 🔴 Alto | 3+ dias | ⚠️ 22-35h débito |
 

@@ -175,26 +175,30 @@
                PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
                ===================================================================== */
 
-            /* 1. DESKTOP: Gallery grows with card height, scroll for extras */
-            /* PATAGANG v1.5.152: Removed max-height: 520px to allow gallery to match card */
+            /* Story 11.2: Desktop gallery 2x2 with isolated scroll */
             .pg-gallery-container {
-                height: auto;               /* Grow with content */
-                max-height: none;           /* Remove hard limit */
-                overflow-y: auto;           /* Scroll automático se > 4 imagens */
+                height: 100%;
+                max-height: calc(100vh - 200px);
+                overflow-y: auto;
+                overflow-x: hidden;
+                overscroll-behavior: contain;
+                scroll-behavior: smooth;
                 box-sizing: border-box;
-                display: flex;              /* Flex container para filho ficar alinhado */
-                flex-direction: column;     /* Grid fica em coluna */
-                padding-right: 8px;         /* Espaço para scrollbar sem cortar conteúdo */
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+                padding-right: 8px;
             }
 
-            /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
+            /* Grid da galeria — 2 colunas estáveis com 4 itens visíveis */
             .pg-gallery-grid {
                 display: grid;
-                grid-template-columns: repeat(2, 1fr);  /* 2 COLUNAS */
-                gap: 14px;                              /* Espaçamento moderno refinado */
-                padding: 0;                             /* Sem padding (gap já espaça) */
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-auto-rows: clamp(200px, 24vh, 280px);
+                gap: 12px;
+                padding: 0;
                 width: 100%;
-                height: fit-content;                    /* Cresce com conteúdo */
+                height: fit-content;
             }
 
             /* =====================================================================
@@ -248,8 +252,9 @@
             @media (max-width: 768px) {
                 /* Mobile: carousel responsivo (sem galeria grid) */
                 .pg-gallery-container {
-                    height: auto;           /* Auto em mobile */
-                    overflow: visible;      /* Sem scroll, fluxo natural */
+                    height: auto;
+                    max-height: none;
+                    overflow: visible;
                 }
 
                 /* Mobile: colunas empilhadas, alinhar topo */
@@ -260,17 +265,10 @@
             }
 
             @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column, grows with card */
-                /* PATAGANG v1.5.152: Removed max-height: 480px limit */
+                /* Tablet/mobile mantém Swiper; grid desktop permanece oculto */
                 .pg-gallery-container {
-                    height: auto;           /* Grow with content */
-                    max-height: none;       /* Remove hard limit */
-                    overflow-y: auto;       /* Scroll automático se > 4 imagens */
-                    padding-right: 8px;     /* Espaço para scrollbar */
-                }
-
-                .pg-gallery-grid {
-                    grid-template-columns: repeat(2, 1fr);  /* 2 colunas em tablet */
+                    max-height: none;
+                    overflow: visible;
                 }
             }
         </style>

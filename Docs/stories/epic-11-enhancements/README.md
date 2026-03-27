@@ -96,17 +96,17 @@ node ftp-deploy/deploy.js "rollback: ..." --force
 | Fase | Status | Responsável |
 |------|--------|-------------|
 | Planejamento | ✅ PRONTO | @pm (Morgan) |
-| Análise (Aguardando alterações) | ✅ 11.1 concluída | @analyst (Atlas) |
-| Implementação | ✅ 11.1 concluída | @dev (Dex) |
-| QA | ✅ 11.1 concluída | @qa (Quinn) |
-| Validação Gabriel | ✅ 11.1 aprovada | Gabriel |
-| Deploy | ✅ 11.1 publicado (v1.5.189) | @devops (Gage) |
+| Análise (Aguardando alterações) | 🟡 11.2 em andamento | @analyst (Atlas) |
+| Implementação | 🟡 11.2 em andamento | @dev (Dex) |
+| QA | ⏳ aguardando 11.2 | @qa (Quinn) |
+| Validação Gabriel | ⏳ aguardando 11.2 | Gabriel |
+| Deploy | ⏳ aguardando 11.2 | @devops (Gage) |
 
 ---
 
 ## 🎯 Próximo Passo
 
-**Gabriel:** Story 11.1 concluída. Pronto para iniciar a próxima story da EPIC 11.
+**Gabriel:** Story 11.2 iniciada. Seguimos até liberar para sua validação em produção.
 
 Estrutura está pronta para receber:
 - ✅ Stories com padrão AIOX

@@ -42,7 +42,7 @@ Implementar novas alterações e melhorias identificadas por Gabriel Cristofolin
 | Story | Título | Executor | QA | Risco | Status |
 |-------|--------|----------|-----|-------|--------|
 | 11.1 | WhatsApp esquerdo: manter rotate + restaurar ícone | @dev | @qa | Médio | ✅ Done (Aprovada por Gabriel) |
-| 11.2 | [AGUARDANDO ALTERAÇÃO 2] | @dev | @qa | ? | ⬜ Draft |
+| 11.2 | Galeria PDP 2x2 desktop + scroll isolado (sem regressão mobile) | @dev | @qa | Médio | 🟡 In Progress |
 | 11.3 | [AGUARDANDO ALTERAÇÃO 3] | @dev | @qa | ? | ⬜ Draft |
 | ... | [OUTRAS ALTERAÇÕES] | ... | ... | ... | ⬜ Draft |
 
@@ -190,6 +190,21 @@ Atualização aprovada para corrigir divergência de requisito identificada em p
 - Commit de versão (script): `6a2f4c6`
 - Backup: `backups/deployment-1.5.189/2026-03-27T05-06-49`
 - Push remoto: autorizado após aprovação do Gabriel (em execução por @devops)
+
+---
+
+## 📌 Kickoff Story 11.2 (2026-03-27)
+
+Story 11.2 iniciada em fluxo AIOX com agentes:
+
+- @analyst: mapeamento de requisitos e riscos da galeria PDP (2x2 + scroll isolado).
+- @dev: auditoria técnica de templates/CSS/JS da galeria para ajuste mínimo sem regressão no Swiper.
+- @qa: checklist de validação por breakpoint para liberação do Gabriel.
+
+Escopo confirmado da 11.2:
+- Desktop (>=992px): grid 2x2 com 4 imagens visíveis, gap e proporção consistentes.
+- Scroll isolado na área da galeria (sem vazar para a página durante rolagem da galeria).
+- Tablet/mobile: manter Swiper atual sem regressão.
 
 ---
 
