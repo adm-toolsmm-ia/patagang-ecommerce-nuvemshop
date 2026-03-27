@@ -66,7 +66,10 @@
                 })
             }}
 
-            {% include "static/css/style-critical.tpl" %}
+            {# CRITICAL CSS BASE (48 KB - Constraint #7 compliant) #}
+            {% include "static/css/style-critical-base.tpl" %}
+
+            {# Component styles #}
             {% include "static/css/style-menu-patagang.css.tpl" %}
             {% include "static/css/style-filters-patagang.css.tpl" %}
             {% include "static/css/style-help-sidebar.css.tpl" %}
@@ -249,6 +252,10 @@
 
         {# Load async styling not mandatory for first meaningfull paint #}
 
+        {# CRITICAL CSS EXTENDED (113 KB - async, non-blocking) #}
+        <link rel="stylesheet" href="{{ 'css/style-critical-extended.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
+
+        {# Async component styles #}
         <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
 
         {# HOME V2 - Estilos específicos da nova home page #}
