@@ -2046,7 +2046,7 @@ div.product-informative-banner {
   margin: 0;
   margin-bottom: 1rem;            /* Espaço abaixo do banner em todos os tamanhos */
   position: relative;
-  z-index: 1;
+  z-index: 100;                   /* ✅ Acima de elementos comuns, mas abaixo do header (z-index: 9999) */
 }
 
 /* Mobile (≤576px): header padding compensa margin-top, sem margem extra */
