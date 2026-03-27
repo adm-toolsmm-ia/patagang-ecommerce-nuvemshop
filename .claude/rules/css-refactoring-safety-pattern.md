@@ -17,13 +17,9 @@ Safe batching (10-15 rules) ensures validation gates can catch issues early.
 
 ---
 
-## 📊 INCIDENT CONTEXT (2026-03-26)
+## 📊 INCIDENT CONTEXT
 
-- **Attempt:** Remove 59 duplicate !important rules in one batch
-- **Result:** HTTP 500 error, loja completely down
-- **Root Cause:** CSS cascade interdependencies broken by aggressive de-duplication
-- **Recovery:** Rollback in < 2 minutes
-- **Lesson:** Small batches + validation between = SUCCESS
+Learned from v1.5.136 failure (2026-03-26): Attempting to remove 59 rules in one batch caused HTTP 500. Root cause: cascade interdependencies. Recovery: < 2 minutes rollback. Lesson: Small batches + validation = success.
 
 ---
 
@@ -137,6 +133,5 @@ If ANY fails: IMMEDIATE ROLLBACK
 ---
 
 **Status:** ✅ ACTIVE (enforced for all CSS refactoring)
-**Applied to:** Epic 9 Phase A (continuing), Epic 9.2 (future)
 **Learned from:** v1.5.136 failure → automated rollback success
 

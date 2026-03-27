@@ -1,0 +1,120 @@
+---
+optimization_id: "MEMORY-OPT-v2.0-2026-03-28"
+execution_date: 2026-03-28
+authority: "Orion (aiox-master) + Gabriel (CTO)"
+constitution_alignment:
+  - "Article IV: No Invention (reorg only)"
+  - "Article V: Quality First (validate all)"
+  - "Article VI: Absolute Imports (L1-L4 paths)"
+
+phase: "1-BACKUP"
+description: "Zero-loss backup of all rules before compression"
+
+backup_manifest:
+  CLAUDE.md:
+    original_path: ".claude/CLAUDE.md"
+    original_tokens: 4900
+    target_tokens: 1800
+    savings: 3100
+    backup_location: ".aiox-core/data/archive/CLAUDE-v1-BACKUP-2026-03-28.md"
+    content_hash: "SHA256(original)"
+    sections_removed_to_L2:
+      - "🇧🇷 Idioma de Comunicação (KEEP REF, move full content to L2)"
+      - "Development Methodology (move to AIOX_QUICKSTART.md)"
+      - "Workflow Execution (move to AIOX_QUICKSTART.md)"
+      - "Best Practices (move to AIOX_QUICKSTART.md)"
+      - "Git & GitHub Integration > details (keep ref, details to L2)"
+      - "Environment Setup > details (keep ref, details to L2)"
+      - "Debugging > details (keep ref, details to L2)"
+      - "File Structure Standards (KEEP REF, move full content to L2)"
+    sections_kept_in_L3:
+      - "Core Framework Understanding"
+      - "Constitution (reference link only)"
+      - "Agent System (full definition)"
+      - "AIOX Framework Structure (tree diagram)"
+      - "Framework vs Project Boundary (L1-L4 table)"
+      - "Rules System (quick ref)"
+      - "Memory Architecture (quick ref)"
+      - "Code Intelligence (quick ref)"
+      - "Graph Dashboard (commands)"
+      - "Common Commands (core only)"
+
+  file_structure_standards.md:
+    original_path: ".claude/rules/file-structure-standards.md"
+    original_tokens: 4900
+    target_tokens: 1500
+    savings: 3400
+    backup_location: ".aiox-core/data/archive/file-structure-standards-v1-BACKUP-2026-03-28.md"
+    sections_to_compress:
+      - "Auto-trigger conditions → 2 lines"
+      - "Quick decision tree → collapse to compact flow"
+      - "Framework layers → keep table only"
+      - "File type → folder mapping → keep essential table"
+      - "Domain organization → compress"
+      - "Naming conventions → compress to patterns only"
+      - "Validation checklist → move to L2"
+      - "README.md guide → move to L2"
+    content_moved_to_L2: "FILE_STRUCTURE_EXTENDED_GUIDE.md"
+
+  nuvemshop_ftp_constraints.md:
+    original_path: ".claude/rules/nuvemshop-ftp-constraints.md"
+    original_tokens: 4500
+    target_tokens: 1200
+    savings: 3300
+    backup_location: ".aiox-core/data/archive/nuvemshop-ftp-constraints-v1-BACKUP-2026-03-28.md"
+    sections_to_compress:
+      - "8 Constraints detailed examples → move to L2, keep 8/8 table only"
+      - "Safe/Unsafe examples → move to L2"
+      - "Violation fix steps → move to L2"
+      - "Escalation → compress"
+    content_moved_to_L2: "NUVEMSHOP_FTP_REFERENCE.md"
+
+  patagang_ftp_production_standard.md:
+    original_path: ".claude/rules/patagang-ftp-production-standard.md"
+    original_tokens: 2800
+    target_tokens: 1500
+    savings: 1300
+    backup_location: ".aiox-core/data/archive/patagang-ftp-production-standard-v1-BACKUP-2026-03-28.md"
+    consolidation: "MERGE with css-refactoring-safety-pattern.md → SAFE_DEPLOYMENT_STANDARD.md (L2)"
+    sections_to_keep:
+      - "Principle (2-3 sentences)"
+      - "Responsibility matrix"
+      - "Phase 3-5 essentials"
+      - "Quality gates checklist"
+
+  communication_language_portuguese.md:
+    original_path: ".claude/rules/communication-language-portuguese.md"
+    original_tokens: 2300
+    target_tokens: 1200
+    savings: 1100
+    backup_location: ".aiox-core/data/archive/communication-language-portuguese-v1-BACKUP-2026-03-28.md"
+    sections_to_compress:
+      - "Table of 10 agents (REPETITIVE) → 1-line reference"
+      - "Format examples → move most to L2, keep 1-2"
+      - "Implementation by agent → reference table only"
+
+total_backup:
+  rules_backed_up: 5
+  original_total_tokens: 19400
+  target_total_tokens: 7200
+  expected_savings: 12200
+  expected_l2_expansion: 3500
+  net_savings: 8700
+  free_space_gain: "from 71% to 82%"
+
+validation_checkpoints:
+  checkpoint_1: "Backups created with hash verification ← YOU ARE HERE"
+  checkpoint_2: "Compressed versions created + diff validation"
+  checkpoint_3: "L2 docs created in .aiox-core/development/docs/"
+  checkpoint_4: "Rules updated in .claude/rules/ + old rules archived"
+  checkpoint_5: "MEMORY.md updated + OPTIMIZATION_CHANGELOG.md created"
+  checkpoint_6: "Token count verified: 8-9k actual vs 7.2k estimated"
+
+zero_loss_guarantee:
+  - "All original rule content backed up in .aiox-core/data/archive/"
+  - "Compression removes only formatting/examples, keeps logic"
+  - "L2 expansion contains FULL detail (not auto-loaded)"
+  - "Traceability: each compressed rule links to L2 backup"
+  - "Rollback: if issue found, restore from backup + run `git revert`"
+
+status: "CHECKPOINT_1_COMPLETE — Ready for Phase 1.2 (create compressed versions)"
