@@ -2887,13 +2887,29 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* Row principal - Bootstrap row - AQUI está o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
-	padding: 40px 20px;             /* Padding para respiro interno */
+	padding: 20px;                  /* ✅ Reduzido: 40px → 20px (mobile não precisa de espaço duplo) */
 	width: 100%;
-	background-color: #ffffff;      /* ✅ Branco puro (seção de galeria + card) */
+	background-color: #ffffff;
 	background-image: none;
-	display: flex;                  /* ✅ Explicit flex para garantir */
-	flex-direction: row;            /* ✅ Horizontal por padrão */
-	gap: 0;                         /* Reset gap, será definido em media query */
+	display: flex;
+	flex-direction: row;
+	gap: 0;
+}
+
+/* Tablet (577px-768px) - Slightly more padding */
+@media (min-width: 577px) and (max-width: 768px) {
+	.pg-pdp-container .section-single-product {
+		padding: 30px 25px;
+		margin-top: 0;
+	}
+}
+
+/* Desktop (≥769px) - Full padding */
+@media (min-width: 769px) {
+	.pg-pdp-container .section-single-product {
+		padding: 40px 40px;
+		margin-top: 0;
+	}
 }
 
 /* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
@@ -2902,10 +2918,10 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
-		align-items: stretch;  /* AMBAS colunas mesma altura */
+		align-items: stretch;
 		gap: 40px;
-		padding: 10px 40px;  /* Reduzido mais: espaçamento superior (15px → 10px) */
-		margin-top: 0;  /* Remove margin superior */
+		padding: 40px 40px;
+		margin-top: 0;
 	}
 
 	/* LEFT COLUMN - Product Image (full height, clean design)
@@ -3565,6 +3581,9 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
    (Seção separada, fora do produto)
    ============================================ */
 
+/* PATAGANG vX.X.X: Identity Banner - Responsive spacing without header duplication [Story 10.3 v3]
+   main.patagang-section-content já aplica padding-top: 160px
+   identity-banner NÃO deve ter margin-top adicional (causava 280px de gap total) */
 .pg-identity-banner {
 	width: 100%;
 	background: #FFFFFF;
@@ -3572,7 +3591,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	border-bottom: 1px solid #ddd;
 	padding: 12px 20px;
 	margin: 0;
-	margin-top: 120px;  /* ✅ BUG #2 FIX: Espaço para header fixo (~80px) + ad bar (~40px) */
+	margin-top: 0;  /* ✅ REMOVIDO: margin-top causava duplicação de espaço (80px + 160px padding do main) */
 	box-sizing: border-box;
 	position: relative;
 	z-index: 10;
@@ -3584,7 +3603,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	align-items: center;
 	justify-content: center;
 	gap: 40px;
-	margin: 0;                      /* ✅ Sem margin auto - ocupa 100% width */
+	margin: 0;
 	width: 100%;
 	flex-wrap: wrap;
 	padding: 0;
@@ -3603,11 +3622,11 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	flex: 0 1 auto;
 }
 
-/* Tablet - Reduce gap */
-@media (max-width: 991px) {
+/* Tablet (577px-768px) - Compact layout */
+@media (min-width: 577px) and (max-width: 768px) {
 	.pg-identity-banner {
 		padding: 16px 15px;
-		margin-top: 95px;  /* ✅ BUG #2 FIX Tablet: header mais compacto */
+		margin-top: 0;
 		position: relative;
 		z-index: 10;
 	}
@@ -3621,11 +3640,29 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* Mobile - Stack vertical */
+/* Large Tablet to Desktop (≥769px) - Full layout */
+@media (min-width: 769px) {
+	.pg-identity-banner {
+		padding: 16px 20px;
+		margin-top: 0;
+		position: relative;
+		z-index: 10;
+	}
+
+	.pg-identity-banner__content {
+		gap: 40px;
+	}
+
+	.pg-identity-banner__phrase {
+		font-size: 13px;
+	}
+}
+
+/* Mobile (≤576px) - Stack vertical */
 @media (max-width: 576px) {
 	.pg-identity-banner {
 		padding: 12px 10px;
-		margin-top: 80px;  /* ✅ BUG #2 FIX Mobile: header ainda mais compacto */
+		margin-top: 0;  /* ✅ CRÍTICO: Sem margin-top (já tem padding-top: 160px no main) */
 		position: relative;
 		z-index: 10;
 	}
