@@ -2038,28 +2038,50 @@ p{
   }
 }
 
-/* Product Informative Banner - Transparent background + compact text */
+/* Product Informative Banner - Responsive spacing without header overlap */
 div.product-informative-banner {
   background: transparent;
   background-color: transparent;
   padding: 0.5rem 0;
   margin: 0;
-  margin-top: 130px;              /* ✅ Espaço abaixo do header fixo (160px total espaço do header) */
+  margin-bottom: 1rem;            /* Espaço abaixo do banner em todos os tamanhos */
   position: relative;
-  z-index: 1;                     /* Garante que fica abaixo do header (z-index: 9999) */
+  z-index: 1;
 }
 
-/* Adjust for pages with main padding-top (non-product pages) */
-body:not(.template-product) div.product-informative-banner {
-  margin-top: 0;  /* Outras páginas com padding-top não usam banner */
-}
-
-/* PATAGANG vX.X.X: Mobile PDP — remove duplicate header-offset margin (Story 10.3)
-   main.patagang-section-content já aplica padding-top: 130px no mobile
-   O banner não precisa do margin-top adicional no PDP mobile */
+/* Mobile (≤576px): header padding compensa margin-top, sem margem extra */
 @media (max-width: 576px) {
-  body.template-product div.product-informative-banner {
+  div.product-informative-banner {
     margin-top: 0;
+    margin-bottom: 0.5rem;         /* Reduzido no mobile */
+  }
+  /* Remove classes Bootstrap conflitantes no mobile */
+  div.product-informative-banner.mt-3 {
+    margin-top: 0 !important;
+  }
+  div.product-informative-banner.my-md-3 {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+/* Tablet (577px-768px): transição suave */
+@media (min-width: 577px) and (max-width: 768px) {
+  div.product-informative-banner {
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Desktop (≥769px): espaço normal sem override de margin-top base */
+@media (min-width: 769px) {
+  div.product-informative-banner {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  /* Garante que Bootstrap classes não conflitem no desktop */
+  div.product-informative-banner.my-md-3 {
+    margin-top: 0 !important;      /* Remove duplicação no desktop */
   }
 }
 
