@@ -66,7 +66,10 @@
                 })
             }}
 
-            {% include "static/css/style-critical.tpl" %}
+            {# CRITICAL CSS BASE (48 KB - Constraint #7 compliant) #}
+            {% include "static/css/style-critical-base.tpl" %}
+
+            {# Component styles #}
             {% include "static/css/style-menu-patagang.css.tpl" %}
             {% include "static/css/style-filters-patagang.css.tpl" %}
             {% include "static/css/style-help-sidebar.css.tpl" %}
@@ -177,41 +180,35 @@
                ===================================================================== */
 
             @media (min-width: 992px) {
-                /* Container: position:absolute dentro da coluna, sem contribuir ao flow.
-                   A coluna recebe altura = info card (via align-self:stretch) e a galeria preenche. */
+                /* Container da galeria: mostra exatamente 2 linhas (4 imagens) */
                 .pg-gallery-container {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    bottom: 0;
+                    /* max-height = 2×clamp(200,24vh,280) + gap = clamp(412,48vh+12,572) */
+                    max-height: clamp(412px, calc(48vh + 12px), 572px);
                     overflow-y: auto;
                     overflow-x: hidden;
                     overscroll-behavior: contain;
                     scroll-behavior: smooth;
                     box-sizing: border-box;
-                    padding-right: 8px;
-                }
-
-                /* Grid: height:100% = H do container.
-                   grid-auto-rows: calc(50% - 6px) → cada linha = H/2 - 6px.
-                   2 linhas + 1 gap = H → 4 fotos visíveis; linhas 3+ scrollam. */
-                .pg-gallery-grid {
-                    display: grid;
-                    grid-template-columns: repeat(2, minmax(0, 1fr));
-                    grid-auto-rows: calc(50% - 6px);
-                    gap: 12px;
-                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
                     min-height: 0;
-                    padding: 0;
+                    padding-right: 8px;
                     width: 100%;
                 }
 
-                /* Coluna imagem: height:auto para que align-self:stretch funcione
-                   corretamente (height:100% resolveria para 0 em flex com altura auto).
-                   position:sticky já está no style-critical — serve como containing block. */
+                /* Grid da galeria — 2 colunas, linhas de altura fixa */
+                .pg-gallery-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    grid-auto-rows: clamp(200px, 24vh, 280px);
+                    gap: 12px;
+                    padding: 0;
+                    width: 100%;
+                    height: fit-content;
+                }
+
+                /* Coluna imagem: STRETCH para crescer com card */
                 .pg-pdp-image-col {
-                    height: auto !important;
                     align-self: stretch !important;
                     display: flex;
                     flex-direction: column;
@@ -255,6 +252,10 @@
 
         {# Load async styling not mandatory for first meaningfull paint #}
 
+        {# CRITICAL CSS EXTENDED (113 KB - async, non-blocking) #}
+        <link rel="stylesheet" href="{{ 'css/style-critical-extended.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
+
+        {# Async component styles #}
         <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
 
         {# HOME V2 - Estilos específicos da nova home page #}

@@ -1,0 +1,1011 @@
+/* ============================================
+   PATAGANG HOME V2 - ESTILOS
+   APENAS cards da home: .pg-product-card-v2 (Vista o Propsito), body.template-home .pg-dev-card (Seja o Primeiro).
+   No deve conter regras genricas de .item-product ou .pg-dev-card sem body.template-home.
+   ============================================ */
+
+/* ============================================
+   HERO V2 - Full-screen split layout
+   ============================================ */
+
+.pg-hero-v2 {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    /* Safari fix */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #E2E2E2;
+}
+
+.pg-hero-v2__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.pg-hero-v2__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.pg-hero-v2__content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* Mobile: botes no rodap */
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 100px;
+    z-index: 1;
+}
+
+/* Desktop: Centraliza verticalmente */
+@media (min-width: 768px) {
+    .pg-hero-v2__content {
+        justify-content: center;
+        padding-bottom: 0;
+    }
+}
+
+/* Container dos CTAs - Layout split para desktop */
+.pg-hero-v2__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    align-items: center;
+}
+
+/* Desktop: Botes centralizados em cada metade (25% e 75%) */
+@media (min-width: 768px) {
+    .pg-hero-v2__ctas {
+        flex-direction: row;
+        justify-content: space-around;
+        gap: 0;
+        position: relative;
+        /* Mudado de absolute para relative */
+        /* Removido bottom: 120px - agora centraliza via flex-parent */
+        left: 0;
+        right: 0;
+        padding: 0;
+    }
+
+    .pg-hero-v2__ctas .pg-button--highlight {
+        /* Cada boto centralizado em sua metade */
+        flex: 0 0 auto;
+    }
+
+    .pg-hero-v2__ctas .pg-button--highlight:first-child {
+        /* Boto esquerdo - centralizado sobre blueprint (25% da largura) */
+        position: absolute;
+        left: 25%;
+        transform: translateX(-50%);
+    }
+
+    .pg-hero-v2__ctas .pg-button--highlight:last-child {
+        /* Boto direito - centralizado sobre foto (75% da largura) */
+        position: absolute;
+        left: 75%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Seta de scroll */
+.pg-hero-v2__scroll {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: bounce 2s infinite;
+    cursor: pointer;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* ============================================
+   DEGRAD NO TOPO DA HOME
+   Transio suave do hero para seo Vista
+   ============================================ */
+
+.pg-hero-v2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 220px;
+    background: linear-gradient(to bottom,
+            rgba(226, 226, 226, 0) 0%,
+            rgba(226, 226, 226, 0.6) 60%,
+            #E2E2E2 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================
+   BOTO HIGHLIGHT (Amarelo)
+   ============================================ */
+
+.pg-button--highlight {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background: #EAFE67;
+    /* Amarelo Patagang */
+    color: #000000;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    white-space: nowrap;
+}
+
+.pg-button--highlight:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    background: #D4E856;
+    /* Amarelo mais escuro no hover */
+    text-decoration: none;
+    color: #000;
+}
+
+.pg-button--highlight:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   SEO VISTA O PROPSITO
+   Background cinza claro conforme prottipo
+   Margens reduzidas para menos espao em branco
+   ============================================ */
+
+.pg-section--vista-products {
+    position: relative;
+    /* Background em degrade para transicionar ao cinza da proxima secao */
+    background: linear-gradient(to bottom, #FFFFFF 0%, #E2E2E2 100%);
+    padding: 32px 16px 40px;
+    overflow: visible;
+}
+
+@media (min-width: 768px) {
+    .pg-section--vista-products {
+        padding: 40px 24px 48px;
+    }
+}
+
+/* Transio suave do hero para Vista (degrad para a imagem acima) */
+.pg-section--vista-products::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -140px;
+    height: 140px;
+    background: linear-gradient(to top,
+            #FFFFFF 0%,
+            rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.pg-section--vista-products .pg-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* ============================================
+   SEO SEJA O PRIMEIRO A CONHECER
+   Background: cinza + grid amarelo em ::before atrs do contedo
+   ============================================ */
+
+body.template-home .pg-section--grid-bg {
+    position: relative;
+    background-color: #E2E2E2;
+    padding: 32px 16px 60px;
+    overflow: hidden;
+}
+
+/* Background grid: posicionado na parte inferior da seo, como no prottipo */
+body.template-home .pg-section--grid-bg::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: 0;
+    background-image: url('../images/home-v2-grid-bg-mobile.png');
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    body.template-home .pg-section--grid-bg::before {
+        background-image: url('../images/home-v2-grid-bg-desktop.png');
+        height: 90%;
+        /* Aumentado para preencher mais a seo */
+    }
+}
+
+/* Contedo acima do grid */
+body.template-home .pg-section--grid-bg .pg-container {
+    position: relative;
+    z-index: 1;
+}
+
+@media (min-width: 768px) {
+    body.template-home .pg-section--grid-bg {
+        padding: 40px 24px 72px;
+    }
+}
+
+/* ============================================
+   HEADER DA SEO - Textos menores e menos chamativos
+   ============================================ */
+
+.pg-section__header {
+    text-align: left;
+    margin-bottom: 16px;
+    max-width: 1100px;
+}
+
+/* Ttulo H3 - reduzido para proporo  pgina */
+.pg-section__title {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #000000;
+    margin: 0 0 10px;
+    line-height: 1.25;
+}
+
+/* Descrio - menor e menos chamativa */
+.pg-section__desc {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    line-height: 1.45;
+    font-weight: 400;
+    color: #000000;
+    margin: 0;
+    max-width: 1092px;
+}
+
+/* Ajustes locais Vista e Seja o Primeiro */
+.pg-section--vista-products .pg-section__header {
+    margin-bottom: 14px;
+}
+
+.pg-section--vista-products .pg-section__title,
+body.template-home .pg-section--coming-soon .pg-section__title {
+    font-size: 15px;
+}
+
+.pg-section--vista-products .pg-section__title {
+    margin-bottom: 8px;
+}
+
+body.template-home .pg-section--coming-soon .pg-section__title {
+    margin-bottom: 14px;
+}
+
+
+/* ============================================
+   GRID DE PRODUTOS V2 - 3 colunas centralizadas
+   ============================================ */
+
+.pg-products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    align-items: start;
+    justify-content: center;
+}
+
+@media (min-width: 600px) {
+    .pg-products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (min-width: 900px) {
+    .pg-products-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 1100px;
+    }
+}
+
+/* ============================================
+   CARD DE PRODUTO V2
+   Estrutura: card > link > image | shop
+   Baseado no padro pg-dev-card que funciona
+   ============================================ */
+
+.pg-product-card-v2 {
+    background: #F6F6F6;
+    border-radius: 30px;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    width: 100%;
+    padding: 12px;
+}
+
+.pg-product-card-v2:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.pg-product-card-v2__link {
+    display: block;
+    text-decoration: none;
+}
+
+.pg-product-card-v2__image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #F9F9F9;
+    border-radius: 20px;
+}
+
+.pg-product-card-v2__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 20px;
+    transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: none;
+    image-rendering: auto;
+}
+
+/* Segunda imagem para hover */
+.pg-product-card-v2__image img.pg-product-card-v2__img-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* CORRIGIDO: garante largura total */
+    height: 100%;
+    /* CORRIGIDO: garante altura total */
+    opacity: 0;
+}
+
+/* Efeito hover com troca de imagem */
+.pg-product-card-v2:hover .pg-product-card-v2__image img:first-child {
+    opacity: 0;
+}
+
+.pg-product-card-v2:hover .pg-product-card-v2__image img.pg-product-card-v2__img-hover {
+    opacity: 1;
+}
+
+/* Shop button */
+.pg-product-card-v2__shop {
+    display: block;
+    text-align: center;
+    padding: 10px 8px 4px;
+    color: #000000;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+    background: transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pg-product-card-v2__shop:hover {
+    color: #626262;
+}
+
+/* ============================================
+   SEO COMING SOON - V2
+   Cards com foto visivel, scroll horizontal
+   ============================================ */
+
+body.template-home .pg-section--coming-soon {
+    padding-bottom: 52px;
+}
+
+/* ============================================
+   CAROUSEL DESENVOLVIMENTO - Scroll nativo
+   ============================================ */
+
+.pg-dev-carousel {
+    position: relative;
+    overflow: visible;
+}
+
+.pg-dev-carousel__track {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    scroll-snap-type: x proximity;
+}
+
+.pg-dev-carousel__track>* {
+    scroll-snap-align: start;
+}
+
+.pg-dev-carousel__track::-webkit-scrollbar {
+    display: none;
+}
+
+/* Navegacao */
+.pg-dev-carousel__nav {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: #000;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    color: #EAFE67;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pg-dev-carousel__nav:hover {
+    background: #333;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.pg-dev-carousel__nav--next {
+    right: -22px;
+}
+
+.pg-dev-carousel__nav--prev {
+    left: -22px;
+}
+
+@media (max-width: 768px) {
+    .pg-dev-carousel__nav--next {
+        right: -8px;
+    }
+
+    .pg-dev-carousel__nav--prev {
+        left: -8px;
+    }
+
+    .pg-dev-carousel__nav {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+/* ============================================
+   CARD PRODUTO EM DESENVOLVIMENTO - HOME
+   Cards compactos (apenas imagem clicvel)
+   RESET AGRESSIVO dos estilos de style-critical.tpl
+   ============================================ */
+
+body.template-home .pg-dev-card {
+    /* RESET COMPLETO - usando para sobrescrever style-critical.tpl */
+    position: relative;
+    min-height: 0;
+    max-height: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+
+    /* Dimenses compactas */
+    flex-shrink: 0;
+    align-self: flex-start;
+    width: 160px;
+    height: 160px;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+    color: #000;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Desktop: cards maiores */
+@media (min-width: 768px) {
+    body.template-home .pg-dev-card {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (min-width: 1024px) {
+    body.template-home .pg-dev-card {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+@media (min-width: 1400px) {
+    body.template-home .pg-dev-card {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+body.template-home .pg-dev-card:hover {
+    transform: translateY(-4px);
+}
+
+/* Imagem - Ocupa 100% do card */
+body.template-home .pg-dev-card__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #F5F5F5;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.template-home .pg-dev-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+    filter: none;
+}
+
+body.template-home .pg-dev-card:hover .pg-dev-card__image img {
+    transform: scale(1.05);
+}
+
+/* Proteo abrangente contra blur do lazy-loader (.blur-up) em toda a home */
+body.template-home .pg-section img {
+    filter: none;
+    image-rendering: auto;
+}
+
+/* Info do produto - oculto na home */
+body.template-home .pg-dev-card__info {
+    display: none;
+}
+
+/* Placeholder card */
+body.template-home .pg-dev-card--placeholder {
+    cursor: default;
+    opacity: 0.6;
+}
+
+body.template-home .pg-dev-card--placeholder:hover {
+    transform: none;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Loading skeleton para cards enquanto JS busca produtos */
+body.template-home .pg-dev-card--loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.pg-dev-card__skeleton {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: skeleton-pulse 1.5s ease-in-out infinite;
+    border-radius: 12px;
+}
+
+@keyframes skeleton-pulse {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Responsivo - carousel */
+@media (min-width: 1024px) {
+    .pg-dev-carousel__track {
+        gap: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    body.template-home .pg-dev-card {
+        width: 140px;
+        height: 140px;
+    }
+
+    body.template-home .pg-dev-card__image {
+        border-radius: 10px;
+    }
+
+    body.template-home .pg-dev-card__image img {
+        border-radius: 10px;
+    }
+
+    .pg-dev-carousel__track {
+        gap: 10px;
+    }
+}
+
+/* ============================================
+   FOOTER HOME V2 - Degrad + Logo Grande
+   ============================================ */
+
+.footer-home.main-footer {
+    position: relative;
+}
+
+/* Degrad no topo do footer (apenas na home) */
+.footer-home.main-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    background: linear-gradient(to bottom,
+            rgba(234, 254, 103, 0.15) 0%,
+            rgba(234, 254, 103, 0.05) 50%,
+            transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Logo maior no footer da home */
+.footer-home .logo-img-container {
+    margin-bottom: 30px;
+}
+
+.footer-home .logo-img-container .logo-img,
+.footer-home .logo-img {
+    max-width: 100%;
+    width: 400px;
+    height: auto;
+}
+
+@media (min-width: 768px) {
+
+    .footer-home .logo-img-container .logo-img,
+    .footer-home .logo-img {
+        width: 600px;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    .footer-home .logo-img-container .logo-img,
+    .footer-home .logo-img {
+        width: 800px;
+    }
+}
+
+/* Centralizar logo no footer para home */
+.footer-home .footer-form .logo-img-container {
+    text-align: center;
+    margin: 0 auto 40px;
+}
+
+/* Seo do logo centralizada */
+.footer-home .footer-form .row>.col-12.col-lg-auto:first-child {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+@media (min-width: 992px) {
+    .footer-home .footer-form .row>.col-12.col-lg-auto:first-child {
+        margin-bottom: 50px;
+    }
+}
+
+/* ============================================
+   ESTADO VAZIO
+   ============================================ */
+
+.pg-section__empty {
+    text-align: center;
+    padding: 80px 20px;
+    color: #AAAAAA;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 16px;
+}
+
+/* ============================================
+   ANTI-FOUC - Esconder at CSS carregar
+   ============================================ */
+
+.pg-hero-v2,
+.pg-section--grid-bg {
+    visibility: visible;
+    /* CRITICAL FIX: Garante que contedo aparea mesmo se JS falhar */
+}
+
+.pg-hero-v2.visible-when-content-ready,
+.pg-section--grid-bg.visible-when-content-ready,
+.visible-when-content-ready {
+    visibility: visible;
+}
+
+/* ============================================
+   MOBILE HERO FIXES
+   Botoes centralizados em cada metade da imagem
+   1a imagem (Coleira) = metade superior
+   2a imagem (Camisa) = metade inferior
+   ============================================ */
+@media (max-width: 767px) {
+    .pg-hero-v2 .pg-hero-v2__content {
+        justify-content: flex-start;
+        padding: 0;
+        padding-bottom: 0;
+    }
+
+    .pg-hero-v2 .pg-hero-v2__ctas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        flex-direction: unset;
+        gap: 0;
+    }
+
+    .pg-hero-v2__ctas .pg-button--highlight {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
+        max-width: 260px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: 400;
+        padding: 14px 28px;
+        z-index: 10;
+        letter-spacing: 0.1em;
+    }
+
+    /* Botao 1: Centro da 1a imagem (Coleira) - metade superior */
+    .pg-hero-v2__ctas .pg-button--highlight:first-child {
+        top: 30%;
+    }
+
+    /* Botao 2: Centro da 2a imagem (Camisa) - metade inferior */
+    .pg-hero-v2__ctas .pg-button--highlight:last-child {
+        top: 75%;
+    }
+}
+
+/* deploy touch: no visual impact */
+
+/* deploy touch: no visual impact 2 */
+
+/* ============================================
+   10/10 FIX: ISOLATED DEV SECTION STYLES
+   Namespace: .pg-home-dev-section
+   ============================================ */
+
+.pg-home-dev-section {
+    position: relative;
+    background-color: #E2E2E2;
+    padding: 32px 16px 60px;
+    overflow: hidden;
+}
+
+/* Background Grid (Igual ao mock original) */
+.pg-home-dev-section::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: 0;
+    background-image: url('../images/home-v2-grid-bg-mobile.png');
+    background-repeat: no-repeat;
+    background-position: bottom center;
+    background-size: cover;
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .pg-home-dev-section {
+        padding: 40px 24px 72px;
+    }
+
+    .pg-home-dev-section::before {
+        background-image: url('../images/home-v2-grid-bg-desktop.png');
+        height: 90%;
+    }
+}
+
+.pg-home-dev-section .pg-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ==========================================================================
+   CARD REBORN (Final Fix)
+   Namespace: .pg-reborn-card
+   Style: Reference 'Vista o Propsito' (Gray BG) + Backup Size (Small)
+   ========================================================================== */
+
+.pg-reborn-card {
+    display: flex;
+    flex-direction: column;
+    /* Tamanho fixo e pequeno (conforme backup) */
+    width: 200px;
+    flex-shrink: 0;
+    margin-right: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    /* Estilo Visual (conforme seo 'Vista o Propsito') */
+    background: #F6F6F6;
+    border-radius: 24px;
+    padding: 12px;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+
+.pg-reborn-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.pg-reborn-card__content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 12px;
+}
+
+/* Imagem */
+.pg-reborn-card__image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #FFFFFF;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pg-reborn-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    border-radius: 16px;
+}
+
+.pg-reborn-card:hover .pg-reborn-card__image img {
+    transform: scale(1.08);
+}
+
+/* Footer com Boto */
+.pg-reborn-card__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+
+/* Boto Amarelo - Integrado e Pequeno */
+.pg-reborn-card__btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: #EAFE67;
+    color: #000000;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    /* Pequeno para caber no card de 200px */
+    text-transform: uppercase;
+    padding: 10px 4px;
+    border-radius: 12px;
+    line-height: 1.2;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.pg-reborn-card:hover .pg-reborn-card__btn {
+    background-color: #D4E856;
+    transform: scale(1.02);
+}
+
+/* Desktop: Ajuste de scroll padding */
+@media (min-width: 1100px) {
+    .pg-dev-carousel__track {
+        padding: 20px 0;
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .pg-reborn-card {
+        width: 160px;
+        /* Ainda menor no mobile */
+        padding: 8px;
+        border-radius: 16px;
+        margin-right: 12px;
+        gap: 8px;
+    }
+
+    .pg-reborn-card__image {
+        border-radius: 12px;
+    }
+
+    .pg-reborn-card__image img {
+        border-radius: 12px;
+    }
+
+    .pg-reborn-card__btn {
+        font-size: 10px;
+        padding: 8px 4px;
+        border-radius: 6px;
+    }
+}

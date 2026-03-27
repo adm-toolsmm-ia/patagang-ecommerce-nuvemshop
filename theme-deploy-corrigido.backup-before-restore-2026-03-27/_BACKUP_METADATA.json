@@ -1,0 +1,1744 @@
+{
+  "timestamp": "2026-01-30T21:39:47.426Z",
+  "backupPath": "ftp-full\\2026-01-30T21-39-03",
+  "totalFiles": 288,
+  "downloadedFiles": 288,
+  "failedFiles": [],
+  "duration": "314.8s",
+  "totalSize": 19467226,
+  "totalSizeMB": "18.57",
+  "ftpConfig": {
+    "host": "ftp.nuvemshop.com.br",
+    "user": "patagang"
+  },
+  "files": [
+    {
+      "remote": "README.md",
+      "name": "README.md",
+      "size": 1708,
+      "date": "2025-12-03T06:40:56.000Z"
+    },
+    {
+      "remote": "config/data.json",
+      "name": "data.json",
+      "size": 111,
+      "date": "2026-01-30T06:07:13.000Z"
+    },
+    {
+      "remote": "config/defaults.txt",
+      "name": "defaults.txt",
+      "size": 2019,
+      "date": "2026-01-30T06:07:15.000Z"
+    },
+    {
+      "remote": "config/sections.txt",
+      "name": "sections.txt",
+      "size": 123,
+      "date": "2026-01-30T06:07:16.000Z"
+    },
+    {
+      "remote": "config/settings.txt",
+      "name": "settings.txt",
+      "size": 25294,
+      "date": "2026-01-30T06:07:18.000Z"
+    },
+    {
+      "remote": "config/translations.txt",
+      "name": "translations.txt",
+      "size": 123903,
+      "date": "2026-01-30T06:07:20.000Z"
+    },
+    {
+      "remote": "config/variants.txt",
+      "name": "variants.txt",
+      "size": 650,
+      "date": "2026-01-30T06:07:21.000Z"
+    },
+    {
+      "remote": "layouts/layout.tpl",
+      "name": "layout.tpl",
+      "size": 10940,
+      "date": "2026-01-30T21:28:05.000Z"
+    },
+    {
+      "remote": "templates/404.tpl",
+      "name": "404.tpl",
+      "size": 1832,
+      "date": "2026-01-30T06:14:45.000Z"
+    },
+    {
+      "remote": "templates/blog-post.tpl",
+      "name": "blog-post.tpl",
+      "size": 1449,
+      "date": "2026-01-30T06:15:02.000Z"
+    },
+    {
+      "remote": "templates/blog.tpl",
+      "name": "blog.tpl",
+      "size": 1770,
+      "date": "2026-01-30T06:15:03.000Z"
+    },
+    {
+      "remote": "templates/cart.tpl",
+      "name": "cart.tpl",
+      "size": 2279,
+      "date": "2026-01-30T06:15:04.000Z"
+    },
+    {
+      "remote": "templates/category.tpl",
+      "name": "category.tpl",
+      "size": 3661,
+      "date": "2026-01-30T06:15:06.000Z"
+    },
+    {
+      "remote": "templates/contact.tpl",
+      "name": "contact.tpl",
+      "size": 8368,
+      "date": "2026-01-30T06:15:08.000Z"
+    },
+    {
+      "remote": "templates/home.tpl",
+      "name": "home.tpl",
+      "size": 10443,
+      "date": "2026-01-30T06:15:10.000Z"
+    },
+    {
+      "remote": "templates/page.tpl",
+      "name": "page.tpl",
+      "size": 2732,
+      "date": "2026-01-30T06:15:11.000Z"
+    },
+    {
+      "remote": "templates/password.tpl",
+      "name": "password.tpl",
+      "size": 5516,
+      "date": "2026-01-30T06:15:12.000Z"
+    },
+    {
+      "remote": "templates/product.tpl",
+      "name": "product.tpl",
+      "size": 1626,
+      "date": "2026-01-30T06:15:13.000Z"
+    },
+    {
+      "remote": "templates/produtos-em-desenvolvimento.tpl",
+      "name": "produtos-em-desenvolvimento.tpl",
+      "size": 5275,
+      "date": "2026-01-30T06:15:15.000Z"
+    },
+    {
+      "remote": "templates/search.tpl",
+      "name": "search.tpl",
+      "size": 918,
+      "date": "2026-01-30T06:15:16.000Z"
+    },
+    {
+      "remote": "templates/account/address.tpl",
+      "name": "address.tpl",
+      "size": 9087,
+      "date": "2026-01-30T06:14:46.000Z"
+    },
+    {
+      "remote": "templates/account/addresses.tpl",
+      "name": "addresses.tpl",
+      "size": 2098,
+      "date": "2026-01-30T06:14:48.000Z"
+    },
+    {
+      "remote": "templates/account/info.tpl",
+      "name": "info.tpl",
+      "size": 2683,
+      "date": "2026-01-30T06:14:49.000Z"
+    },
+    {
+      "remote": "templates/account/login.tpl",
+      "name": "login.tpl",
+      "size": 4018,
+      "date": "2026-01-30T06:14:51.000Z"
+    },
+    {
+      "remote": "templates/account/newpass.tpl",
+      "name": "newpass.tpl",
+      "size": 2823,
+      "date": "2026-01-30T06:14:53.000Z"
+    },
+    {
+      "remote": "templates/account/order.tpl",
+      "name": "order.tpl",
+      "size": 9669,
+      "date": "2026-01-30T06:14:55.000Z"
+    },
+    {
+      "remote": "templates/account/orders.tpl",
+      "name": "orders.tpl",
+      "size": 8982,
+      "date": "2026-01-30T06:14:56.000Z"
+    },
+    {
+      "remote": "templates/account/register.tpl",
+      "name": "register.tpl",
+      "size": 7169,
+      "date": "2026-01-30T06:14:58.000Z"
+    },
+    {
+      "remote": "templates/account/register.tpl.bak",
+      "name": "register.tpl.bak",
+      "size": 5067,
+      "date": "2026-01-30T06:14:59.000Z"
+    },
+    {
+      "remote": "templates/account/reset.tpl",
+      "name": "reset.tpl",
+      "size": 1813,
+      "date": "2026-01-30T06:15:01.000Z"
+    },
+    {
+      "remote": "static/checkout.scss.tpl",
+      "name": "checkout.scss.tpl",
+      "size": 41925,
+      "date": "2026-01-30T06:12:18.000Z"
+    },
+    {
+      "remote": "static/checkout.scss.tpl.backup-20260109-215632",
+      "name": "checkout.scss.tpl.backup-20260109-215632",
+      "size": 23256,
+      "date": "2026-01-30T06:12:20.000Z"
+    },
+    {
+      "remote": "static/images/ar.svg",
+      "name": "ar.svg",
+      "size": 375,
+      "date": "2026-01-30T06:12:42.000Z"
+    },
+    {
+      "remote": "static/images/banner-dk-1.png",
+      "name": "banner-dk-1.png",
+      "size": 2552477,
+      "date": "2026-01-30T06:12:44.000Z"
+    },
+    {
+      "remote": "static/images/banner-dk-1.svg",
+      "name": "banner-dk-1.svg",
+      "size": 26976,
+      "date": "2026-01-30T06:12:46.000Z"
+    },
+    {
+      "remote": "static/images/banner-hero-desktop.png",
+      "name": "banner-hero-desktop.png",
+      "size": 2552477,
+      "date": "2026-01-30T06:12:48.000Z"
+    },
+    {
+      "remote": "static/images/banner-hero-mobile.png",
+      "name": "banner-hero-mobile.png",
+      "size": 2625855,
+      "date": "2026-01-30T06:12:51.000Z"
+    },
+    {
+      "remote": "static/images/banner-mo-1.png",
+      "name": "banner-mo-1.png",
+      "size": 2625855,
+      "date": "2026-01-30T06:12:54.000Z"
+    },
+    {
+      "remote": "static/images/br.svg",
+      "name": "br.svg",
+      "size": 404,
+      "date": "2026-01-30T06:13:05.000Z"
+    },
+    {
+      "remote": "static/images/empty-placeholder.png",
+      "name": "empty-placeholder.png",
+      "size": 81,
+      "date": "2026-01-30T06:13:07.000Z"
+    },
+    {
+      "remote": "static/images/en.svg",
+      "name": "en.svg",
+      "size": 905,
+      "date": "2026-01-30T06:13:08.000Z"
+    },
+    {
+      "remote": "static/images/google-safe-color.png",
+      "name": "google-safe-color.png",
+      "size": 16609,
+      "date": "2026-01-30T06:13:12.000Z"
+    },
+    {
+      "remote": "static/images/google-safe-mono.png",
+      "name": "google-safe-mono.png",
+      "size": 16443,
+      "date": "2026-01-30T06:13:13.000Z"
+    },
+    {
+      "remote": "static/images/google-safe-white.png",
+      "name": "google-safe-white.png",
+      "size": 15212,
+      "date": "2026-01-30T06:13:15.000Z"
+    },
+    {
+      "remote": "static/images/home-v2-grid-bg.png",
+      "name": "home-v2-grid-bg.png",
+      "size": 147990,
+      "date": "2026-01-30T06:13:16.000Z"
+    },
+    {
+      "remote": "static/images/home-v2-hero-desktop.png",
+      "name": "home-v2-hero-desktop.png",
+      "size": 2325544,
+      "date": "2026-01-30T06:13:19.000Z"
+    },
+    {
+      "remote": "static/images/home-v2-hero-mobile.png",
+      "name": "home-v2-hero-mobile.png",
+      "size": 2140044,
+      "date": "2026-01-30T06:13:23.000Z"
+    },
+    {
+      "remote": "static/images/icone-01-menu.svg",
+      "name": "icone-01-menu.svg",
+      "size": 392,
+      "date": "2026-01-30T06:13:24.000Z"
+    },
+    {
+      "remote": "static/images/icone-02-search.svg",
+      "name": "icone-02-search.svg",
+      "size": 348,
+      "date": "2026-01-30T06:13:26.000Z"
+    },
+    {
+      "remote": "static/images/icone-03-user.svg",
+      "name": "icone-03-user.svg",
+      "size": 366,
+      "date": "2026-01-30T06:13:27.000Z"
+    },
+    {
+      "remote": "static/images/icone-04-shopping-bag.svg",
+      "name": "icone-04-shopping-bag.svg",
+      "size": 383,
+      "date": "2026-01-30T06:13:29.000Z"
+    },
+    {
+      "remote": "static/images/logo-patagang-text.svg",
+      "name": "logo-patagang-text.svg",
+      "size": 2811,
+      "date": "2026-01-30T06:13:46.000Z"
+    },
+    {
+      "remote": "static/images/logo-patagang-v2.svg",
+      "name": "logo-patagang-v2.svg",
+      "size": 2811,
+      "date": "2026-01-30T06:13:48.000Z"
+    },
+    {
+      "remote": "static/images/patagang-icon-bag.svg",
+      "name": "patagang-icon-bag.svg",
+      "size": 313,
+      "date": "2026-01-30T06:13:54.000Z"
+    },
+    {
+      "remote": "static/images/patagang-icon-profile.svg",
+      "name": "patagang-icon-profile.svg",
+      "size": 390,
+      "date": "2026-01-30T06:13:57.000Z"
+    },
+    {
+      "remote": "static/images/patagang-icon-search.svg",
+      "name": "patagang-icon-search.svg",
+      "size": 287,
+      "date": "2026-01-30T06:13:58.000Z"
+    },
+    {
+      "remote": "static/images/paypal@2x.png",
+      "name": "paypal@2x.png",
+      "size": 6186,
+      "date": "2026-01-30T06:14:00.000Z"
+    },
+    {
+      "remote": "static/images/produto-.svg",
+      "name": "produto-.svg",
+      "size": 1656,
+      "date": "2026-01-30T06:14:07.000Z"
+    },
+    {
+      "remote": "static/images/produto-1.png",
+      "name": "produto-1.png",
+      "size": 102791,
+      "date": "2026-01-30T06:14:09.000Z"
+    },
+    {
+      "remote": "static/images/produto-2.png",
+      "name": "produto-2.png",
+      "size": 184935,
+      "date": "2026-01-30T06:14:11.000Z"
+    },
+    {
+      "remote": "static/images/produto-coleira.png",
+      "name": "produto-coleira.png",
+      "size": 259831,
+      "date": "2026-01-30T06:14:13.000Z"
+    },
+    {
+      "remote": "static/images/produto-peitoral.png",
+      "name": "produto-peitoral.png",
+      "size": 400212,
+      "date": "2026-01-30T06:14:20.000Z"
+    },
+    {
+      "remote": "static/images/shipping-moto.jpg",
+      "name": "shipping-moto.jpg",
+      "size": 6810,
+      "date": "2026-01-30T06:14:22.000Z"
+    },
+    {
+      "remote": "static/images/shipping-person.jpg",
+      "name": "shipping-person.jpg",
+      "size": 6135,
+      "date": "2026-01-30T06:14:23.000Z"
+    },
+    {
+      "remote": "static/images/shipping-truck.jpg",
+      "name": "shipping-truck.jpg",
+      "size": 6213,
+      "date": "2026-01-30T06:14:25.000Z"
+    },
+    {
+      "remote": "static/images/footer/footer-logo.svg",
+      "name": "footer-logo.svg",
+      "size": 2811,
+      "date": "2026-01-30T06:13:10.000Z"
+    },
+    {
+      "remote": "static/images/products/product-2.png",
+      "name": "product-2.png",
+      "size": 218592,
+      "date": "2026-01-30T06:14:02.000Z"
+    },
+    {
+      "remote": "static/images/products/product-2.webp",
+      "name": "product-2.webp",
+      "size": 8116,
+      "date": "2026-01-30T06:14:03.000Z"
+    },
+    {
+      "remote": "static/images/products/product-placeholder.svg",
+      "name": "product-placeholder.svg",
+      "size": 1656,
+      "date": "2026-01-30T06:14:05.000Z"
+    },
+    {
+      "remote": "static/images/logos/logo-mark.svg",
+      "name": "logo-mark.svg",
+      "size": 970,
+      "date": "2026-01-30T06:13:49.000Z"
+    },
+    {
+      "remote": "static/images/logos/logo-watermark.svg",
+      "name": "logo-watermark.svg",
+      "size": 582,
+      "date": "2026-01-30T06:13:51.000Z"
+    },
+    {
+      "remote": "static/images/logos/logotipo.svg",
+      "name": "logotipo.svg",
+      "size": 2939,
+      "date": "2026-01-30T06:13:53.000Z"
+    },
+    {
+      "remote": "static/images/icons/arrow-down.svg",
+      "name": "arrow-down.svg",
+      "size": 238,
+      "date": "2026-01-30T06:13:30.000Z"
+    },
+    {
+      "remote": "static/images/icons/cart-v2.svg",
+      "name": "cart-v2.svg",
+      "size": 521,
+      "date": "2026-01-30T06:13:32.000Z"
+    },
+    {
+      "remote": "static/images/icons/cart.svg",
+      "name": "cart.svg",
+      "size": 568,
+      "date": "2026-01-30T06:13:34.000Z"
+    },
+    {
+      "remote": "static/images/icons/close.svg",
+      "name": "close.svg",
+      "size": 414,
+      "date": "2026-01-30T06:13:35.000Z"
+    },
+    {
+      "remote": "static/images/icons/menu.svg",
+      "name": "menu.svg",
+      "size": 629,
+      "date": "2026-01-30T06:13:37.000Z"
+    },
+    {
+      "remote": "static/images/icons/search-v2.svg",
+      "name": "search-v2.svg",
+      "size": 342,
+      "date": "2026-01-30T06:13:40.000Z"
+    },
+    {
+      "remote": "static/images/icons/search.svg",
+      "name": "search.svg",
+      "size": 514,
+      "date": "2026-01-30T06:13:41.000Z"
+    },
+    {
+      "remote": "static/images/icons/user-v2.svg",
+      "name": "user-v2.svg",
+      "size": 431,
+      "date": "2026-01-30T06:13:43.000Z"
+    },
+    {
+      "remote": "static/images/icons/user.svg",
+      "name": "user.svg",
+      "size": 528,
+      "date": "2026-01-30T06:13:45.000Z"
+    },
+    {
+      "remote": "static/images/banners/banner-desktop.jpg",
+      "name": "banner-desktop.jpg",
+      "size": 435109,
+      "date": "2026-01-30T06:12:56.000Z"
+    },
+    {
+      "remote": "static/images/banners/banner-desktop.webp",
+      "name": "banner-desktop.webp",
+      "size": 303318,
+      "date": "2026-01-30T06:12:58.000Z"
+    },
+    {
+      "remote": "static/images/banners/banner-mobile.jpg",
+      "name": "banner-mobile.jpg",
+      "size": 297927,
+      "date": "2026-01-30T06:13:01.000Z"
+    },
+    {
+      "remote": "static/images/banners/banner-mobile.webp",
+      "name": "banner-mobile.webp",
+      "size": 187714,
+      "date": "2026-01-30T06:13:04.000Z"
+    },
+    {
+      "remote": "static/js/cart-drawer.js",
+      "name": "cart-drawer.js",
+      "size": 10243,
+      "date": "2026-01-30T06:14:26.000Z"
+    },
+    {
+      "remote": "static/js/cart-drawer.js.tpl",
+      "name": "cart-drawer.js.tpl",
+      "size": 25621,
+      "date": "2026-01-30T06:14:28.000Z"
+    },
+    {
+      "remote": "static/js/cart-utils.js.tpl",
+      "name": "cart-utils.js.tpl",
+      "size": 15352,
+      "date": "2026-01-30T06:14:30.000Z"
+    },
+    {
+      "remote": "static/js/external-no-dependencies.js.tpl",
+      "name": "external-no-dependencies.js.tpl",
+      "size": 95865,
+      "date": "2026-01-30T06:14:31.000Z"
+    },
+    {
+      "remote": "static/js/external.js.tpl",
+      "name": "external.js.tpl",
+      "size": 107568,
+      "date": "2026-01-30T06:14:33.000Z"
+    },
+    {
+      "remote": "static/js/google-survey.js.tpl",
+      "name": "google-survey.js.tpl",
+      "size": 914,
+      "date": "2026-01-30T06:14:35.000Z"
+    },
+    {
+      "remote": "static/js/instatheme-83af8dd95a83e9bfd631a208ebe4476030.js",
+      "name": "instatheme-83af8dd95a83e9bfd631a208ebe4476030.js",
+      "size": 1562,
+      "date": "2026-01-30T06:14:37.000Z"
+    },
+    {
+      "remote": "static/js/instatheme.js",
+      "name": "instatheme.js",
+      "size": 989,
+      "date": "2026-01-30T06:14:39.000Z"
+    },
+    {
+      "remote": "static/js/product-page-custom.js",
+      "name": "product-page-custom.js",
+      "size": 5067,
+      "date": "2026-01-30T06:14:40.000Z"
+    },
+    {
+      "remote": "static/js/smooth-scroll.js",
+      "name": "smooth-scroll.js",
+      "size": 3829,
+      "date": "2026-01-30T06:14:41.000Z"
+    },
+    {
+      "remote": "static/js/store.js.tpl",
+      "name": "store.js.tpl",
+      "size": 125547,
+      "date": "2026-01-30T06:14:43.000Z"
+    },
+    {
+      "remote": "static/css/style-async.scss.tpl",
+      "name": "style-async.scss.tpl",
+      "size": 181432,
+      "date": "2026-01-30T06:12:22.000Z"
+    },
+    {
+      "remote": "static/css/style-blog.scss.tpl",
+      "name": "style-blog.scss.tpl",
+      "size": 4198,
+      "date": "2026-01-30T06:12:23.000Z"
+    },
+    {
+      "remote": "static/css/style-colors.scss.tpl",
+      "name": "style-colors.scss.tpl",
+      "size": 25182,
+      "date": "2026-01-30T06:12:25.000Z"
+    },
+    {
+      "remote": "static/css/style-critical.tpl",
+      "name": "style-critical.tpl",
+      "size": 176060,
+      "date": "2026-01-30T06:12:27.000Z"
+    },
+    {
+      "remote": "static/css/style-filters-patagang.css.tpl",
+      "name": "style-filters-patagang.css.tpl",
+      "size": 7160,
+      "date": "2026-01-30T06:12:28.000Z"
+    },
+    {
+      "remote": "static/css/style-fonts.tpl",
+      "name": "style-fonts.tpl",
+      "size": 2994,
+      "date": "2026-01-30T06:12:30.000Z"
+    },
+    {
+      "remote": "static/css/style-home-v2.css",
+      "name": "style-home-v2.css",
+      "size": 12739,
+      "date": "2026-01-30T06:12:31.000Z"
+    },
+    {
+      "remote": "static/css/style-menu-patagang.css.tpl",
+      "name": "style-menu-patagang.css.tpl",
+      "size": 6381,
+      "date": "2026-01-30T06:12:33.000Z"
+    },
+    {
+      "remote": "static/css/style-tokens.tpl",
+      "name": "style-tokens.tpl",
+      "size": 37919,
+      "date": "2026-01-30T06:12:40.000Z"
+    },
+    {
+      "remote": "snipplets/blog-item.tpl",
+      "name": "blog-item.tpl",
+      "size": 1072,
+      "date": "2026-01-30T06:07:28.000Z"
+    },
+    {
+      "remote": "snipplets/blog-post-card.tpl",
+      "name": "blog-post-card.tpl",
+      "size": 1742,
+      "date": "2026-01-30T06:07:30.000Z"
+    },
+    {
+      "remote": "snipplets/breadcrumbs.tpl",
+      "name": "breadcrumbs.tpl",
+      "size": 1823,
+      "date": "2026-01-30T06:07:31.000Z"
+    },
+    {
+      "remote": "snipplets/card.tpl",
+      "name": "card.tpl",
+      "size": 630,
+      "date": "2026-01-30T06:07:33.000Z"
+    },
+    {
+      "remote": "snipplets/cart-banner.tpl",
+      "name": "cart-banner.tpl",
+      "size": 626,
+      "date": "2026-01-30T06:07:35.000Z"
+    },
+    {
+      "remote": "snipplets/cart-drawer-new.tpl",
+      "name": "cart-drawer-new.tpl",
+      "size": 5748,
+      "date": "2026-01-30T06:07:36.000Z"
+    },
+    {
+      "remote": "snipplets/cart-item-ajax.tpl",
+      "name": "cart-item-ajax.tpl",
+      "size": 3302,
+      "date": "2026-01-30T06:07:37.000Z"
+    },
+    {
+      "remote": "snipplets/cart-item-new.tpl",
+      "name": "cart-item-new.tpl",
+      "size": 3487,
+      "date": "2026-01-30T06:07:39.000Z"
+    },
+    {
+      "remote": "snipplets/cart-modal.tpl",
+      "name": "cart-modal.tpl",
+      "size": 632,
+      "date": "2026-01-30T06:07:40.000Z"
+    },
+    {
+      "remote": "snipplets/cart-panel.tpl",
+      "name": "cart-panel.tpl",
+      "size": 1374,
+      "date": "2026-01-30T06:07:41.000Z"
+    },
+    {
+      "remote": "snipplets/cart-related-products.tpl",
+      "name": "cart-related-products.tpl",
+      "size": 2459,
+      "date": "2026-01-30T06:07:43.000Z"
+    },
+    {
+      "remote": "snipplets/cart-totals.tpl",
+      "name": "cart-totals.tpl",
+      "size": 13659,
+      "date": "2026-01-30T06:07:44.000Z"
+    },
+    {
+      "remote": "snipplets/category-banner.tpl",
+      "name": "category-banner.tpl",
+      "size": 1126,
+      "date": "2026-01-30T06:07:45.000Z"
+    },
+    {
+      "remote": "snipplets/contact-links.tpl",
+      "name": "contact-links.tpl",
+      "size": 1933,
+      "date": "2026-01-30T06:07:48.000Z"
+    },
+    {
+      "remote": "snipplets/cross-selling.tpl",
+      "name": "cross-selling.tpl",
+      "size": 1567,
+      "date": "2026-01-30T06:07:49.000Z"
+    },
+    {
+      "remote": "snipplets/custom-section.tpl",
+      "name": "custom-section.tpl",
+      "size": 1618,
+      "date": "2026-01-30T06:07:50.000Z"
+    },
+    {
+      "remote": "snipplets/footer.tpl",
+      "name": "footer.tpl",
+      "size": 7776,
+      "date": "2026-01-30T06:08:44.000Z"
+    },
+    {
+      "remote": "snipplets/icon-cart.tpl",
+      "name": "icon-cart.tpl",
+      "size": 437,
+      "date": "2026-01-30T06:09:17.000Z"
+    },
+    {
+      "remote": "snipplets/labels.tpl",
+      "name": "labels.tpl",
+      "size": 595,
+      "date": "2026-01-30T06:09:18.000Z"
+    },
+    {
+      "remote": "snipplets/languages.tpl",
+      "name": "languages.tpl",
+      "size": 1713,
+      "date": "2026-01-30T06:09:20.000Z"
+    },
+    {
+      "remote": "snipplets/logos-icons.tpl",
+      "name": "logos-icons.tpl",
+      "size": 529,
+      "date": "2026-01-30T06:09:21.000Z"
+    },
+    {
+      "remote": "snipplets/modal-newsletter.tpl",
+      "name": "modal-newsletter.tpl",
+      "size": 3240,
+      "date": "2026-01-30T06:09:22.000Z"
+    },
+    {
+      "remote": "snipplets/modal.tpl",
+      "name": "modal.tpl",
+      "size": 2924,
+      "date": "2026-01-30T06:09:24.000Z"
+    },
+    {
+      "remote": "snipplets/newsletter.tpl",
+      "name": "newsletter.tpl",
+      "size": 2211,
+      "date": "2026-01-30T06:09:56.000Z"
+    },
+    {
+      "remote": "snipplets/notification-cart.tpl",
+      "name": "notification-cart.tpl",
+      "size": 3486,
+      "date": "2026-01-30T06:09:57.000Z"
+    },
+    {
+      "remote": "snipplets/notification.tpl",
+      "name": "notification.tpl",
+      "size": 1914,
+      "date": "2026-01-30T06:09:58.000Z"
+    },
+    {
+      "remote": "snipplets/ong-selector.tpl",
+      "name": "ong-selector.tpl",
+      "size": 794,
+      "date": "2026-01-30T06:09:59.000Z"
+    },
+    {
+      "remote": "snipplets/page-custom.tpl",
+      "name": "page-custom.tpl",
+      "size": 1610,
+      "date": "2026-01-30T06:10:01.000Z"
+    },
+    {
+      "remote": "snipplets/page-header.tpl",
+      "name": "page-header.tpl",
+      "size": 1285,
+      "date": "2026-01-30T06:10:02.000Z"
+    },
+    {
+      "remote": "snipplets/password-banner.tpl",
+      "name": "password-banner.tpl",
+      "size": 497,
+      "date": "2026-01-30T06:10:03.000Z"
+    },
+    {
+      "remote": "snipplets/preload-images.tpl",
+      "name": "preload-images.tpl",
+      "size": 4277,
+      "date": "2026-01-30T06:10:10.000Z"
+    },
+    {
+      "remote": "snipplets/product-card.tpl",
+      "name": "product-card.tpl",
+      "size": 3279,
+      "date": "2026-01-30T06:10:37.000Z"
+    },
+    {
+      "remote": "snipplets/product_grid.tpl",
+      "name": "product_grid.tpl",
+      "size": 194,
+      "date": "2026-01-30T06:10:39.000Z"
+    },
+    {
+      "remote": "snipplets/seals.tpl",
+      "name": "seals.tpl",
+      "size": 2107,
+      "date": "2026-01-30T06:10:40.000Z"
+    },
+    {
+      "remote": "snipplets/shipping_options.tpl",
+      "name": "shipping_options.tpl",
+      "size": 7600,
+      "date": "2026-01-30T06:10:48.000Z"
+    },
+    {
+      "remote": "snipplets/social-share.tpl",
+      "name": "social-share.tpl",
+      "size": 3303,
+      "date": "2026-01-30T06:10:56.000Z"
+    },
+    {
+      "remote": "snipplets/tooltip-login.tpl",
+      "name": "tooltip-login.tpl",
+      "size": 715,
+      "date": "2026-01-30T06:12:12.000Z"
+    },
+    {
+      "remote": "snipplets/unity-price.tpl",
+      "name": "unity-price.tpl",
+      "size": 663,
+      "date": "2026-01-30T06:12:13.000Z"
+    },
+    {
+      "remote": "snipplets/video-item.tpl",
+      "name": "video-item.tpl",
+      "size": 1646,
+      "date": "2026-01-30T06:12:15.000Z"
+    },
+    {
+      "remote": "snipplets/whatsapp-chat.tpl",
+      "name": "whatsapp-chat.tpl",
+      "size": 298,
+      "date": "2026-01-30T06:12:16.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/help_banner_services_item.tpl",
+      "name": "help_banner_services_item.tpl",
+      "size": 1208,
+      "date": "2026-01-30T06:07:52.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/help_instagram.tpl",
+      "name": "help_instagram.tpl",
+      "size": 261,
+      "date": "2026-01-30T06:07:53.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/help_item.tpl",
+      "name": "help_item.tpl",
+      "size": 3595,
+      "date": "2026-01-30T06:07:55.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/show_help_category.tpl",
+      "name": "show_help_category.tpl",
+      "size": 1185,
+      "date": "2026-01-30T06:08:33.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/show_help_product.tpl",
+      "name": "show_help_product.tpl",
+      "size": 9915,
+      "date": "2026-01-30T06:08:34.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/banner_products_help.tpl",
+      "name": "banner_products_help.tpl",
+      "size": 2396,
+      "date": "2026-01-30T06:07:58.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/banners_help.tpl",
+      "name": "banners_help.tpl",
+      "size": 1460,
+      "date": "2026-01-30T06:07:57.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/blog_help.tpl",
+      "name": "blog_help.tpl",
+      "size": 2132,
+      "date": "2026-01-30T06:08:00.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/brands_help.tpl",
+      "name": "brands_help.tpl",
+      "size": 1214,
+      "date": "2026-01-30T06:08:02.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/extra_menu_help.tpl",
+      "name": "extra_menu_help.tpl",
+      "size": 467,
+      "date": "2026-01-30T06:08:04.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/featured_products_help.tpl",
+      "name": "featured_products_help.tpl",
+      "size": 1593,
+      "date": "2026-01-30T06:08:06.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/grid_banners_help.tpl",
+      "name": "grid_banners_help.tpl",
+      "size": 1606,
+      "date": "2026-01-30T06:08:08.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/informative_banners_help.tpl",
+      "name": "informative_banners_help.tpl",
+      "size": 1380,
+      "date": "2026-01-30T06:08:10.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/instafeed_help.tpl",
+      "name": "instafeed_help.tpl",
+      "size": 1468,
+      "date": "2026-01-30T06:08:11.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/institutional_message_help.tpl",
+      "name": "institutional_message_help.tpl",
+      "size": 693,
+      "date": "2026-01-30T06:08:13.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/main_categories_help.tpl",
+      "name": "main_categories_help.tpl",
+      "size": 3834,
+      "date": "2026-01-30T06:08:15.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/main_product_help.tpl",
+      "name": "main_product_help.tpl",
+      "size": 11203,
+      "date": "2026-01-30T06:08:16.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/promotional_banners_help.tpl",
+      "name": "promotional_banners_help.tpl",
+      "size": 1427,
+      "date": "2026-01-30T06:08:18.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/slider_help.tpl",
+      "name": "slider_help.tpl",
+      "size": 1409,
+      "date": "2026-01-30T06:08:20.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/testimonials_help.tpl",
+      "name": "testimonials_help.tpl",
+      "size": 2142,
+      "date": "2026-01-30T06:08:28.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/video_help.tpl",
+      "name": "video_help.tpl",
+      "size": 980,
+      "date": "2026-01-30T06:08:29.000Z"
+    },
+    {
+      "remote": "snipplets/defaults/home/welcome_message_help.tpl",
+      "name": "welcome_message_help.tpl",
+      "size": 559,
+      "date": "2026-01-30T06:08:31.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-category-list.tpl",
+      "name": "navigation-category-list.tpl",
+      "size": 1597,
+      "date": "2026-01-30T06:09:25.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-category-mobile.tpl",
+      "name": "navigation-category-mobile.tpl",
+      "size": 3363,
+      "date": "2026-01-30T06:09:26.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-category.tpl",
+      "name": "navigation-category.tpl",
+      "size": 3021,
+      "date": "2026-01-30T06:09:28.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-departments.tpl",
+      "name": "navigation-departments.tpl",
+      "size": 2072,
+      "date": "2026-01-30T06:09:30.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-foot-secondary.tpl",
+      "name": "navigation-foot-secondary.tpl",
+      "size": 407,
+      "date": "2026-01-30T06:09:32.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-foot.tpl",
+      "name": "navigation-foot.tpl",
+      "size": 287,
+      "date": "2026-01-30T06:09:33.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-lang.tpl",
+      "name": "navigation-lang.tpl",
+      "size": 542,
+      "date": "2026-01-30T06:09:35.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-mega-menu.tpl",
+      "name": "navigation-mega-menu.tpl",
+      "size": 1191,
+      "date": "2026-01-30T06:09:36.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-nav-list-box-sub.tpl",
+      "name": "navigation-nav-list-box-sub.tpl",
+      "size": 3217,
+      "date": "2026-01-30T06:09:38.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-nav-list-box.tpl",
+      "name": "navigation-nav-list-box.tpl",
+      "size": 5493,
+      "date": "2026-01-30T06:09:39.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-nav-list-full.tpl",
+      "name": "navigation-nav-list-full.tpl",
+      "size": 4864,
+      "date": "2026-01-30T06:09:41.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-nav-list-sub.tpl",
+      "name": "navigation-nav-list-sub.tpl",
+      "size": 1129,
+      "date": "2026-01-30T06:09:42.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-nav-list.tpl",
+      "name": "navigation-nav-list.tpl",
+      "size": 1703,
+      "date": "2026-01-30T06:09:44.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-panel.tpl",
+      "name": "navigation-panel.tpl",
+      "size": 1839,
+      "date": "2026-01-30T06:09:51.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation-top.tpl",
+      "name": "navigation-top.tpl",
+      "size": 304,
+      "date": "2026-01-30T06:09:53.000Z"
+    },
+    {
+      "remote": "snipplets/navigation/navigation.tpl",
+      "name": "navigation.tpl",
+      "size": 783,
+      "date": "2026-01-30T06:09:54.000Z"
+    },
+    {
+      "remote": "snipplets/product/item-quantity.tpl",
+      "name": "item-quantity.tpl",
+      "size": 938,
+      "date": "2026-01-30T06:10:12.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-banner.tpl",
+      "name": "product-banner.tpl",
+      "size": 1273,
+      "date": "2026-01-30T06:10:13.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-custom-fields.tpl",
+      "name": "product-custom-fields.tpl",
+      "size": 1712,
+      "date": "2026-01-30T06:10:15.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-form-development.tpl",
+      "name": "product-form-development.tpl",
+      "size": 1583,
+      "date": "2026-01-30T06:10:16.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-form.tpl",
+      "name": "product-form.tpl",
+      "size": 9500,
+      "date": "2026-01-30T06:10:18.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-image-thumb.tpl",
+      "name": "product-image-thumb.tpl",
+      "size": 651,
+      "date": "2026-01-30T06:10:19.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-image.tpl",
+      "name": "product-image.tpl",
+      "size": 2806,
+      "date": "2026-01-30T06:10:22.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-informative-banner.tpl",
+      "name": "product-informative-banner.tpl",
+      "size": 5703,
+      "date": "2026-01-30T06:10:23.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-payment-details.tpl",
+      "name": "product-payment-details.tpl",
+      "size": 2042,
+      "date": "2026-01-30T06:10:25.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-quantity.tpl",
+      "name": "product-quantity.tpl",
+      "size": 1769,
+      "date": "2026-01-30T06:10:27.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-related.tpl",
+      "name": "product-related.tpl",
+      "size": 6414,
+      "date": "2026-01-30T06:10:28.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-seals.tpl",
+      "name": "product-seals.tpl",
+      "size": 1844,
+      "date": "2026-01-30T06:10:30.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-tags.tpl",
+      "name": "product-tags.tpl",
+      "size": 493,
+      "date": "2026-01-30T06:10:32.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-variants.tpl",
+      "name": "product-variants.tpl",
+      "size": 4509,
+      "date": "2026-01-30T06:10:33.000Z"
+    },
+    {
+      "remote": "snipplets/product/product-video.tpl",
+      "name": "product-video.tpl",
+      "size": 678,
+      "date": "2026-01-30T06:10:35.000Z"
+    },
+    {
+      "remote": "snipplets/svg/bars.tpl",
+      "name": "bars.tpl",
+      "size": 454,
+      "date": "2026-01-30T06:10:58.000Z"
+    },
+    {
+      "remote": "snipplets/svg/calendar-alt.tpl",
+      "name": "calendar-alt.tpl",
+      "size": 966,
+      "date": "2026-01-30T06:10:59.000Z"
+    },
+    {
+      "remote": "snipplets/svg/chevron-down.tpl",
+      "name": "chevron-down.tpl",
+      "size": 303,
+      "date": "2026-01-30T06:11:01.000Z"
+    },
+    {
+      "remote": "snipplets/svg/chevron-left.tpl",
+      "name": "chevron-left.tpl",
+      "size": 383,
+      "date": "2026-01-30T06:11:02.000Z"
+    },
+    {
+      "remote": "snipplets/svg/chevron-right.tpl",
+      "name": "chevron-right.tpl",
+      "size": 380,
+      "date": "2026-01-30T06:11:04.000Z"
+    },
+    {
+      "remote": "snipplets/svg/chevron-up.tpl",
+      "name": "chevron-up.tpl",
+      "size": 382,
+      "date": "2026-01-30T06:11:05.000Z"
+    },
+    {
+      "remote": "snipplets/svg/comments.tpl",
+      "name": "comments.tpl",
+      "size": 1002,
+      "date": "2026-01-30T06:11:06.000Z"
+    },
+    {
+      "remote": "snipplets/svg/credit-card-blank.tpl",
+      "name": "credit-card-blank.tpl",
+      "size": 516,
+      "date": "2026-01-30T06:11:08.000Z"
+    },
+    {
+      "remote": "snipplets/svg/dollar-sign.tpl",
+      "name": "dollar-sign.tpl",
+      "size": 731,
+      "date": "2026-01-30T06:11:15.000Z"
+    },
+    {
+      "remote": "snipplets/svg/edit.tpl",
+      "name": "edit.tpl",
+      "size": 657,
+      "date": "2026-01-30T06:11:17.000Z"
+    },
+    {
+      "remote": "snipplets/svg/empty-placeholders.tpl",
+      "name": "empty-placeholders.tpl",
+      "size": 29284,
+      "date": "2026-01-30T06:11:18.000Z"
+    },
+    {
+      "remote": "snipplets/svg/envelope.tpl",
+      "name": "envelope.tpl",
+      "size": 605,
+      "date": "2026-01-30T06:11:20.000Z"
+    },
+    {
+      "remote": "snipplets/svg/eye-closed.tpl",
+      "name": "eye-closed.tpl",
+      "size": 1100,
+      "date": "2026-01-30T06:11:21.000Z"
+    },
+    {
+      "remote": "snipplets/svg/eye.tpl",
+      "name": "eye.tpl",
+      "size": 663,
+      "date": "2026-01-30T06:11:23.000Z"
+    },
+    {
+      "remote": "snipplets/svg/facebook-f.tpl",
+      "name": "facebook-f.tpl",
+      "size": 218,
+      "date": "2026-01-30T06:11:24.000Z"
+    },
+    {
+      "remote": "snipplets/svg/facebook.tpl",
+      "name": "facebook.tpl",
+      "size": 328,
+      "date": "2026-01-30T06:11:26.000Z"
+    },
+    {
+      "remote": "snipplets/svg/filter.tpl",
+      "name": "filter.tpl",
+      "size": 356,
+      "date": "2026-01-30T06:11:27.000Z"
+    },
+    {
+      "remote": "snipplets/svg/globe.tpl",
+      "name": "globe.tpl",
+      "size": 870,
+      "date": "2026-01-30T06:11:29.000Z"
+    },
+    {
+      "remote": "snipplets/svg/heart.tpl",
+      "name": "heart.tpl",
+      "size": 521,
+      "date": "2026-01-30T06:11:31.000Z"
+    },
+    {
+      "remote": "snipplets/svg/icons.tpl",
+      "name": "icons.tpl",
+      "size": 65851,
+      "date": "2026-01-30T06:11:33.000Z"
+    },
+    {
+      "remote": "snipplets/svg/info-circle.tpl",
+      "name": "info-circle.tpl",
+      "size": 633,
+      "date": "2026-01-30T06:11:34.000Z"
+    },
+    {
+      "remote": "snipplets/svg/instagram.tpl",
+      "name": "instagram.tpl",
+      "size": 1037,
+      "date": "2026-01-30T06:11:36.000Z"
+    },
+    {
+      "remote": "snipplets/svg/lock.tpl",
+      "name": "lock.tpl",
+      "size": 360,
+      "date": "2026-01-30T06:11:37.000Z"
+    },
+    {
+      "remote": "snipplets/svg/map-marker-alt.tpl",
+      "name": "map-marker-alt.tpl",
+      "size": 481,
+      "date": "2026-01-30T06:11:39.000Z"
+    },
+    {
+      "remote": "snipplets/svg/minus.tpl",
+      "name": "minus.tpl",
+      "size": 219,
+      "date": "2026-01-30T06:11:40.000Z"
+    },
+    {
+      "remote": "snipplets/svg/phone.tpl",
+      "name": "phone.tpl",
+      "size": 542,
+      "date": "2026-01-30T06:11:42.000Z"
+    },
+    {
+      "remote": "snipplets/svg/pinterest.tpl",
+      "name": "pinterest.tpl",
+      "size": 606,
+      "date": "2026-01-30T06:11:43.000Z"
+    },
+    {
+      "remote": "snipplets/svg/play-circle.tpl",
+      "name": "play-circle.tpl",
+      "size": 375,
+      "date": "2026-01-30T06:11:45.000Z"
+    },
+    {
+      "remote": "snipplets/svg/plus.tpl",
+      "name": "plus.tpl",
+      "size": 334,
+      "date": "2026-01-30T06:11:47.000Z"
+    },
+    {
+      "remote": "snipplets/svg/ruler-horizontal.tpl",
+      "name": "ruler-horizontal.tpl",
+      "size": 494,
+      "date": "2026-01-30T06:11:49.000Z"
+    },
+    {
+      "remote": "snipplets/svg/search.tpl",
+      "name": "search.tpl",
+      "size": 448,
+      "date": "2026-01-30T06:11:50.000Z"
+    },
+    {
+      "remote": "snipplets/svg/shopping-bag.tpl",
+      "name": "shopping-bag.tpl",
+      "size": 478,
+      "date": "2026-01-30T06:11:52.000Z"
+    },
+    {
+      "remote": "snipplets/svg/store.tpl",
+      "name": "store.tpl",
+      "size": 910,
+      "date": "2026-01-30T06:11:53.000Z"
+    },
+    {
+      "remote": "snipplets/svg/sync-alt.tpl",
+      "name": "sync-alt.tpl",
+      "size": 862,
+      "date": "2026-01-30T06:11:54.000Z"
+    },
+    {
+      "remote": "snipplets/svg/tag.tpl",
+      "name": "tag.tpl",
+      "size": 482,
+      "date": "2026-01-30T06:11:56.000Z"
+    },
+    {
+      "remote": "snipplets/svg/tiktok.tpl",
+      "name": "tiktok.tpl",
+      "size": 330,
+      "date": "2026-01-30T06:11:57.000Z"
+    },
+    {
+      "remote": "snipplets/svg/times.tpl",
+      "name": "times.tpl",
+      "size": 499,
+      "date": "2026-01-30T06:11:59.000Z"
+    },
+    {
+      "remote": "snipplets/svg/trash-alt.tpl",
+      "name": "trash-alt.tpl",
+      "size": 612,
+      "date": "2026-01-30T06:12:01.000Z"
+    },
+    {
+      "remote": "snipplets/svg/truck.tpl",
+      "name": "truck.tpl",
+      "size": 765,
+      "date": "2026-01-30T06:12:03.000Z"
+    },
+    {
+      "remote": "snipplets/svg/twitter.tpl",
+      "name": "twitter.tpl",
+      "size": 232,
+      "date": "2026-01-30T06:12:05.000Z"
+    },
+    {
+      "remote": "snipplets/svg/usd-circle.tpl",
+      "name": "usd-circle.tpl",
+      "size": 835,
+      "date": "2026-01-30T06:12:06.000Z"
+    },
+    {
+      "remote": "snipplets/svg/user.tpl",
+      "name": "user.tpl",
+      "size": 527,
+      "date": "2026-01-30T06:12:08.000Z"
+    },
+    {
+      "remote": "snipplets/svg/whatsapp.tpl",
+      "name": "whatsapp.tpl",
+      "size": 997,
+      "date": "2026-01-30T06:12:09.000Z"
+    },
+    {
+      "remote": "snipplets/svg/youtube.tpl",
+      "name": "youtube.tpl",
+      "size": 581,
+      "date": "2026-01-30T06:12:11.000Z"
+    },
+    {
+      "remote": "snipplets/placeholders/button-placeholder.tpl",
+      "name": "button-placeholder.tpl",
+      "size": 670,
+      "date": "2026-01-30T06:10:06.000Z"
+    },
+    {
+      "remote": "snipplets/placeholders/product-detail-image-placeholder.tpl",
+      "name": "product-detail-image-placeholder.tpl",
+      "size": 1387,
+      "date": "2026-01-30T06:10:07.000Z"
+    },
+    {
+      "remote": "snipplets/placeholders/shipping-placeholder.tpl",
+      "name": "shipping-placeholder.tpl",
+      "size": 969,
+      "date": "2026-01-30T06:10:09.000Z"
+    },
+    {
+      "remote": "snipplets/blog/blog-post-item.tpl",
+      "name": "blog-post-item.tpl",
+      "size": 5227,
+      "date": "2026-01-30T06:07:27.000Z"
+    },
+    {
+      "remote": "snipplets/shipping/branches.tpl",
+      "name": "branches.tpl",
+      "size": 4122,
+      "date": "2026-01-30T06:10:42.000Z"
+    },
+    {
+      "remote": "snipplets/shipping/shipping-calculator-item.tpl",
+      "name": "shipping-calculator-item.tpl",
+      "size": 5337,
+      "date": "2026-01-30T06:10:43.000Z"
+    },
+    {
+      "remote": "snipplets/shipping/shipping-calculator.tpl",
+      "name": "shipping-calculator.tpl",
+      "size": 7024,
+      "date": "2026-01-30T06:10:45.000Z"
+    },
+    {
+      "remote": "snipplets/shipping/shipping-free-rest.tpl",
+      "name": "shipping-free-rest.tpl",
+      "size": 1723,
+      "date": "2026-01-30T06:10:46.000Z"
+    },
+    {
+      "remote": "snipplets/banner-services/banner-services-item.tpl",
+      "name": "banner-services-item.tpl",
+      "size": 1986,
+      "date": "2026-01-30T06:07:24.000Z"
+    },
+    {
+      "remote": "snipplets/banner-services/banner-services.tpl",
+      "name": "banner-services.tpl",
+      "size": 2022,
+      "date": "2026-01-30T06:07:26.000Z"
+    },
+    {
+      "remote": "snipplets/grid/categories.tpl",
+      "name": "categories.tpl",
+      "size": 1326,
+      "date": "2026-01-30T06:08:52.000Z"
+    },
+    {
+      "remote": "snipplets/grid/filters.tpl",
+      "name": "filters.tpl",
+      "size": 4456,
+      "date": "2026-01-30T06:08:53.000Z"
+    },
+    {
+      "remote": "snipplets/grid/item-colors.tpl",
+      "name": "item-colors.tpl",
+      "size": 3256,
+      "date": "2026-01-30T06:08:55.000Z"
+    },
+    {
+      "remote": "snipplets/grid/item-prices.tpl",
+      "name": "item-prices.tpl",
+      "size": 2340,
+      "date": "2026-01-30T06:08:56.000Z"
+    },
+    {
+      "remote": "snipplets/grid/item-sizes.tpl",
+      "name": "item-sizes.tpl",
+      "size": 3861,
+      "date": "2026-01-30T06:08:58.000Z"
+    },
+    {
+      "remote": "snipplets/grid/item.tpl",
+      "name": "item.tpl",
+      "size": 9903,
+      "date": "2026-01-30T06:09:00.000Z"
+    },
+    {
+      "remote": "snipplets/grid/pagination.tpl",
+      "name": "pagination.tpl",
+      "size": 1656,
+      "date": "2026-01-30T06:09:02.000Z"
+    },
+    {
+      "remote": "snipplets/grid/product-counter.tpl",
+      "name": "product-counter.tpl",
+      "size": 693,
+      "date": "2026-01-30T06:09:03.000Z"
+    },
+    {
+      "remote": "snipplets/grid/quick-shop.tpl",
+      "name": "quick-shop.tpl",
+      "size": 1730,
+      "date": "2026-01-30T06:09:05.000Z"
+    },
+    {
+      "remote": "snipplets/grid/sort-by.tpl",
+      "name": "sort-by.tpl",
+      "size": 992,
+      "date": "2026-01-30T06:09:06.000Z"
+    },
+    {
+      "remote": "snipplets/social/social-footer.tpl",
+      "name": "social-footer.tpl",
+      "size": 1480,
+      "date": "2026-01-30T06:10:51.000Z"
+    },
+    {
+      "remote": "snipplets/social/social-links.tpl",
+      "name": "social-links.tpl",
+      "size": 712,
+      "date": "2026-01-30T06:10:52.000Z"
+    },
+    {
+      "remote": "snipplets/social/social-share.tpl",
+      "name": "social-share.tpl",
+      "size": 1838,
+      "date": "2026-01-30T06:10:55.000Z"
+    },
+    {
+      "remote": "snipplets/footer/footer-newsletter.tpl",
+      "name": "footer-newsletter.tpl",
+      "size": 1730,
+      "date": "2026-01-30T06:08:36.000Z"
+    },
+    {
+      "remote": "snipplets/footer/footer-search-links.tpl",
+      "name": "footer-search-links.tpl",
+      "size": 756,
+      "date": "2026-01-30T06:08:37.000Z"
+    },
+    {
+      "remote": "snipplets/footer/footer-social.tpl",
+      "name": "footer-social.tpl",
+      "size": 416,
+      "date": "2026-01-30T06:08:39.000Z"
+    },
+    {
+      "remote": "snipplets/footer/footer-support.tpl",
+      "name": "footer-support.tpl",
+      "size": 928,
+      "date": "2026-01-30T06:08:40.000Z"
+    },
+    {
+      "remote": "snipplets/footer/footer.tpl",
+      "name": "footer.tpl",
+      "size": 25291,
+      "date": "2026-01-30T06:08:42.000Z"
+    },
+    {
+      "remote": "snipplets/forms/form-input-inline.tpl",
+      "name": "form-input-inline.tpl",
+      "size": 3930,
+      "date": "2026-01-30T06:08:46.000Z"
+    },
+    {
+      "remote": "snipplets/forms/form-input.tpl",
+      "name": "form-input.tpl",
+      "size": 4984,
+      "date": "2026-01-30T06:08:47.000Z"
+    },
+    {
+      "remote": "snipplets/forms/form-select.tpl",
+      "name": "form-select.tpl",
+      "size": 1694,
+      "date": "2026-01-30T06:08:49.000Z"
+    },
+    {
+      "remote": "snipplets/forms/form.tpl",
+      "name": "form.tpl",
+      "size": 808,
+      "date": "2026-01-30T06:08:50.000Z"
+    },
+    {
+      "remote": "snipplets/header/header-advertising.tpl",
+      "name": "header-advertising.tpl",
+      "size": 594,
+      "date": "2026-01-30T06:09:08.000Z"
+    },
+    {
+      "remote": "snipplets/header/header-logo.tpl",
+      "name": "header-logo.tpl",
+      "size": 742,
+      "date": "2026-01-30T06:09:09.000Z"
+    },
+    {
+      "remote": "snipplets/header/header-modals.tpl",
+      "name": "header-modals.tpl",
+      "size": 5350,
+      "date": "2026-01-30T06:09:11.000Z"
+    },
+    {
+      "remote": "snipplets/header/header-patagang.tpl",
+      "name": "header-patagang.tpl",
+      "size": 15378,
+      "date": "2026-01-30T06:09:12.000Z"
+    },
+    {
+      "remote": "snipplets/header/header-search-results.tpl",
+      "name": "header-search-results.tpl",
+      "size": 2077,
+      "date": "2026-01-30T06:09:13.000Z"
+    },
+    {
+      "remote": "snipplets/header/header-search.tpl",
+      "name": "header-search.tpl",
+      "size": 708,
+      "date": "2026-01-30T06:09:16.000Z"
+    },
+    {
+      "remote": "snipplets/shipping_suboptions/select.tpl",
+      "name": "select.tpl",
+      "size": 2152,
+      "date": "2026-01-30T06:10:49.000Z"
+    },
+    {
+      "remote": "backup/category.tpl",
+      "name": "category.tpl",
+      "size": 3623,
+      "date": "2026-01-30T06:07:03.000Z"
+    },
+    {
+      "remote": "backup/home.tpl.backup-v1",
+      "name": "home.tpl.backup-v1",
+      "size": 6837,
+      "date": "2026-01-30T06:07:04.000Z"
+    },
+    {
+      "remote": "backup/item.tpl",
+      "name": "item.tpl",
+      "size": 9903,
+      "date": "2026-01-30T06:07:06.000Z"
+    },
+    {
+      "remote": "backup/search.tpl",
+      "name": "search.tpl",
+      "size": 649,
+      "date": "2026-01-30T06:07:07.000Z"
+    },
+    {
+      "remote": "backup/search.tpl.2025-11-28_19-53-17.bak",
+      "name": "search.tpl.2025-11-28_19-53-17.bak",
+      "size": 891,
+      "date": "2026-01-30T06:07:08.000Z"
+    },
+    {
+      "remote": "backup/style-async.scss.tpl",
+      "name": "style-async.scss.tpl",
+      "size": 148204,
+      "date": "2026-01-30T06:07:10.000Z"
+    },
+    {
+      "remote": "backup/style-async.scss.tpl.2025-11-28_19-53-17.bak",
+      "name": "style-async.scss.tpl.2025-11-28_19-53-17.bak",
+      "size": 154052,
+      "date": "2026-01-30T06:07:12.000Z"
+    }
+  ]
+}
