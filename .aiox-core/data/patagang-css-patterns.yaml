@@ -1,4 +1,7 @@
 ---
+archive_status: legacy-context
+do_not_load_by_default: true
+active_index: ".aiox-core/data/patagang-legacy-archive-index.yaml"
 name: Patagang CSS Patterns & Lessons Learned
 description: CSS patterns, anti-patterns, and best practices discovered during Story 9.1 investigation
 type: project-patterns

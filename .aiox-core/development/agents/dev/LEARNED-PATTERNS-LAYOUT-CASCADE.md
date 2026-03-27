@@ -1,217 +1,61 @@
 ---
-name: Layout Cascade and CSS Specificity Debugging (Quick Reference)
-description: Fast reference for @dev when CSS changes aren't applying - identify which file to edit
+name: Layout Cascade and CSS Specificity Debugging (Atualizado)
+description: Referencia rapida para identificar origem real de estilos no tema ativo
 type: dev-memory
 created_at: "2026-03-26"
-source_story: "STORY-9.2-UX-AJUSTES-LAYOUT (v1.5.151 fixes)"
+updated_at: "2026-03-26"
 priority: HIGH
-applies_to:
-  - Nuvemshop theme development
-  - CSS debugging
-  - Layout/component styling
 ---
 
-# Quick Reference: When CSS Changes Don't Work
+# Quick Reference: CSS que nao aplica
 
-## 🔴 Problem: "I edited style-critical.tpl but nothing changed"
+## 1) Verificar fonte da regra no DevTools
 
-### Step 1: Check DevTools Computed Tab
-```
-F12 → Inspect Element → Computed tab
-Look at which rule is BOLD (active) vs STRIKETHROUGH (overridden)
-```
+Passo minimo:
+1. Inspecionar elemento
+2. Aba Computed/Styles
+3. Identificar ficheiro vencedor da regra
 
-### Step 2: Identify Rule Source
-Is the active rule coming from:
-- ✅ `style-critical.tpl` → Keep editing there
-- ❌ `layout.tpl` (inline `<style>`) → SWITCH to editing layout.tpl
-- ❌ `settings.css_code` (Admin custom CSS) → Might override both
+No tema atual, o vencedor frequentemente vem de:
+- `layouts/layout.tpl` (blocos `<style>` inline)
+- `static/css/style-critical.tpl`
+- `static/css/style-colors.scss.tpl`
 
-### Step 3: Check Specificity
-If both files have the rule:
+## 2) Estado atual de override
 
-```css
-/* style-critical.tpl */
-.section-advertising { font-size: 0.7rem; }        /* Loses if layout.tpl has !important */
+- `layouts/layout.tpl`: 100 ocorrencias de `!important`
+- `style-critical.tpl`: 4765 linhas
+- `style-async.scss.tpl`: 6189 linhas
 
-/* layout.tpl */
-body .section-advertising { font-size: 0.875rem !important; }  /* Wins! */
-```
+Implicacao:
+- alteracoes simples em CSS podem falhar por ordem de carga + especificidade.
 
-**Rule:** `layout.tpl` uses `body .selector` (higher specificity) + `!important`
-**Action:** Edit `layout.tpl`, not `style-critical.tpl`
+## 3) Arquivos de referencia obrigatorios antes de alterar UI
 
----
+- `theme-deploy-corrigido/layouts/layout.tpl`
+- `theme-deploy-corrigido/static/css/style-critical.tpl`
+- `theme-deploy-corrigido/static/css/style-colors.scss.tpl`
+- `theme-deploy-corrigido/static/css/style-async.scss.tpl`
 
-## 🎯 Key Files and Their Purpose
+## 4) Alertas de dependencia JS (impacto indireto em UI)
 
-| File | Role | Notes |
-|------|------|-------|
-| `style-critical.tpl` | Global component styling | Base styles, loaded first |
-| `layout.tpl` (lines 230-500) | Inline override styles | Loaded AFTER style-critical, uses `!important` |
-| `style-colors.scss.tpl` | Color variables | May be overridden in layout.tpl |
-| `settings.css_code` | Admin custom CSS | Can inject colors/styles dynamically |
+`layout.tpl` inclui:
+- `static/js/external-no-dependencies.js.tpl`
+- `static/js/external.js.tpl`
 
----
+No snapshot atual, ambos estao ausentes.
+Antes de criar comportamento dependente deles, validar se:
+- serao restaurados
+- ou a carga sera removida/substituida
 
-## 📋 Affected Elements by Layout.tpl Inline Styles
+## 5) Regra de decisao rapida
 
-### Ad Bar (Banner)
-```
-File: layout.tpl lines 230-291
-Elements: .section-advertising, .section-advertising__copy, etc.
-!important: YES on most rules
-Action: EDIT layout.tpl for ad bar changes
-```
+Se o estilo nao aplica:
+1. confirmar seletor e especificidade
+2. verificar se `layout.tpl` esta sobrepondo
+3. validar breakpoint
+4. testar no ambiente com versao atual (`window.__PATAGANG_VERSION__`)
 
-**Common issue:** Changing font-size in style-critical doesn't work → layout.tpl has it hardcoded
+## 6) Nao inventar
 
-### Header
-```
-File: layout.tpl lines 293-319
-Elements: .pg-header, .pg-header__logo, etc.
-!important: YES on most rules
-Action: EDIT layout.tpl for header changes
-```
-
-### Sections (Top/Header/Content)
-```
-File: layout.tpl lines 439-529
-Elements: section.patagang-section-*, etc.
-!important: NO, but specific selectors
-Action: May work from style-critical or layout.tpl
-```
-
----
-
-## 🚀 Quick Decision Tree
-
-```
-Does CSS change work?
-├─ YES → Continue
-└─ NO → Check DevTools
-    ├─ Rule from style-critical.tpl?
-    │  └─ Try: Add !important or higher specificity
-    │
-    ├─ Rule from layout.tpl?
-    │  └─ SWITCH: Edit layout.tpl instead
-    │  └─ Match specificity: Use "body .selector" format
-    │  └─ Ensure !important is present
-    │
-    ├─ Rule from settings.css_code (admin)?
-    │  └─ Check: Admin → Theme → Custom CSS
-    │  └─ Remove/modify there or override with !important
-    │
-    └─ Still not working?
-       └─ Hard refresh: Ctrl+Shift+Delete
-       └─ Check: FTP deploy (local changes don't affect FTP)
-       └─ Verify: Browser cached old version
-```
-
----
-
-## 💾 Height & Overflow Patterns
-
-### ❌ Pattern to AVOID
-
-```css
-.gallery-container {
-    height: 100%;  /* Grows infinitely! */
-    display: flex;
-}
-```
-
-### ✅ Pattern to USE
-
-```css
-.parent-column {
-    max-height: calc(100vh - 200px);  /* Viewport constraint */
-    overflow-y: auto;  /* Scroll when content exceeds */
-}
-
-.gallery-container {
-    max-height: 100%;  /* Cap to parent's max-height */
-    overflow-y: auto;
-}
-```
-
----
-
-## 🖼️ Responsive Image Patterns
-
-### ❌ Not Responsive
-
-```css
-.modal-image {
-    /* No constraints - loads at original size (2400x3000px) */
-    width: auto;
-    height: auto;
-}
-```
-
-### ✅ Responsive
-
-```css
-.modal-image {
-    max-width: 90vw !important;      /* 90% viewport width */
-    max-height: 90vh !important;     /* 90% viewport height */
-    width: auto !important;          /* Keep aspect ratio */
-    height: auto !important;         /* Keep aspect ratio */
-    object-fit: contain !important;  /* Fit inside box */
-}
-```
-
----
-
-## 📱 Testing on 3 Breakpoints
-
-Always test changes on:
-- **Mobile:** < 576px (iPhone-sized)
-- **Tablet:** 768px (iPad-sized)
-- **Desktop:** 1200px+ (Computer)
-
-DevTools responsive mode: `F12 → Toggle device toolbar (Ctrl+Shift+M)`
-
----
-
-## 🐛 Common Debugging Commands
-
-```bash
-# Hard refresh (clear cache)
-Ctrl+Shift+Delete → Select "All time" → Clear
-
-# Inspect element
-F12 → Click element icon → Click on page element
-
-# Check computed CSS
-Inspect → Computed tab → Look for BOLD (active) vs STRIKETHROUGH
-
-# Check FTP deployment
-Version console → 📦 PATAGANG vX.X.X
-If old version shows: FTP hasn't deployed yet
-```
-
----
-
-## 📚 Reference Files
-
-- **Full Pattern Guide:** `.aiox-core/data/learned-patterns-layout-cascade-issues.yaml`
-- **Story:** `docs/stories/STORY-9.2-UX-AJUSTES-LAYOUT.md`
-- **Bootstrap Patterns:** `.aiox-core/data/learned-patterns-bootstrap-css-override.yaml`
-
----
-
-## ✨ Pro Tips
-
-1. **Always check DevTools first** — it shows the truth
-2. **Match the specificity** — if rule has `body .class !important`, use same format
-3. **Don't assume load order** — verify with DevTools
-4. **Hard refresh after changes** — browser caches aggressively
-5. **Check FTP version** — local changes don't affect production until deployed
-
----
-
-**Last Updated:** 2026-03-26
-**Used In:** v1.5.151 fixes
-**Maintainer:** @dev (Dex)
-
+Quando houver duvida entre docs antigas e codigo, priorizar sempre o codigo ativo.

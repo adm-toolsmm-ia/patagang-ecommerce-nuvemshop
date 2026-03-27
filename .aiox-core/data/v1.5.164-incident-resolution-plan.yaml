@@ -1,4 +1,7 @@
 ---
+archive_status: legacy-context
+do_not_load_by_default: true
+active_index: ".aiox-core/data/patagang-legacy-archive-index.yaml"
 incident_id: v1.5.164-ascii-removal-incident
 incident_type: css_regression
 severity: critical

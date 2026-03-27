@@ -1,4 +1,7 @@
 # Refactoring Epic 8 Configuration (L3 — Project Data)
+# ARCHIVE STATUS: legacy-context
+# DO NOT LOAD BY DEFAULT: true
+# ACTIVE INDEX: .aiox-core/data/patagang-legacy-archive-index.yaml
 
 # Meta
 name: "Epic 8 — Refatoração Técnica CSS & JavaScript"

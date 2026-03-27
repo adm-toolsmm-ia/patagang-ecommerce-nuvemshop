@@ -1,393 +1,122 @@
 ---
-name: Patagang Project Architecture State
-description: Current architecture snapshot, critical patterns, and constraints for EPIC 9 execution
-type: project-state
-date_created: 2026-03-26
-date_updated: 2026-03-26
-source: Deep investigation + Explore agent analysis (Story 9.1)
-maintained_by: '@aiox-master, @architect'
+name: "Patagang Project Architecture State"
+type: "project-state"
+version: "2.0.0"
+date_created: "2026-03-26"
+date_updated: "2026-03-26"
+last_verified_from_code: "2026-03-26T23:59:00Z"
+maintained_by: "@aiox-master, @architect"
+source_of_truth:
+  - "theme-deploy-corrigido/**/*"
+  - "ftp-deploy/**/*"
 ---
 
-## EXECUTIVE SUMMARY
-
-**Current State:** Production-stable but fragile CSS architecture with 188 !important band-aids
-**Health Score:** 4/10 (Critical but maintainable)
-**Blocking Issues:** None (all fixed in v1.5.133)
-**Refactor Status:** Planned (Epic 9.2, post-Epic 8)
-
----
-
-## ARCHITECTURE OVERVIEW
-
-### TECH STACK
-- **Frontend Framework:** Nuvemshop Theme (Liquid templates)
-- **CSS Architecture:** Monolithic (149 KB critical + 166 KB async)
-- **Build System:** Node.js FTP deploy script (custom)
-- **Hosting:** Nuvemshop FTP (no local staging environment)
-- **Performance Constraint:** < 50 KB critical CSS (currently 224 KB, 4.48x violation)
-
-### DEPLOYMENT WORKFLOW
-```
-Code → Git Commit → FTP Deploy (v1.x.x auto-increment) → Gabriel Validation → GitHub Push
-```
-
-**All deployments MUST follow:** `.claude/rules/patagang-ftp-production-standard.md`
-
----
-
-## CSS ARCHITECTURE CURRENT STATE
-
-### Loading Order (Cascading Timeline)
-
-**PHASE 1: CRITICAL CSS (Blocks render) — ~224 KB total**
-1. `style-critical.tpl` (149 KB, 4,645 lines, 549 classes)
-   - Layout structure, components, responsive (mobile-first)
-   - Contains 15+ media queries
-   - Issues: Monolithic, hard to maintain
-
-2. `style-menu-patagang.css.tpl` (8.3 KB)
-3. `style-filters-patagang.css.tpl` (15 KB)
-4. `style-help-sidebar.css.tpl` (6.6 KB)
-
-5. **layout.tpl `<style>` section (INLINE)**
-   - **188 `!important` declarations**
-   - Overrides all above CSS
-   - Root cause: Fixes body background cascading issue (band-aid)
-   - See: Line 79-511 of theme-deploy-corrigido/layouts/layout.tpl
-
-6. `style-colors.scss.tpl` (25 KB, 1,153 lines)
-   - Color overrides, typography
-   - SCSS variables: $main-background, $main-foreground, etc.
-   - **Status:** 30% commented out (dead code)
-   - Issues: Many rules commented, unclear why
-
-**PHASE 2: ASYNC CSS (Non-blocking) — 166 KB**
-1. `style-async.scss.tpl` (7,132 lines, 697 classes)
-   - Non-critical styles
-   - Loads AFTER render (good for performance)
-   - Issues: Still has potential conflicts with Phase 1
-
-### CSS Quality Metrics
-
-| Metric | Value | Status | Notes |
-|--------|-------|--------|-------|
-| Total CSS Classes | 1,246+ | 🔴 HIGH | Expected ~500-600 for this site |
-| !important Count | 188 | 🔴 CRITICAL | All in layout.tpl, prevents cascade |
-| Dead Code | 5-10% | 🔴 HIGH | Orphaned classes, commented rules |
-| Redundancy | ~40% | 🔴 HIGH | Properties defined 2+ times |
-| Performance | 224 KB critical | 🔴 VIOLATION | Limit: 50 KB (4.48x over) |
-| Specificity Conflicts | Multiple | 🔴 HIGH | Cascade broken, hard to override |
-
-### Orphaned/Dead CSS Classes
-
-**Found and removed in v1.5.133:**
-- ~~`.pg-pdp-banner-warning`~~ (removed)
-- ~~`.pg-pdp-banner-informative`~~ (removed)
-
-**Still present (monitor):**
-- `.textbanner-*` (60+ classes) — Suspicious, may be orphaned
-- `.product-informative-banner` — Verify usage
-
----
-
-## HTML/TEMPLATE ARCHITECTURE
-
-### Template Structure
-
-```
-theme-deploy-corrigido/
-├── layouts/
-│   └── layout.tpl (MAIN) — 511 lines, contains inline <style> with 188 !important
-│       ├── section.patagang-section-header (transparent !important)
-│       ├── section.patagang-section-top (transparent !important)
-│       │   └── header/header-advertising.tpl (INCLUDES)
-│       │       └── .section-advertising (THE REAL BANNER CLASS)
-│       │           └── .section-advertising__marquee
-│       │           └── .section-advertising__copy
-│       └── main.patagang-section-content (white !important)
-│
-├── templates/
-│   ├── product.tpl — PDP page
-│   │   ├── snipplets/product/product-identity-banner.tpl (.pg-identity-banner)
-│   │   ├── snipplets/product/product-informative-banner.tpl (.product-informative-banner)
-│   │   └── .pg-pdp-container (product body)
-│   │
-│   └── [other pages]
-│
-└── snipplets/
-    ├── header/header-advertising.tpl (.section-advertising) ← ADVERTISING BANNER
-    ├── product/ (product-related)
-    │   ├── product-identity-banner.tpl (.pg-identity-banner)
-    │   ├── product-informative-banner.tpl (.product-informative-banner)
-    │   └── [other product snipplets]
-    │
-    ├── banner-services/
-    └── [other snipplets]
-```
-
-### Key HTML Classes (Used in Production)
-
-| Class | Location | CSS File | Purpose |
-|-------|----------|----------|---------|
-| `.section-advertising` | header-advertising.tpl | style-critical.tpl:1672 | 🟢 CORRECT Advertising banner |
-| `.section-advertising__marquee` | header-advertising.tpl | style-critical.tpl:1680+ | Marquee container |
-| `.section-advertising__copy` | header-advertising.tpl | style-critical.tpl:1690+ | Text content |
-| `.pg-identity-banner` | product-identity-banner.tpl | style-critical.tpl | Identity statements |
-| `.product-informative-banner` | product-informative-banner.tpl | style-critical.tpl | Product info banner |
-| `.pg-pdp-container` | product.tpl | style-critical.tpl | Product detail page container |
-
----
-
-## NUVEMSHOP CONSTRAINTS (FTP-Based Platform)
-
-### Hard Constraints (Cannot violate)
-
-**From `.claude/rules/nuvemshop-ftp-constraints.md`:**
-
-| Constraint | Severity | Detail |
-|-----------|----------|--------|
-| Checkout form structure | 🔴 CRITICAL | Do NOT modify form fields, order, submission |
-| Footer attribution | 🔴 CRITICAL | Must remain visible (Nuvemshop ToS) |
-| Contact form integrity | 🔴 CRITICAL | Do NOT modify structure, fields |
-| Registration form fields | 🔴 HIGH | Do NOT modify form fields |
-| Newsletter form structure | 🔴 HIGH | Do NOT modify submission |
-| CSS file size | 🔴 HIGH | style-critical.tpl < 50 KB (currently 149 KB) |
-| JavaScript overrides | 🔴 HIGH | Do NOT override Nuvemshop.*, window.*, etc. |
-| Auto-generated files | 🟠 MEDIUM | Do NOT modify sitemap.xml, robots.txt |
-
-### Safe to Modify
-
-✅ Colors, fonts, spacing, shadows, gradients
-✅ CSS animations, transitions, responsive breakpoints
-✅ Custom CSS classes (non-structure)
-
----
-
-## CRITICAL ISSUES & THEIR STATUS
-
-### Issue 1: Broken CSS Cascade (Band-aid Fix)
-
-**Problem:** `layout.tpl` contains 188 `!important` declarations to override broken cascade
-
-**Root Cause:** Someone tried to fix body background cascading to child elements using `!important` instead of refactoring
-
-**Current Workaround:** 188 `!important` (v1.5.130+)
-
-**Permanent Fix:** Epic 9.2 CSS Refactor (remove all `!important`, fix cascade naturally)
-
-**Impact:**
-- Any CSS change requires understanding 188 `!important` rules
-- Modifications fail unpredictably (tried 5x in Story 9.1)
-- Developer friction: simple changes take 3-5x longer
-
----
-
-### Issue 2: Monolithic CSS Files (No Modularization)
-
-**Problem:** CSS split into only 2 files (critical + async), both huge
-
-**Current:**
-- `style-critical.tpl`: 4,645 lines, 549 classes
-- `style-async.scss.tpl`: 7,132 lines, 697 classes
-
-**Result:** Hard to find/modify specific components
-
-**Permanent Fix:** Epic 9.2 refactor into:
-- `style-layout.css` (< 20 KB)
-- `style-components.css` (< 30 KB)
-- `style-utilities.css` (async)
-
----
-
-### Issue 3: Orphaned CSS Classes (Code Clutter)
-
-**Fixed in v1.5.133:**
-- ~~`.pg-pdp-banner-warning`~~ (was never used in HTML)
-- ~~`.pg-pdp-banner-informative`~~ (was never used in HTML)
-
-**Root Cause:** Created in Story 8.2, HTML never updated
-
-**Learning:** Always verify HTML uses new CSS classes before deploying
-
----
-
-### Issue 4: Performance Violation (CSS Size)
-
-**Current:** 224 KB blocking render
-**Limit:** 50 KB (Nuvemshop recommended)
-**Violation:** 4.48x over
-
-**Impact:** Core Web Vitals degraded (LCP slow)
-
-**Fix:** Epic 9.2 optimization
-
----
-
-## DISCOVERED PATTERNS & ANTI-PATTERNS
-
-### ✅ GOOD PATTERNS (Keep These)
-
-1. **Semantic HTML Structure**
-   - Use meaningful class names: `.section-advertising`, `.pg-identity-banner`
-   - Avoid generic: `.container-1`, `.box-style`
-
-2. **BEM-like Naming** (partial)
-   - `.section-advertising__marquee` (block__element)
-   - `.section-advertising__copy` (block__element)
-   - **Note:** Not consistently applied throughout
-
-3. **Mobile-First Responsive**
-   - style-critical.tpl starts with mobile defaults
-   - Media queries layer desktop/tablet (correct approach)
-
-4. **Settings-Driven Colors**
-   - `$main-background`, `$main-foreground` from Nuvemshop settings
-   - Allows theme customization in admin
-
-### ❌ ANTI-PATTERNS (Fix These — Epic 9.2)
-
-1. **!important Abuse**
-   - 188 `!important` to fight broken cascade
-   - **Fix:** Refactor cascade, remove ALL `!important` (except utilities)
-
-2. **Monolithic Files**
-   - 4,645 + 7,132 lines in 2 files
-   - **Fix:** Split into semantic modules (layout, components, utilities)
-
-3. **Inline <style> in layout.tpl**
-   - 188 `!important` embedded in HTML template
-   - **Fix:** Move to separate CSS files, use classes in HTML
-
-4. **Dead Code**
-   - 5-10% orphaned classes, 30% commented rules
-   - **Fix:** Archive in `.deprecated/` with traceability
-
-5. **Cascading Confusion**
-   - 10 CSS files loaded in specific order
-   - No documentation of why
-   - **Fix:** Document in `patagang-css-cascade.md` (done v1.5.133)
-
----
-
-## EPIC 9 EXECUTION CONTEXT
-
-### Current Epic 9 Stories
-
-| Story | Title | Status | Blocker | CSS Impact |
-|-------|-------|--------|---------|-----------|
-| 9.1 | White Background Fix | ✅ DEPLOYED (v1.5.133) | None | Low (color change) |
-| 9.2 | Gallery Refactoring (PDP Lightbox) | 🟡 PENDING | None | Low |
-| 9.3 | Info Card Mobile (Layout Fix) | 🟡 PENDING | None | Medium |
-| 9.4 | WhatsApp Button + Banner Translúcido | 🟡 PENDING | None | Low |
-| 9.5 | Cart Design Simplification | 🟡 PENDING | None | Medium |
-| 9.6 | EPIC 9 Consolidation | 🟡 PENDING | None | — |
-
-### What Changed in v1.5.133
-
-**Committed Patches:**
-1. ✅ Removed 2 orphaned CSS classes (17 lines)
-2. ✅ Fixed `.section-advertising` color to #EAFE67 (Patagang yellow)
-3. ✅ Created CSS Cascade documentation (Docs/architecture/patagang-css-cascade.md)
-
-**Outcomes:**
-- Story 9.1: COMPLETE
-- Stories 9.2-9.6: DESBLOQUEADAS
-- Epic 9.2 (CSS Refactor): PLANEJADO (post-Epic 8)
-
----
-
-## DEPLOYMENT CONSIDERATIONS FOR EPIC 9
-
-### Before Each Story Deployment
-
-**Quality Gate Checklist:**
-```
-☐ 1. Verify CSS changes don't break Nuvemshop constraints
-☐ 2. Check for !important abuse (use as last resort)
-☐ 3. Test on 3+ breakpoints (mobile, tablet, desktop)
-☐ 4. Search layout.tpl for conflicting !important rules
-☐ 5. Reference Docs/architecture/patagang-css-cascade.md
-☐ 6. Gabriel validates in production before merge
-```
-
-### Expected Cascade Behavior (Until Epic 9.2)
-
-**Current Cascade (Broken):**
-```
-style-critical.tpl
-  → layout.tpl (188 !important OVERRIDES ALL)
-  → style-colors.scss.tpl
-  → style-async.scss.tpl
-```
-
-**Workaround:** If change doesn't appear:
-1. Check layout.tpl for !important blocking you
-2. Use !important only as last resort
-3. Add comment explaining why (for Epic 9.2 refactor)
-4. Document in Docs/architecture/patagang-css-cascade.md
-
----
-
-## EPIC 9.2 CSS REFACTOR (Planned)
-
-**When:** After Epic 8 stabilizes (2-3 weeks)
-**Duration:** 12 days (2 weeks)
-**Scope:** 7 Stories
-
-### Expected Outcomes
-
-| Metric | Current | After Epic 9.2 |
-|--------|---------|----------------|
-| CSS Critical Size | 224 KB | < 50 KB ✅ |
-| !important Count | 188 | 0 (except utilities) ✅ |
-| CSS Classes | 1,246+ | ~600-700 ✅ |
-| Dead Code | 5-10% | 0% ✅ |
-| Cascade Health | Broken | Functional ✅ |
-| Dev Time for Changes | 3-5x normal | 1x normal ✅ |
-
-### Stories Breakdown
-
-1. **9.2.1** — Audit & Classification (2d)
-2. **9.2.2** — Extract Dead Code (1d)
-3. **9.2.3** — Reorganize File Structure (2d)
-4. **9.2.4** — Fix Cascade & Specificity (3d, riskiest)
-5. **9.2.5** — Modularize Components (2d)
-6. **9.2.6** — Performance Optimization (1d)
-7. **9.2.7** — Documentation & Maintenance (1d)
-
----
-
-## ARCHITECTURAL DECISIONS (Locked in)
-
-| Decision | Rationale | Status |
-|----------|-----------|--------|
-| Nuvemshop FTP deployment (no local staging) | Platform constraint | LOCKED |
-| Liquid template language | Platform requirement | LOCKED |
-| Production-first validation (Gabriel in prod) | No staging env | LOCKED |
-| CSS modular approach (post-Epic 9.2) | Technical debt resolution | APPROVED |
-| <50 KB critical CSS target | Performance + Nuvemshop best practices | APPROVED |
-| 0 !important in base CSS (post-9.2) | Cascade health | APPROVED |
-
----
-
-## REFERENCES & RELATED DOCS
-
-- **Cascade Guide:** `Docs/architecture/patagang-css-cascade.md` (v1.5.133+)
-- **Constraints:** `.claude/rules/nuvemshop-ftp-constraints.md`
-- **Deployment Standard:** `.claude/rules/patagang-ftp-production-standard.md`
-- **Color Analysis:** `Docs/reports/epic-9/9.1-COLOR-BACKGROUND-ANALYSIS.md`
-- **Design System:** `.aiox-core/development/agents/ux-design-expert/MEMORY.md`
-
----
-
-## MAINTENANCE & EVOLUTION
-
-**Last Updated:** 2026-03-26 (v1.5.133)
-**Next Review:** After Epic 9.2 CSS Refactor completion
-**Maintained by:** @architect, @aiox-master
-**Frequency:** Update after major architecture changes
-
----
-
-**Version:** 1.0.0
-**Status:** CURRENT (Active reference for EPIC 9 execution)
+executive_summary:
+  runtime_theme_version: "1.5.170"
+  architecture_health_score: 5
+  architecture_health_scale: "0-10"
+  context_status: "updated-from-code"
+  blocking_issues_for_documentation: []
+  key_findings:
+    - "layout.tpl e o ponto central de composicao, CSS e bootstrap JS"
+    - "style-critical.tpl (4765 linhas) e style-async.scss.tpl (6189 linhas) permanecem grandes"
+    - "layout.tpl contem 100 ocorrencias de !important no snapshot atual"
+    - "layout.tpl referencia external-no-dependencies.js.tpl e external.js.tpl, que nao existem no tema ativo"
+
+architecture_overview:
+  stack:
+    frontend: "Nuvemshop/TiendaNube theme templates (.tpl)"
+    styling: "CSS/SCSS templated + CSS inline em layout.tpl"
+    runtime_js: "jQueryNuvem + LS API + JS custom"
+    deploy: "Node.js scripts em ftp-deploy (v2.0.0)"
+  deployment_flow_from_code:
+    - "edicao de theme-deploy-corrigido/"
+    - "git commit"
+    - "ftp-deploy/deploy.js"
+    - "validacao em producao via version-info.js e console marker"
+
+inventory_snapshot:
+  theme:
+    layouts_tpl: 1
+    templates_tpl: 21
+    snipplets_tpl: 180
+    static_tpl_total: 19
+    static_css_tpl: 10
+    static_js_tpl: 8
+    static_js_plain: 4
+    static_css_plain: 2
+    config_files: 6
+  deployment:
+    ftp_deploy_package_version: "2.0.0"
+    scripts:
+      - "deploy"
+      - "deploy:dry"
+      - "deploy:minor"
+      - "deploy:force"
+      - "backup"
+      - "rollback"
+      - "list"
+      - "validate"
+
+code_metrics:
+  layout_tpl_lines: 1076
+  style_critical_tpl_lines: 4765
+  style_async_scss_tpl_lines: 6189
+  store_js_tpl_lines: 2992
+  layout_tpl_important_count: 100
+
+css_loading_order_from_layout:
+  - "include: static/css/style-critical.tpl"
+  - "include: static/css/style-menu-patagang.css.tpl"
+  - "include: static/css/style-filters-patagang.css.tpl"
+  - "include: static/css/style-help-sidebar.css.tpl"
+  - "inline: css/style-colors.scss.tpl"
+  - "async link: css/style-async.scss.tpl"
+  - "conditional link: css/style-home-v2.css (template-home)"
+  - "link: css/product-card-v3.css"
+  - "async link: css/style-blog.scss.tpl"
+
+js_loading_order_from_layout:
+  - "include: static/js/external-no-dependencies.js.tpl (missing file)"
+  - "include: static/js/external.js.tpl (missing file)"
+  - "include: static/js/store.js.tpl"
+  - "script: js/smooth-scroll.js"
+  - "script defer: js/version-info.js"
+
+nuvemshop_context:
+  platform_constraints_visible_in_code:
+    - "checkout renderizado pela plataforma; tema aplica estilo via static/checkout.scss.tpl"
+    - "uso de APIs LS.* e jQueryNuvem para carrinho/frete/fluxos de UI"
+  footer_attribution_status:
+    code_observation: "snipplets/footer.tpl customizado sem texto literal Powered by Nuvemshop"
+    action: "validar obrigatoriedade final em runtime/checkout/plataforma antes de afirmar compliance textual"
+
+risk_register:
+  - id: "RISK-MISSING-EXTERNAL-JS"
+    severity: "high"
+    evidence:
+      - "layouts/layout.tpl inclui static/js/external-no-dependencies.js.tpl"
+      - "layouts/layout.tpl inclui static/js/external.js.tpl"
+      - "ambos nao existem em theme-deploy-corrigido/static/js/"
+    impact: "pode comprometer expectativas de carregamento legado e troubleshooting"
+  - id: "RISK-CSS-OVERRIDE-PRESSURE"
+    severity: "medium"
+    evidence:
+      - "100 !important em layouts/layout.tpl"
+      - "style-critical/style-async com alto volume de linhas"
+    impact: "aumento de custo de manutencao de UX/UI"
+
+safe_scope_for_improvements:
+  allowed_without_structure_break:
+    - "estilos, espacos, tipografia e componentes visuais"
+    - "ajustes de snipplets e templates de vitrine"
+    - "modulos JS custom sem sobrescrever APIs da plataforma"
+  avoid_without_explicit_validation:
+    - "estruturas de checkout/formularios gerenciados pela plataforma"
+    - "mudancas que dependam dos arquivos external*.tpl ausentes sem resolver dependencia"
+
+notes_for_agents:
+  dev: "carregar primeiro layout.tpl + template alvo + snipplets incluidos"
+  qa: "validar com foco em regressao visual/carrinho/frete e console runtime"
+  architect: "usar este estado + dependency map para priorizar reducao de acoplamento"
+  devops: "deploy v2.0 em ftp-deploy e checagem de version-info.js como marcador de release"

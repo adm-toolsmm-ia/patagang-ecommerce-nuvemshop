@@ -1,0 +1,38 @@
+# Patagang Context Policy (AIOX)
+# Purpose: define default context loading for agents/AI
+
+version: "1.0.0"
+last_updated: "2026-03-27T00:00:00Z"
+theme_version_reference: "1.5.170"
+status: "active"
+
+default_context:
+  description: "Arquivos carregados por padrao em tarefas de engenharia da loja."
+  files:
+    - ".aiox-core/data/patagang-architecture-state.yaml"
+    - ".aiox-core/data/patagang-store-catalog.yaml"
+    - ".aiox-core/data/patagang-component-dependency-map.yaml"
+    - ".aiox-core/data/patagang-project-state.yaml"
+    - ".aiox-core/data/patagang-learned-patterns.yaml"
+    - "Docs/INDEX.md"
+    - "Docs/architecture/README.md"
+    - "Docs/architecture/patagang-store/README.md"
+
+legacy_context:
+  description: "Arquivos historicos que NAO devem ser usados por padrao."
+  policy:
+    - "Usar apenas para auditoria historica."
+    - "Nao usar como fonte de decisao para novas implementacoes."
+    - "Sempre priorizar codigo atual e L3 canonico."
+  index_file: ".aiox-core/data/patagang-legacy-archive-index.yaml"
+  markdown_legacy_policy:
+    - "Relatorios e planos .md de epic/story/sessao na pasta .aiox-core/data sao legados."
+    - "Esses .md ficam fora do contexto padrao dos agentes."
+
+guardrails:
+  - "Nao limitar melhorias futuras por causa da versao de referencia."
+  - "Versao de referencia serve para contexto, nao para congelamento."
+  - "Em conflito: codigo atual prevalece sobre documentacao."
+
+metadata:
+  maintained_by: "@aiox-master, @architect"

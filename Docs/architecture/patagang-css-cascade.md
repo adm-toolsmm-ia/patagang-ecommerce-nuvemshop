@@ -1,6 +1,6 @@
 # Patagang CSS Cascade Architecture
 
-**Status:** Post-Refactor Documentation (v1.5.133+)
+**Status:** Active Snapshot Documentation (v1.5.170)
 **Date:** 2026-03-26
 **Severity:** REFERENCE (Understanding CSS loading order is critical for modifications)
 
@@ -31,7 +31,7 @@ Timeline of CSS Loading:
 │  ├─ style-help-sidebar.css.tpl (6.6 KB)
 │  │  └─ Component-specific styles
 │  │
-│  ├─ layout.tpl <style> section (INLINE, 188 !important)
+│  ├─ layout.tpl <style> section (INLINE, high override pressure)
 │  │  └─ ⚠️ CRITICAL: Overrides ALL above with !important
 │  │  └─ ⚠️ Reason: Fixes body background cascading issue
 │  │  └─ ⚠️ Note: This is a band-aid, should be refactored
@@ -85,9 +85,9 @@ RESULT: Cascade is unpredictable ❌
 
 ---
 
-## 🚨 The !important Problem (188 occurrences)
+## 🚨 The !important Problem (high concentration in `layout.tpl`)
 
-**Location:** `theme-deploy-corrigido/layouts/layout.tpl` lines 79-511
+**Location:** `theme-deploy-corrigido/layouts/layout.tpl` (inline `<style>` overrides)
 
 **Example:**
 ```css
@@ -103,7 +103,7 @@ section.patagang-section-top {
 
 main.patagang-section-content {
   background-color: #ffffff !important;
-  /* ... 184 more !important declarations ... */
+  /* ... additional !important declarations ... */
 }
 ```
 
@@ -117,7 +117,7 @@ Comment in code explains:
 ```
 
 **Translation:**
-Someone tried to fix a cascade problem using `!important` in 188 places instead of refactoring CSS properly. This is a band-aid.
+The current snapshot still depends on multiple `!important` declarations as a workaround for cascade conflicts. This should be treated as technical debt.
 
 ---
 
@@ -198,9 +198,9 @@ Media queries in style-critical.tpl can override your change on specific breakpo
 
 ---
 
-## 🔮 Future: Epic 9.2 CSS Refactor
+## 🔮 Future: CSS Cascade Refactor
 
-**When:** After Epic 8 stabilizes (2-3 weeks)
+**When:** Planned by backlog prioritization (no dependency on epic/story context)
 
 **What will change:**
 - ✅ Remove 188 `!important` from layout.tpl
@@ -231,4 +231,4 @@ If a CSS change doesn't work:
 **Document Version:** 1.0
 **Last Updated:** 2026-03-26
 **Maintained by:** @aiox-master
-**Status:** ACTIVE (Reference during development, deprecated after Epic 9.2)
+**Status:** ACTIVE (Reference during development; keep aligned to current snapshot)

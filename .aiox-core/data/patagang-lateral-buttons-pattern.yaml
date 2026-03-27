@@ -1,4 +1,7 @@
 # Patagang Lateral Buttons Pattern — AIOX Knowledge Base
+# ARCHIVE STATUS: legacy-context
+# DO NOT LOAD BY DEFAULT: true
+# ACTIVE INDEX: .aiox-core/data/patagang-legacy-archive-index.yaml
 # Story 9.2 UX Ajustes — Padrão Consolidado de Botões Fixos Laterais
 
 name: patagang-lateral-buttons-pattern

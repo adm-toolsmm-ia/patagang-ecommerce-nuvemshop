@@ -1,4 +1,7 @@
 ---
+archive_status: legacy-context
+do_not_load_by_default: true
+active_index: ".aiox-core/data/patagang-legacy-archive-index.yaml"
 name: EPIC 9 Strategic Decision Log
 description: Decision record for CSS cleanup strategy - Opção 3 (Hybrid) approved by all agents
 type: decision-log

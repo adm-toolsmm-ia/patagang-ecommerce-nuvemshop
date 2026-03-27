@@ -1,5 +1,8 @@
 ---
 # Product Page Spacing Fix — Analysis & Execution Plan
+# ARCHIVE STATUS: legacy-context
+# DO NOT LOAD BY DEFAULT: true
+# ACTIVE INDEX: .aiox-core/data/patagang-legacy-archive-index.yaml
 # Created: 2026-03-26 18:00 UTC
 # Orchestrator: Orion (@aiox-master)
 # Execution: @dev (Dex) + @qa (Quinn) + @devops (Gage)

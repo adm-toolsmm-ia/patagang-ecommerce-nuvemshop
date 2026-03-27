@@ -1,4 +1,7 @@
 ---
+archive_status: legacy-context
+do_not_load_by_default: true
+active_index: ".aiox-core/data/patagang-legacy-archive-index.yaml"
 name: Session Checkpoint — STORY-9.2 Mid-Implementation
 description: Current state snapshot for resuming work after context cleanup
 type: project-state

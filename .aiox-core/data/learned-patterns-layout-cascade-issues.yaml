@@ -1,4 +1,7 @@
 ---
+archive_status: legacy-context
+do_not_load_by_default: true
+active_index: ".aiox-core/data/patagang-legacy-archive-index.yaml"
 name: Layout Cascade and CSS Specificity Issues
 description: Patterns for debugging CSS conflicts where template styles override component CSS files
 type: learned-patterns

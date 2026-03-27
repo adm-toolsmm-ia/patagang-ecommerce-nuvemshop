@@ -1,178 +1,50 @@
-# Patagang Ecommerce — Project State
-# Type: Configuration (L3 — Project Config, mutable)
-# Purpose: Track active stories, epics, and project progress in SDC/QA Loop workflows
-# Updated: Daily (on story phase transitions)
-# Consumed by: @sm, @po, @dev, @qa, @devops, @aiox-master
+# Patagang Ecommerce - Project State (Active)
+# Type: Project State (L3)
+# Scope: current operational context for agents
 
----
-
-version: "1.0"
-lastUpdated: "2026-03-24T20:45:00.000Z"
+version: "2.0.0"
+last_updated: "2026-03-27T00:00:00Z"
+last_verified_from_code: "2026-03-27T00:00:00Z"
 project: "Patagang Ecommerce (Nuvemshop FTP Theme)"
+theme_version: "1.5.170"
+status: "active"
+context_policy: "default-context"
 
-## ============================================================================
-## CURRENT STORY (Story Development Cycle)
-## ============================================================================
-currentStory:
-  storyId: "8.5"
-  storyTitle: "JavaScript Optimization & Consolidation"
-  epicId: "8"
-  epicTitle: "Refatoração Técnica CSS & JavaScript"
-  branch: "feature/8.3-remove-important"
+source_of_truth:
+  - "theme-deploy-corrigido/**/*"
+  - "ftp-deploy/**/*"
+  - "Docs/architecture/patagang-store/**/*"
 
-  ## Implementation Phase
-  phase: "IMPLEMENTATION"
-  phaseStatus: "Priority 1 deployed to v1.5.93, APPROVED by Gabriel ✅"
-  phaseDeadline: "2026-03-27"
+runtime_markers:
+  version_file: "theme-deploy-corrigido/VERSION.json"
+  frontend_marker_file: "theme-deploy-corrigido/static/js/version-info.js"
+  frontend_marker_key: "__PATAGANG_VERSION__"
 
-  ## Current Version
-  currentVersion: "1.5.93"
-  previousVersion: "1.5.74"
-  deploymentTime: "2026-03-24T16:38:42Z"
-  deploymentStatus: "SUCCESS"
-  backupLocation: "backups/deployment-1.5.74/2026-03-24T19-38-22/"
+active_context_files:
+  - ".aiox-core/data/patagang-architecture-state.yaml"
+  - ".aiox-core/data/patagang-store-catalog.yaml"
+  - ".aiox-core/data/patagang-component-dependency-map.yaml"
+  - ".aiox-core/data/patagang-learned-patterns.yaml"
+  - ".aiox-core/data/patagang-context-policy.yaml"
 
-  ## Priority Execution (4 total)
-  priorities:
-    priority_1:
-      name: "Lazy-load Olark"
-      status: "DEPLOYED"
-      version: "v1.5.74"
-      gitCommit: "017f9b7"
-      filesModified: ["theme-deploy-corrigido/static/js/external.js.tpl", "theme-deploy-corrigido/static/js/store.js.tpl"]
-      validationStatus: "APPROVED_BY_GABRIEL"
-      validationLink: "https://patagang.com.br/"
+active_documentation:
+  - "Docs/INDEX.md"
+  - "Docs/architecture/README.md"
+  - "Docs/architecture/patagang-store/README.md"
 
-    priority_2:
-      name: "Modularize store.js.tpl"
-      status: "PENDING"
-      estimatedVersion: "v1.5.75"
-      estimatedHours: 4
-      estimatedSavings: "-20K"
-      blockedBy: ["priority_1 validation"]
+operational_notes:
+  - "Este estado nao bloqueia melhorias futuras de UX/UI."
+  - "Objetivo: reduzir ambiguidades para agentes e IA."
+  - "Nao usar artefatos legados de epic/story no contexto padrao."
 
-    priority_3:
-      name: "Consolidate cart JS"
-      status: "PENDING"
-      estimatedVersion: "v1.5.76"
-      estimatedHours: 1
-      estimatedSavings: "-5K"
+known_runtime_alerts:
+  - id: "MISSING-EXTERNAL-JS-TPL"
+    severity: "high"
+    description: "layout.tpl referencia arquivos external*.js.tpl ausentes no tema atual."
 
-    priority_4:
-      name: "Review Swiper usage"
-      status: "PENDING"
-      estimatedVersion: "v1.5.77"
-      estimatedHours: 1
-      estimatedSavings: "-3K"
-
-  ## Documentation
-  documentation:
-    - "docs/guides/8.5-IMPLEMENTATION-LOG.md"
-    - "docs/guides/8.5-JAVASCRIPT-ANALYSIS-FINDINGS.md"
-    - "docs/guides/8.5-JAVASCRIPT-OPTIMIZATION-EXECUTIVE-PLAN.md"
-    - ".aiox-core/development/agents/dev/MEMORY.md"
-
-  ## Next Action
-  nextAction: "GitHub push by @devops (PR creation & merge to main)"
-  estimatedCompletion: "2026-03-27 (all 4 priorities + v2.0.0 release)"
-
-## ============================================================================
-## ACTIVE EPICS (Managed by @pm via *execute-epic)
-## ============================================================================
-epics:
-
-  epic_01_design_system:
-    id: "EPIC-01"
-    title: "Design System & Styling Foundation"
-    status: "active"
-    description: "Establish cohesive design system for Patagang ecommerce"
-    createdDate: "2026-03-10"
-    targetCompletion: "2026-04-30"
-    stories: []  # Stories populated as created
-    notes: "Foundation for all future feature work"
-
-  epic_02_ftp_constraints_enforcement:
-    id: "EPIC-02"
-    title: "FTP Constraint Enforcement & Validation"
-    status: "active"
-    description: "Implement automated validation of Nuvemshop FTP constraints"
-    createdDate: "2026-03-15"
-    targetCompletion: "2026-04-15"
-    stories: []
-    notes: "Prevents deployment violations (checkout, footer, forms)"
-
-## ============================================================================
-## ACTIVE STORIES (Story Development Cycle progress)
-## ============================================================================
-stories: []
-# Format (when stories exist):
-# - storyId: "1.1.1"
-#   title: "Implement Help Sidebar Button"
-#   epic: "EPIC-01"
-#   status: "InProgress"
-#   phase: "implement"  # draft | validate | implement | qa | done
-#   assignedAgent: "dev"
-#   filePath: "docs/stories/1.1.1.story.md"
-#   createdDate: "2026-03-18"
-#   lastUpdated: "2026-03-20"
-#   qaLoopIteration: 0
-#   files:
-#     - "theme-deploy-corrigido/snipplets/help-sidebar.tpl"
-#     - "theme-deploy-corrigido/static/css/style-help-sidebar.scss"
-
-## ============================================================================
-## QA LOOP STATE (Tracked for iterative review cycles)
-## ============================================================================
-qaLoopState:
-  active: false
-  storyId: null
-  iteration: 0
-  maxIterations: 5
-  lastVerdict: null  # PASS | CONCERNS | FAIL | BLOCKED
-  verdictTimestamp: null
-  nextAction: null  # review | fix | escalate
-  lastUpdated: "2026-03-20T00:00:00.000Z"
-
-## ============================================================================
-## PROJECT METRICS & TRACKING
-## ============================================================================
-metrics:
-  storiesCreated: 0
-  storiesCompleted: 0
-  storiesInProgress: 0
-  qaLoopsCompleted: 0
-  averageQaIterations: 0
-  deploymentCount: 93
-  lastDeploymentDate: "2026-03-24"
-  fptViolationsDetected: 0
-  fptViolationsFixed: 0
-
-## ============================================================================
-## RELEASE TRACKING
-## ============================================================================
-releases:
-  current: "v1.5.93"
-  previous: ["v1.5.74", "v1.5.58"]
-  nextTarget: "v1.6.0"
-  releaseDate: null
-  backupLocations:
-    - "backups/incremental/"
-  lastBackupDate: null
-
-## ============================================================================
-## NOTES & CONTEXT
-## ============================================================================
-notes:
-  - "Project started 2026-03-10 (Patagang redesign)"
-  - "Nuvemshop FTP constraints strict (Article V - Quality First)"
-  - "Auto-backup on each FTP deploy (versioning enabled)"
-  - "Design system colors finalized; colors reference in agent memories"
-
-## ============================================================================
-## METADATA
-## ============================================================================
 metadata:
-  refreshFrequency: "daily"
-  staleSinceLastUpdate: false
-  staleSinceLastUpdateSeconds: 0
-  archiveLocation: ".aiox-core/data/archived-states/"
+  maintained_by: "@aiox-master, @architect"
+  review_trigger:
+    - "mudanca de versao da loja"
+    - "alteracao estrutural em layout/templates/snipplets"
+    - "mudanca na politica de contexto AIOX"
