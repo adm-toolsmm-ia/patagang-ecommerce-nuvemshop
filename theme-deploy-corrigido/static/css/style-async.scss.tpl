@@ -644,7 +644,8 @@ textarea{
                 &:first-child a:after {
                 position: relative;
                 right: -7px;
-                content: "|";
+                /* HOTFIX: content removido para eliminar erro CSS critico [v1.5.215] */
+                /* content: "|"; */
                 }
             }
         }
