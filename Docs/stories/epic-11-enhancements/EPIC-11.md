@@ -41,7 +41,7 @@ Implementar novas alterações e melhorias identificadas por Gabriel Cristofolin
 
 | Story | Título | Executor | QA | Risco | Status |
 |-------|--------|----------|-----|-------|--------|
-| 11.1 | [AGUARDANDO ALTERAÇÃO 1] | @dev | @qa | ? | ⬜ Draft |
+| 11.1 | WhatsApp esquerdo: manter rotate + restaurar ícone | @dev | @qa | Médio | 🟡 In Progress |
 | 11.2 | [AGUARDANDO ALTERAÇÃO 2] | @dev | @qa | ? | ⬜ Draft |
 | 11.3 | [AGUARDANDO ALTERAÇÃO 3] | @dev | @qa | ? | ⬜ Draft |
 | ... | [OUTRAS ALTERAÇÕES] | ... | ... | ... | ⬜ Draft |
@@ -170,6 +170,18 @@ Antes de qualquer @dev implementar:
 3. @dev implementará com checklists de EPIC 10
 4. Gabriel validará em produção
 5. @devops fará deploy + push
+
+---
+
+## 📌 Rebaseline Story 11.1 (2026-03-27)
+
+Atualização aprovada para corrigir divergência de requisito identificada em produção:
+
+- O botão WhatsApp do lado esquerdo **deve manter** `transform: rotate(180deg)` por regra de legibilidade no posicionamento lateral.
+- O problema real da story 11.1 é a ausência do **ícone visível do WhatsApp** na versão atual da loja.
+- A documentação da 11.1 passa a seguir o fluxo **docs-first**: corrigir instruções, implementar, validar, deploy FTP, registrar evidências.
+
+**Fonte de verdade operacional para deploy:** `ftp-deploy/README-DEPLOYMENT.md` + `ftp-deploy/deploy.js`.
 
 ---
 

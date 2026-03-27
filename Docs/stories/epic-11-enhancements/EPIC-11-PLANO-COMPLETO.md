@@ -46,7 +46,7 @@
 
 | Item | Descrição | Trilha |
 |------|-----------|---------|
-| Botão Help sidebar | Remover `transform: rotate(180deg)` em span | A |
+| Botão WhatsApp esquerdo | Manter `transform: rotate(180deg)` e restaurar ícone visível | A |
 | Botão WhatsApp | Alinhar espaçamento com Help (margin vs margin-bottom) | A |
 | Galeria 2x2 grid | Exibir 4 imagens simultâneas (2 cols x 2 rows) | B |
 | Scroll behavior | Scroll da galeria não afeta página pai | B |
@@ -168,42 +168,45 @@ body .btn-whatsapp-left span {
 **Decisão Arquitetural:**
 
 ```
-Opção 1: Remover rotate de WhatsApp (RECOMENDADA)
-├─ Remover transform: rotate(180deg) de layout.tpl
-├─ Manter writing-mode: vertical-rl (padrão)
-├─ Resultado: Help e WhatsApp visualmente idênticos ✅
-└─ Risco: BAIXO (só CSS, sem JS impact)
+Opção 1: Manter rotate no WhatsApp + corrigir ícone (RECOMENDADA)
+├─ Preservar transform: rotate(180deg) no botão esquerdo
+├─ Corrigir visibilidade do ícone com SVG inline confiável
+├─ Resultado: Legibilidade correta no lado esquerdo + consistência com Help ✅
+└─ Risco: BAIXO-MÉDIO (ajuste visual específico, sem mudança de fluxo)
 
-Opção 2: Adicionar rotate a Help (NÃO RECOMENDADA)
-├─ Adicionar transform: rotate(180deg) a .pg-help-btn__text
-├─ Resultado: Ambos rotacionados (quebra design Help)
-└─ Risco: MÉDIO (regressão visual Help)
+Opção 2: Remover rotate de WhatsApp (DESCARTADA)
+├─ Contraria regra funcional definida por Gabriel para leitura lateral
+├─ Pode gerar nova regressão visual
+└─ Risco: MÉDIO (retrabalho e divergência de requisito)
 ```
 
 **Proposta Escolhida:** Opção 1
 
 **Arquivos Impactados:**
-- `theme-deploy-corrigido/layouts/layout.tpl` (remover rotate)
-- Validar em: style-whatsapp-button.css.tpl (margin-top vs margin-bottom)
+- `theme-deploy-corrigido/snipplets/whatsapp-left.tpl` (ícone inline e markup final)
+- `theme-deploy-corrigido/static/css/style-whatsapp-button.css.tpl` (manter rotate + consistência visual)
+- `theme-deploy-corrigido/layouts/layout.tpl` (apenas se necessário para override final)
 
 **CSS Strategy:**
 ```css
-/* ANTES (layout.tpl): */
-body .btn-whatsapp-left span {
-    transform: rotate(180deg) !important; /* ← REMOVE */
-    margin-bottom: 6px !important;
+/* MANTER (left side readability): */
+.btn-whatsapp-left__text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
 }
 
-/* DEPOIS: */
-body .btn-whatsapp-left span {
-    /* rotate REMOVIDO */
-    margin-bottom: 6px !important; /* Mantém Help alignment */
+/* GARANTIR ícone visível no botão: */
+.btn-whatsapp-left__icon {
+    width: 24px;
+    height: 24px;
+    color: #1A1A1A;
 }
 ```
 
 **Validação:**
-- [ ] Help button texto vertical (cima→baixo) LTR
-- [ ] WhatsApp button texto vertical (cima→baixo) LTR — IDÊNTICO
+- [ ] Help button mantém padrão atual
+- [ ] WhatsApp esquerdo mantém `rotate(180deg)` para leitura correta
+- [ ] Ícone WhatsApp visível (desktop/tablet/mobile)
 - [ ] Mobile: ambos centralizados com padding correto
 - [ ] Hover states idênticos
 
@@ -374,7 +377,7 @@ body .btn-whatsapp-left {
 
 | Trilha | Arquivo | Tipo | Mudança |
 |--------|---------|------|---------|
-| A | layout.tpl | Template | Remover `transform: rotate(180deg)` |
+| A | whatsapp-left.tpl | Template | Restaurar SVG inline e garantir visibilidade do ícone |
 | A | style-whatsapp-button.css.tpl | CSS | Validar margin consistency |
 | B | style-critical.tpl | CSS | Adicionar/confirmar grid-template-columns |
 | B | product-image.tpl | Template | Sem mudança (talvez classes) |
@@ -432,8 +435,9 @@ DEPOIS:
 
 ```yaml
 Trilha A - Botões:
-  - HTML render check: span text vertical, não rotacionado ✓
-  - CSS computed check: transform: none (não rotate) ✓
+  - HTML render check: texto vertical com rotate no WhatsApp esquerdo ✓
+  - CSS computed check: transform: matrix(...) (rotate aplicado) ✓
+  - Ícone WhatsApp visível no botão (todos breakpoints) ✓
   - Mobile: padding correto 10px 6px ✓
 
 Trilha B - Galeria:
@@ -463,7 +467,7 @@ Trilha D - Débito:
 | Campo | Valor |
 |-------|-------|
 | **ID** | 11.1 |
-| **Título** | Padronizar botão WhatsApp com Help Sidebar (remover rotate) |
+| **Título** | Corrigir botão WhatsApp esquerdo (manter rotate + restaurar ícone) |
 | **Trilha** | A (Botões Laterais) |
 | **Executor** | @dev (Dex) |
 | **QA** | @qa (Quinn) |
@@ -474,7 +478,7 @@ Trilha D - Débito:
 | **Bloqueia** | Nenhuma |
 
 **Descrição:**
-Remover `transform: rotate(180deg)` do WhatsApp button span em layout.tpl para alinhar com Help button (ambos com texto vertical LTR, sem rotação).
+Manter `transform: rotate(180deg)` no texto do botão WhatsApp esquerdo (requisito funcional) e restaurar a visibilidade do ícone WhatsApp com SVG inline, garantindo consistência visual com o Help sem alterar a regra de leitura lateral.
 
 **Critérios de Aceite (Given/When/Then):**
 
@@ -484,9 +488,9 @@ QUANDO visualizo os botões laterais (Help esquerda, WhatsApp direita)
 ENTÃO ambos têm estilo idêntico:
   - Texto vertical (cima → baixo)
   - Cor #F0F0F0 background
-  - Ícone 20x20px preto
+  - Ícone WhatsApp visível e legível
   - Padding 12px 8px
-  - Sem transformações/rotações aplicadas
+  - Comportamento visual consistente por lado (Help padrão, WhatsApp com rotate)
 
 E QUANDO faço hover em qualquer botão
 ENTÃO background muda para #E8E8E8
@@ -496,18 +500,21 @@ ENTÃO ambos mantêm padding 10px 6px, centralizados
 ```
 
 **Arquivos Modificados:**
-- `theme-deploy-corrigido/layouts/layout.tpl` — Remove linhas com `transform: rotate(180deg)` no `.btn-whatsapp-left span`
+- `theme-deploy-corrigido/snipplets/whatsapp-left.tpl` — ajustar SVG inline do ícone
+- `theme-deploy-corrigido/static/css/style-whatsapp-button.css.tpl` — manter rotate e garantir visibilidade
+- `theme-deploy-corrigido/layouts/layout.tpl` — somente se houver necessidade de override final
 
 **Tarefas Técnicas:**
-1. [ ] Localizar `transform: rotate(180deg)` em layout.tpl (linha ~550?)
-2. [ ] Remover ou comentar a regra
-3. [ ] Validar margin-bottom consistency entre Help e WhatsApp
-4. [ ] Teste local: visual check Help vs WhatsApp (devtools)
-5. [ ] Commit: `fix(buttons): remove rotate transform from WhatsApp button [Story 11.1]`
+1. [ ] Confirmar `rotate(180deg)` no texto do WhatsApp esquerdo (não remover)
+2. [ ] Corrigir SVG inline em `whatsapp-left.tpl`
+3. [ ] Validar espaçamento e alinhamento visual com Help
+4. [ ] Teste local: visual check + computed style + ícone visível
+5. [ ] Commit: `fix(buttons): restore whatsapp icon and preserve left-side rotate [Story 11.1]`
 
 **Validação Gabriel:**
 - [ ] Desktop: Help button texto vertical, normal
-- [ ] Desktop: WhatsApp button texto vertical, normal — IDÊNTICO
+- [ ] Desktop: WhatsApp esquerdo com rotate aplicado e leitura correta
+- [ ] Desktop: ícone WhatsApp visível
 - [ ] Mobile: Ambos centralizados com padding correto
 - [ ] Console: 0 CSS errors/warnings
 

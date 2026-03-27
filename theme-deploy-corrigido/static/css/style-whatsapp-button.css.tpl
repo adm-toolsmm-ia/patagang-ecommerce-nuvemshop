@@ -41,6 +41,9 @@
     width: 24px;
     height: 24px;
     color: #1A1A1A; /* Black Icon */
+    fill: currentColor;
+    display: block;
+    flex-shrink: 0;
 }
 
 /* BEM: Text element — vertical layout with rotate for left-side reading */
