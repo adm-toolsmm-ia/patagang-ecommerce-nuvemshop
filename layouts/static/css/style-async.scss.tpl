@@ -643,6 +643,7 @@ textarea{
                 &:first-child a:after {
                 position: relative;
                 right: -7px;
+                content: "|";
                 }
             }
         }
