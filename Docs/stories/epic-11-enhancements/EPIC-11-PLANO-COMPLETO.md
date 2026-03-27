@@ -520,6 +520,16 @@ ENTÃO ambos mantêm padding 10px 6px, centralizados
 
 **Rollback:** `git reset --hard {commit-anterior}`
 
+**Execução técnica registrada (2026-03-27):**
+- [x] `rotate(180deg)` preservado para o botão WhatsApp esquerdo
+- [x] SVG inline do WhatsApp atualizado em `snipplets/whatsapp-left.tpl`
+- [x] Reforço de visibilidade em `static/css/style-whatsapp-button.css.tpl` (`fill`, `display`, `flex-shrink`)
+- [x] Commit funcional/docs realizado (`96cf417`)
+- [x] Deploy FTP executado via `node ftp-deploy/deploy.js "fix: story 11.1 whatsapp left rotate + icone [Story 11.1]"`
+- [x] Versão publicada `v1.5.189` com validação FTP 4/4
+- [x] Backup gerado em `backups/deployment-1.5.189/2026-03-27T05-06-49`
+- [ ] Validação final do Gabriel em produção (pendente)
+
 ---
 
 ### Story 11.2 — Galeria 2x2: Visibilidade + Scroll

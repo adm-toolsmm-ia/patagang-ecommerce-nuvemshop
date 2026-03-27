@@ -37,11 +37,11 @@ Implementar novas alterações e melhorias identificadas por Gabriel Cristofolin
 
 ---
 
-## 📂 Stories da EPIC (AGUARDANDO ESPECIFICAÇÃO)
+## 📂 Stories da EPIC (STATUS ATUAL)
 
 | Story | Título | Executor | QA | Risco | Status |
 |-------|--------|----------|-----|-------|--------|
-| 11.1 | WhatsApp esquerdo: manter rotate + restaurar ícone | @dev | @qa | Médio | 🟡 In Progress |
+| 11.1 | WhatsApp esquerdo: manter rotate + restaurar ícone | @dev | @qa | Médio | 🟡 Aguardando validação Gabriel |
 | 11.2 | [AGUARDANDO ALTERAÇÃO 2] | @dev | @qa | ? | ⬜ Draft |
 | 11.3 | [AGUARDANDO ALTERAÇÃO 3] | @dev | @qa | ? | ⬜ Draft |
 | ... | [OUTRAS ALTERAÇÕES] | ... | ... | ... | ⬜ Draft |
@@ -65,7 +65,7 @@ Cada story segue obrigatoriamente:
    - Local testing completo
 
 3. @devops: Deploy FTP
-   - node ftp-deploy/deploy.js "descrição" --force
+   - node ftp-deploy/deploy.js "descrição"
    - Auto-incrementa versão
    - Validação FTP (HTTP 200 + arquivo size)
 
@@ -182,6 +182,14 @@ Atualização aprovada para corrigir divergência de requisito identificada em p
 - A documentação da 11.1 passa a seguir o fluxo **docs-first**: corrigir instruções, implementar, validar, deploy FTP, registrar evidências.
 
 **Fonte de verdade operacional para deploy:** `ftp-deploy/README-DEPLOYMENT.md` + `ftp-deploy/deploy.js`.
+
+**Execução registrada (11.1):**
+- Branch: `feat/epic-11`
+- Commit funcional/docs: `96cf417`
+- Deploy FTP concluído: `v1.5.189`
+- Commit de versão (script): `6a2f4c6`
+- Backup: `backups/deployment-1.5.189/2026-03-27T05-06-49`
+- Push remoto: não executado (conforme gate de validação do Gabriel)
 
 ---
 
