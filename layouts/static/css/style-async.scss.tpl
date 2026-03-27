@@ -5590,7 +5590,7 @@ button {
     display: block;
 }
 .pg-cart-item__variant::before {
-    content: ?Tam: ?;
+    content: "Tam: ";
     font-weight: 400;
 }
 /* Responsivo */
