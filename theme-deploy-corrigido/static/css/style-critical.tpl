@@ -1,5 +1,4 @@
-/* CACHE BUSTING: 2026-03-27T19:39:02.082Z */
-{% raw %}@charset "UTF-8":
+{% raw %}@charset "UTF-8";
 
 /*============================================================================
 style-critical.tpl - Critical Path CSS (Inline in <head>)
