@@ -515,6 +515,7 @@
         body .btn-whatsapp-left span {
             writing-mode: vertical-rl !important;
             text-orientation: mixed !important;
+            transform: rotate(180deg) !important;
             font-family: 'Familjen Grotesk', sans-serif !important;
             font-weight: 500 !important;
             font-size: 12px !important;
