@@ -3475,44 +3475,17 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	margin: 0;
 }
 
-/* Responsivo - Mobile (≤576px) */
-@media (max-width: 576px) {
+/* Responsivo - Tablet e Mobile */
+@media (max-width: 991px) {
 	.pg-pdp-container {
-		padding-top: 0;  /* ✅ REMOVIDO: padding-top: 80px causava 240px gap (160px main + 80px container) */
-		padding-bottom: 20px;
-		padding-left: 0;
-		padding-right: 0;
+		padding-top: 80px;
+		padding-bottom: 40px;         /* Padding inferior para separação */
+		padding-left: 0;              /* ✅ BUG #3 FIX: zero lateral para filhos full-width */
+		padding-right: 0;             /* ✅ BUG #3 FIX: zero lateral para filhos full-width */
 		align-items: flex-start;
-		background-color: #ffffff;
+		background-color: #ffffff;    /* ✅ LIMPO: Branco puro (padrão home) */
 		background-image: none;
 	}
-}
-
-/* Responsivo - Tablet (577px-768px) */
-@media (min-width: 577px) and (max-width: 768px) {
-	.pg-pdp-container {
-		padding-top: 0;  /* ✅ REMOVIDO: sem duplicação com main padding-top */
-		padding-bottom: 30px;
-		padding-left: 0;
-		padding-right: 0;
-		align-items: flex-start;
-		background-color: #ffffff;
-		background-image: none;
-	}
-}
-
-/* Responsivo - Large Tablet to Desktop (≥769px) */
-@media (min-width: 769px) and (max-width: 991px) {
-	.pg-pdp-container {
-		padding-top: 0;  /* ✅ REMOVIDO: main já compensa o header */
-		padding-bottom: 40px;
-		padding-left: 0;
-		padding-right: 0;
-		align-items: flex-start;
-		background-color: #ffffff;
-		background-image: none;
-	}
-}
 
 	.pg-pdp-container .section-single-product {
 		display: flex !important;     /* ✅ EXTRA: força flex layout explicitamente */
@@ -3689,8 +3662,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 576px) {
 	.pg-identity-banner {
 		padding: 12px 10px;
-		margin-top: 8px;  /* ✅ Mínimo respiro (main: 160px já compensa header, +8px evita colisão) */
-		margin-bottom: 8px;  /* Espaço abaixo também */
+		margin-top: 4px;  /* ✅ Mínimo respiro — evita invasão do header */
 		position: relative;
 		z-index: 10;
 	}
@@ -3708,44 +3680,6 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 	.pg-identity-banner__phrase:last-child {
 		border-bottom: none;
-	}
-}
-
-/* Tablet (577px-768px) */
-@media (min-width: 577px) and (max-width: 768px) {
-	.pg-identity-banner {
-		padding: 16px 15px;
-		margin-top: 12px;
-		margin-bottom: 12px;
-		position: relative;
-		z-index: 10;
-	}
-
-	.pg-identity-banner__content {
-		gap: 20px;
-	}
-
-	.pg-identity-banner__phrase {
-		font-size: 12px;
-	}
-}
-
-/* Desktop (≥769px) */
-@media (min-width: 769px) {
-	.pg-identity-banner {
-		padding: 16px 20px;
-		margin-top: 16px;
-		margin-bottom: 0;
-		position: relative;
-		z-index: 10;
-	}
-
-	.pg-identity-banner__content {
-		gap: 40px;
-	}
-
-	.pg-identity-banner__phrase {
-		font-size: 13px;
 	}
 }
 
