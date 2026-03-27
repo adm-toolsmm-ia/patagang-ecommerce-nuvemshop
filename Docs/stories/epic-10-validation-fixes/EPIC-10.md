@@ -44,7 +44,7 @@ Corrigir 5 problemas identificados na validação da loja Patagang v1.5.170, pri
 | 10.1 | Dropdown Desktop — Submenus Para Humanos/Cachorros | @dev | @qa | Baixo | ✅ Done |
 | 10.2 | Modal Galeria — Restaurar CSS ausente (close/backdrop/counter) | @dev | @qa | Baixo-Médio | ✅ Done |
 | 10.3 | PDP Mobile — Banner informativo não invade header | @dev | @qa | Baixo | ✅ Done |
-| 10.4 | WhatsApp — Inverter direção do texto (espelhar botão Help) | @dev | @qa | Baixo | ⬜ Draft |
+| 10.4 | WhatsApp — Inverter direção do texto (espelhar botão Help) | @dev | @qa | Baixo | ✅ Done |
 | 10.5 | FOUC — Investigar e reduzir flash visual em home/lancamentos/comunidade | @dev + @analyst | @qa | Médio | ⬜ Draft |
 
 ---
