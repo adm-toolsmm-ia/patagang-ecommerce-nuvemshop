@@ -477,51 +477,51 @@
             }
             body .pg-help-btn__text { font-size: 11px !important; }
         }
-        {# WhatsApp Left Button — Fixed position on LEFT (opposite of Help Button on RIGHT) #}
+        {# WhatsApp Left Button — IDENTICAL design to pg-help-btn, positioned LEFT #}
         body .btn-whatsapp-left {
             position: fixed !important;
             left: 0 !important;
             top: 50% !important;
             transform: translateY(-50%) !important;
+            background: #EAFE67 !important; /* Store Yellow - same as Help */
+            color: #1A1A1A !important; /* Black Text - same as Help */
             z-index: 9990 !important;
-            background-color: #25D366 !important;
-            border: none !important;
-            padding: 12px 8px !important;
-            border-top-right-radius: 4px !important;
-            border-bottom-right-radius: 4px !important;
-            box-shadow: 2px 0 8px rgba(0,0,0,0.15) !important;
             cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            text-decoration: none !important;
             display: flex !important;
             flex-direction: column !important;
             align-items: center !important;
             justify-content: center !important;
+            padding: 12px 8px !important; /* Same as Help */
+            border-top-right-radius: 4px !important;
+            border-bottom-right-radius: 4px !important;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1) !important; /* Same as Help, mirror direction */
+            transition: all 0.3s ease !important;
+            text-decoration: none !important;
         }
         body .btn-whatsapp-left:hover {
-            background-color: #1EBE57 !important;
-            padding-left: 14px !important;
+            background: #d4e65d !important; /* Same hover yellow as Help */
+            padding-left: 12px !important; /* Same as Help but on left side */
         }
         body .btn-whatsapp-left:focus {
-            outline: 2px solid #25D366 !important;
+            outline: 2px solid #EAFE67 !important;
             outline-offset: 2px !important;
         }
         body .btn-whatsapp-left svg {
-            width: 20px !important;
-            height: 20px !important;
-            color: #FFFFFF !important;
+            width: 20px !important; /* Same as Help icon */
+            height: 20px !important; /* Same as Help icon */
+            color: #1A1A1A !important; /* Black icon - same as Help */
         }
         body .btn-whatsapp-left span {
-            writing-mode: vertical-rl !important;
-            text-orientation: mixed !important;
-            transform: rotate(180deg) !important;
-            font-family: 'Familjen Grotesk', sans-serif !important;
-            font-weight: 500 !important;
-            font-size: 12px !important;
-            letter-spacing: 0.03em !important;
-            text-transform: uppercase !important;
-            margin-bottom: 6px !important;
-            color: #FFFFFF !important;
+            writing-mode: vertical-rl !important; /* Same as Help */
+            text-orientation: mixed !important; /* Same as Help */
+            transform: rotate(180deg) !important; /* Inverted text direction */
+            font-family: 'Familjen Grotesk', sans-serif !important; /* Same as Help */
+            font-weight: 500 !important; /* Same as Help */
+            font-size: 12px !important; /* Same as Help */
+            letter-spacing: 0.03em !important; /* Same as Help */
+            text-transform: uppercase !important; /* Same as Help */
+            margin-bottom: 6px !important; /* Same as Help */
+            color: #1A1A1A !important; /* Black text - same as Help */
         }
         @media (max-width: 768px) {
             body .btn-whatsapp-left {
