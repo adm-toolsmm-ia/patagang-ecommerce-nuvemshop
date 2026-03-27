@@ -172,58 +172,59 @@
             }
 
             /* =====================================================================
-               PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
+               PRODUCT GALLERY REFINEMENTS — Grid 2x2 Desktop (Story 11.2)
+               Aplicado APENAS em desktop (≥992px) para não conflitar com Swiper
                ===================================================================== */
 
-            /* Story 11.2: Desktop gallery 2x2 with isolated scroll */
-            .pg-gallery-container {
-                height: 100%;
-                max-height: calc(100vh - 200px);
-                overflow-y: auto;
-                overflow-x: hidden;
-                overscroll-behavior: contain;
-                scroll-behavior: smooth;
-                box-sizing: border-box;
-                display: flex;
-                flex-direction: column;
-                min-height: 0;
-                padding-right: 8px;
-            }
+            @media (min-width: 992px) {
+                /* Container da galeria: mostra exatamente 2 linhas (4 imagens) */
+                .pg-gallery-container {
+                    /* max-height = 2×clamp(200,24vh,280) + gap = clamp(412,48vh+12,572) */
+                    max-height: clamp(412px, calc(48vh + 12px), 572px);
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    overscroll-behavior: contain;
+                    scroll-behavior: smooth;
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 0;
+                    padding-right: 8px;
+                    width: 100%;
+                }
 
-            /* Grid da galeria — 2 colunas estáveis com 4 itens visíveis */
-            .pg-gallery-grid {
-                display: grid;
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                grid-auto-rows: clamp(200px, 24vh, 280px);
-                gap: 12px;
-                padding: 0;
-                width: 100%;
-                height: fit-content;
-            }
+                /* Grid da galeria — 2 colunas, linhas de altura fixa */
+                .pg-gallery-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    grid-auto-rows: clamp(200px, 24vh, 280px);
+                    gap: 12px;
+                    padding: 0;
+                    width: 100%;
+                    height: fit-content;
+                }
 
-            /* =====================================================================
-               COLUMN ALIGNMENT — Colunas Crescem Juntas para Alinhar Rodapé
-               ===================================================================== */
+                /* Coluna imagem: STRETCH para crescer com card */
+                .pg-pdp-image-col {
+                    align-self: stretch !important;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 0;
+                    overflow: visible;
+                }
 
-            /* Coluna imagem: STRETCH para crescer com card */
-            .pg-pdp-image-col {
-                align-self: stretch !important;     /* CRESCE com card */
-                display: flex;                      /* Flex para filho acompanhar */
-                flex-direction: column;
-                min-height: 0;                      /* Permite que flex-grow funcione */
-            }
+                /* Coluna info: STRETCH para alinhar altura com galeria */
+                .pg-pdp-info-col {
+                    align-self: stretch !important;
+                    display: flex;
+                    flex-direction: column;
+                    padding-top: 0;
+                }
 
-            /* Coluna info: STRETCH para alinhar altura com galeria */
-            .pg-pdp-info-col {
-                align-self: stretch !important;    /* CRESCE junto com galeria */
-                display: flex;                     /* Flex para card acompanhar */
-                flex-direction: column;
-                padding-top: 0;                    /* Sem padding-top, alinhado direto */
-            }
-
-            /* Card de info cresce para preencher altura */
-            .pg-pdp-info-card {
-                flex: 1;                           /* Cresce para preencher espaço */
+                /* Card de info cresce para preencher altura */
+                .pg-pdp-info-card {
+                    flex: 1;
+                }
             }
 
             /* =====================================================================
@@ -232,8 +233,8 @@
 
             /* Base: Fallback para navegadores sem suporte a backdrop-filter */
             .pg-pdp-info-card {
-                background: rgba(255, 255, 255, 0.85);  /* Fallback: background opaco */
-                backdrop-filter: blur(0);               /* Fallback: sem blur */
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(0);
             }
 
             /* Modern browsers: use backdrop-filter com blur */
@@ -242,33 +243,6 @@
                     background: rgba(255, 255, 255, 0.55);
                     backdrop-filter: blur(12px);
                     -webkit-backdrop-filter: blur(12px);
-                }
-            }
-
-            /* =====================================================================
-               MOBILE ADJUSTMENTS — Manter responsividade
-               ===================================================================== */
-
-            @media (max-width: 768px) {
-                /* Mobile: carousel responsivo (sem galeria grid) */
-                .pg-gallery-container {
-                    height: auto;
-                    max-height: none;
-                    overflow: visible;
-                }
-
-                /* Mobile: colunas empilhadas, alinhar topo */
-                .pg-pdp-image-col,
-                .pg-pdp-info-col {
-                    align-self: stretch;    /* Preenche width mobile */
-                }
-            }
-
-            @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet/mobile mantém Swiper; grid desktop permanece oculto */
-                .pg-gallery-container {
-                    max-height: none;
-                    overflow: visible;
                 }
             }
         </style>

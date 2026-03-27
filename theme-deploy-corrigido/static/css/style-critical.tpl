@@ -2947,7 +2947,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	overflow: visible;
 	display: flex;
 	flex-direction: column;  /* Permite filho crescer verticalmente */
-	align-items: flex-start; /* Alinha no topo */
+	align-items: stretch;
 	justify-content: flex-start;
 	box-sizing: border-box;
 	box-shadow: none; /* SEM sombra */
@@ -2984,21 +2984,22 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 
 	/* Story 11.2: desktop gallery must stay 2x2 visible */
 	.pg-pdp-image-col {
-		max-height: calc(100vh - 200px);
-		overflow: hidden;
+		overflow: visible;
 		min-height: 0;
 	}
 
 	.pg-gallery-container {
 		display: flex !important;
-		height: 100%;
-		max-height: calc(100vh - 200px);
+		width: 100%;
+		/* max-height = 2 linhas × clamp(200px,24vh,280px) + 1 gap 12px = clamp(412,48vh+12,572) */
+		max-height: clamp(412px, calc(48vh + 12px), 572px);
 		overflow-y: auto;
 		overflow-x: hidden;
 		overscroll-behavior: contain;
 		scroll-behavior: smooth;
 		min-height: 0;
 		padding-right: 8px;
+		box-sizing: border-box;
 	}
 
 	.pg-pdp-image-col .pg-gallery-grid {
@@ -5267,3 +5268,4 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
         padding: 12px 18px;
         font-size: 11px;
     }
+}
