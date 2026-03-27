@@ -70,6 +70,7 @@
             {% include "static/css/style-menu-patagang.css.tpl" %}
             {% include "static/css/style-filters-patagang.css.tpl" %}
             {% include "static/css/style-help-sidebar.css.tpl" %}
+            {% include "static/css/style-whatsapp-button.css.tpl" %}
         </style>
 
         {# Colors and fonts used from settings.txt and defined on theme customization #}
