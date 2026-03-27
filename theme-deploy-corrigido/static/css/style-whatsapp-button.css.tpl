@@ -4,13 +4,13 @@
    Same design as .pg-help-btn, positioned left instead of right
    =========================================== */
 
-/* 1. Floating WhatsApp Button (LEFT side) */
+/* 1. Floating WhatsApp Button (LEFT side) — BEM Pattern */
 .btn-whatsapp-left {
     position: fixed;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #F0F0F0; /* Light gray - matches header icon style */
+    background: #F0F0F0; /* Light gray - matches pg-help-btn */
     color: #1A1A1A; /* Black Text */
     z-index: 9990;
     cursor: pointer;
@@ -31,25 +31,46 @@
     padding-left: 12px;
 }
 
-.btn-whatsapp-left svg {
+.btn-whatsapp-left:focus {
+    outline: 2px solid #EAFE67;
+    outline-offset: 2px;
+}
+
+/* BEM: Icon element */
+.btn-whatsapp-left__icon {
     width: 20px;
     height: 20px;
     color: #1A1A1A; /* Black Icon */
 }
 
-.btn-whatsapp-left span {
+/* BEM: Text element — vertical layout with rotate for left-side reading */
+.btn-whatsapp-left__text {
     writing-mode: vertical-rl;
     text-orientation: mixed;
+    transform: rotate(180deg); /* Inverted text direction for left-side readability */
     font-family: 'Familjen Grotesk', sans-serif;
     font-weight: 500;
     font-size: 12px;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    margin-top: 6px;
+    margin-bottom: 6px; /* Space between icon and text */
     color: #1A1A1A;
     display: inline-block;
-    /* Removido: transform: scaleX(-1) rotateZ(180deg); */
-    /* Texto agora lido naturalmente de cima para baixo no lado esquerdo */
+}
+
+/* Fallback for legacy <span> pattern (if still used) */
+.btn-whatsapp-left span {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    color: #1A1A1A;
+    display: inline-block;
 }
 
 /* Mobile Tweaks - button centered vertically (same as pg-help-btn) */
