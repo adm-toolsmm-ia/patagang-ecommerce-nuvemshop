@@ -2038,50 +2038,38 @@ p{
   }
 }
 
-/* Product Informative Banner - Responsive spacing without header overlap */
+/* Product Informative Banner - Main compensa header, banner sem override de margin-top */
 div.product-informative-banner {
   background: transparent;
   background-color: transparent;
   padding: 0.5rem 0;
-  margin: 0;
-  margin-bottom: 1rem;            /* Espaço abaixo do banner em todos os tamanhos */
+  margin: 0;  /* ✅ REFATORAÇÃO: Main (160px padding) compensa header */
+  margin-bottom: 16px;  /* ✅ Espaço abaixo do banner */
   position: relative;
-  z-index: 100;                   /* ✅ Acima de elementos comuns, mas abaixo do header (z-index: 9999) */
+  z-index: 10;  /* ✅ Visível acima de conteúdo comum, abaixo do header (9999) */
 }
 
-/* Mobile (≤576px): header padding compensa margin-top, sem margem extra */
+/* Mobile (≤576px): Responsive spacing */
 @media (max-width: 576px) {
   div.product-informative-banner {
     margin-top: 0;
-    margin-bottom: 0.5rem;         /* Reduzido no mobile */
-  }
-  /* Remove classes Bootstrap conflitantes no mobile */
-  div.product-informative-banner.mt-3 {
-    margin-top: 0 !important;
-  }
-  div.product-informative-banner.my-md-3 {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    margin-bottom: 12px;  /* ✅ Reduzido no mobile */
   }
 }
 
-/* Tablet (577px-768px): transição suave */
+/* Tablet (577px-768px): Transição suave */
 @media (min-width: 577px) and (max-width: 768px) {
   div.product-informative-banner {
-    margin-top: 0.5rem;
-    margin-bottom: 0.75rem;
+    margin-top: 0;
+    margin-bottom: 14px;
   }
 }
 
-/* Desktop (≥769px): espaço normal sem override de margin-top base */
+/* Desktop (≥769px): Espaço confortável */
 @media (min-width: 769px) {
   div.product-informative-banner {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  /* Garante que Bootstrap classes não conflitem no desktop */
-  div.product-informative-banner.my-md-3 {
-    margin-top: 0 !important;      /* Remove duplicação no desktop */
+    margin-top: 0;
+    margin-bottom: 16px;
   }
 }
 
@@ -3581,17 +3569,15 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
    (Seção separada, fora do produto)
    ============================================ */
 
-/* PATAGANG vX.X.X: Identity Banner - Responsive spacing without header duplication [Story 10.3 v3]
-   main.patagang-section-content já aplica padding-top: 160px
-   identity-banner NÃO deve ter margin-top adicional (causava 280px de gap total) */
+/* Identity Banner - Main compensa header padding, banner não precisa de margin-top extra */
 .pg-identity-banner {
 	width: 100%;
 	background: #FFFFFF;
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	padding: 12px 20px;
-	margin: 0;
-	margin-top: 0;  /* ✅ REMOVIDO: margin-top causava duplicação de espaço (80px + 160px padding do main) */
+	margin: 0;  /* ✅ REFATORAÇÃO: Main (160px padding) compensa header */
+	margin-bottom: 16px;  /* ✅ Espaço abaixo do banner */
 	box-sizing: border-box;
 	position: relative;
 	z-index: 10;
@@ -3662,7 +3648,8 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 @media (max-width: 576px) {
 	.pg-identity-banner {
 		padding: 12px 10px;
-		margin-top: 4px;  /* ✅ Mínimo respiro — evita invasão do header */
+		margin: 0;  /* ✅ REFATORAÇÃO: Main compensa header */
+		margin-bottom: 12px;  /* ✅ Espaço abaixo */
 		position: relative;
 		z-index: 10;
 	}
@@ -3696,9 +3683,9 @@ body.template-home main.patagang-section-content {
 	padding-top: 0;  /* ✅ HOME: hero começa imediatamente, sem espaço branco */
 }
 
-/* PRODUCT PAGE: Reduce padding because banners handle their own spacing */
+/* PRODUCT PAGE: Restore padding to compensate for fixed header (refactor fix) */
 body.template-product main.patagang-section-content {
-	padding-top: 0;  /* ✅ Banners estão dentro, eles controlam seu espaçamento */
+	padding-top: 160px;  /* ✅ REFATORAÇÃO: Main compensa header fixo, banners sem override */
 }
 
 @media (max-width: 991px) {
@@ -3713,7 +3700,7 @@ body.template-product main.patagang-section-content {
 
 	/* PRODUCT PAGE: Mobile adjustments */
 	body.template-product main.patagang-section-content {
-		padding-top: 0;  /* ✅ Banners controlam espaçamento */
+		padding-top: 140px;  /* ✅ Tablet PDP: compensa header */
 	}
 }
 
@@ -3729,7 +3716,7 @@ body.template-product main.patagang-section-content {
 
 	/* PRODUCT PAGE: Mobile adjustments */
 	body.template-product main.patagang-section-content {
-		padding-top: 0;  /* ✅ Banners controlam espaçamento */
+		padding-top: 130px;  /* ✅ Mobile PDP: compensa header */
 	}
 }
 
