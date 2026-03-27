@@ -2054,6 +2054,15 @@ body:not(.template-product) div.product-informative-banner {
   margin-top: 0;  /* Outras páginas com padding-top não usam banner */
 }
 
+/* PATAGANG vX.X.X: Mobile PDP — remove duplicate header-offset margin (Story 10.3)
+   main.patagang-section-content já aplica padding-top: 130px no mobile
+   O banner não precisa do margin-top adicional no PDP mobile */
+@media (max-width: 576px) {
+  body.template-product div.product-informative-banner {
+    margin-top: 0;
+  }
+}
+
 div.product-informative-banner.position-relative {
   background: transparent;
   background-color: transparent;
