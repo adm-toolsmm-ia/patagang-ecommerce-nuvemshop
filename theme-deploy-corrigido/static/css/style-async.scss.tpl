@@ -1,4 +1,4 @@
-﻿{#/*============================================================================
+{#/*============================================================================
 style.css
     -This file contains all the theme non critical styles wich will be loaded asynchronously
     -Rest of styling can be found in:
