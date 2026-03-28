@@ -1,0 +1,2 @@
+Cache buster: $(date +%s)
+Force Nuvemshop theme recompilation

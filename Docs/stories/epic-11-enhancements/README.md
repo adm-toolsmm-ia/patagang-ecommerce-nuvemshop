@@ -1,6 +1,6 @@
 # EPIC 11 — Melhorias & Ajustes Pós-EPIC 10
 
-**Status:** 🟡 PLANEJADA
+**Status:** 🟡 EM ANDAMENTO (Story 11.1 concluída)
 **Versão Base:** v1.5.184 (estável)
 **Padrão:** AIOX + Aprendizados EPIC 10
 
@@ -96,17 +96,17 @@ node ftp-deploy/deploy.js "rollback: ..." --force
 | Fase | Status | Responsável |
 |------|--------|-------------|
 | Planejamento | ✅ PRONTO | @pm (Morgan) |
-| Análise (Aguardando alterações) | ⏳ PENDENTE | @analyst (Atlas) |
-| Implementação | ⏳ PENDENTE | @dev (Dex) |
-| QA | ⏳ PENDENTE | @qa (Quinn) |
-| Validação Gabriel | ⏳ PENDENTE | Gabriel |
-| Deploy | ⏳ PENDENTE | @devops (Gage) |
+| Análise (Aguardando alterações) | ✅ 11.2 concluída | @analyst (Atlas) |
+| Implementação | ✅ 11.2 concluída | @dev (Dex) |
+| QA | ✅ 11.2 concluída | @qa (Quinn) |
+| Validação Gabriel | 🟡 aguardando 11.2 | Gabriel |
+| Deploy | ✅ 11.2 publicado (v1.5.190) | @devops (Gage) |
 
 ---
 
 ## 🎯 Próximo Passo
 
-**Gabriel:** Envie as alterações desejadas para EPIC 11!
+**Gabriel:** Story 11.2 publicada em produção e pronta para sua validação.
 
 Estrutura está pronta para receber:
 - ✅ Stories com padrão AIOX

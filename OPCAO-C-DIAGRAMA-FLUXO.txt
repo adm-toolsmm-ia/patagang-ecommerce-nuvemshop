@@ -1,0 +1,293 @@
+═══════════════════════════════════════════════════════════════════════════════
+OPÇÃO C: FLUXO VISUAL — Preservando Identidade Patagang
+═══════════════════════════════════════════════════════════════════════════════
+
+SITUAÇÃO ATUAL (CORROMPIDA):
+───────────────────────────────────────────────────────────────────────────────
+
+<head>
+├─ <style> (INLINE — 207 KB ❌ EXCESSIVO)
+│  ├─ style-critical.tpl                      149 KB
+│  ├─ style-menu-patagang.css.tpl             8 KB   ← MARCA
+│  ├─ style-filters-patagang.css.tpl          15 KB  ← MARCA
+│  ├─ style-help-sidebar.css.tpl              6.6 KB ← MARCA
+│  └─ style-whatsapp-button.css.tpl           1.8 KB ← MARCA
+│
+├─ {{ 'css/style-colors.scss.tpl' | static_inline }}  25 KB
+│
+├─ <link> style-async.scss.tpl                161 KB (ASYNC, CORROMPIDO)
+│
+├─ Inline overrides (body, sections)          2 KB
+│
+└─ TOTAL INLINE: ~207 KB ❌ MASSIVO
+</head>
+
+
+DEPOIS — OPÇÃO C REVISADA (HÍBRIDA):
+───────────────────────────────────────────────────────────────────────────────
+
+<head>
+├─ <style> (INLINE CRÍTICO — 56 KB ✅ SEGURO)
+│  ├─ style-critical-bare.tpl                 25 KB   (LCP Real)
+│  ├─ style-menu-patagang.css.tpl             8 KB    ← MARCA PRESERVADA
+│  ├─ style-filters-patagang.css.tpl          15 KB   ← MARCA PRESERVADA
+│  ├─ style-help-sidebar.css.tpl              6.6 KB  ← MARCA PRESERVADA
+│  └─ style-whatsapp-button.css.tpl           1.8 KB  ← MARCA PRESERVADA
+│
+├─ {{ 'css/style-colors.scss.tpl' | static_inline }}  25 KB
+│
+├─ <link media=print onload> (ASYNC ESTRATIFICADO)
+│  ├─ style-critical-extra.scss.tpl           100 KB  (Não-crítico)
+│  ├─ style-async-core.scss.tpl               50 KB   (Essencial)
+│  └─ style-async-extended.scss.tpl           90 KB   (Lazy-load)
+│
+└─ TOTAL INLINE: 56 KB ✅ SEGURO (72% redução)
+
+</head>
+
+
+COMPARAÇÃO TAMANHO:
+───────────────────────────────────────────────────────────────────────────────
+
+ANTES (CORROMPIDO):                    DEPOIS (OPÇÃO C):
+┌─────────────────────┐                ┌────────────────────┐
+│ INLINE              │                │ INLINE             │
+│ ├─ critical  149 KB │                │ ├─ bare       25 KB│
+│ ├─ menu      8 KB   │                │ ├─ menu       8 KB │
+│ ├─ filters   15 KB  │                │ ├─ filters    15 KB│
+│ ├─ sidebar   6.6 KB │                │ ├─ sidebar    6.6KB│
+│ ├─ whatsapp  1.8 KB │                │ ├─ whatsapp   1.8KB│
+│ ├─ colors    25 KB  │                │ ├─ colors    25 KB │
+│ └─ total  207 KB ❌ │                │ └─ total    56 KB✅│
+│                     │                │                    │
+│ ASYNC               │                │ ASYNC              │
+│ └─ async    161 KB  │                │ ├─ extra    100 KB │
+│                     │                │ ├─ core      50 KB │
+│ TOTAL:   368 KB     │                │ └─ extend    90 KB │
+└─────────────────────┘                │                    │
+                                       │ TOTAL:   296 KB    │
+                                       └────────────────────┘
+
+GANHO: -72 KB inline (~35% redução total)
+
+
+ARQUITETURA DE SEPARAÇÃO:
+───────────────────────────────────────────────────────────────────────────────
+
+PASSO 1: Extrair do style-critical.tpl (149 KB)
+─────────────────────────────────────────────────
+
+    style-critical.tpl (149 KB)
+         │
+         ├─→ REGRAS LCP REAL           →→→ style-critical-bare.tpl (25 KB)
+         │    ├─ Bootstrap Grid
+         │    ├─ Swiper Carousel
+         │    ├─ Header Navigation
+         │    ├─ Home Hero Section
+         │    ├─ Buttons & Links
+         │    └─ Forms (Inputs)
+         │
+         └─→ REGRAS NÃO-CRÍTICAS      →→→ style-critical-extra.scss.tpl (100 KB)
+              ├─ Product Grid
+              ├─ Footer
+              ├─ Hover States
+              ├─ Decorative Rules
+              └─ Complex Layouts
+
+
+PASSO 2: Extrair do style-async.scss.tpl (161 KB)
+─────────────────────────────────────────────────
+
+    style-async.scss.tpl (161 KB - CORROMPIDO?)
+         │
+         ├─→ ESSENCIAL PARA FEATURES  →→→ style-async-core.scss.tpl (50 KB)
+         │    ├─ Product Cards
+         │    ├─ Gallery Lightbox
+         │    ├─ Filter & Sort UI
+         │    └─ Mobile Optimizations
+         │
+         └─→ NICHE / LAZY-LOAD        →→→ style-async-extended.scss.tpl (90 KB)
+              ├─ Blog Styling
+              ├─ Advanced Animations
+              ├─ Low-Priority Features
+              └─ Edge Cases
+
+
+PASSO 3: PRESERVAR Customizações Patagang (SEM TOCAR!)
+───────────────────────────────────────────────────────
+
+    ✅ style-menu-patagang.css.tpl     8 KB    MARCA → PRESERVAR
+    ✅ style-filters-patagang.css.tpl  15 KB   MARCA → PRESERVAR
+    ✅ style-help-sidebar.css.tpl      6.6 KB  MARCA → PRESERVAR
+    ✅ style-whatsapp-button.css.tpl   1.8 KB  MARCA → PRESERVAR
+
+
+CARREGAMENTO NO LAYOUT.TPL:
+───────────────────────────────────────────────────────────────────────────────
+
+Fases:                              Arquivo                 Tamanho   Timing
+─────────────────────────────────────────────────────────────────────────────
+
+1️⃣  CRITICAL PATH               <style>
+    ├─ style-critical-bare.tpl    25 KB   ← INLINE (bloqueia render até aqui)
+    ├─ style-menu-patagang        8 KB    ← MARCA
+    ├─ style-filters-patagang     15 KB   ← MARCA
+    ├─ style-help-sidebar         6.6 KB  ← MARCA
+    └─ style-whatsapp-button      1.8 KB  ← MARCA
+       SUBTOTAL: 56 KB inline
+
+2️⃣  DESIGN SYSTEM               <style>
+    └─ style-colors.scss.tpl      25 KB   ← INLINE (colors, typography)
+
+3️⃣  ASYNC ESTRATIFICADO          <link media=print onload="...">
+    ├─ style-critical-extra.scss  100 KB  ← LOAD EARLY (não-crítico)
+    ├─ style-async-core.scss      50 KB   ← LOAD EARLY (features)
+    └─ style-async-extended.scss  90 KB   ← LOAD LAST (lazy)
+
+ORDEM CRUCIAL:
+1. Critical bare + Patagang inline
+2. Colors inline
+3. Extra (não-crítico)
+4. Core (features)
+5. Extended (lazy)
+
+RenderTime: Extra + Core + Extended async → não bloqueia LCP
+
+
+VALIDAÇÃO GATES (ANTES DO DEPLOY):
+───────────────────────────────────────────────────────────────────────────────
+
+FASE A: ANÁLISE ARQUIVOS
+───────────────────────
+
+ANÁLISE: style-critical-bare vs style-critical (OVERLAP CHECK)
+┌─────────────────────────────────────────────┐
+│ ☐ Nenhum seletor duplicado                  │
+│ ☐ style-critical-bare = ~25 KB (LCP real)   │
+│ ☐ Ordem de cascade preservada               │
+│ ☐ Sem references a vars não-definidas       │
+│ ☐ CSS válido (W3C validator)                │
+└─────────────────────────────────────────────┘
+
+ANÁLISE: style-async-core vs async-extended (VALIDATION)
+┌─────────────────────────────────────────────┐
+│ ☐ SCSS compila sem erros                    │
+│ ☐ Sem missing variables/imports             │
+│ ☐ Line count = original (prova: sem delete) │
+│ ☐ Character encoding: UTF-8 OK              │
+│ ☐ Nenhuma linha perdida                     │
+└─────────────────────────────────────────────┘
+
+PATAGANG CUSTOMIZATIONS: INTACTNESS CHECK
+┌─────────────────────────────────────────────┐
+│ ☐ style-menu-patagang.css.tpl      8 KB ✅ │
+│ ☐ style-filters-patagang.css.tpl   15 KB ✅│
+│ ☐ style-help-sidebar.css.tpl       6.6 KB✅│
+│ ☐ style-whatsapp-button.css.tpl    1.8 KB✅│
+│                                             │
+│ MARCA VISUAL: PRESERVADA 💯                 │
+└─────────────────────────────────────────────┘
+
+ARQUIVOS UNUSED: DELETAR
+┌─────────────────────────────────────────────┐
+│ ✅ grep check → NÃO REFERENCIADO            │
+│ ☐ rm style-blog.scss.tpl                    │
+│ ☐ rm style-tokens.tpl                       │
+│ ☐ rm style-home-v2.css                      │
+│ ☐ rm product-card-v3.css                    │
+└─────────────────────────────────────────────┘
+
+
+FASE B: LAYOUT.TPL VALIDATION
+────────────────────────────
+
+CARREGAMENTO ORDER CHECK
+┌─────────────────────────────────────────────┐
+│ ☐ Linha 69-73: Critical-bare + Patagang    │
+│ ☐ Linha 78: Colors inline                  │
+│ ☐ Novas linhas: Extra (async)              │
+│ ☐ Novas linhas: Core (async)               │
+│ ☐ Novas linhas: Extended (async)           │
+│                                             │
+│ ORDEM:                                      │
+│ 1. Critical-bare (inline)                  │
+│ 2. Colors (inline)                         │
+│ 3. Extra (async first)                     │
+│ 4. Core (async second)                     │
+│ 5. Extended (async last)                   │
+└─────────────────────────────────────────────┘
+
+HTML SYNTAX CHECK
+┌─────────────────────────────────────────────┐
+│ ☐ media="print" onload="this.media='all'"  │
+│ ☐ Nenhuma tag <style> ou <link> truncada   │
+│ ☐ HTML válido (W3C validator)              │
+│ ☐ JavaScript console: sem erros            │
+└─────────────────────────────────────────────┘
+
+
+FASE C: HTTP 200 + VISUAL
+──────────────────────────
+
+PRODUCTION CHECKS
+┌─────────────────────────────────────────────┐
+│ ☐ HTTP 200 (não 404, não 500)              │
+│ ☐ CSS syntax: válido                       │
+│ ☐ Console: 0 CSS errors                    │
+│ ☐ LCP element: visível (sem FOUC)          │
+│ ☐ Page load time: <3s em LTE                │
+└─────────────────────────────────────────────┘
+
+VISUAL PATAGANG
+┌─────────────────────────────────────────────┐
+│ ☐ Menu customizado: sim, funciona          │
+│ ☐ Botões filtro: Patagang style            │
+│ ☐ Sidebar ajuda: visível + estilizada      │
+│ ☐ Botão WhatsApp: posição correta          │
+│ ☐ Cores: respeitam design system           │
+│ ☐ Mobile (375px): responsivo               │
+│ ☐ Tablet (768px): responsivo               │
+│ ☐ Desktop (1024px): responsivo             │
+│ ☐ Nenhuma degradação visual                │
+└─────────────────────────────────────────────┘
+
+
+TIMELINE ESTIMADO:
+───────────────────────────────────────────────────────────────────────────────
+
+FASE 1: Análise & Separação (SEM RISCOS)
+├─ Extrair critical-bare (30 min)
+├─ Extrair critical-extra (30 min)
+├─ Extrair async-core (30 min)
+├─ Extrair async-extended (30 min)
+└─ Validação CSS básica (30 min)
+  SUBTOTAL: 2.5 horas
+
+FASE 2: Layout Update
+├─ Update layout.tpl (30 min)
+├─ Teste local (1 hora)
+└─ CodeRabbit review (30 min)
+  SUBTOTAL: 2 horas
+
+FASE 3: QA Validation
+├─ HTTP 200 check (10 min)
+├─ CSS validation (30 min)
+├─ Visual Patagang (30 min)
+└─ Mobile test (30 min)
+  SUBTOTAL: 1h40min
+
+TOTAL TEMPO: ~6-7 horas (1 dia)
+
+COMPARAÇÃO vs outras opções:
+├─ Opção A (rewrite): 2-3 dias ⚠️  ALTO RISCO
+├─ Opção B (replace): 2-3 dias ⚠️  ALTO RISCO
+└─ Opção C (híbrida): 1 dia   ✅ BAIXO RISCO
+
+
+═══════════════════════════════════════════════════════════════════════════════
+DECISÃO: Você quer prosseguir com OPÇÃO C?
+═══════════════════════════════════════════════════════════════════════════════
+
+SIM ✅  → Começa FASE 1 (Análise)
+NÃO ❌  → Quer ajustes? Envie feedback
+TALVEZ ⚠️ → Tire dúvidas comigo (@architect)

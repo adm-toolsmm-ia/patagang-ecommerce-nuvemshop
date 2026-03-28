@@ -1,6 +1,6 @@
 # EPIC 11 — Melhorias & Ajustes Pós-EPIC 10
 
-**Status:** 🟡 PLANEJADA
+**Status:** 🟡 EM ANDAMENTO (Story 11.1 concluída)
 **Criado em:** 2026-03-27
 **PM:** @pm (Morgan)
 **Versão base:** v1.5.184 (estável, pós-rollback EPIC 10)
@@ -37,12 +37,12 @@ Implementar novas alterações e melhorias identificadas por Gabriel Cristofolin
 
 ---
 
-## 📂 Stories da EPIC (AGUARDANDO ESPECIFICAÇÃO)
+## 📂 Stories da EPIC (STATUS ATUAL)
 
 | Story | Título | Executor | QA | Risco | Status |
 |-------|--------|----------|-----|-------|--------|
-| 11.1 | [AGUARDANDO ALTERAÇÃO 1] | @dev | @qa | ? | ⬜ Draft |
-| 11.2 | [AGUARDANDO ALTERAÇÃO 2] | @dev | @qa | ? | ⬜ Draft |
+| 11.1 | WhatsApp esquerdo: manter rotate + restaurar ícone | @dev | @qa | Médio | ✅ Done (Aprovada por Gabriel) |
+| 11.2 | Galeria PDP 2x2 desktop + scroll isolado (sem regressão mobile) | @dev | @qa | Médio | 🟡 Aguardando validação Gabriel |
 | 11.3 | [AGUARDANDO ALTERAÇÃO 3] | @dev | @qa | ? | ⬜ Draft |
 | ... | [OUTRAS ALTERAÇÕES] | ... | ... | ... | ⬜ Draft |
 
@@ -65,7 +65,7 @@ Cada story segue obrigatoriamente:
    - Local testing completo
 
 3. @devops: Deploy FTP
-   - node ftp-deploy/deploy.js "descrição" --force
+   - node ftp-deploy/deploy.js "descrição"
    - Auto-incrementa versão
    - Validação FTP (HTTP 200 + arquivo size)
 
@@ -173,6 +173,52 @@ Antes de qualquer @dev implementar:
 
 ---
 
+## 📌 Rebaseline Story 11.1 (2026-03-27)
+
+Atualização aprovada para corrigir divergência de requisito identificada em produção:
+
+- O botão WhatsApp do lado esquerdo **deve manter** `transform: rotate(180deg)` por regra de legibilidade no posicionamento lateral.
+- O problema real da story 11.1 é a ausência do **ícone visível do WhatsApp** na versão atual da loja.
+- A documentação da 11.1 passa a seguir o fluxo **docs-first**: corrigir instruções, implementar, validar, deploy FTP, registrar evidências.
+
+**Fonte de verdade operacional para deploy:** `ftp-deploy/README-DEPLOYMENT.md` + `ftp-deploy/deploy.js`.
+
+**Execução registrada (11.1):**
+- Branch: `feat/epic-11`
+- Commit funcional/docs: `96cf417`
+- Deploy FTP concluído: `v1.5.189`
+- Commit de versão (script): `6a2f4c6`
+- Backup: `backups/deployment-1.5.189/2026-03-27T05-06-49`
+- Push remoto: autorizado após aprovação do Gabriel (em execução por @devops)
+
+---
+
+## 📌 Kickoff Story 11.2 (2026-03-27)
+
+Story 11.2 iniciada em fluxo AIOX com agentes:
+
+- @analyst: mapeamento de requisitos e riscos da galeria PDP (2x2 + scroll isolado).
+- @dev: auditoria técnica de templates/CSS/JS da galeria para ajuste mínimo sem regressão no Swiper.
+- @qa: checklist de validação por breakpoint para liberação do Gabriel.
+
+Escopo confirmado da 11.2:
+- Desktop (>=992px): grid 2x2 com 4 imagens visíveis, gap e proporção consistentes.
+- Scroll isolado na área da galeria (sem vazar para a página durante rolagem da galeria).
+- Tablet/mobile: manter Swiper atual sem regressão.
+
+---
+
+## 📌 Execução Story 11.2 (2026-03-27)
+
+- Branch: `feat/epic-11`
+- Commit funcional/docs: `46f9f2d`
+- Deploy FTP concluído: `v1.5.190`
+- Commit de versão (script): `74e852b`
+- Backup: `backups/deployment-1.5.190/2026-03-27T05-20-57`
+- Push remoto: pendente (gate da validação Gabriel)
+
+---
+
 ## 🔗 Referências Críticas
 
 **EPIC 10 Lessons:**
@@ -196,7 +242,7 @@ Antes de qualquer @dev implementar:
 
 ---
 
-**Status:** 🟡 PLANEJADA — Aguardando alterações de Gabriel
+**Status:** 🟡 EM ANDAMENTO — Story 11.1 concluída e aprovada
 **Versão Base:** v1.5.184
 **Data Criação:** 2026-03-27
 

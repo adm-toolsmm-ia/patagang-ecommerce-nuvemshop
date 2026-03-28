@@ -27,20 +27,20 @@
 
   {#### Colors settings #}
 
-  {# Main colors #}
+  {# Main colors - ALL WITH DEFAULTS to prevent null/empty values #}
 
-  {% set primary_color = settings.primary_color %}
-  {% set secondary_color = settings.secondary_color %}
-  {% set accent_color = settings.accent_color %}
+  {% set primary_color = settings.primary_color | default('#007bff') %}
+  {% set secondary_color = settings.secondary_color | default('#EAFE67') %}
+  {% set accent_color = settings.accent_color | default('#D4E856') %}
 
   {% set main_background = '#E2E2E2' %} {# PATAGANG: Cor fixa do protótipo #}
-  {% set main_foreground = settings.text_color %}
+  {% set main_foreground = settings.text_color | default('#1A1A1A') %}
 
-  {% set button_background = settings.add_button_background_color %}
-  {% set button_foreground = settings.add_button_foreground_color %}
-  
-  {% set label_background = settings.label_background_color %}
-  {% set label_foreground = settings.label_foreground_color %}
+  {% set button_background = settings.add_button_background_color | default(primary_color) %}
+  {% set button_foreground = settings.add_button_foreground_color | default('#FFFFFF') %}
+
+  {% set label_background = settings.label_background_color | default(secondary_color) %}
+  {% set label_foreground = settings.label_foreground_color | default(main_foreground) %}
 
   {# Header colors #}
 
@@ -190,63 +190,63 @@
 
   {# Main colors #}
 
-  --main-foreground: {{ main_foreground }};
+  --main-foreground: {{ main_foreground | default('#1A1A1A') }};
   --main-background: #E2E2E2; /* PATAGANG: Cor fixa */
 
-  --primary-color: {{ primary_color }};
-  --secondary-color: {{ secondary_color }};
-  --accent-color: {{ accent_color }};
+  --primary-color: {{ primary_color | default('#007bff') }};
+  --secondary-color: {{ secondary_color | default('#EAFE67') }};
+  --accent-color: {{ accent_color | default('#D4E856') }};
 
-  --button-background: {{ button_background }};
-  --button-foreground: {{ button_foreground }};
+  --button-background: {{ button_background | default('#007bff') }};
+  --button-foreground: {{ button_foreground | default('#FFFFFF') }};
 
-  --label-background: {{ label_background }};
-  --label-foreground: {{ label_foreground }};
+  --label-background: {{ label_background | default('#EAFE67') }};
+  --label-foreground: {{ label_foreground | default('#1A1A1A') }};
 
   {# Optional colors #}
 
   {# Header colors #}
 
-  --adbar-background: {{ adbar_background }};
-  --adbar-foreground: {{ adbar_foreground }};
-  --adbar-icon: {{ adbar_icon }};
+  --adbar-background: {{ adbar_background | default(secondary_color) }};
+  --adbar-foreground: {{ adbar_foreground | default(main_background) }};
+  --adbar-icon: {{ adbar_icon | default(main_background) }};
 
-  --header-badge-background: {{ header_badge_background }};
-  --header-badge-foreground: {{ header_badge_foreground }};
+  --header-badge-background: {{ header_badge_background | default(primary_color) }};
+  --header-badge-foreground: {{ header_badge_foreground | default('#FFFFFF') }};
 
-  --nav-desktop-foreground: {{ nav_desktop_foreground }};
-  
-  --nav-desktop-background: {{ nav_desktop_background }};
-  --nav-desktop-hover: {{ nav_desktop_hover }};
+  --nav-desktop-foreground: {{ nav_desktop_foreground | default(main_foreground) }};
 
-  --header-featured-link-foreground: {{ header_featured_link_foreground }};
-  --header-featured-link-background: {{ header_featured_link_background }};
+  --nav-desktop-background: {{ nav_desktop_background | default(main_background) }};
+  --nav-desktop-hover: {{ nav_desktop_hover | default(primary_color) }};
 
-  --topbar-background: {{ header_contact_background }};
-  --topbar-foreground: {{ header_contact_foreground }};
-  --topbar-icons: {{ header_contact_icons }};
+  --header-featured-link-foreground: {{ header_featured_link_foreground | default(main_background) }};
+  --header-featured-link-background: {{ header_featured_link_background | default(accent_color) }};
 
-  --search-background: {{ search_background }};
-  --search-foreground: {{ search_foreground }};
-  --search-icon: {{ search_icon }};
+  --topbar-background: {{ header_contact_background | default(main_background) }};
+  --topbar-foreground: {{ header_contact_foreground | default(main_foreground) }};
+  --topbar-icons: {{ header_contact_icons | default(secondary_color) }};
 
-  --nav-mobile-background: {{ nav_mobile_background }};
-  --nav-mobile-foreground: {{ nav_mobile_foreground }};
+  --search-background: {{ search_background | default(main_background) }};
+  --search-foreground: {{ search_foreground | default(main_foreground) }};
+  --search-icon: {{ search_icon | default(secondary_color) }};
+
+  --nav-mobile-background: {{ nav_mobile_background | default(main_background) }};
+  --nav-mobile-foreground: {{ nav_mobile_foreground | default(main_foreground) }};
 
   {# Footer colors #}
 
-  --footer-background: {{ footer_background }};
-  --footer-foreground: {{ footer_foreground }};
-  --footer-titles: {{ footer_titles }};
-  --footer-icons: {{ footer_icons }};
-  --footer-form-background: {{ footer_form_background }};
-  --footer-form-foreground: {{ footer_form_foreground }};
-  --footer-form-input-background: {{ footer_form_input_background }};
-  --footer-form-input-foreground: {{ footer_form_input_foreground }};
-  --footer-form-titles: {{ footer_form_titles }};
-  --footer-form-button-background: {{ footer_form_button_background }};
-  --footer-form-button-foreground: {{ footer_form_button_foreground }};
-  --footer-social-icons: {{ footer_social_icons }};
+  --footer-background: {{ footer_background | default(main_background) }};
+  --footer-foreground: {{ footer_foreground | default(main_foreground) }};
+  --footer-titles: {{ footer_titles | default(main_foreground) }};
+  --footer-icons: {{ footer_icons | default(main_foreground) }};
+  --footer-form-background: {{ footer_form_background | default(main_background) }};
+  --footer-form-foreground: {{ footer_form_foreground | default(main_foreground) }};
+  --footer-form-input-background: {{ footer_form_input_background | default(main_background) }};
+  --footer-form-input-foreground: {{ footer_form_input_foreground | default(main_foreground) }};
+  --footer-form-titles: {{ footer_form_titles | default(main_foreground) }};
+  --footer-form-button-background: {{ footer_form_button_background | default(main_foreground) }};
+  --footer-form-button-foreground: {{ footer_form_button_foreground | default(main_background) }};
+  --footer-social-icons: {{ footer_social_icons | default(main_foreground) }};
 
   {# Home sections colors #}
 

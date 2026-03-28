@@ -46,7 +46,7 @@
 
 | Item | Descrição | Trilha |
 |------|-----------|---------|
-| Botão Help sidebar | Remover `transform: rotate(180deg)` em span | A |
+| Botão WhatsApp esquerdo | Manter `transform: rotate(180deg)` e restaurar ícone visível | A |
 | Botão WhatsApp | Alinhar espaçamento com Help (margin vs margin-bottom) | A |
 | Galeria 2x2 grid | Exibir 4 imagens simultâneas (2 cols x 2 rows) | B |
 | Scroll behavior | Scroll da galeria não afeta página pai | B |
@@ -168,42 +168,45 @@ body .btn-whatsapp-left span {
 **Decisão Arquitetural:**
 
 ```
-Opção 1: Remover rotate de WhatsApp (RECOMENDADA)
-├─ Remover transform: rotate(180deg) de layout.tpl
-├─ Manter writing-mode: vertical-rl (padrão)
-├─ Resultado: Help e WhatsApp visualmente idênticos ✅
-└─ Risco: BAIXO (só CSS, sem JS impact)
+Opção 1: Manter rotate no WhatsApp + corrigir ícone (RECOMENDADA)
+├─ Preservar transform: rotate(180deg) no botão esquerdo
+├─ Corrigir visibilidade do ícone com SVG inline confiável
+├─ Resultado: Legibilidade correta no lado esquerdo + consistência com Help ✅
+└─ Risco: BAIXO-MÉDIO (ajuste visual específico, sem mudança de fluxo)
 
-Opção 2: Adicionar rotate a Help (NÃO RECOMENDADA)
-├─ Adicionar transform: rotate(180deg) a .pg-help-btn__text
-├─ Resultado: Ambos rotacionados (quebra design Help)
-└─ Risco: MÉDIO (regressão visual Help)
+Opção 2: Remover rotate de WhatsApp (DESCARTADA)
+├─ Contraria regra funcional definida por Gabriel para leitura lateral
+├─ Pode gerar nova regressão visual
+└─ Risco: MÉDIO (retrabalho e divergência de requisito)
 ```
 
 **Proposta Escolhida:** Opção 1
 
 **Arquivos Impactados:**
-- `theme-deploy-corrigido/layouts/layout.tpl` (remover rotate)
-- Validar em: style-whatsapp-button.css.tpl (margin-top vs margin-bottom)
+- `theme-deploy-corrigido/snipplets/whatsapp-left.tpl` (ícone inline e markup final)
+- `theme-deploy-corrigido/static/css/style-whatsapp-button.css.tpl` (manter rotate + consistência visual)
+- `theme-deploy-corrigido/layouts/layout.tpl` (apenas se necessário para override final)
 
 **CSS Strategy:**
 ```css
-/* ANTES (layout.tpl): */
-body .btn-whatsapp-left span {
-    transform: rotate(180deg) !important; /* ← REMOVE */
-    margin-bottom: 6px !important;
+/* MANTER (left side readability): */
+.btn-whatsapp-left__text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
 }
 
-/* DEPOIS: */
-body .btn-whatsapp-left span {
-    /* rotate REMOVIDO */
-    margin-bottom: 6px !important; /* Mantém Help alignment */
+/* GARANTIR ícone visível no botão: */
+.btn-whatsapp-left__icon {
+    width: 24px;
+    height: 24px;
+    color: #1A1A1A;
 }
 ```
 
 **Validação:**
-- [ ] Help button texto vertical (cima→baixo) LTR
-- [ ] WhatsApp button texto vertical (cima→baixo) LTR — IDÊNTICO
+- [ ] Help button mantém padrão atual
+- [ ] WhatsApp esquerdo mantém `rotate(180deg)` para leitura correta
+- [ ] Ícone WhatsApp visível (desktop/tablet/mobile)
 - [ ] Mobile: ambos centralizados com padding correto
 - [ ] Hover states idênticos
 
@@ -374,7 +377,7 @@ body .btn-whatsapp-left {
 
 | Trilha | Arquivo | Tipo | Mudança |
 |--------|---------|------|---------|
-| A | layout.tpl | Template | Remover `transform: rotate(180deg)` |
+| A | whatsapp-left.tpl | Template | Restaurar SVG inline e garantir visibilidade do ícone |
 | A | style-whatsapp-button.css.tpl | CSS | Validar margin consistency |
 | B | style-critical.tpl | CSS | Adicionar/confirmar grid-template-columns |
 | B | product-image.tpl | Template | Sem mudança (talvez classes) |
@@ -432,8 +435,9 @@ DEPOIS:
 
 ```yaml
 Trilha A - Botões:
-  - HTML render check: span text vertical, não rotacionado ✓
-  - CSS computed check: transform: none (não rotate) ✓
+  - HTML render check: texto vertical com rotate no WhatsApp esquerdo ✓
+  - CSS computed check: transform: matrix(...) (rotate aplicado) ✓
+  - Ícone WhatsApp visível no botão (todos breakpoints) ✓
   - Mobile: padding correto 10px 6px ✓
 
 Trilha B - Galeria:
@@ -463,7 +467,7 @@ Trilha D - Débito:
 | Campo | Valor |
 |-------|-------|
 | **ID** | 11.1 |
-| **Título** | Padronizar botão WhatsApp com Help Sidebar (remover rotate) |
+| **Título** | Corrigir botão WhatsApp esquerdo (manter rotate + restaurar ícone) |
 | **Trilha** | A (Botões Laterais) |
 | **Executor** | @dev (Dex) |
 | **QA** | @qa (Quinn) |
@@ -474,7 +478,7 @@ Trilha D - Débito:
 | **Bloqueia** | Nenhuma |
 
 **Descrição:**
-Remover `transform: rotate(180deg)` do WhatsApp button span em layout.tpl para alinhar com Help button (ambos com texto vertical LTR, sem rotação).
+Manter `transform: rotate(180deg)` no texto do botão WhatsApp esquerdo (requisito funcional) e restaurar a visibilidade do ícone WhatsApp com SVG inline, garantindo consistência visual com o Help sem alterar a regra de leitura lateral.
 
 **Critérios de Aceite (Given/When/Then):**
 
@@ -484,9 +488,9 @@ QUANDO visualizo os botões laterais (Help esquerda, WhatsApp direita)
 ENTÃO ambos têm estilo idêntico:
   - Texto vertical (cima → baixo)
   - Cor #F0F0F0 background
-  - Ícone 20x20px preto
+  - Ícone WhatsApp visível e legível
   - Padding 12px 8px
-  - Sem transformações/rotações aplicadas
+  - Comportamento visual consistente por lado (Help padrão, WhatsApp com rotate)
 
 E QUANDO faço hover em qualquer botão
 ENTÃO background muda para #E8E8E8
@@ -496,22 +500,35 @@ ENTÃO ambos mantêm padding 10px 6px, centralizados
 ```
 
 **Arquivos Modificados:**
-- `theme-deploy-corrigido/layouts/layout.tpl` — Remove linhas com `transform: rotate(180deg)` no `.btn-whatsapp-left span`
+- `theme-deploy-corrigido/snipplets/whatsapp-left.tpl` — ajustar SVG inline do ícone
+- `theme-deploy-corrigido/static/css/style-whatsapp-button.css.tpl` — manter rotate e garantir visibilidade
+- `theme-deploy-corrigido/layouts/layout.tpl` — somente se houver necessidade de override final
 
 **Tarefas Técnicas:**
-1. [ ] Localizar `transform: rotate(180deg)` em layout.tpl (linha ~550?)
-2. [ ] Remover ou comentar a regra
-3. [ ] Validar margin-bottom consistency entre Help e WhatsApp
-4. [ ] Teste local: visual check Help vs WhatsApp (devtools)
-5. [ ] Commit: `fix(buttons): remove rotate transform from WhatsApp button [Story 11.1]`
+1. [ ] Confirmar `rotate(180deg)` no texto do WhatsApp esquerdo (não remover)
+2. [ ] Corrigir SVG inline em `whatsapp-left.tpl`
+3. [ ] Validar espaçamento e alinhamento visual com Help
+4. [ ] Teste local: visual check + computed style + ícone visível
+5. [x] Commit: `fix(buttons): restore whatsapp icon and preserve left-side rotate [Story 11.1]`
 
 **Validação Gabriel:**
-- [ ] Desktop: Help button texto vertical, normal
-- [ ] Desktop: WhatsApp button texto vertical, normal — IDÊNTICO
-- [ ] Mobile: Ambos centralizados com padding correto
-- [ ] Console: 0 CSS errors/warnings
+- [x] Desktop: Help button texto vertical, normal
+- [x] Desktop: WhatsApp esquerdo com rotate aplicado e leitura correta
+- [x] Desktop: ícone WhatsApp visível
+- [x] Mobile: Ambos centralizados com padding correto
+- [x] Console: 0 CSS errors/warnings
 
 **Rollback:** `git reset --hard {commit-anterior}`
+
+**Execução técnica registrada (2026-03-27):**
+- [x] `rotate(180deg)` preservado para o botão WhatsApp esquerdo
+- [x] SVG inline do WhatsApp atualizado em `snipplets/whatsapp-left.tpl`
+- [x] Reforço de visibilidade em `static/css/style-whatsapp-button.css.tpl` (`fill`, `display`, `flex-shrink`)
+- [x] Commit funcional/docs realizado (`96cf417`)
+- [x] Deploy FTP executado via `node ftp-deploy/deploy.js "fix: story 11.1 whatsapp left rotate + icone [Story 11.1]"`
+- [x] Versão publicada `v1.5.189` com validação FTP 4/4
+- [x] Backup gerado em `backups/deployment-1.5.189/2026-03-27T05-06-49`
+- [x] Validação final do Gabriel em produção (aprovada)
 
 ---
 
@@ -547,9 +564,9 @@ ENTÃO vejo:
 
 QUANDO faço scroll DENTRO da galeria
 ENTÃO:
-  - Scroll afeta APENAS galeria (não página)
+  - Scroll afeta APENAS a galeria enquanto houver conteúdo interno para rolar
   - Comportamento smooth scroll
-  - Ao fim da galeria, scroll para na galeria (não afeta page)
+  - Ao atingir topo/fim da galeria, a página volta a responder ao scroll normalmente
 
 E QUANDO visualizo em tablet (768-991px)
 ENTÃO galeria exibe Swiper carousel (comportamento atual OK)
@@ -563,16 +580,17 @@ ENTÃO modal lightbox abre (comportamento existente preservado)
 
 **Arquivos Modificados:**
 - `theme-deploy-corrigido/static/css/style-critical.tpl` — adicionar/confirmar grid CSS
-- Novo: `theme-deploy-corrigido/static/js/pdp-gallery-scroll.js` — scroll hijacking
+- `theme-deploy-corrigido/layouts/layout.tpl` — alinhar overrides de galeria no breakpoint desktop
+- `theme-deploy-corrigido/static/js/product-page-custom.js` — isolamento de scroll da galeria desktop
 
 **Tarefas Técnicas:**
-1. [ ] Verificar `.pg-gallery-grid` tem `grid-template-columns: repeat(2, 1fr)`
-2. [ ] Adicionar `aspect-ratio: 1/1` em `.pg-gallery-item`
-3. [ ] Ajustar `.pg-gallery-container` max-height
-4. [ ] Implementar scroll hijacking JS (previne parent scroll)
-5. [ ] Teste local: desktop 2x2 visível, scroll isolado
-6. [ ] Teste tablet/mobile: Swiper funciona (regressão check)
-7. [ ] Commit: `feat(gallery): implement 2x2 grid + scroll isolation [Story 11.2]`
+1. [x] Verificar `.pg-gallery-grid` com 2 colunas no desktop
+2. [x] Ajustar sizing dos cards da galeria para grade estável (2x2 visível)
+3. [x] Ajustar `.pg-gallery-container` max-height e overflow isolado
+4. [x] Implementar isolamento de wheel scroll na galeria desktop (com fallback nos limites)
+5. [x] Teste local: desktop 2x2 visível, scroll isolado
+6. [x] Teste tablet/mobile: Swiper preservado (regressão check)
+7. [x] Commit: `feat: implement Story 11.2 gallery 2x2 desktop with isolated scroll [Story 11.2]`
 
 **Validação Gabriel:**
 - [ ] Desktop ≥1200px: 4 imagens visíveis 2x2
@@ -583,6 +601,16 @@ ENTÃO modal lightbox abre (comportamento existente preservado)
 - [ ] Lighthouse: performance score
 
 **Rollback:** `git reset --hard {commit-anterior}`
+
+**Execução técnica registrada (2026-03-27):**
+- [x] Grid desktop ajustado para 2 colunas com sizing estável e gap de 12px
+- [x] Scroll isolado da galeria aplicado no desktop (CSS + JS com fallback de borda)
+- [x] Swiper mobile/tablet preservado sem alteração de markup
+- [x] Commit funcional/docs realizado (`46f9f2d`)
+- [x] Deploy FTP executado via `node ftp-deploy/deploy.js "feat: story 11.2 gallery 2x2 + isolated scroll [Story 11.2]"`
+- [x] Versão publicada `v1.5.190` com validação FTP 4/4
+- [x] Backup gerado em `backups/deployment-1.5.190/2026-03-27T05-20-57`
+- [ ] Validação final do Gabriel em produção (pendente)
 
 ---
 

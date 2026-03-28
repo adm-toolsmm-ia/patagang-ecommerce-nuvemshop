@@ -20,7 +20,7 @@
             <meta name="robots" content="index, follow">
         {% endif %}
 
-        {# SEO: Canonical URL - Evita conteudo duplicado #}
+        {# FORCE RECOMPILE - Cache buster for Nuvemshop SCSS compilation - v1.5.254 #}
         <link rel="canonical" href="{{ canonical_url }}" />
 
         {# SEO: Google Search Console - Inserir meta tag de verificacao abaixo quando receber do especialista #}
@@ -172,54 +172,59 @@
             }
 
             /* =====================================================================
-               PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
+               PRODUCT GALLERY REFINEMENTS — Grid 2x2 Desktop (Story 11.2)
+               Aplicado APENAS em desktop (≥992px) para não conflitar com Swiper
                ===================================================================== */
 
-            /* 1. DESKTOP: Gallery grows with card height, scroll for extras */
-            /* PATAGANG v1.5.152: Removed max-height: 520px to allow gallery to match card */
-            .pg-gallery-container {
-                height: auto;               /* Grow with content */
-                max-height: none;           /* Remove hard limit */
-                overflow-y: auto;           /* Scroll automático se > 4 imagens */
-                box-sizing: border-box;
-                display: flex;              /* Flex container para filho ficar alinhado */
-                flex-direction: column;     /* Grid fica em coluna */
-                padding-right: 8px;         /* Espaço para scrollbar sem cortar conteúdo */
-            }
+            @media (min-width: 992px) {
+                /* Container da galeria: mostra exatamente 2 linhas (4 imagens) */
+                .pg-gallery-container {
+                    /* max-height = 2×clamp(200,24vh,280) + gap = clamp(412,48vh+12,572) */
+                    max-height: clamp(412px, calc(48vh + 12px), 572px);
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    overscroll-behavior: contain;
+                    scroll-behavior: smooth;
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 0;
+                    padding-right: 8px;
+                    width: 100%;
+                }
 
-            /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
-            .pg-gallery-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);  /* 2 COLUNAS */
-                gap: 14px;                              /* Espaçamento moderno refinado */
-                padding: 0;                             /* Sem padding (gap já espaça) */
-                width: 100%;
-                height: fit-content;                    /* Cresce com conteúdo */
-            }
+                /* Grid da galeria — 2 colunas, linhas de altura fixa */
+                .pg-gallery-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    grid-auto-rows: clamp(200px, 24vh, 280px);
+                    gap: 12px;
+                    padding: 0;
+                    width: 100%;
+                    height: fit-content;
+                }
 
-            /* =====================================================================
-               COLUMN ALIGNMENT — Colunas Crescem Juntas para Alinhar Rodapé
-               ===================================================================== */
+                /* Coluna imagem: STRETCH para crescer com card */
+                .pg-pdp-image-col {
+                    align-self: stretch !important;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 0;
+                    overflow: visible;
+                }
 
-            /* Coluna imagem: STRETCH para crescer com card */
-            .pg-pdp-image-col {
-                align-self: stretch !important;     /* CRESCE com card */
-                display: flex;                      /* Flex para filho acompanhar */
-                flex-direction: column;
-                min-height: 0;                      /* Permite que flex-grow funcione */
-            }
+                /* Coluna info: STRETCH para alinhar altura com galeria */
+                .pg-pdp-info-col {
+                    align-self: stretch !important;
+                    display: flex;
+                    flex-direction: column;
+                    padding-top: 0;
+                }
 
-            /* Coluna info: STRETCH para alinhar altura com galeria */
-            .pg-pdp-info-col {
-                align-self: stretch !important;    /* CRESCE junto com galeria */
-                display: flex;                     /* Flex para card acompanhar */
-                flex-direction: column;
-                padding-top: 0;                    /* Sem padding-top, alinhado direto */
-            }
-
-            /* Card de info cresce para preencher altura */
-            .pg-pdp-info-card {
-                flex: 1;                           /* Cresce para preencher espaço */
+                /* Card de info cresce para preencher altura */
+                .pg-pdp-info-card {
+                    flex: 1;
+                }
             }
 
             /* =====================================================================
@@ -228,8 +233,8 @@
 
             /* Base: Fallback para navegadores sem suporte a backdrop-filter */
             .pg-pdp-info-card {
-                background: rgba(255, 255, 255, 0.85);  /* Fallback: background opaco */
-                backdrop-filter: blur(0);               /* Fallback: sem blur */
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(0);
             }
 
             /* Modern browsers: use backdrop-filter com blur */
@@ -238,39 +243,6 @@
                     background: rgba(255, 255, 255, 0.55);
                     backdrop-filter: blur(12px);
                     -webkit-backdrop-filter: blur(12px);
-                }
-            }
-
-            /* =====================================================================
-               MOBILE ADJUSTMENTS — Manter responsividade
-               ===================================================================== */
-
-            @media (max-width: 768px) {
-                /* Mobile: carousel responsivo (sem galeria grid) */
-                .pg-gallery-container {
-                    height: auto;           /* Auto em mobile */
-                    overflow: visible;      /* Sem scroll, fluxo natural */
-                }
-
-                /* Mobile: colunas empilhadas, alinhar topo */
-                .pg-pdp-image-col,
-                .pg-pdp-info-col {
-                    align-self: stretch;    /* Preenche width mobile */
-                }
-            }
-
-            @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column, grows with card */
-                /* PATAGANG v1.5.152: Removed max-height: 480px limit */
-                .pg-gallery-container {
-                    height: auto;           /* Grow with content */
-                    max-height: none;       /* Remove hard limit */
-                    overflow-y: auto;       /* Scroll automático se > 4 imagens */
-                    padding-right: 8px;     /* Espaço para scrollbar */
-                }
-
-                .pg-gallery-grid {
-                    grid-template-columns: repeat(2, 1fr);  /* 2 colunas em tablet */
                 }
             }
         </style>

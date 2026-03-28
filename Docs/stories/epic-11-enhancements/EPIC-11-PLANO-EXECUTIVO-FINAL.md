@@ -14,7 +14,7 @@
 | Trilha | Objetivo | Risco | Timeline | Status |
 |--------|----------|-------|----------|--------|
 | **A** | Padronizar botões Help ≈ WhatsApp | 🟢 Baixo | 1 dia | ✅ Ready |
-| **B** | Galeria 2x2: visibilidade + scroll | 🟡 Médio | 2-3 dias | ⚠️ Conflito media query |
+| **B** | Galeria 2x2: visibilidade + scroll | 🟡 Médio | 2-3 dias | 🟡 Aguardando validação Gabriel |
 | **C** | Konfidance: reviews + Q&A | 🟡 Médio | 2 dias | ✅ Ready (plugin existe) |
 | **D** | Débito técnico: refator CSS/JS | 🔴 Alto | 3+ dias | ⚠️ 22-35h débito |
 
@@ -26,38 +26,52 @@
 
 ## PARTE I: TRILHA A — BOTÕES LATERAIS (SIMPLES ✅)
 
-### Problema Identificado
+### Problema Identificado (revalidado em produção)
 
 ```
 Help Button ("Posso ajudar?"):
-  ✅ Texto: vertical-rl (sem rotate)
+  ✅ Texto: vertical-rl (sem rotate adicional)
   ✅ Spacing: margin-bottom 6px
   ✅ Estilo: background #F0F0F0
 
 WhatsApp Button ("Compre pelo Whats"):
-  ❌ Texto: vertical-rl + rotate(180deg)  ← PROBLEMA!
-  ❌ Spacing: margin inconsistente
-  ❌ Override: layout.tpl com !important sobrescreve
+  ✅ Texto: vertical-rl + rotate(180deg) (requisito funcional no lado esquerdo)
+  ❌ Ícone sem visibilidade na versão atual da loja
+  ⚠️ Necessita validação de consistência visual com Help sem remover rotate
 ```
 
 ### Solução
 
-**Remove `transform: rotate(180deg)` em layout.tpl:**
-- Linha: ~550 (aprox)
-- CSS atual: `body .btn-whatsapp-left span { transform: rotate(180deg) !important; }`
-- Resultado: Botões visualmente idênticos
+**Manter `transform: rotate(180deg)` no WhatsApp esquerdo + restaurar ícone inline no botão:**
+- Não remover rotate da 11.1 (regra funcional confirmada)
+- Garantir ícone WhatsApp visível em desktop/tablet/mobile
+- Ajustar somente o necessário para consistência visual com Help
 
 **Story 11.1 Execution:**
 ```yaml
 Prioridade: P0
 Tamanho: S (1 dia)
-Risco: BAIXO
-Arquivo: layout.tpl
+Risco: BAIXO-MÉDIO
+Arquivos:
+  - snipplets/whatsapp-left.tpl
+  - static/css/style-whatsapp-button.css.tpl
+  - (se necessário) layouts/layout.tpl para override final
 
-Tarefa: Remover 2 linhas (transform + rotate)
-Validação: Visual check Help vs WhatsApp
+Tarefa:
+  - Preservar rotate no texto do WhatsApp esquerdo
+  - Corrigir visibilidade do ícone com SVG inline confiável
+Validação:
+  - Visual check Help vs WhatsApp
+  - Ícone visível em todos breakpoints da PDP
 Rollback: git reset --hard {anterior}
 ```
+
+**Status de execução 11.1 (2026-03-27):**
+- Branch: `feat/epic-11`
+- Commit funcional/docs: `96cf417`
+- Deploy FTP concluído com sucesso: versão `v1.5.189`
+- Backup: `backups/deployment-1.5.189/2026-03-27T05-06-49`
+- Validação Gabriel: ✅ aprovada (liberado push/PR da branch)
 
 ---
 
