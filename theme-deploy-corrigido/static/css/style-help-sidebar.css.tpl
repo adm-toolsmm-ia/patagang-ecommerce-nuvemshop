@@ -8,7 +8,7 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background: #EAFE67; /* Store Yellow */
+    background: #F0F0F0; /* Light gray - matches production design */
     color: #1A1A1A; /* Black Text */
     z-index: 9990;
     cursor: pointer;
@@ -16,7 +16,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 12px 8px;
+    padding: 16px 10px;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     box-shadow: -2px 0 8px rgba(0,0,0,0.1);
@@ -24,8 +24,8 @@
 }
 
 .pg-help-btn:hover {
-    background: #d4e65d; /* Slightly darker yellow on hover */
-    padding-right: 12px;
+    background: #E8E8E8; /* Slightly darker gray on hover */
+    padding-right: 14px;
 }
 
 .pg-help-btn__text {
@@ -33,16 +33,16 @@
     text-orientation: mixed;
     font-family: 'Familjen Grotesk', sans-serif;
     font-weight: 500;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     color: #1A1A1A;
 }
 
 .pg-help-btn__icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     color: #1A1A1A; /* Black Icon - stroke-based SVG uses currentColor */
 }
 
@@ -318,7 +318,7 @@ img.pg-help-item__icon {
         top: 50%;
         transform: translateY(-50%);
         right: 0;
-        padding: 10px 6px;
+        padding: 13px 8px;
         z-index: 9990;
     }
     .pg-help-btn__text {
