@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 100 100">
-  <g fill="none" stroke="#000" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Círculo da lupa -->
-    <circle cx="40" cy="40" r="32"/>
-    <!-- Cabo da lupa -->
-    <line x1="62" y1="62" x2="95" y2="95"/>
-  </g>
-</svg>
