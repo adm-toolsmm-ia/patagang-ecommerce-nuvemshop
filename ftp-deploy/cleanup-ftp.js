@@ -19,8 +19,18 @@ async function cleanup() {
     console.log('\n🗑️  Removendo arquivos desincronizados...\n');
 
     const filesToDelete = [
-      '_METADATA.json',
-      '_BACKUP_METADATA.json',
+      'theme-deploy-corrigido/layouts/layout.tpl.backup-whatsapp-css-impl',
+      'theme-deploy-corrigido/layouts/layout.tpl.backup.v1.5.133',
+      'theme-deploy-corrigido/static/checkout.scss.tpl.backup-20260109-215632',
+      'theme-deploy-corrigido/static/css/style-async.scss.tpl.backup',
+      'theme-deploy-corrigido/static/css/style-async.scss.tpl.corrupted',
+      'theme-deploy-corrigido/static/css/style-critical.tpl.backup',
+      'theme-deploy-corrigido/static/css/style-critical.tpl.backup-2a',
+      'theme-deploy-corrigido/static/css/style-critical.tpl.backup-8.2',
+      'theme-deploy-corrigido/static/css/style-critical.tpl.pre-extraction',
+      'theme-deploy-corrigido/static/css/style-critical.tpl.corrupted-5271',
+      'theme-deploy-corrigido/static/js/store.js.tpl.backup.v1.5.76',
+      'theme-deploy-corrigido/static/js/store.js.tpl.backup.v1.5.77.phase2',
     ];
 
     for (const file of filesToDelete) {
