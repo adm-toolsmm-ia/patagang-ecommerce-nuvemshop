@@ -70,6 +70,7 @@
             {% include "static/css/style-menu-patagang.css.tpl" %}
             {% include "static/css/style-filters-patagang.css.tpl" %}
             {% include "static/css/style-help-sidebar.css.tpl" %}
+            {% include "static/css/style-whatsapp-button.css.tpl" %}
         </style>
 
         {# Colors and fonts used from settings.txt and defined on theme customization #}
@@ -171,54 +172,59 @@
             }
 
             /* =====================================================================
-               PRODUCT GALLERY REFINEMENTS — Grid 2 Colunas + Altura Dinâmica com Card
+               PRODUCT GALLERY REFINEMENTS — Grid 2x2 Desktop (Story 11.2)
+               Aplicado APENAS em desktop (≥992px) para não conflitar com Swiper
                ===================================================================== */
 
-            /* 1. DESKTOP: Gallery grows with card height, scroll for extras */
-            /* PATAGANG v1.5.152: Removed max-height: 520px to allow gallery to match card */
-            .pg-gallery-container {
-                height: auto;               /* Grow with content */
-                max-height: none;           /* Remove hard limit */
-                overflow-y: auto;           /* Scroll automático se > 4 imagens */
-                box-sizing: border-box;
-                display: flex;              /* Flex container para filho ficar alinhado */
-                flex-direction: column;     /* Grid fica em coluna */
-                padding-right: 8px;         /* Espaço para scrollbar sem cortar conteúdo */
-            }
+            @media (min-width: 992px) {
+                /* Container da galeria: mostra exatamente 2 linhas (4 imagens) */
+                .pg-gallery-container {
+                    /* max-height = 2×clamp(200,24vh,280) + gap = clamp(412,48vh+12,572) */
+                    max-height: clamp(412px, calc(48vh + 12px), 572px);
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    overscroll-behavior: contain;
+                    scroll-behavior: smooth;
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 0;
+                    padding-right: 8px;
+                    width: 100%;
+                }
 
-            /* Grid da galeria — 2 COLUNAS com 4+ imagens (rolável) */
-            .pg-gallery-grid {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);  /* 2 COLUNAS */
-                gap: 14px;                              /* Espaçamento moderno refinado */
-                padding: 0;                             /* Sem padding (gap já espaça) */
-                width: 100%;
-                height: fit-content;                    /* Cresce com conteúdo */
-            }
+                /* Grid da galeria — 2 colunas, linhas de altura fixa */
+                .pg-gallery-grid {
+                    display: grid;
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                    grid-auto-rows: clamp(200px, 24vh, 280px);
+                    gap: 12px;
+                    padding: 0;
+                    width: 100%;
+                    height: fit-content;
+                }
 
-            /* =====================================================================
-               COLUMN ALIGNMENT — Colunas Crescem Juntas para Alinhar Rodapé
-               ===================================================================== */
+                /* Coluna imagem: STRETCH para crescer com card */
+                .pg-pdp-image-col {
+                    align-self: stretch !important;
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 0;
+                    overflow: visible;
+                }
 
-            /* Coluna imagem: STRETCH para crescer com card */
-            .pg-pdp-image-col {
-                align-self: stretch !important;     /* CRESCE com card */
-                display: flex;                      /* Flex para filho acompanhar */
-                flex-direction: column;
-                min-height: 0;                      /* Permite que flex-grow funcione */
-            }
+                /* Coluna info: STRETCH para alinhar altura com galeria */
+                .pg-pdp-info-col {
+                    align-self: stretch !important;
+                    display: flex;
+                    flex-direction: column;
+                    padding-top: 0;
+                }
 
-            /* Coluna info: STRETCH para alinhar altura com galeria */
-            .pg-pdp-info-col {
-                align-self: stretch !important;    /* CRESCE junto com galeria */
-                display: flex;                     /* Flex para card acompanhar */
-                flex-direction: column;
-                padding-top: 0;                    /* Sem padding-top, alinhado direto */
-            }
-
-            /* Card de info cresce para preencher altura */
-            .pg-pdp-info-card {
-                flex: 1;                           /* Cresce para preencher espaço */
+                /* Card de info cresce para preencher altura */
+                .pg-pdp-info-card {
+                    flex: 1;
+                }
             }
 
             /* =====================================================================
@@ -227,8 +233,8 @@
 
             /* Base: Fallback para navegadores sem suporte a backdrop-filter */
             .pg-pdp-info-card {
-                background: rgba(255, 255, 255, 0.85);  /* Fallback: background opaco */
-                backdrop-filter: blur(0);               /* Fallback: sem blur */
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(0);
             }
 
             /* Modern browsers: use backdrop-filter com blur */
@@ -237,39 +243,6 @@
                     background: rgba(255, 255, 255, 0.55);
                     backdrop-filter: blur(12px);
                     -webkit-backdrop-filter: blur(12px);
-                }
-            }
-
-            /* =====================================================================
-               MOBILE ADJUSTMENTS — Manter responsividade
-               ===================================================================== */
-
-            @media (max-width: 768px) {
-                /* Mobile: carousel responsivo (sem galeria grid) */
-                .pg-gallery-container {
-                    height: auto;           /* Auto em mobile */
-                    overflow: visible;      /* Sem scroll, fluxo natural */
-                }
-
-                /* Mobile: colunas empilhadas, alinhar topo */
-                .pg-pdp-image-col,
-                .pg-pdp-info-col {
-                    align-self: stretch;    /* Preenche width mobile */
-                }
-            }
-
-            @media (min-width: 769px) and (max-width: 991px) {
-                /* Tablet: galeria 2-column, grows with card */
-                /* PATAGANG v1.5.152: Removed max-height: 480px limit */
-                .pg-gallery-container {
-                    height: auto;           /* Grow with content */
-                    max-height: none;       /* Remove hard limit */
-                    overflow-y: auto;       /* Scroll automático se > 4 imagens */
-                    padding-right: 8px;     /* Espaço para scrollbar */
-                }
-
-                .pg-gallery-grid {
-                    grid-template-columns: repeat(2, 1fr);  /* 2 colunas em tablet */
                 }
             }
         </style>
@@ -331,7 +304,9 @@
                 align-items: center !important;
                 justify-content: center !important;
                 flex-wrap: wrap !important;
-                gap: 0.5em !important;
+                /* Same gap as style-critical.tpl .section-advertising__copy */
+                gap: clamp(0.75rem, 2.5vw, 1.75rem) !important;
+                row-gap: 0.35em !important;
                 font-size: 0.65rem !important;
                 font-weight: 600 !important;
                 letter-spacing: 0.1px !important;
@@ -348,11 +323,6 @@
                 white-space: normal !important;
             }
 
-            body .section-advertising__separator {
-                display: inline !important;
-                margin: 0 0.3em !important;
-                color: rgba(0, 0, 0, 0.5) !important;
-            }
             body .section-advertising__link {
                 text-decoration: none !important;
                 color: inherit !important;
@@ -368,10 +338,6 @@
                 }
                 body .section-advertising__copy {
                     font-size: 0.55rem !important;
-                    gap: 0.3em !important;
-                }
-                body .section-advertising__separator {
-                    margin: 0 0.2em !important;
                 }
             }
             @media (min-width: 577px) and (max-width: 991px) {
@@ -380,20 +346,12 @@
                 }
                 body .section-advertising__copy {
                     font-size: 0.65rem !important;
-                    gap: 0.4em !important;
-                }
-                body .section-advertising__separator {
-                    margin: 0 0.25em !important;
                 }
             }
 
             @media (min-width: 992px) {
                 body .section-advertising__copy {
                     font-size: 0.7rem !important;
-                    gap: 0.5em !important;
-                }
-                body .section-advertising__separator {
-                    margin: 0 0.3em !important;
                 }
             }
         </style>
@@ -492,81 +450,7 @@
             }
             body .pg-help-btn__text { font-size: 11px !important; }
         }
-        {# WhatsApp Left Button — Fixed position on LEFT (opposite of Help Button on RIGHT) #}
-        body .btn-whatsapp-left {
-            position: fixed !important;
-            left: 0 !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            z-index: 9990 !important;
-            background-color: #F0F0F0 !important;
-            border: 1px solid #E0E0E0 !important;
-            padding: 12px 8px !important;
-            border-top-right-radius: 4px !important;
-            border-bottom-right-radius: 4px !important;
-            box-shadow: 2px 0 8px rgba(0,0,0,0.1) !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-            text-decoration: none !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-        body .btn-whatsapp-left:hover {
-            background-color: #E8E8E8 !important;
-            border: 1px solid #D0D0D0 !important;
-            padding-left: 12px !important;
-        }
-        body .btn-whatsapp-left:focus {
-            outline: 2px solid #25D366 !important;
-            outline-offset: 2px !important;
-        }
-        body .btn-whatsapp-left svg {
-            width: 20px !important;
-            height: 20px !important;
-            color: #25D366 !important;
-        }
-        body .btn-whatsapp-left span {
-            writing-mode: vertical-rl !important;
-            text-orientation: mixed !important;
-            font-family: 'Familjen Grotesk', sans-serif !important;
-            font-weight: 500 !important;
-            font-size: 12px !important;
-            letter-spacing: 0.03em !important;
-            text-transform: uppercase !important;
-            margin-bottom: 6px !important;
-            color: #1A1A1A !important;
-        }
-        @media (max-width: 768px) {
-            body .btn-whatsapp-left {
-                left: 0 !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
-                z-index: 9990 !important;
-                padding: 10px 6px !important;
-            }
-            body .btn-whatsapp-left span {
-                font-size: 11px !important;
-                letter-spacing: 0.03em !important;
-                text-transform: uppercase !important;
-            }
-        }
-        @media (max-width: 480px) {
-            body .pg-help-btn__text { font-size: 11px !important; }
-            body .btn-whatsapp-left {
-                left: 0 !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
-                z-index: 9990 !important;
-                padding: 8px 5px !important;
-            }
-            body .btn-whatsapp-left span {
-                font-size: 10px !important;
-                letter-spacing: 0.03em !important;
-                text-transform: uppercase !important;
-            }
-        }
+        {# WhatsApp Left Button — IDENTICAL design to pg-help-btn, positioned LEFT #}
         </style>
 
         {#/*============================================================================
@@ -922,6 +806,83 @@
         }
         .pg-card .pg-card__image-container {
         }
+
+        /* ============================================
+           PDP — Hierarquia de preço (Pix/desconto + parcelamento)
+           Escopo: body.template-product #single-product apenas.
+           Não alterar display/visibility: store.js.tpl controla show/hide.
+        ============================================ */
+        body.template-product #single-product .pg-price-block {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 10px !important;
+            margin-bottom: 18px !important;
+        }
+        body.template-product #single-product .pg-price-pix-highlight,
+        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product-container {
+            font-family: var(--pg-font-body) !important;
+            line-height: 1.25 !important;
+        }
+        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product {
+            font-size: 26px !important;
+            font-weight: 800 !important;
+            color: #000 !important;
+            letter-spacing: -0.02em !important;
+        }
+        body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product-container {
+            font-size: 15px !important;
+            font-weight: 600 !important;
+        }
+        body.template-product #single-product .pg-price-block:not(:has(.pg-price-pix-highlight)) .pg-price-original {
+            font-family: var(--pg-font-body) !important;
+            font-size: 26px !important;
+            font-weight: 800 !important;
+            color: #000 !important;
+            letter-spacing: -0.02em !important;
+            text-decoration: none !important;
+        }
+        body.template-product #single-product .pg-price-block:has(.pg-price-pix-highlight) .pg-price-original {
+            font-family: var(--pg-font-body) !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            color: #666 !important;
+            text-decoration: line-through !important;
+            text-decoration-thickness: 1px !important;
+        }
+        body.template-product #single-product .pg-price-block .pg-price-compare-at {
+            font-family: var(--pg-font-body) !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            color: #888 !important;
+            text-decoration: line-through !important;
+        }
+        body.template-product #single-product .pg-price-installments {
+            font-family: var(--pg-font-body) !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            color: #000 !important;
+            line-height: 1.45 !important;
+            margin-top: 2px !important;
+        }
+        body.template-product #single-product .pg-price-installments .js-installment-amount {
+            font-weight: 800 !important;
+        }
+        body.template-product #single-product .pg-price-installments .js-installment-price {
+            font-weight: 800 !important;
+        }
+        @media (max-width: 576px) {
+            body.template-product #single-product .pg-price-pix-highlight .js-payment-discount-price-product {
+                font-size: 22px !important;
+            }
+            body.template-product #single-product .pg-price-block:not(:has(.pg-price-pix-highlight)) .pg-price-original {
+                font-size: 22px !important;
+            }
+            body.template-product #single-product .pg-price-installments {
+                font-size: 14px !important;
+            }
+        }
+
         /* ============================================
            CATEGORY DESCRIPTION: Match 'VISTA O PROPÓSITO' style
         ============================================ */

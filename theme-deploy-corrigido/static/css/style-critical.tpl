@@ -1701,7 +1701,9 @@ p{
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5em;
+  /* Phrase spacing — keep in sync: layouts/layout.tpl (ad_bar + ad_text block) */
+  gap: clamp(0.75rem, 2.5vw, 1.75rem);
+  row-gap: 0.35em;
   font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.2px;
@@ -1716,12 +1718,6 @@ p{
 .section-advertising__phrase {
   display: inline;
   white-space: normal;
-}
-
-.section-advertising__separator {
-  display: inline;
-  margin: 0 0.3em;
-  color: rgba(0, 0, 0, 0.5);
 }
 
 .section-advertising__link {
@@ -1747,7 +1743,6 @@ p{
 
   .section-advertising__copy {
     font-size: 0.65rem;
-    gap: 0 0.3em;
   }
 
   .section-advertising__phrase {
@@ -1768,7 +1763,6 @@ p{
 
   .section-advertising__copy {
     font-size: 0.7rem;
-    gap: 0 0.4em;
   }
 
   .section-advertising__phrase {
@@ -1789,7 +1783,6 @@ p{
 
   .section-advertising__copy {
     font-size: 0.75rem;
-    gap: 0 0.5em;
   }
 
   .section-advertising__phrase {
@@ -2045,20 +2038,39 @@ p{
   }
 }
 
-/* Product Informative Banner - Transparent background + compact text */
+/* Product Informative Banner - Main compensa header, banner sem override de margin-top */
 div.product-informative-banner {
   background: transparent;
   background-color: transparent;
   padding: 0.5rem 0;
-  margin: 0;
-  margin-top: 130px;              /* ✅ Espaço abaixo do header fixo (160px total espaço do header) */
+  margin: 0;  /* ✅ REFATORAÇÃO: Main (160px padding) compensa header */
+  margin-bottom: 16px;  /* ✅ Espaço abaixo do banner */
   position: relative;
-  z-index: 1;                     /* Garante que fica abaixo do header (z-index: 9999) */
+  z-index: 10;  /* ✅ Visível acima de conteúdo comum, abaixo do header (9999) */
 }
 
-/* Adjust for pages with main padding-top (non-product pages) */
-body:not(.template-product) div.product-informative-banner {
-  margin-top: 0;  /* Outras páginas com padding-top não usam banner */
+/* Mobile (≤576px): Responsive spacing */
+@media (max-width: 576px) {
+  div.product-informative-banner {
+    margin-top: 0;
+    margin-bottom: 12px;  /* ✅ Reduzido no mobile */
+  }
+}
+
+/* Tablet (577px-768px): Transição suave */
+@media (min-width: 577px) and (max-width: 768px) {
+  div.product-informative-banner {
+    margin-top: 0;
+    margin-bottom: 14px;
+  }
+}
+
+/* Desktop (≥769px): Espaço confortável */
+@media (min-width: 769px) {
+  div.product-informative-banner {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
 }
 
 div.product-informative-banner.position-relative {
@@ -2863,13 +2875,29 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 /* Row principal - Bootstrap row - AQUI está o fundo branco */
 .pg-pdp-container .section-single-product {
 	margin: 0;
-	padding: 40px 20px;             /* Padding para respiro interno */
+	padding: 20px;                  /* ✅ Reduzido: 40px → 20px (mobile não precisa de espaço duplo) */
 	width: 100%;
-	background-color: #ffffff;      /* ✅ Branco puro (seção de galeria + card) */
+	background-color: #ffffff;
 	background-image: none;
-	display: flex;                  /* ✅ Explicit flex para garantir */
-	flex-direction: row;            /* ✅ Horizontal por padrão */
-	gap: 0;                         /* Reset gap, será definido em media query */
+	display: flex;
+	flex-direction: row;
+	gap: 0;
+}
+
+/* Tablet (577px-768px) - Slightly more padding */
+@media (min-width: 577px) and (max-width: 768px) {
+	.pg-pdp-container .section-single-product {
+		padding: 30px 25px;
+		margin-top: 0;
+	}
+}
+
+/* Desktop (≥769px) - Full padding */
+@media (min-width: 769px) {
+	.pg-pdp-container .section-single-product {
+		padding: 40px 40px;
+		margin-top: 0;
+	}
 }
 
 /* DESKTOP: FORÇAR lado a lado - sobrescreve Bootstrap */
@@ -2878,13 +2906,13 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
-		align-items: stretch;  /* AMBAS colunas mesma altura */
+		align-items: stretch;
 		gap: 40px;
-		padding: 10px 40px;  /* Reduzido mais: espaçamento superior (15px → 10px) */
-		margin-top: 0;  /* Remove margin superior */
+		padding: 40px 40px;
+		margin-top: 0;
 	}
 
-	/* LEFT COLUMN - Product Image (full height, clean design)
+	/* LEFT COLUMN - Product Image (full height, clean design) */
 	.pg-pdp-container .pg-pdp-image-col {
 		flex: 0 0 60%;
 		max-width: 60%;
@@ -2911,7 +2939,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* LEFT COLUMN - Product Image (full height, clean design)
+/* LEFT COLUMN - Product Image (full height, clean design) */
 .pg-pdp-image-col {
 	background: transparent; /* SEM fundo */
 	border-radius: 0; /* SEM bordas arredondadas */
@@ -2919,14 +2947,14 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	overflow: visible;
 	display: flex;
 	flex-direction: column;  /* Permite filho crescer verticalmente */
-	align-items: flex-start; /* Alinha no topo */
+	align-items: stretch;
 	justify-content: flex-start;
 	box-sizing: border-box;
 	box-shadow: none; /* SEM sombra */
 	height: 100%;  /* Preenche altura total */
 }
 
-/* Image Container - Fills parent, responsive
+/* Image Container - Fills parent, responsive */
 .pg-pdp-image-col .product-image-container {
 	width: 100%;
 	flex: 1;  /* Cresce para preencher altura */
@@ -2954,23 +2982,54 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		display: none;
 	}
 
-	/* Gallery grid 2x2: Show on desktop (≥992px) */
-	/* PATAGANG v1.5.151: Limitar altura da galeria para acompanhar card info */
+	/* Story 11.2: desktop gallery must stay 2x2 visible */
 	.pg-pdp-image-col {
-		max-height: calc(100vh - 200px);  /* Limitar altura da coluna */
-		overflow-y: auto;  /* Scroll se conteúdo ultrapassar */
+		overflow: visible;
+		min-height: 0;
 	}
 
 	.pg-gallery-container {
 		display: flex !important;
-		height: auto;  /* Não forçar 100% (causa overflow) */
-		max-height: 100%;  /* Limitar ao espaço disponível na coluna */
+		width: 100%;
+		/* max-height = 2 linhas × clamp(200px,24vh,280px) + 1 gap 12px = clamp(412,48vh+12,572) */
+		max-height: clamp(412px, calc(48vh + 12px), 572px);
 		overflow-y: auto;
+		overflow-x: hidden;
+		overscroll-behavior: contain;
+		scroll-behavior: smooth;
+		min-height: 0;
+		padding-right: 8px;
+		box-sizing: border-box;
 	}
 
 	.pg-pdp-image-col .pg-gallery-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-auto-rows: clamp(200px, 24vh, 280px);
+		gap: 12px;
 		height: auto;
 		align-content: flex-start;
+	}
+
+	.pg-pdp-image-col .pg-gallery-item {
+		min-height: 0;
+	}
+
+	.pg-pdp-image-col .pg-gallery-link {
+		display: block;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.pg-pdp-image-col .pg-gallery-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		border-radius: 4px;
 	}
 }
 
@@ -3541,14 +3600,15 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
    (Seção separada, fora do produto)
    ============================================ */
 
+/* Identity Banner - Main compensa header padding, banner não precisa de margin-top extra */
 .pg-identity-banner {
 	width: 100%;
 	background: #FFFFFF;
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
 	padding: 12px 20px;
-	margin: 0;
-	margin-top: 120px;  /* ✅ BUG #2 FIX: Espaço para header fixo (~80px) + ad bar (~40px) */
+	margin: 0;  /* ✅ REFATORAÇÃO: Main (160px padding) compensa header */
+	margin-bottom: 16px;  /* ✅ Espaço abaixo do banner */
 	box-sizing: border-box;
 	position: relative;
 	z-index: 10;
@@ -3560,7 +3620,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	align-items: center;
 	justify-content: center;
 	gap: 40px;
-	margin: 0;                      /* ✅ Sem margin auto - ocupa 100% width */
+	margin: 0;
 	width: 100%;
 	flex-wrap: wrap;
 	padding: 0;
@@ -3579,11 +3639,11 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	flex: 0 1 auto;
 }
 
-/* Tablet - Reduce gap */
-@media (max-width: 991px) {
+/* Tablet (577px-768px) - Compact layout */
+@media (min-width: 577px) and (max-width: 768px) {
 	.pg-identity-banner {
 		padding: 16px 15px;
-		margin-top: 95px;  /* ✅ BUG #2 FIX Tablet: header mais compacto */
+		margin-top: 0;
 		position: relative;
 		z-index: 10;
 	}
@@ -3597,11 +3657,30 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* Mobile - Stack vertical */
+/* Large Tablet to Desktop (≥769px) - Full layout */
+@media (min-width: 769px) {
+	.pg-identity-banner {
+		padding: 16px 20px;
+		margin-top: 0;
+		position: relative;
+		z-index: 10;
+	}
+
+	.pg-identity-banner__content {
+		gap: 40px;
+	}
+
+	.pg-identity-banner__phrase {
+		font-size: 13px;
+	}
+}
+
+/* Mobile (≤576px) - Stack vertical */
 @media (max-width: 576px) {
 	.pg-identity-banner {
 		padding: 12px 10px;
-		margin-top: 80px;  /* ✅ BUG #2 FIX Mobile: header ainda mais compacto */
+		margin: 0;  /* ✅ REFATORAÇÃO: Main compensa header */
+		margin-bottom: 12px;  /* ✅ Espaço abaixo */
 		position: relative;
 		z-index: 10;
 	}
@@ -3635,9 +3714,9 @@ body.template-home main.patagang-section-content {
 	padding-top: 0;  /* ✅ HOME: hero começa imediatamente, sem espaço branco */
 }
 
-/* PRODUCT PAGE: Reduce padding because banners handle their own spacing */
+/* PRODUCT PAGE: Restore padding to compensate for fixed header (refactor fix) */
 body.template-product main.patagang-section-content {
-	padding-top: 0;  /* ✅ Banners estão dentro, eles controlam seu espaçamento */
+	padding-top: 160px;  /* ✅ REFATORAÇÃO: Main compensa header fixo, banners sem override */
 }
 
 @media (max-width: 991px) {
@@ -3652,7 +3731,7 @@ body.template-product main.patagang-section-content {
 
 	/* PRODUCT PAGE: Mobile adjustments */
 	body.template-product main.patagang-section-content {
-		padding-top: 0;  /* ✅ Banners controlam espaçamento */
+		padding-top: 140px;  /* ✅ Tablet PDP: compensa header */
 	}
 }
 
@@ -3668,7 +3747,7 @@ body.template-product main.patagang-section-content {
 
 	/* PRODUCT PAGE: Mobile adjustments */
 	body.template-product main.patagang-section-content {
-		padding-top: 0;  /* ✅ Banners controlam espaçamento */
+		padding-top: 130px;  /* ✅ Mobile PDP: compensa header */
 	}
 }
 
@@ -4768,4 +4847,425 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 
 /* [REMOVED Story 8.2 ETAPA 1] Gallery Modal CSS moved to style-async.scss.tpl */
 
+/* PATAGANG vX.X.X: Restore missing modal CSS (Story 10.2)
+   Close button, backdrop, counter elementos que faltavam */
 
+/* Botão Fechar (X) */
+.pg-modal-gallery .pg-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s ease, opacity 0.2s ease;
+    opacity: 0.7;
+}
+
+.pg-modal-gallery .pg-modal-close:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.pg-modal-gallery .pg-modal-close svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    stroke-width: 2;
+}
+
+/* Backdrop - Overlay para fechar ao clicar fora */
+.pg-modal-gallery .pg-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Contador de Imagens */
+.pg-modal-gallery .pg-modal-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+
+/* ============================================
+   FOUC FIX — COMPLETE SOLUTION [Story 10.5]
+   Grid de Produtos + Todas as Variações Responsivas
+   Movido COMPLETO de style-async.scss.tpl para evitar layout shift
+   Inclui: Base + Media Queries (1200px, 992px, 768px)
+   ============================================ */
+.pg-product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* CENTRALIZA cards quando menos de 4 */
+    align-items: stretch; /* Garante que todos os cards tenham a mesma altura */
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+/* ============================================
+   CARD DE PRODUTO - GLASSMORPHISM PATAGANG
+   Cards maiores, centralizados, m??ximo 4 por linha
+   ============================================ */
+/* Container do item de produto - CARD MINIMALISTA E IMPACTANTE */
+.pg-product-grid .item-product {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    /* comment removed */
+    flex: 0 0 calc(25% - 24px); /* 4 colunas com gap */
+    max-width: calc(25% - 24px);
+    min-width: 280px; /* comment removed */
+    text-align: center; /* CENTRALIZA textos */
+    /* comment removed */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+/* comment removed */
+.pg-product-grid .item-product .js-quickshop-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.pg-product-grid .item-product:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+/* Imagem do produto - MINIMALISTA E CLEAN */
+.pg-product-grid .item-image {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #F9F9F9;
+}
+.pg-product-grid .item-image img {
+    border-radius: 12px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+}
+.pg-product-grid .item-product:hover .item-image img {
+    transform: scale(1.06);
+}
+/* comment removed */
+.pg-product-grid .item-description {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-top: 14px;
+    text-align: center; /* CENTRALIZA */
+}
+/* Nome do produto - CENTRALIZADO */
+.pg-product-grid .item-name {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #000;
+    line-height: 1.4;
+    margin-bottom: 10px;
+    text-align: center;
+}
+/* comment removed */
+.pg-product-grid .item-price-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* CENTRALIZA */
+    gap: 12px;
+    flex-wrap: wrap;
+}
+/* comment removed */
+.pg-product-grid .item-price {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 0.3px;
+}
+/* comment removed */
+.pg-product-grid .price-compare {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    color: #888;
+    text-decoration: line-through;
+}
+/* Link do item - remove underline */
+.pg-product-grid .item-link {
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+/* Parcelamento - CENTRALIZADO */
+.pg-product-grid .item-installments {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 12px;
+    color: #666;
+    margin-top: 8px;
+    text-align: center;
+}
+/* comment removed */
+.pg-product-grid .item-actions {
+    margin-top: auto;
+    padding-top: 16px;
+    text-align: center;
+}
+/* comment removed */
+.pg-product-grid .item-actions .btn {
+    width: 100%;
+    min-height: 48px; /* comment removed */
+    background: #EAFE67; /* Amarelo neon */
+    color: #000; /* Texto preto */
+    border-radius: 4px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700; /* Bold igual home */
+    text-transform: uppercase;
+    letter-spacing: 0.05em; /* Igual home */
+    padding: 14px 20px;
+    transition: all 0.2s ease;
+    border: none; /* Sem borda - igual home */
+    box-shadow: none; /* Sem sombra - igual home */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.3;
+}
+.pg-product-grid .item-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #000;
+}
+.pg-product-grid .item-actions .btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+/* Labels (desconto, novo, etc) */
+.pg-product-grid .labels {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.pg-product-grid .label {
+    background: #000;
+    color: #fff;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+.pg-product-grid .label-accent {
+    background: #EAFE67;
+    color: #000;
+}
+/* ============================================
+   BOT??O PRODUTO EM DESENVOLVIMENTO - GRID
+   Texto ?SEJA O PRIMEIRO A CONHECER?
+   Estilo IMPACTANTE igual ao bot??o padr??o
+   ============================================ */
+/* comment removed */
+.pg-product-grid .btn-development {
+    width: 100%;
+    min-height: 48px; /* comment removed */
+    background: #EAFE67; /* Amarelo neon */
+    color: #000; /* Texto preto */
+    border-radius: 4px;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 11px; /* Menor para caber o texto longo */
+    font-weight: 700; /* Bold igual home */
+    text-transform: uppercase;
+    letter-spacing: 0.05em; /* Igual home */
+    padding: 14px 12px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none; /* Sem borda - igual home */
+    box-shadow: none; /* Sem sombra - igual home */
+    line-height: 1.3;
+}
+.pg-product-grid .btn-development:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #000;
+}
+.pg-product-grid .btn-development:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+/* Responsivo mobile */
+@media (max-width: 768px) {
+    .pg-product-grid .btn-development {
+        font-size: 9px;
+        padding: 12px 10px;
+        min-height: 44px;
+    }
+}
+/* Estado Vazio */
+.pg-search-page__empty,
+.pg-category-page__empty {
+    text-align: center;
+    padding: 100px 32px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 28px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+}
+.pg-search-page__empty-icon,
+.pg-category-page__empty-icon {
+    color: #000;
+    margin-bottom: 28px;
+    opacity: 0.4;
+}
+.pg-search-page__empty-title,
+.pg-category-page__empty-title {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 16px;
+}
+.pg-search-page__empty-text,
+.pg-category-page__empty-text {
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 17px;
+    color: #666;
+    margin: 0 0 36px;
+    line-height: 1.6;
+}
+.pg-search-page__empty-btn,
+.pg-category-page__empty-btn {
+    display: inline-block;
+    font-family: 'Familjen Grotesk', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: #000;
+    padding: 16px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.pg-search-page__empty-btn:hover,
+.pg-category-page__empty-btn:hover {
+    background: #333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+}
+/* Responsivo - Desktop menor / Tablet grande */
+@media (max-width: 1200px) {
+    /* comment removed */
+    .pg-product-grid .item-product {
+        flex: 0 0 calc(33.333% - 22px);
+        max-width: calc(33.333% - 22px);
+    }
+}
+/* Responsivo - Tablet */
+@media (max-width: 992px) {
+    .pg-search-page,
+    .pg-category-page {
+        padding-top: 90px;
+    }
+    .pg-product-grid {
+        gap: 24px;
+    }
+    /* 2 colunas em tablet */
+    .pg-product-grid .item-product {
+        flex: 0 0 calc(50% - 12px);
+        max-width: calc(50% - 12px);
+        min-width: 240px;
+    }
+    .pg-search-page__container,
+    .pg-category-page__container {
+        padding: 0 24px;
+        padding-bottom: 60px;
+    }
+    .pg-search-page__title,
+    .pg-category-page__title {
+        font-size: 42px;
+        letter-spacing: 2px;
+    }
+}
+/* Responsivo - Mobile */
+@media (max-width: 768px) {
+    .pg-search-page,
+    .pg-category-page {
+        padding-top: 80px;
+    }
+    .pg-search-page__title,
+    .pg-category-page__title {
+        font-size: 32px;
+        letter-spacing: 1.5px;
+    }
+    .pg-category-page__controls {
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px;
+    }
+    .pg-product-grid {
+        gap: 16px;
+    }
+    /* 2 colunas em mobile */
+    .pg-product-grid .item-product {
+        flex: 0 0 calc(50% - 8px);
+        max-width: calc(50% - 8px);
+        min-width: 150px;
+        padding: 12px;
+        border-radius: 18px;
+    }
+    .pg-product-grid .item-image {
+        border-radius: 14px;
+        margin-bottom: 12px;
+    }
+    .pg-product-grid .item-description {
+        padding: 12px 14px;
+        border-radius: 12px;
+    }
+    .pg-product-grid .item-name {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+    .pg-product-grid .item-price {
+        font-size: 15px;
+    }
+    .pg-product-grid .item-actions .btn {
+        padding: 12px 18px;
+        font-size: 11px;
+    }
+}
