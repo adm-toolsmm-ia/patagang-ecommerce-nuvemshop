@@ -1,0 +1,64 @@
+# Cache Control - Força limpeza automática
+<IfModule mod_expires.c>
+  ExpiresActive On
+  
+  # CSS/JS - Sem cache (sempre busca versão nova)
+  ExpiresByType text/css "now"
+  ExpiresByType application/javascript "now"
+  ExpiresByType text/javascript "now"
+  
+  # Imagens - Cache 30 dias
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/gif "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  
+  # Fonts - Cache 1 ano
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType font/otf "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  
+  # Default
+  ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# Header Control - Força limpeza de cache
+<IfModule mod_headers.c>
+  # CSS/JS - Sem cache
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "Thu, 01 Jan 1970 00:00:00 GMT"
+  </FilesMatch>
+  
+  # SCSS.TPL - Sem cache (templates)
+  <FilesMatch "\.(scss\.tpl|tpl)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate, max-age=0"
+  </FilesMatch>
+  
+  # Imagens - Cache 30 dias
+  <FilesMatch "\.(jpg|jpeg|gif|png|webp|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+  
+  # Fonts - Cache 1 ano
+  <FilesMatch "\.(ttf|otf|woff|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+# Compressão GZIP
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/xhtml+xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
