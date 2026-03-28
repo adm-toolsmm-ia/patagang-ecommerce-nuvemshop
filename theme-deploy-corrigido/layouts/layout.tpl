@@ -27,7 +27,7 @@
         {# <meta name="google-site-verification" content="CODIGO_AQUI" /> #}
 
         <link rel="preload" as="style" href="{{ [settings.font_headings, settings.font_rest] | google_fonts_url('300, 400, 700') }}" />
-        <link rel="preload" href="{{ 'css/style-colors.scss.tpl' | static_url }}" as="style" />
+        <link rel="preload" href="{{ 'css/style-colors.scss.tpl?v=1.5.258' | static_url }}" as="style" />
 
         {# Preload LCP home, category and product page elements #}
 
@@ -248,8 +248,10 @@
         </style>
 
         {# Load async styling not mandatory for first meaningfull paint #}
+        {# CRITICAL FIX v1.5.258: Cache busting INSIDE Jinja2 expression to force Nuvemshop recompilation #}
+        {# Nuvemshop cache issue: static_url was serving old compiled CSS with content: ?|?; error #}
 
-        <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ 'css/style-async.scss.tpl?v=1.5.258-burst' | static_url }}" media="print" onload="this.media='all'">
 
         {# HOME V2 - Estilos específicos da nova home page #}
         {% if template == 'home' %}
@@ -262,7 +264,7 @@
 
         {# Blog styles - PATAGANG - Loaded asynchronously (not above-the-fold) #}
 
-        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl' | static_url }}" media="print" onload="this.media='all'">
+        <link rel="stylesheet" href="{{ 'css/style-blog.scss.tpl?v=1.5.258' | static_url }}" media="print" onload="this.media='all'">
 
         {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
 
