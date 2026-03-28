@@ -35,7 +35,7 @@ async function main() {
             host: FTP_CONFIG.host,
             port: FTP_CONFIG.port,
             user: FTP_CONFIG.user,
-            password: FTP_CONFIG.password,
+            password: 'cqLidGTH',
             secure: true
         });
         console.log('✅ Conectado com sucesso!');

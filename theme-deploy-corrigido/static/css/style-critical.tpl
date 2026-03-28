@@ -1,4 +1,4 @@
-{% raw %}@charset "UTF-8":
+{% raw %}@charset "UTF-8";
 
 /*============================================================================
 style-critical.tpl - Critical Path CSS (Inline in <head>)

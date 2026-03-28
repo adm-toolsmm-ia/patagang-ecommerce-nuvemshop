@@ -1,5 +1,5 @@
 {#/*============================================================================
-style.css
+style.css - [TIMESTAMP: 2026-03-28T05:54:00Z]
     -This file contains all the theme non critical styles wich will be loaded asynchronously
     -Rest of styling can be found in:
       --static/css/style-colors.scss.tpl --> For color and font styles related to config/settings.txt
