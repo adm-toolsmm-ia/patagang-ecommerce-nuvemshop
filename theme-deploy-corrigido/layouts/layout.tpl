@@ -20,7 +20,7 @@
             <meta name="robots" content="index, follow">
         {% endif %}
 
-        {# SEO: Canonical URL - Evita conteudo duplicado #}
+        {# FORCE RECOMPILE - Cache buster for Nuvemshop SCSS compilation - v1.5.254 #}
         <link rel="canonical" href="{{ canonical_url }}" />
 
         {# SEO: Google Search Console - Inserir meta tag de verificacao abaixo quando receber do especialista #}

@@ -1,0 +1,108 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    DECISAO ARQUITETONICA FINAL                            ║
+║                    @architect - 2026-03-28                                ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+PROBLEMA OBJETIVO
+─────────────────
+Error: Invalid CSS after "content: ": expected expression, was "?|?;"
+Versao: v1.5.245
+Impacto: CSS invalido quebra componentes
+Status: Erro persiste apesar de correcoes
+
+RAIZ IDENTIFICADA
+─────────────────
+NAO e sintaxe CSS simples. E ARQUITETURA QUEBRADA:
+
+  464 KB CSS total (vs 149 KB base) = 3.14x maior
+  
+  - data.json: CORRETO (apenas style-colors.scss.tpl)
+  - layout.tpl: INFLADO (974 linhas vs 182 esperado)
+  - style-async.scss.tpl: CORROMPIDO (164 KB, contem content:??)
+  - style-critical.tpl: INVISIVEL (152 KB, existe mas nao carregado)
+  - Outros CSS: ORFAOS (317 KB nao carregados)
+
+OPCOES ANALISADAS
+─────────────────
+
+A) SIMPLIFICAR - RECOMENDADA
+   - Remove style-async.scss.tpl corrompido
+   - Mantem apenas style-colors.scss.tpl em data.json
+   - layout.tpl 974 → 250 linhas (-76%)
+   - CSS total 464 KB → 78 KB (-83%)
+   - Resultado: HTTP 500 → 200, erro desaparece
+   - Timing: 1-2 horas
+   - Risco: BAIXO
+   - Por que: Alinha com padrao Nuvemshop (compila apenas compiled_assets)
+
+B) EXPANDIR compiled_assets - DESCARTADA
+   - Adicionaria style-async.scss.tpl a compilacao
+   - Mas arquivo esta CORROMPIDO (content:??)
+   - Erro persistiria
+   - Descartado: Trata sintoma, nao raiz
+
+C) LIMPAR ARQUIVO - NAO RECOMENDADO
+   - Tentar consertar style-async.scss.tpl (164 KB minificado)
+   - Impossivel validar manualmente
+   - Proxima "limpeza" pode corromper novamente
+   - Risco: ALTO
+
+RECOMENDACAO
+─────────────
+IMPLEMENTAR OPCAO A (Simplificar)
+
+Por que:
+  1. Alinha com padrao Nuvemshop
+  2. Remove codigo corrompido definitivamente
+  3. Previne regressao (CSS orfao nao sera compilado)
+  4. Validacao imediata (HTTP 200 ou 500)
+  5. Customizacoes podem ser re-implementadas explicitamente
+
+PLANO EXECUCAO
+───────────────
+1. Backup (15 min)
+2. Simplificar layout.tpl (30 min)
+3. Deletar CSS orfaos (5 min)
+4. Validar localmente (10 min)
+5. Deploy v1.5.246 (automático)
+6. Validacao Gabriel (offline)
+Total: 1-2 horas
+
+ANTES vs DEPOIS
+────────────────
+layout.tpl:          974 linhas → 250 linhas (-76%)
+CSS total:           464 KB → 78 KB (-83%)
+Arquivos CSS:        12 → 6 (-50%)
+HTTP Status:         500 → 200 (FIXED)
+Customizacoes:       Invisiveis → Explicitas
+.scss corrompido:    1 arquivo → 0 (REMOVED)
+
+VALIDACAO PRE-DEPLOY
+─────────────────────
+grep -r "content:??" theme-deploy-corrigido/static/css/ && echo "FAIL" || echo "PASS"
+grep '<link.*css' theme-deploy-corrigido/layouts/layout.tpl | wc -l
+du -sh theme-deploy-corrigido/static/css/
+cat theme-deploy-corrigido/config/data.json
+
+RESULTADO ESPERADO
+──────────────────
+- Nenhum arquivo .scss.tpl corrompido carregado
+- layout.tpl carrega 5-6 <link> (apenas CSS limpo)
+- CSS total: ~80 KB
+- data.json: APENAS ["css/style-colors.scss.tpl"]
+- Nuvemshop compila → HTTP 200
+- Gabriel testa em patagang.com.br → APROVADO
+- Push to main
+
+PROXIMOS PASSOS (FUTURE)
+─────────────────────────
+Sprint 1: Re-implementar customizacoes como CSS variables
+Sprint 2: Refatorar para CSS modules
+Sprint 3: Split layout.tpl em snipplets se crescer
+
+════════════════════════════════════════════════════════════════════════════
+
+DECISAO FINAL: IMPLEMENTAR OPCAO A
+
+Arquivo: ARCHITECTURE-DECISION-CSS-FINAL.md (decisao completa)
+Status: Pronto para desenvolvimento

@@ -1,0 +1,17 @@
+<!-- Cache Busting Force - Força limpeza do cache do Nuvemshop -->
+<!-- Adiciona ?v=TIMESTAMP a todos os CSS para forçar recompilação -->
+<script>
+  // Force cache invalidation on Nuvemshop server
+  const timestamp = new Date().getTime();
+  const links = document.querySelectorAll('link[rel="stylesheet"]');
+  links.forEach(link => {
+    if (link.href && !link.href.includes('?v=')) {
+      link.href += '?v=' + timestamp;
+    }
+  });
+  
+  // Log para debug
+  console.log(`🔄 Cache buster aplicado em ${new Date().toISOString()}`);
+  console.log(`Timestamp: ${timestamp}`);
+  console.log(`Links atualizados: ${links.length}`);
+</script>

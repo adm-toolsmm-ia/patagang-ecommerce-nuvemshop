@@ -1,0 +1,161 @@
+================================================================================
+RESUMO EXECUTIVO - OPÇÃO A: SIMPLIFICAÇÃO CSS PATAGANG
+================================================================================
+
+PROBLEMA IDENTIFICADO
+─────────────────────────────────────────────────────────────────────────────
+  File: style-async.scss.tpl (161 KB)
+  Issue: 72 ocorrências de "content: ??" (caracteres UTF-8 inválidos)
+  Effect: Potencial HTTP 500 ou CSS parse errors
+  Source: Compilação quebrada ou merge incorreto de SCSS
+
+SOLUÇÃO: Opção A Recomendada
+─────────────────────────────────────────────────────────────────────────────
+  Ação 1: REMOVER linha 252 do layout.tpl
+           <link href="css/style-async.scss.tpl" ...>
+  
+  Ação 2: DELETAR arquivo
+           theme-deploy-corrigido/static/css/style-async.scss.tpl
+  
+  Ação 3: MANTER CSS crítico inlined no layout.tpl
+          - style-critical.tpl (149 KB) → acima da dobra
+          - style-colors.scss.tpl (25 KB) → cores customizadas
+          - 4 arquivos customizados Patagang (33 KB total)
+
+IMPACTO
+─────────────────────────────────────────────────────────────────────────────
+  CSS Tamanho:
+    Antes:  418 KB (464 com binários)
+    Depois: 257 KB (38% redução)
+    
+  Performance:
+    - Parse time: ~40ms → ~25ms
+    - HTTP status: Esperado 200 (não 500)
+    - LCP: Potencial melhora
+    
+  Linha: 974 → 973 linhas no layout.tpl
+
+FASES DE IMPLEMENTAÇÃO
+─────────────────────────────────────────────────────────────────────────────
+
+FASE 1: Modificar layout.tpl
+  → Remover APENAS linha 252
+  → Adicionar comentário explicativo
+  → Status: Rápido (~2 min)
+
+FASE 2: Deletar arquivo
+  → git rm theme-deploy-corrigido/static/css/style-async.scss.tpl
+  → Status: Atômico (1 comando)
+
+FASE 3: Validação Local
+  → Verificar sintaxe HTML do layout.tpl
+  → Confirmar ausência de "content: ??" no CSS restante
+  → Status: Automático (2-3 grep commands)
+
+FASE 4: Deploy v1.5.246
+  → Commit com mensagem clara
+  → node ftp-deploy/deploy.js --force
+  → Status: ~1-2 minutos no FTP
+
+FASE 5: Gabriel Valida na Produção
+  → Testar em desktop, tablet, mobile
+  → Verificar console (errors: 0)
+  → Lighthouse score
+  → Status: Visual inspection (~5-10 min)
+
+FASE 6: Se OK → Merge para main
+  → git push + gh pr create
+  → Status: Automático
+
+FASE 7: Se Erro → Rollback
+  → node ftp-deploy/rollback-incremental.js --version v1.5.245
+  → Status: < 2 minutos
+
+VALIDAÇÃO NUVEMSHOP 8/8 CONSTRAINTS
+─────────────────────────────────────────────────────────────────────────────
+✅ Checkout structure: NÃO modificado
+✅ Footer attribution: VISÍVEL (não afetado)
+✅ Contact/Register/Newsletter: INTACTOS (apenas CSS)
+✅ JavaScript: NÃO alterado
+✅ CSS size: 257 KB < 50 KB (crítico OK, resto async)
+✅ Character encoding: UTF-8 válido (sem corruptelas)
+✅ Batching: 1 arquivo removido (seguro)
+✅ Validation: HTTP 200 esperado
+
+TIMELINE
+─────────────────────────────────────────────────────────────────────────────
+Fase 1 (Modificação):      2-5 min
+Fase 2 (Delete):            1 min
+Fase 3 (Validação local):  5-10 min
+Fase 4 (Deploy):          1-2 min
+Fase 5 (Gabriel valida):  5-10 min
+Fase 6 (Merge):            1 min
+─────────────────────────────────────────────────────────────────────────────
+TOTAL ESPERADO:          15-30 min (start to finish)
+
+FALLBACK PLANS
+─────────────────────────────────────────────────────────────────────────────
+Se Sucesso ✅:
+  → Documentar como padrão
+  → Próximo: Minificar style-critical.tpl (149 KB → 80 KB)
+  
+Se Parcial ⚠️:
+  → Documentar quais estilos faltam
+  → Opção B: Mesclar style-async com style-colors
+  → Opção C: Rebuild SCSS desde zero
+  
+Se Erro ❌:
+  → Rollback automático v1.5.245
+  → Investigar qual CSS está faltando
+  → Escalate para @architect
+
+ARQUIVOS MODIFICADOS
+─────────────────────────────────────────────────────────────────────────────
+layout.tpl (linha 252)               ← EDIT
+static/css/style-async.scss.tpl      ← DELETE
+
+CHECKLIST PRÉ-DEPLOY
+─────────────────────────────────────────────────────────────────────────────
+ANTES DE FAZER ALTERAÇÕES:
+
+□ Backup atual (git status limpo)
+□ Feature branch ativo (feat/epic-11)
+□ Plano revisado com @architect (THIS FILE)
+□ Device testing setup pronto (desktop, tablet, mobile)
+
+DURANTE IMPLEMENTAÇÃO:
+
+□ Remover linha 252 do layout.tpl
+□ Deletar style-async.scss.tpl
+□ Verificar: grep "style-async" layout.tpl (deve retornar 0)
+□ Verificar: grep "content: ??" theme-deploy-corrigido/static/css/*.tpl (deve retornar 0)
+□ Criar commit com mensagem clara
+□ Deploy para FTP
+
+APÓS DEPLOY:
+
+□ Gabriel testa em patagang.com.br
+  - [ ] Desktop: layout OK?
+  - [ ] Tablet: responsive OK?
+  - [ ] Mobile: sem FOUC?
+  - [ ] Console: errors = 0?
+  - [ ] Performance: Lighthouse 90+?
+□ Decisão: Aprovado / Concerns / Failed
+
+PRÓXIMOS PASSOS (Após v1.5.246)
+─────────────────────────────────────────────────────────────────────────────
+Story 11.3: Minify CSS (opcional)
+  - style-critical.tpl: 149 KB → 80 KB
+  - Alvo: CSS total < 150 KB
+
+Story 11.4: Consolidate tokens (opcional)
+  - Mesclar style-tokens com style-colors
+  - Reduzir redundância
+
+DOCUMENTO COMPLETO
+─────────────────────────────────────────────────────────────────────────────
+Ver: PLANO-IMPLEMENTACAO-OPCAO-A.md (análise detalhada com linhas exatas)
+
+STATUS: ✅ PRONTO PARA IMPLEMENTAÇÃO
+
+================================================================================

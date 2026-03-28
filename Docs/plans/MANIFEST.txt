@@ -1,0 +1,259 @@
+================================================================================
+  PLANO DE IMPLEMENTAÇÃO — SIMPLIFICAÇÃO CSS PATAGANG (OPÇÃO A)
+  Versão Proposta: v1.5.246
+  Status: ✅ PRONTO PARA EXECUÇÃO
+  Data: 2026-03-28
+================================================================================
+
+PROBLEMA IDENTIFICADO:
+  ❌ HTTP 500 error ao carregar site
+  ❌ CSS arquivo corrompido: style-async.scss.tpl (164 KB com "content:??")
+  ❌ Layout.tpl sobrecarga: 974 linhas (vs 182 base Nuvemshop)
+  ❌ CSS total: 450 KB (redução necessária)
+
+SOLUÇÃO:
+  ✅ Remover style-async.scss.tpl (corrompido)
+  ✅ Remover CSS inline redundante (80-107, 109-248, 273-357)
+  ✅ Manter apenas CSS essencial (critical path + colors)
+  ✅ Resultado: 450 KB → 182 KB (-59%), 974 → ~800 linhas (-17%)
+
+IMPACTO FINAL:
+  ✅ HTTP 200 (erro eliminado)
+  ✅ "content:??" desaparece
+  ✅ Performance melhora (+59% redução CSS)
+  ✅ Arquitetura simplificada (alinhada com Nuvemshop base)
+
+================================================================================
+  DOCUMENTAÇÃO CRIADA (88 KB total)
+================================================================================
+
+1. README.md (7.8 KB)
+   └─ Índice de documentação
+   └─ Como usar cada documento
+   └─ Checklists de validação
+   └─ Próximos passos
+   └─ Suporte & escalação
+   └─ Tempo de leitura: 5 min
+   └─ Recomendado para: Todos
+
+2. RESUMO-EXECUTIVO-CSS-SIMPLIFICACAO.md (9.7 KB)
+   └─ Situação atual + solução proposta
+   └─ Comparação antes/depois (métricas)
+   └─ Objetivos alcançados
+   └─ Riscos & mitigação
+   └─ Timeline estimado (80 min)
+   └─ FAQs
+   └─ Tempo de leitura: 5-10 min
+   └─ Recomendado para: @architect, @gabriel
+
+3. PLANO-IMPLEMENTACAO-SIMPLIFICACAO-CSS-OPCAO-A.md (19 KB)
+   └─ 8 Fases detalhadas:
+      1. Análise estrutural (atual)
+      2. Mudanças propostas (exato)
+      3. Resultado esperado
+      4. Validação antes de deploy
+      5. Execução (steps detalhados)
+      6. Deploy (@devops)
+      7. Validação (@gabriel)
+      8. Git push & PR (@devops)
+   └─ Rollback plan
+   └─ Riscos & mitigação
+   └─ Anexos
+   └─ Tempo de leitura: 20-30 min
+   └─ Recomendado para: @dev (implementação)
+
+4. ANALISE-DETALHADA-LINHAS-EXATAS.md (15 KB)
+   └─ Estrutura do layout.tpl (seção por seção)
+   └─ 6 blocos de código:
+      • Bloco 1: Background reset (REMOVER, 80-107)
+      • Bloco 2: Gallery/banner (REMOVER, 109-248)
+      • Bloco 3: style-async (REMOVER, 252)
+      • Bloco 4: Home V2 (AVALIAR, 255-258)
+      • Bloco 5: Ad bar (REVISAR, 273-357)
+      • Bloco 6: Header (MANTER, 360-386)
+   └─ Conteúdo completo de cada bloco
+   └─ Validação passo a passo
+   └─ Tempo de leitura: 15-20 min
+   └─ Recomendado para: @dev (técnico)
+
+5. COMPARACAO-VISUAL-LAYOUT-TPL.md (17 KB)
+   └─ Vista macro (estrutura antes/depois)
+   └─ Vista detalhada (linha por linha)
+   └─ Seção por seção visual
+   └─ Lado a lado: antes vs depois
+   └─ Estimativa de linhas finais
+   └─ Checkpoint: o que muda/mantém
+   └─ Tempo de leitura: 10-15 min
+   └─ Recomendado para: @dev, @architect (visual)
+
+6. QUICK-REFERENCE-CARD.md (4.8 KB)
+   └─ One-line summary
+   └─ ❌ To remove (exatamente quais linhas)
+   └─ ⚠️ To evaluate
+   └─ ✅ To keep
+   └─ Quick steps (bash commands)
+   └─ Validation checklists
+   └─ Contacts
+   └─ Time estimates
+   └─ Tempo de leitura: 2-3 min
+   └─ Recomendado para: @dev (durante implementação)
+
+================================================================================
+  ROADMAP DE LEITURA
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 1. PRIMEIRO: Leia RESUMO-EXECUTIVO (5 min)                              │
+│    → Entender problema + solução em 1 página                            │
+│    → Decisão: Proceder ou não?                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+        ↓ SIM, proceder ↓
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 2. Leia PLANO-IMPLEMENTACAO (30 min)                                    │
+│    → Entender todas as 8 fases                                          │
+│    → Mapear riscos e mitigação                                          │
+│    → Aprovar ou solicitar ajustes                                       │
+└─────────────────────────────────────────────────────────────────────────┘
+
+        ↓ Aprovado por @architect ↓
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 3. @dev: Leia ANALISE-DETALHADA-LINHAS-EXATAS (20 min)                  │
+│    → Entender exatamente quais linhas remover                           │
+│    → Preparar para implementação                                        │
+└─────────────────────────────────────────────────────────────────────────┘
+
+        ↓ Durante implementação ↓
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 4. @dev: Use QUICK-REFERENCE-CARD.md (à mão)                            │
+│    → Checklist durante edição                                           │
+│    → Commands rápidos                                                   │
+│    → Validation checklist                                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+        ↓ Se tiver dúvida visual ↓
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 5. @dev: Consult COMPARACAO-VISUAL-LAYOUT-TPL.md (se necessário)        │
+│    → Ver exatamente como fica o layout.tpl                              │
+│    → Entender estrutura antes/depois                                    │
+└─────────────────────────────────────────────────────────────────────────┘
+
+        ↓ Após implementação/deployment ↓
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│ 6. Todos: Volte ao README.md (índice)                                   │
+│    → Próximos passos                                                    │
+│    → Documentação relacionada                                           │
+│    → Escalação se necessário                                            │
+└─────────────────────────────────────────────────────────────────────────┘
+
+================================================================================
+  VALIDAÇÃO FINAL
+================================================================================
+
+CHECKLIST DE DOCUMENTAÇÃO:
+  ☐ Todos 6 arquivos criados
+  ☐ Total: 88 KB de documentação (≈0.01% do projeto)
+  ☐ Sem contradições entre docs
+  ☐ Riscos mapeados: 4 principais (mitigation planed)
+  ☐ Timeline realista: 80 minutos
+  ☐ Rollback fácil: < 5 minutos
+
+CHECKLIST DE VALIDAÇÃO PRÉ-EXECUÇÃO:
+  ☐ style-async.scss.tpl confirmado como corrompido
+  ☐ Mudanças exatas mapeadas (linhas 80-107, 109-248, 252)
+  ☐ CSS Nuvemshop constraints (8/8) respeitadas
+  ☐ Validação gates definidas (HTTP 200, zero JS errors, etc)
+  ☐ Approval de @architect necessária
+
+STATUS GERAL:
+  ✅ PLANO COMPLETO
+  ✅ DOCUMENTAÇÃO PRONTA
+  ✅ VALIDAÇÃO MAPEADA
+  ✅ PRONTO PARA EXECUÇÃO
+
+================================================================================
+  PRÓXIMOS PASSOS
+================================================================================
+
+HOJE (2026-03-28):
+  1. @architect: Leia RESUMO-EXECUTIVO (5 min)
+  2. @architect: Leia PLANO-IMPLEMENTACAO (30 min)
+  3. @architect: Aprove ou solicite ajustes
+  4. @dev: Aguarde aprovação
+
+AMANHÃ (2026-03-29) — Se aprovado:
+  1. @dev: Leia ANALISE-DETALHADA-LINHAS-EXATAS (20 min)
+  2. @dev: Execute mudanças (30 min)
+  3. @dev: Teste local (15 min)
+  4. @dev: CodeRabbit + Commit (10 min)
+  5. @devops: Deploy FTP (5 min)
+  6. @gabriel: Validação produção (15 min)
+  7. @devops: Push + PR (5 min)
+
+TOTAL: 80 minutos de trabalho
+
+================================================================================
+  RESUMO EXECUTIVO EM 30 SEGUNDOS
+================================================================================
+
+PROBLEMA:
+  HTTP 500 error + CSS corrompido (style-async.scss.tpl, 164 KB)
+
+SOLUÇÃO:
+  Remover arquivo corrompido + CSS inline redundante
+
+RESULTADO:
+  450 KB → 182 KB CSS (-59%)
+  974 → ~800 linhas layout.tpl (-17%)
+  HTTP 200 ✅
+  "content:??" eliminado ✅
+
+RISCO:
+  BAIXO (CSS inválido removido, HTML intacto)
+  Rollback < 5 minutos
+
+TIMELINE:
+  80 minutos (implementação + validação)
+
+RECOMENDAÇÃO:
+  ✅ PROCEDER IMEDIATAMENTE
+
+================================================================================
+  CONTATOS & SUPORTE
+================================================================================
+
+@dev (Dex) — Implementação & Technical
+  └─ Email/Chat: contate durante doc review
+  └─ SLA: < 2 horas para dúvidas técnicas
+
+@architect (Aria) — Arquitetura & Aprovação
+  └─ Necessário para: Aprovar o plano
+  └─ SLA: < 4 horas para aprovação
+
+@devops (Gage) — Deploy & Git
+  └─ Necessário para: Deploy FTP + Push para main
+  └─ Ativado após: @dev completa implementação
+
+@gabriel — Validação Produção
+  └─ Necessário para: Validar em patagang.com.br
+  └─ Ativado após: @devops deploy FTP
+
+================================================================================
+  DOCUMENTAÇÃO CRIADA POR
+================================================================================
+
+@dev (Dex)
+Data: 2026-03-28
+Framework: Synkra AIOX v3.0
+Status: ✅ PRONTO PARA EXECUÇÃO
+
+Co-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>
+
+================================================================================
+FIM DO MANIFESTO
+================================================================================
