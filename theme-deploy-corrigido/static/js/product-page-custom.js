@@ -4,44 +4,6 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    // ============================================================================
-    // Story 11.2 - Page-level scroll priority for desktop PDP gallery
-    // While the gallery column is visible in the viewport, wheel events scroll
-    // the gallery first. The page only continues scrolling once the gallery
-    // reaches its top or bottom boundary.
-    // ============================================================================
-    const galleryContainer = document.querySelector('.pg-gallery-container');
-    const galleryImageCol  = document.querySelector('.pg-pdp-image-col');
-    const desktopMq        = window.matchMedia('(min-width: 992px)');
-
-    if (galleryContainer && galleryImageCol) {
-        window.addEventListener('wheel', function (event) {
-            if (!desktopMq.matches) return;
-
-            // Only active while the gallery column is in the viewport.
-            const rect      = galleryImageCol.getBoundingClientRect();
-            const inView    = rect.top < window.innerHeight && rect.bottom > 0;
-            if (!inView) return;
-
-            const canScroll = galleryContainer.scrollHeight > galleryContainer.clientHeight;
-            if (!canScroll) return;
-
-            const deltaY     = event.deltaY;
-            const maxScroll  = galleryContainer.scrollHeight - galleryContainer.clientHeight;
-            const atBottom   = deltaY > 0 && galleryContainer.scrollTop >= maxScroll - 1;
-            const atTop      = deltaY < 0 && galleryContainer.scrollTop <= 0;
-
-            // Gallery exhausted in this direction → let the page scroll normally.
-            if (atBottom || atTop) return;
-
-            // Gallery still has room → consume the scroll event.
-            event.preventDefault();
-            galleryContainer.scrollTop = Math.max(
-                0,
-                Math.min(maxScroll, galleryContainer.scrollTop + deltaY)
-            );
-        }, { passive: false });
-    }
 
     // ============================================================================
     // Accordion Functionality - Toggle individual accordions

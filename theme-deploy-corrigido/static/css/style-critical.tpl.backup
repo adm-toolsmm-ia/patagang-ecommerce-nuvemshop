@@ -1,7 +1,7 @@
 {% raw %}@charset "UTF-8":
 
 /*============================================================================
-style-critical.tpl - Critical Path CSS (Inline in <head>)
+style-critical.tpl — Critical Path CSS (Inline in <head>)
 
     -WHAT IS THIS FILE?
     Above-the-fold CSS inlined in <head> = blocks render until loaded.
@@ -883,7 +883,7 @@ body.has-ad-bar .pg-header--sticky {
   -webkit-perspective: 1000;
   -webkit-backface-visibility: hidden;
 }
-/* PATAGANG - Product Image Zoom blur-up effect
+/* PATAGANG — Product Image Zoom blur-up effect
 .product-slider-image.blur-up{
   position: absolute;
   left: 50%;
@@ -1930,7 +1930,7 @@ p{
   padding: 50px 0;
 }
 
-/* PATAGANG - Service/Warning Banner (Information panels)
+/* PATAGANG — Service/Warning Banner (Information panels)
 .pg-service-item {
   display: flex;
   align-items: center;
@@ -2045,7 +2045,7 @@ p{
   }
 }
 
-/* Product Informative Banner - Transparent background + compact text */
+/* Product Informative Banner — Transparent background + compact text */
 div.product-informative-banner {
   background: transparent;
   background-color: transparent;
@@ -2822,7 +2822,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 ==============================================================================*/
 
 /* =====================================================================
-   SEÇÕES DA PÁGINA DO PRODUTO - ESTRUTURA INDEPENDENTE
+   SEÇÕES DA PÁGINA DO PRODUTO — ESTRUTURA INDEPENDENTE
    Cada seção ocupa 100% width, está abaixo da anterior, sem sobreposição
    ===================================================================== */
 
@@ -2884,7 +2884,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 		margin-top: 0;  /* Remove margin superior */
 	}
 
-	/* LEFT COLUMN - Product Image (full height, clean design)
+	/* LEFT COLUMN — Product Image (full height, clean design)
 	.pg-pdp-container .pg-pdp-image-col {
 		flex: 0 0 60%;
 		max-width: 60%;
@@ -2911,7 +2911,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	}
 }
 
-/* LEFT COLUMN - Product Image (full height, clean design)
+/* LEFT COLUMN — Product Image (full height, clean design)
 .pg-pdp-image-col {
 	background: transparent; /* SEM fundo */
 	border-radius: 0; /* SEM bordas arredondadas */
@@ -2926,7 +2926,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	height: 100%;  /* Preenche altura total */
 }
 
-/* Image Container - Fills parent, responsive
+/* Image Container — Fills parent, responsive
 .pg-pdp-image-col .product-image-container {
 	width: 100%;
 	flex: 1;  /* Cresce para preencher altura */
@@ -3450,7 +3450,7 @@ REGRA CRITICA: Em desktop (>=992px), SEMPRE lado a lado. NUNCA empilhar!
 	.pg-pdp-container .section-single-product {
 		display: flex !important;     /* ✅ EXTRA: força flex layout explicitamente */
 		flex-direction: column !important;  /* ✅ EXTRA: força coluna com !important */
-		padding: 20px 0 !important;   /* ✅ BUG #3 FIX: zero padding lateral - filhos controlam o próprio espaço */
+		padding: 20px 0 !important;   /* ✅ BUG #3 FIX: zero padding lateral — filhos controlam o próprio espaço */
 		gap: 20px;
 		width: 100% !important;       /* ✅ EXTRA: container ocupa 100% */
 		align-items: stretch !important;  /* ✅ EXTRA: filhos ocupam full width */
@@ -3629,7 +3629,7 @@ main.patagang-section-content {
 	padding-top: 160px;  /* Space for fixed header (~120px) + ad bar (~40px) = ~160px */
 }
 
-/* HOME PAGE: padding-top 0 - hero é full-bleed, header é transparente sobre o hero */
+/* HOME PAGE: padding-top 0 — hero é full-bleed, header é transparente sobre o hero */
 /* Bug #1 FIX: Faixa branca removida. A home não precisa de padding pois o hero ocupa o topo */
 body.template-home main.patagang-section-content {
 	padding-top: 0;  /* ✅ HOME: hero começa imediatamente, sem espaço branco */
@@ -4369,7 +4369,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
     transform: translateX(-100%);
 }
 
-/* Cart Drawer Coupon Input - Apply discount codes
+/* Cart Drawer Coupon Input — Apply discount codes
 .pg-drawer__coupon-section {
     margin: 12px 0 8px;
     padding: 0;
@@ -4663,7 +4663,7 @@ body.template-product div.pg-pdp-section.pg-pdp-container {
 }
 
 /* ============================================
-   PRODUCT GALLERY MODAL - Hidden by default
+   PRODUCT GALLERY MODAL — Hidden by default
    Shows only when aria-hidden="false"
    ============================================ */
 

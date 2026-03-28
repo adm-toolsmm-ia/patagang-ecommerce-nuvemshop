@@ -320,7 +320,6 @@
 
 /* Dropdown Container */
 .pg-header__dropdown {
-    display: none !important;
     position: absolute;
     top: 100%;
     left: 50%;
@@ -338,16 +337,9 @@
 }
 
 .pg-header__dropdown.is-open {
-    display: block !important;
+    display: block;
     opacity: 1;
     visibility: visible;
-}
-
-/* Guarda adicional contra regressao de submenu exposto no desktop */
-.pg-header__nav-desktop .nav-dropdown-content {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
 }
 
 .pg-header__dropdown-inner {
