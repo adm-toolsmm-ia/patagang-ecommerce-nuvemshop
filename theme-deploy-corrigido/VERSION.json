@@ -1,6 +1,6 @@
 {
-  "version": "1.5.233",
-  "deployment_date": "2026-03-28T00:30:39.406Z",
-  "git_commit": "d3d7ac601e85e7758da5c71f0adec3abe63b7612",
-  "console_message": "📦 PATAGANG v1.5.233 (27/03/2026) ✅"
+  "version": "1.5.234",
+  "deployment_date": "2026-03-28T21:35:00.000Z",
+  "deployed_by": "orion-cleanup",
+  "cache_bust": "FTP-structure-fixed-20260328-213500"
 }
